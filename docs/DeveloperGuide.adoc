@@ -802,32 +802,32 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a person |remove contacts that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |user |edit the detail of a person
- |easily make change to their detail when they updated their contact
+|`* * *` |user |edit the details of a person
+ |easily make changes to their details when they update their contact
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |teacher |create a class |group and manage students who are taking the same class
 
-|`* * *` |user |create a class |group and manage students who are taking the same class
+|`* * *` |teacher |add persons to a class |group them for easy perusal
 
-|`* * *` |user |add persons to a class |
+|`* * *` |teacher | list all the students in a particular class |know all the students taking that class
 
-|`* * *` |user |see all persons in a class |see the list of all students taking a class
+|`* *` |teacher |add appointment with a student to my schedule |be reminded of the appointment
 
-|`* *` |user |add appointment with a person to my schedule |be reminded of the appointment
+|`* *` |teacher |delete appointments from my schedule |clear appointments I no longer need to be reminded about
 
-|`* *` |user |delete appointment from my schedule |remove appointment I no longer need to be reminded
+|`* *` |teacher |list all appointments in my schedule |check all the appointments I have
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
-|`*` |user with many persons in address book |tag a person |mark their contact with a detail
+|`*` |user |tag a person |mark their contact with details
 
-|`*` |user with many persons in address book |find all person with a given tag |see all persons with contact marked with a certain detail
+|`*` |user |find all person with a given tag |see all persons with contact marked with a certain detail
 
 |`*` |user |change the colour of a tag |make it easier for me to distinguish the tags
 
