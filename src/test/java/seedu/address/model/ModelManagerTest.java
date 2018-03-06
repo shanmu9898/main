@@ -85,8 +85,9 @@ public class ModelManagerTest {
     }
 
 
-     @Test
-     public void deleteTag_tagUsedByMultiplePeople_tagRemoved() throws DuplicatePersonException, PersonNotFoundException {
+    @Test
+    public void deleteTag_tagUsedByMultiplePeople_tagRemoved() throws DuplicatePersonException,
+                                                                      PersonNotFoundException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
         ModelManager modelManager = new ModelManager(testAddressBook, userPrefs);
@@ -94,8 +95,9 @@ public class ModelManagerTest {
 
         Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag).withPerson(bobWithoutFriendTag).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag)
+                                              .withPerson(bobWithoutFriendTag).build();
 
         assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
-     }
+    }
 }

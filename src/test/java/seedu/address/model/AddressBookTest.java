@@ -105,13 +105,14 @@ public class AddressBookTest {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).build();
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
 
-        testAddressBook.updatePerson(BOB,AMY);
+        testAddressBook.updatePerson(BOB, AMY);
 
         assertEquals(testAddressBook, expectedAddressBook);
     }
 
     @Test
-    public void removeTag_tagNotPresent_addressBookUnchanged() throws PersonNotFoundException, DuplicatePersonException {
+    public void removeTag_tagNotPresent_addressBookUnchanged() throws PersonNotFoundException,
+                                                                      DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
 
         testAddressBook.removeTag(new Tag(VALID_TAG_NOTUSED));
@@ -122,14 +123,16 @@ public class AddressBookTest {
     }
 
     @Test
-    public  void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException, DuplicatePersonException {
+    public  void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException,
+                                                                       DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
         testAddressBook.removeTag(new Tag(VALID_TAG_FRIEND));
 
         Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
 
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag).withPerson(amyWithoutFriendTag).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
+                                              .withPerson(amyWithoutFriendTag).build();
 
         assertEquals(expectedAddressBook, testAddressBook);
     }
