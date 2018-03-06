@@ -845,16 +845,16 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `teacher`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
+1.  Teacher requests to list persons
 2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
+3.  Teacher requests to delete a specific person in the list
 4.  AddressBook deletes the person
 +
 Use case ends.
@@ -872,6 +872,90 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Create class
+
+*MSS*
+
+1.  Teacher requests to list persons
+2.  AddressBook shows a list of persons
+3.  Teacher requests to create a class of a subject for a specified duration
+4.  AddressBook prompts for student(s) to be added into the class
+5.  Teacher enters index of student(s) as shown in the list
+5.  AddressBook creates the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given subject or duration is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. One or more given index(s) is invalid.
++
+[none]
+** 5a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add appointment
+
+*MSS*
+
+1.  Teacher requests to add an appointment at a specified time
+2.  AddressBook prompts for a title
+3.  Teacher enters a title
+4.  AddressBook adds the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Time given is invalid.
++
+[none]
+** 1a1. AddressBook shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete appointment
+
+*MSS*
+
+1.  Teacher requests to list appointments
+2.  AddressBook shows list of appointments
+3.  Teacher requests to delete a specific appointment in the list
+4.  AddressBook deletes appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows error message.
++
+Use case resumes at step 2.
+
 
 _{More to be added}_
 
