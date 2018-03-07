@@ -62,7 +62,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    public List<String> getTags() {
+    public List<String> getTagsNames() {
         return tagLabels
                 .stream()
                 .map(Label::getText)
