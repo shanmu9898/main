@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
@@ -10,8 +10,10 @@ import seedu.address.model.tag.Tag;
  */
 public class XmlAdaptedTag {
 
-    @XmlValue
+    @XmlElement(required = true)
     private String tagName;
+    @XmlElement(required = true)
+    private String tagColorStyle;
 
     /**
      * Constructs an XmlAdaptedTag.
@@ -20,10 +22,11 @@ public class XmlAdaptedTag {
     public XmlAdaptedTag() {}
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName and tagColorStyle}.
      */
-    public XmlAdaptedTag(String tagName) {
+    public XmlAdaptedTag(String tagName, String tagColorStyle) {
         this.tagName = tagName;
+        this.tagColorStyle = tagColorStyle;
     }
 
     /**
@@ -33,6 +36,7 @@ public class XmlAdaptedTag {
      */
     public XmlAdaptedTag(Tag source) {
         tagName = source.tagName;
+        tagColorStyle = source.tagColorStyle;
     }
 
     /**
@@ -42,9 +46,12 @@ public class XmlAdaptedTag {
      */
     public Tag toModelType() throws IllegalValueException {
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_NAME_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        if (!Tag.isValidTagColorStyle(tagColorStyle)) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_COLOR_STYLE_CONSTRAINTS);
+        }
+        return new Tag(tagName, tagColorStyle);
     }
 
     @Override
@@ -57,6 +64,7 @@ public class XmlAdaptedTag {
             return false;
         }
 
-        return tagName.equals(((XmlAdaptedTag) other).tagName);
+        return tagName.equals(((XmlAdaptedTag) other).tagName)
+                && tagColorStyle.equals(((XmlAdaptedTag) other).tagColorStyle);
     }
 }

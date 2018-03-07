@@ -7,15 +7,24 @@
         <phone>85355255</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
-        <tagged>friends</tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
+        <tagged>
+            <tagName>owesMoney</tagName>
+            <tagColorStyle>teal</tagColorStyle>
+        </tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
     </persons>
     <persons>
         <name>Carl Kurz</name>
@@ -47,6 +56,12 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
-    <tags>friends</tags>
-    <tags>owesMoney</tags>
+    <tags>
+        <tagName>owesMoney</tagName>
+        <tagColorStyle>teal</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+        <tagColorStyle>brown</tagColorStyle>
+    </tags>
 </addressbook>
