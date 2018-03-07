@@ -23,7 +23,11 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
+    //@@author Sisyphus25-reused
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/167b3d0b4f7ad34296d2fbf505f9ae71f983f53c
+    private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey"};
 
+    //@@author
     @FXML
     private HBox cardPane;
     @FXML
@@ -47,9 +51,32 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        initTags(person);
     }
 
+    //@@author Sisyphus25-reused
+    //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/167b3d0b4f7ad34296d2fbf505f9ae71f983f53c
+    /**
+     * Returns the color style for {@code tagName}'s label.
+     */
+    private void initTags(Person person) {
+        person.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColorStyle(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
+    }
+
+    /**
+     * Returns the color style for {@code tagName}'s label.
+     */
+    private String getTagColorStyle(String tagName) {
+        // we use the hash code of the tag name to generate a random color, so that the color remain consistent
+        // between different runs of the program while still making it random enough between tags.
+        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
+    }
+
+    //@@author
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
