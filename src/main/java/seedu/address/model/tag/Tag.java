@@ -88,7 +88,7 @@ public class Tag {
     //@@author Sisyphus25-reused
     //Reused from https://github.com/se-edu/addressbook-level4/pull/798/commits/167b3d0b4f7ad34296d2fbf505f9ae71f983f53c
     /**
-     * Returns the color style for {@code tagName}'s label.
+     * Returns a color style for {@code tagName}
      */
     private String getTagColorStyle(String tagName) {
         // we use the hash code of the tag name to generate a random color, so that the color remain consistent

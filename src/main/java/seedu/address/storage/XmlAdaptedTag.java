@@ -22,7 +22,7 @@ public class XmlAdaptedTag {
     public XmlAdaptedTag() {}
 
     /**
-     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName and tagColorStyle}.
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName} and {@code tagColorStyle}.
      */
     public XmlAdaptedTag(String tagName, String tagColorStyle) {
         this.tagName = tagName;
