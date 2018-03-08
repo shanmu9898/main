@@ -112,6 +112,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         persons.setPerson(target, syncedEditedPerson);
+        removeUnusedTags();
+    }
+
+    /**
+     * Removes all {@code Tag}s that are not used by any {@code Person} in this {@code AddressBook}.
+     */
+    private void removeUnusedTags() {
+        Set<Tag> tagsInPersons = persons.asObservableList().stream().map(Person::getTags).flatMap(Set::stream)
+                                 .collect(Collectors.toSet());
+
+        tags.setTags(tagsInPersons);
     }
 
     /**
@@ -183,5 +194,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
+    }
+
+    /**
+     * Removes the particular tag for all people in the AddressBook }.
+     */
+    public void removeTag(Tag tag) throws DuplicatePersonException, PersonNotFoundException {
+        for (Person person : persons) {
+            removeTagFromPerson(tag, person);
+        }
+
+    }
+
+    /**
+     * Removes the particular tag for that particular person in the AddressBook }.
+     */
+    private void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException, DuplicatePersonException {
+        Set<Tag> listOfTags = new HashSet<>(person.getTags());
+
+        if (listOfTags.contains(tag)) {
+            listOfTags.remove(tag);
+        } else {
+            return;
+        }
+
+        Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                                          person.getAddress(), listOfTags);
+
+        updatePerson(person, updatedPerson);
+
+
     }
 }

@@ -1,10 +1,16 @@
 package seedu.address.model;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NOTUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 
@@ -13,7 +19,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -61,5 +72,32 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookName("differentName");
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void deleteTag_tagNotPresent_modelUnchanged() throws DuplicatePersonException, PersonNotFoundException {
+        AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
+        UserPrefs userPrefs = new UserPrefs();
+        ModelManager modelManager = new ModelManager(testAddressBook, userPrefs);
+        modelManager.deleteTag(new Tag(VALID_TAG_NOTUSED));
+
+        assertEquals(new ModelManager(testAddressBook, userPrefs), modelManager);
+    }
+
+
+    @Test
+    public void deleteTag_tagUsedByMultiplePeople_tagRemoved() throws DuplicatePersonException,
+                                                                      PersonNotFoundException {
+        AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
+        UserPrefs userPrefs = new UserPrefs();
+        ModelManager modelManager = new ModelManager(testAddressBook, userPrefs);
+        modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
+
+        Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
+        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag)
+                                              .withPerson(bobWithoutFriendTag).build();
+
+        assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }
 }
