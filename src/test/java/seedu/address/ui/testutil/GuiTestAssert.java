@@ -2,6 +2,7 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import seedu.address.model.person.Person;
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+    private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -23,7 +26,10 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getTagsNames(), actualCard.getTagsNames());
+
+        expectedCard.getTagsNames().forEach(tag ->
+                assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
     }
 
     /**
@@ -34,8 +40,22 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
+
+        assertTagsEqual(expectedPerson, actualCard);
+    }
+
+    /**
+     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct
+     * color.
+     */
+    private static void assertTagsEqual(Person expectedPerson, PersonCardHandle actualCard) {
+        List<String> expectedTagsNames = expectedPerson.getTags().stream()
+                .map(tag -> tag.tagName).collect(Collectors.toList());
+        assertEquals(expectedTagsNames, actualCard.getTagsNames());
+        expectedPerson.getTags().forEach(tag ->
+                assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, tag.tagColorStyle),
+                        actualCard.getTagStyleClasses(tag.tagName))
+        );
     }
 
     /**
@@ -70,4 +90,6 @@ public class GuiTestAssert {
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
     }
+
+
 }
