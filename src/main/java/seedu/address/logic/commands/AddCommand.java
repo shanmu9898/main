@@ -54,7 +54,7 @@ public class AddCommand extends UndoableCommand {
         requireNonNull(model);
         try {
             model.addPerson(toAdd);
-            if(toAdd instanceof Student) {
+            if (toAdd instanceof Student) {
                 return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
             } else {
                 return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, toAdd));

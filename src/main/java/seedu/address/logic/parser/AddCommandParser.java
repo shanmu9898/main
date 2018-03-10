@@ -51,14 +51,14 @@ public class AddCommandParser implements Parser<AddCommand> {
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             switch (preambleArgs[0]) {
-                case "":
-                    return new AddCommand(new Person(name, phone, email, address, tagList));
+            case "":
+                return new AddCommand(new Person(name, phone, email, address, tagList));
 
-                case "student":
-                    return new AddCommand(new Student(name, phone, email, address, tagList));
+            case "student":
+                return new AddCommand(new Student(name, phone, email, address, tagList));
 
-                default:
-                    throw new IllegalValueException(MESSAGE_INVALID_TYPE);
+            default:
+                throw new IllegalValueException(MESSAGE_INVALID_TYPE);
             }
 
         } catch (IllegalValueException ive) {
