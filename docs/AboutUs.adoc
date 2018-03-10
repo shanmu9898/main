@@ -18,18 +18,18 @@ Responsibilities: Model + Deliverable and Deadlines + Integration
 
 '''
 
-=== Rachel Ngo
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Rachel Ngo Phuong Thao
+image::sisyphus.jpg[width="150", align="left"]
+{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
 Responsibilities: UI + Storage + Scheduling and Tracking
 
 '''
 
-=== Randy Pang
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Randy Pang Chung
+image::randypx.jpg[width="150", align="left"]
+{empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
 Responsibilities: Logic + Testing
