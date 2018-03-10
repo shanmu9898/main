@@ -3,53 +3,45 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+TeachConnect was developed by the CS2103T AY2018/19 B-1 team.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Mukesh Gadupudi
+image::shanmu9898.jpg[width="150", align="left"]
+{empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]] 
 
-Role: Project Advisor
+Role: Team Lead, Developer
+Responsibilities: Model + Deliverable and Deadlines + Integration
 
 '''
 
-=== John Roe
+=== Rachel Ngo
 image::lejolly.jpg[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer
+Responsibilities: UI + Storage + Scheduling and Tracking
 
 '''
 
-=== Johnny Doe
+=== Randy Pang
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer
+Responsibilities: Logic + Testing
 
 '''
 
-=== Johnny Roe
+=== Jonathan Lim
 image::m133225.jpg[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer
+Responsibilities: Storage + Documentation + Tool Expert
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
-
-'''
