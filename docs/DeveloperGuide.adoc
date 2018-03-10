@@ -804,13 +804,40 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new person |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a person |remove contacts that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+
+|`* * *` |user |edit the details of a person
+ |easily make changes to their details when they update their contact
+
+|`* * *` |teacher |create a class |group and manage students who are taking the same class
+
+|`* * *` |teacher |add persons to a class |group them for easy perusal
+
+|`* * *` |teacher | list all the students in a particular class |know all the students taking that class
+
+|`* *` |teacher |add appointment with a student to my schedule |be reminded of the appointment
+
+|`* *` |teacher |delete appointments from my schedule |clear appointments I no longer need to be reminded about
+
+|`* *` |teacher |list all appointments in my schedule |check all the appointments I have
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |tag a person |mark their contact with details
+
+|`*` |user |find all person with a given tag |see all persons with contact marked with a certain detail
+
+|`*` |user |change the colour of a tag |make it easier for me to distinguish the tags
+
+|`*` |user |change the background colour of the application |make the application more pleasing to my eyes
+
+|`*` |user |export persons from my address book to an external file| have persons' contacts ready for import
+
+|`*` |user |import persons from an external file to my address book | have persons' contact details added without having to reenter the information
 |=======================================================================
 
 _{More to be added}_
@@ -818,16 +845,16 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `teacher`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
+1.  Teacher requests to list persons
 2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
+3.  Teacher requests to delete a specific person in the list
 4.  AddressBook deletes the person
 +
 Use case ends.
@@ -845,6 +872,90 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Create class
+
+*MSS*
+
+1.  Teacher requests to list persons
+2.  AddressBook shows a list of persons
+3.  Teacher requests to create a class of a subject for a specified duration
+4.  AddressBook prompts for student(s) to be added into the class
+5.  Teacher enters index of student(s) as shown in the list
+5.  AddressBook creates the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given subject or duration is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. One or more given index(s) is invalid.
++
+[none]
+** 5a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add appointment
+
+*MSS*
+
+1.  Teacher requests to add an appointment at a specified time
+2.  AddressBook prompts for a title
+3.  Teacher enters a title
+4.  AddressBook adds the appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Time given is invalid.
++
+[none]
+** 1a1. AddressBook shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete appointment
+
+*MSS*
+
+1.  Teacher requests to list appointments
+2.  AddressBook shows list of appointments
+3.  Teacher requests to delete a specific appointment in the list
+4.  AddressBook deletes appointment
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows error message.
++
+Use case resumes at step 2.
+
 
 _{More to be added}_
 
