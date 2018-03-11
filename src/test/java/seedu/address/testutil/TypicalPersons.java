@@ -44,9 +44,9 @@ public class TypicalPersons {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Student GEORGE = new StudentBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
-    public static final Student Ivan = new StudentBuilder().withName("Ivan Kutz").withPhone("9867723")
+    public static final Student IVAN = new StudentBuilder().withName("Ivan Kutz").withPhone("9867723")
             .withEmail("wolf@example.com").withAddress("Centre Street").build();
-    public static final Student John = new StudentBuilder().withName("John Blake").withPhone("9575232")
+    public static final Student JOHN = new StudentBuilder().withName("John Blake").withPhone("9575232")
             .withEmail("star@example.com").withAddress("Hollywood").build();
 
     // Manually added
