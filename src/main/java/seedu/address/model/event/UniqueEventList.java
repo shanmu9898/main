@@ -58,10 +58,10 @@ public class UniqueEventList implements Iterable<Event> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setEvents(List<Event> events ) throws DuplicateEventException {
+    public void setEvents(List<Event> events) throws DuplicateEventException {
         requireAllNonNull(events);
         final UniqueEventList replacement = new UniqueEventList();
-        for (final Event event : events ) {
+        for (final Event event : events) {
             replacement.add(event);
         }
         setEvents(replacement);
