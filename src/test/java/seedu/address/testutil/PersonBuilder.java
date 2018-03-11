@@ -22,11 +22,11 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAGS = "friends";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    Name name;
+    Phone phone;
+    Email email;
+    Address address;
+    Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
