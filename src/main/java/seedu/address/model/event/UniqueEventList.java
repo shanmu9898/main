@@ -54,6 +54,28 @@ public class UniqueEventList implements Iterable<Event> {
         return eventFoundAndDeleted;
     }
 
+    /**
+     * Replaces the person {@code target} in the list with {@code editedEvent}.
+     *
+     * @throws DuplicateEventException if the replacement is equivalent to another existing event in the list.
+     * @throws EventNotFoundException if {@code target} could not be found in the list.
+     */
+    public void setEvent(Event target, Event editedEvent)
+            throws DuplicateEventException, EventNotFoundException {
+        requireNonNull(editedEvent);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new EventNotFoundException();
+        }
+
+        if (!target.equals(editedEvent) && internalList.contains(editedEvent)) {
+            throw new DuplicateEventException();
+        }
+
+        internalList.set(index, editedEvent);
+    }
+
     public void setEvents(UniqueEventList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
@@ -95,7 +117,7 @@ public class UniqueEventList implements Iterable<Event> {
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateEventException extends DuplicateDataException {
-        protected DuplicateEventException() {
+        public DuplicateEventException() {
             super("Operation would result in duplicate events");
         }
     }
@@ -103,7 +125,7 @@ public class UniqueEventList implements Iterable<Event> {
      * Signals that an operation is looking for an event doesn't exist.
      */
     public static class EventNotFoundException extends Exception {
-        protected EventNotFoundException() {
+        public EventNotFoundException() {
             super("Event not found");
         }
     }

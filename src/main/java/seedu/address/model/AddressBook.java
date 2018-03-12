@@ -231,7 +231,5 @@ public class AddressBook implements ReadOnlyAddressBook {
                                           person.getAddress(), listOfTags);
 
         updatePerson(person, updatedPerson);
-
-
     }
 }

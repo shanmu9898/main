@@ -5,24 +5,19 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.TypicalPersons;
 
 //@@author Sisyphus25
 public class AppointmentTest {
     private static final String VALID_TITLE = "Meet Student";
     private static final Date CURRENT_DATE = new Date();
-    private static final Person VALID_PERSON_TO_MEET = new Person(new Name("John"), new Phone("12345678"),
-            new Email("john@gmail.com"), new Address("Clementi"), new HashSet<Tag>());
+    private static final Person VALID_PERSON_TO_MEET = TypicalPersons.ALICE;
+
 
     private Calendar validStartTime;
     private Calendar validEndTime;
