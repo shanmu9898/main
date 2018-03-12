@@ -63,6 +63,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setEvents(List<Event> events) throws UniqueEventList.DuplicateEventException {
+        this.events.setEvents(events);
+    }
+
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -72,11 +77,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
+        List<Event> eventList = newData.getEventList();
 
         try {
             setPersons(syncedPersonList);
+            setEvents(eventList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        } catch (UniqueEventList.DuplicateEventException e) {
+            throw new AssertionError("AddressBooks should not have duplicate events");
         }
     }
 
@@ -231,5 +240,42 @@ public class AddressBook implements ReadOnlyAddressBook {
                                           person.getAddress(), listOfTags);
 
         updatePerson(person, updatedPerson);
+    }
+
+    //@@author Sisyphus25
+    //// event operations
+
+    /**
+     * Adds an event to the address book.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent person already exists.
+     */
+    public void addEvent(Event e) throws UniqueEventList.DuplicateEventException {
+        events.add(e);
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     *
+     * @throws UniqueEventList.DuplicateEventException if updating the event's details causes the event
+     * to be equivalent to another existing person in the list.
+     * @throws UniqueEventList.EventNotFoundException if {@code target} could not be found in the list.
+     */
+    public void updateEvent(Event target, Event editedEvent)
+            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
+        requireNonNull(editedEvent);
+        events.setEvent(target, editedEvent);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws UniqueEventList.EventNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeEvent(Event key) throws UniqueEventList.EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
     }
 }
