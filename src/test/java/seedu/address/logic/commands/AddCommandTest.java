@@ -21,6 +21,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -139,6 +141,22 @@ public class AddCommandTest {
         public void deleteTag(Tag tag) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public void addEvent(Event event) throws UniqueEventList.DuplicateEventException {
+            fail("This method should not be called.");
+        };
+
+        @Override
+        public void deleteEvent(Event event) throws UniqueEventList.EventNotFoundException {
+            fail("This method should not be called.");
+        };
+
+        @Override
+        public void updateEvent(Event target, Event editedEvent)
+                throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
+            fail("This method should not be called.");
+        };
     }
 
     /**
