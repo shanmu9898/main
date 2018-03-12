@@ -47,11 +47,11 @@ public class UniqueEventList implements Iterable<Event> {
      */
     public boolean remove(Event toRemove) throws EventNotFoundException {
         requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        final boolean eventFoundAndDeleted = internalList.remove(toRemove);
+        if (!eventFoundAndDeleted) {
             throw new EventNotFoundException();
         }
-        return personFoundAndDeleted;
+        return eventFoundAndDeleted;
     }
 
     public void setEvents(UniqueEventList replacement) {

@@ -23,7 +23,7 @@ public interface ReadOnlyAddressBook {
     ObservableList<Tag> getTagList();
 
     /**
-     * Returns an unmodifiable view of the schedule.
+     * Returns an unmodifiable view of the events list.
      * This list will not contain any duplicate event.
      */
     ObservableList<Event> getEventList();
