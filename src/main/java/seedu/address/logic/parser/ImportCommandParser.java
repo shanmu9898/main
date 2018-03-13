@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.util.Arrays;
 
@@ -18,12 +20,15 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
         String[] parameterGetterArray = trimmedArgs.split(" ");
 
-        if(parameterGetterArray.length != 2){
+        if(parameterGetterArray.length != 1){
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }else{
-            return new ImportCommand(parameterGetterArray[1]);
+            return new ImportCommand(parameterGetterArray[0]);
         }
 
     }
+
+
+
 }
