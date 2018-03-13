@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -20,20 +21,22 @@ public class AddCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
+            + " [TYPE] "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + "Example: " + COMMAND_WORD
+            + " student "
+            + PREFIX_NAME + " Mary Jane "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_EMAIL + "MJ@example.com "
+            + PREFIX_ADDRESS + "478, Pasir Ris, #03-12 "
+            + PREFIX_TAG + "AStar";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_ADD_PERSON_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_ADD_STUDENT_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
@@ -51,7 +54,11 @@ public class AddCommand extends UndoableCommand {
         requireNonNull(model);
         try {
             model.addPerson(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            if (toAdd instanceof Student) {
+                return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
+            } else {
+                return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, toAdd));
+            }
         } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
