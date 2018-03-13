@@ -16,6 +16,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Mukesh Gadupudi
 image::shanmu9898.jpg[width="150", align="left"]
 {empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]]
+
 Role: Team Lead, Developer
 
 Responsibilities: Model + Deliverable and Deadlines + Integration
