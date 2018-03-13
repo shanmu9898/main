@@ -3,53 +3,51 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+TeachConnect was developed by a team of students, with assistance from the Project Supervisor, as a project
+for the module CS2103T.
+
+It was built upon the AddressBook - Level 4 project developed by the https://se-edu.github.io/docs/Team.html[se-edu]
+team.
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Mukesh Gadupudi
+image::shanmu9898.jpg[width="150", align="left"]
+{empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]]
+Role: Team Lead, Developer
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Model + Deliverable and Deadlines + Integration
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Rachel Ngo Phuong Thao
+image::sisyphus.jpg[width="150", align="left"]
+{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer
 
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: UI + Storage + Scheduling and Tracking
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Randy Pang Chung
+image::randypx.jpg[width="150", align="left"]
+{empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+
+Responsibilities: Logic + Testing
+
+'''
+
+=== Jonathan Lim
+image::LimShiMinJonathan.jpg[width="150", align="left"]
+{empty}[http://github.com/LimShiMinJonathan[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer
+
+Responsibilities: Storage + Documentation + Tool Expert
 
 '''
