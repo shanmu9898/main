@@ -18,6 +18,7 @@ image::shanmu9898.jpg[width="150", align="left"]
 {empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]] 
 
 Role: Team Lead, Developer
+
 Responsibilities: Model + Deliverable and Deadlines + Integration
 
 '''
@@ -27,6 +28,7 @@ image::sisyphus.jpg[width="150", align="left"]
 {empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: UI + Storage + Scheduling and Tracking
 
 '''
@@ -36,6 +38,7 @@ image::randypx.jpg[width="150", align="left"]
 {empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: Logic + Testing
 
 '''
@@ -45,6 +48,7 @@ image::LimShiMinJonathan.jpg[width="150", align="left"]
 {empty}[http://github.com/LimShiMinJonathan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: Storage + Documentation + Tool Expert
 
 '''
