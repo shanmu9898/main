@@ -63,9 +63,9 @@ Format: `help`
 
 === Adding a contact: `add`
 
-Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]... +
-Adds a contact to the address book. +
-`[TYPE]` field represents the type of contact you wish to add. +
+Adds a contact to the address book.  + 
+Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...  +
+`[TYPE]` field represents the type of contact you wish to add.  +
 It can be `student`, `guardian` or `{nbsp}` (default).
 
 
@@ -74,18 +74,18 @@ A contact can have any number of tags (including 0)
 
 Examples:
 
-Adding a default contact: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+Adding a default contact: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` +
 Adding a student contact: `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Centre Street, block 238, #02-02`
 
 === Listing all contacts : `list`
 
-Format: `list` +
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in the address book. +
+Format: `list`
 
 === Editing a contact : `edit`
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`+
-Edits an existing contact in the address book.
+Edits an existing contact in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the last contact listing. The index *must be a positive integer* 1, 2, 3, ...
@@ -104,8 +104,8 @@ Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing t
 
 === Locating contacts by name: `find`
 
-Format: `find KEYWORD [MORE_KEYWORDS]` +
-Finds contacts whose names contain any of the given keywords.
+Finds contacts whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`.
@@ -124,8 +124,8 @@ Returns any contact having names `Betsy`, `Tim`, or `John`
 
 === Deleting a contact : `delete`
 
-Format: `delete INDEX` +
-Deletes the specified contact from the address book.
+Deletes the specified contact from the address book. +
+Format: `delete INDEX`
 
 ****
 * Deletes the contact at the specified `INDEX`.
@@ -144,8 +144,8 @@ Deletes the 1st contact in the results of the `find` command.
 
 === Selecting a contact : `select`
 
-Format: `select INDEX` +
-Selects the contact identified by the index number used in the last contact listing.
+Selects the contact identified by the index number used in the last contact listing. +
+Format: `select INDEX`
 
 ****
 * Selects the contact and loads the Google search page the contact at the specified `INDEX`.
@@ -164,8 +164,8 @@ Selects the 1st contact in the results of the `find` command.
 
 === Listing entered commands : `history`
 
-Format: `history` +
-Lists all the commands that you have entered in reverse chronological order.
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
 
 [NOTE]
 ====
@@ -175,8 +175,8 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Format: `undo` +
-Restores the address book to the state before the previous _undoable_ command was executed.
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
 
 [NOTE]
 ====
@@ -201,8 +201,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Format: `redo` +
-Reverses the most recent `undo` command.
+Reverses the most recent `undo` command. +
+Format: `redo`
 
 Examples:
 
@@ -229,8 +229,8 @@ Format: `clear`
 
 === Exiting the program : `exit`
 
-Format: `exit` +
-Exits the program.
+Exits the program. +
+Format: `exit`
 
 === Saving the data
 
