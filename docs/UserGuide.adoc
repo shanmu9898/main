@@ -63,8 +63,8 @@ Format: `help`
 
 === Adding a contact: `add`
 
-Adds a contact to the address book.  + 
-Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...  +
+Adds a contact to the address book.  +
+Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 `[TYPE]` field represents the type of contact you wish to add.  +
 It can be `student`, `guardian` or `{nbsp}` (default).
 
@@ -150,7 +150,7 @@ Format: `select INDEX`
 ****
 * Selects the contact and loads the Google search page the contact at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* The index *must be a positive integer* `1, 2, 3, ...
 ****
 
 Examples:
