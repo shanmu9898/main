@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= TeachConnect - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -28,7 +28,7 @@ TeachConnect (TC) is created to help teachers and other educational professional
 This app will not work with earlier versions of Java 8. +
 You can download the lastest Java version link:https://java.com/en/download/[here].
 +
-.  Download the latest `teachconnect.jar` link:{repoURL}/releases[here].
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -65,7 +65,7 @@ Format: `help`
 
 === Adding a contact: `add`
 
-Adds a contact to the address book.  +
+Adds a contact to TeachConnect.  +
 Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 `[TYPE]` field represents the type of contact you wish to add.  +
 It can be `student`, `guardian` or `{nbsp}` (default).
@@ -216,11 +216,11 @@ Format: `list schedule`
 
 === Deleting a schedule : `delete schedule`
 
-Deletes the specified schedule from TeachConnect. +
+Deletes the specified schedule from TeachConnect schedule list. +
 Format: `delete schedule INDEX`
 
 ****
-* Deletes the schedule at the specified `INDEX`.
+* Deletes the schedule at the specified `INDEX` in the schedule list.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -332,6 +332,13 @@ e.g. `find James Jake`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Add Appointment* `set appointment t/TITLE s/START_TIME e/END_TIME i/INDEX` +
+e.g. `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
+* *Add Task* `set task t/TITLE d/DEADLINE` +
+e.g. `set task t/Mark papers d/05-04-2018 10:00`
+* *List Schedule* : `list schedule`
+* *Delete Schedule* : `delete schedule INDEX` +
+e.g. `delete schedule 3`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
