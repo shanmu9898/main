@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to help teachers and other educational professionals to *better manage their contacts* and *remenber students that they had taught*. TeachConnect is also tailored for teachers who would *prefer to use a desktop app for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to help teachers and other educational professionals *better manage their contacts* and *remember students they taught*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -324,6 +324,17 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+=== Upcoming features
+
+* Clear distinction between students and parents [coming in v1.2]
+* Finding not only by name but by any field [coming in v1.2]
+* Import and Export (Sharing of Address Book) [coming in v1.3]
+* Adding events and Appointments [coming in v1.3]
+* An All new customised UI [coming in v1.3]
+* A login feature [coming in v1.5]
+* Dynamic search [coming in v2.0]
+* NLP for event and appointment scheduling [coming in v2.0]
 
 == FAQ
 
