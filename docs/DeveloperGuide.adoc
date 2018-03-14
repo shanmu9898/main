@@ -14,7 +14,7 @@ endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W14-B1/main/tree/master
 
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Setting up
 
