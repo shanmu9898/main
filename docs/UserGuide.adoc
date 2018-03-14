@@ -152,7 +152,7 @@ Examples:
 * List all tasks: `list tasks`
 
 
-=== Editing a contact : `edit` [updated by v1.4]
+=== Editing a contact : `edit` [will be updated by v1.4]
 
 
 Edits an existing contact. +
@@ -319,14 +319,7 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-To be implemented
-
-// end::dataencryption[]
-
-=== Upcoming features
+=== Upcoming features `[coming soon]`
 
 * Clear distinction between students and parents [coming in v1.2]
 * Finding not only by name but by any field [coming in v1.2]
