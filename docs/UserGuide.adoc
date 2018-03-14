@@ -38,10 +38,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts.
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list.
-* *`exit`* : exits the app.
+
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to TeachConnect.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`exit`* : exits the app
+
 
 .  Refer to <<Features>> for details of each command.
 
@@ -69,6 +71,10 @@ Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 It can be `student`, `guardian` or `{nbsp}` (default).
 
 
+Adds a person to TeachConnect +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+
+
 [TIP]
 A contact can have any number of tags (including 0)
 
@@ -79,12 +85,15 @@ Adding a student contact: `add student n/Betsy Crowe e/betsycrowe@example.com a/
 
 === Listing all contacts : `list`
 
-Shows a list of all contacts in the address book. +
-Format: `list`
+
+Shows a list of all persons in TeachConnect. +
+
 
 === Editing a contact : `edit`
 
-Edits an existing contact in the address book. +
+
+Edits an existing person in TeachConnect. +
+
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -124,7 +133,9 @@ Returns any contact having names `Betsy`, `Tim`, or `John`
 
 === Deleting a contact : `delete`
 
-Deletes the specified contact from the address book. +
+
+Deletes the specified person from TeachConnect. +
+
 Format: `delete INDEX`
 
 ****
@@ -137,7 +148,9 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd contact in the address book.
+
+Deletes the 2nd person in TeachConnect.
+
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st contact in the results of the `find` command.
@@ -157,10 +170,66 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd contact in the address book.
+
+Selects the 2nd person in TeachConnect.
+
 * `find Betsy` +
 `select 1` +
 Selects the 1st contact in the results of the `find` command.
+
+=== Adding an appointment : `set appointment`
+
+Adds an appointment to TeachConnect +
+Format: `set appointment t/TITLE s/START_TIME e/END_TIME i/INDEX`
+
+****
+* Adds an appointment with title `TITLE`, which lasts from `START_TIME` to `END_TIME`, with person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+* `START_TIME` and `END_TIME` are in the format `DD-MM-YYYY HH:MM`.
+****
+
+Examples:
+
+* `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3` +
+Adds an appointment on April 5th, 2018, 10am with the 3rd person in TeachConnect.
+
+=== Adding a task : `set task`
+
+Adds a task to TeachConnect +
+Format: `set task t/TITLE d/DEADLINE`
+
+****
+* Adds a task with title `TITLE` which needs to complete before `DEADLINE`.
+* `DEADLINE` is in the format `DD-MM-YYYY HH:MM`.
+****
+
+Examples:
+
+* `set task t/Mark papers d/05-04-2018 10:00` +
+Sets a task which needs to be completed before April 5th, 2018, 10am.
+
+=== Listing all schedules : `list schedule`
+
+Shows a list of all schedules in TeachConnect. +
+Format: `list schedule`
+
+=== Deleting a schedule : `delete schedule`
+
+Deletes the specified schedule from TeachConnect. +
+Format: `delete schedule INDEX`
+
+****
+* Deletes the schedule at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list schedule` +
+`delete 2` +
+Deletes the 2nd schedule in TeachConnect.
 
 === Listing entered commands : `history`
 
@@ -175,12 +244,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores TeachConnect to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify TeachConnect's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -224,7 +293,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from TeachConnect. +
 Format: `clear`
 
 === Exiting the program : `exit`
