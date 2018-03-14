@@ -3,11 +3,6 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import seedu.address.model.person.Person;
 
 //@@author Sisyphus25
@@ -15,46 +10,37 @@ import seedu.address.model.person.Person;
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
  */
 public class Appointment implements Event {
-    /*
-     * The title can not be empty string or spaces only
-     */
-    public static final String TITLE_VALIDATION_REGEX = "[^\\s].*";
+    public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
-    private static final String DATE_FORMAT = "yyyy/MM/dd HH:mm";
-    private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
-    private static final String MESSAGE_TITLE_CONSTRAINTS = "Title must be non empty";
-    private static final String MESSAGE_TIME_CONSTRAINTS = "Invalid time stamp";
-
-    private String title;
-    private Date time;
-    private Date endTime;
+    private Title title;
+    private EventTime time;
+    private EventTime endTime;
     private Person personToMeet;
 
     //Every field must be present and not null
-    public Appointment(String title, Calendar startTime, Calendar endTime) {
+    public Appointment(Title title, EventTime startTime, EventTime endTime) {
         this(title, startTime, endTime, null);
     }
 
     //Every field except personToMeet must be present and not null
-    public Appointment(String title, Calendar startTime, Calendar endTime, Person personToMeet) {
+    public Appointment(Title title, EventTime startTime, EventTime endTime, Person personToMeet) {
         requireAllNonNull(title, startTime, endTime);
-        checkArgument(isValidTitle(title), MESSAGE_TITLE_CONSTRAINTS);
-        checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_CONSTRAINTS);
+        checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
-        this.time = startTime.getTime();
-        this.endTime = endTime.getTime();
+        this.time = startTime;
+        this.endTime = endTime;
         this.personToMeet = personToMeet;
     }
 
-    public String getTitle() {
+    public Title getTitle() {
         return title;
     }
 
-    public Date getTime() {
+    public EventTime getTime() {
         return time;
     }
 
-    public Date getEndTime() {
+    public EventTime getEndTime() {
         return endTime;
     }
 
@@ -80,18 +66,9 @@ public class Appointment implements Event {
     }
 
     /**
-     * Returns true if a given string is a valid title.
-     */
-    public static boolean isValidTitle(String test) {
-        return test.matches(TITLE_VALIDATION_REGEX);
-    }
-
-    /**
      * Returns true if the given time is valid
      */
-    public static boolean isValidTime(Calendar startTime, Calendar endTime) {
-        Calendar currentTime = Calendar.getInstance();
-        currentTime.setTime(new Date());
-        return endTime.after(startTime) && startTime.after(currentTime);
+    public static boolean isValidTime(EventTime startTime, EventTime endTime) {
+        return endTime.value.after(startTime.value);
     }
 }
