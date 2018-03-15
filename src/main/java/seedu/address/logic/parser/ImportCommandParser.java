@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ImportCommandParser implements Parser<ImportCommand> {
 
     public ImportCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

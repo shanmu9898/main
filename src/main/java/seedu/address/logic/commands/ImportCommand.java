@@ -34,7 +34,7 @@ import seedu.address.storage.XmlAddressBookStorage;
  */
 public class ImportCommand extends UndoableCommand {
 
-    private static final String MESSAGE_INVALID_FILE = "Please input a valid file location";
+    protected static final String MESSAGE_INVALID_FILE = "Please input a valid file location";
     protected Storage storage;
     protected Config config;
     protected UserPrefs userPrefs;
