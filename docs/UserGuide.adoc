@@ -337,9 +337,6 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands coming up!
 
-*Q*: Can I contribute to it ? +
-*A*: Sure! We would love any and every help we can get! Please visit our github repo https://github.com/CS2103JAN2018-W14-B1/main/ [here]!
-
 *Q*: Does it automatically tell us if there are any appointment clashes? +
 *A*: Hell yes! Our aim is also to help you make your planning simpler and that is just what we do!
 
