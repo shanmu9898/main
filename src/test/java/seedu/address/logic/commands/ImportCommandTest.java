@@ -15,12 +15,14 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.TestUtil;
 
 public class ImportCommandTest {
 
 
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
-    private static final String VALID_FILE_LOCATION = "./src/test/data/sandbox/importsamplefile.xml";
+    private static final String VALID_FILE_LOCATION =
+            TestUtil.getFilePathInSandboxFolder("importsamplefile.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -47,10 +49,10 @@ public class ImportCommandTest {
 
     @Test
     public void equals() {
-        final ImportCommand comparableCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
+        final ImportCommand comparableCommand = new ImportCommand(VALID_FILE_LOCATION);
 
         // same values -> returns true
-        ImportCommand comparedToCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
+        ImportCommand comparedToCommand = new ImportCommand(VALID_FILE_LOCATION);
         assertTrue(comparableCommand.equals(comparedToCommand));
 
         // same object -> returns true

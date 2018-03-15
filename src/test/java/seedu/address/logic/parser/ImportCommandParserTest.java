@@ -8,6 +8,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.TestUtil;
 
 public class ImportCommandParserTest {
 
@@ -38,8 +39,8 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_validString_success() {
-        String input = "./src/test/data/sandbox/importsamplefile.xml";
-        ImportCommand expectedCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
+        String input = TestUtil.getFilePathInSandboxFolder("importsamplefile.xml");
+        ImportCommand expectedCommand = new ImportCommand(input);
         assertParseSuccess(importCommandParser, input, expectedCommand);
     }
 
