@@ -3,7 +3,11 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-TeachConnect was developed by the CS2103T AY2018/19 B-1 team.
+TeachConnect was developed by a team of students, with assistance from the Project Supervisor, as a project
+for the module CS2103T.
+
+It was built upon the AddressBook - Level 4 project developed by the https://se-edu.github.io/docs/Team.html[se-edu]
+team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -11,37 +15,40 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Mukesh Gadupudi
 image::shanmu9898.jpg[width="150", align="left"]
-{empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]] 
+{empty}[https://www.linkedin.com/in/mukesh-gadupudi-420a11139/[portfolio]] [https://github.com/shanmu9898[github]]
 
 Role: Team Lead, Developer
+
 Responsibilities: Model + Deliverable and Deadlines + Integration
 
 '''
 
-=== Rachel Ngo
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Rachel Ngo Phuong Thao
+image::sisyphus.jpg[width="150", align="left"]
+{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: UI + Storage + Scheduling and Tracking
 
 '''
 
-=== Randy Pang
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Randy Pang Chung
+image::randypx.jpg[width="150", align="left"]
+{empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: Logic + Testing
 
 '''
 
 === Jonathan Lim
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::LimShiMinJonathan.jpg[width="150", align="left"]
+{empty}[http://github.com/LimShiMinJonathan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
+
 Responsibilities: Storage + Documentation + Tool Expert
 
 '''
-

@@ -21,15 +21,16 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalEvents;
 
 public class AddressBookTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -39,6 +40,8 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getTagList());
+        assertEquals(Collections.emptyList(), addressBook.getEventList());
+
     }
 
     @Test
@@ -56,10 +59,13 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsAssertionError() {
+        TypicalEvents typicalEvents = new TypicalEvents();
+
         // Repeat ALICE twice
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags);
+        List<Event> newEvents = Arrays.asList(typicalEvents.typicalAppointment1, typicalEvents.typicalTask1);
+        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -77,16 +83,24 @@ public class AddressBookTest {
         addressBook.getTagList().remove(0);
     }
 
+    @Test
+    public void getEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getEventList().remove(0);
+    }
+
     /**
-     * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons, tags and events lists can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+        private final ObservableList<Event> events = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags) {
+        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags, Collection<Event> events) {
             this.persons.setAll(persons);
             this.tags.setAll(tags);
+            this.events.setAll(events);
         }
 
         @Override
@@ -97,6 +111,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Tag> getTagList() {
             return tags;
+        }
+
+        @Override
+        public ObservableList<Event> getEventList() {
+            return events;
         }
     }
 
@@ -123,7 +142,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public  void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException,
+    public void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException,
                                                                        DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
         testAddressBook.removeTag(new Tag(VALID_TAG_FRIEND));
