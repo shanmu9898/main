@@ -20,7 +20,7 @@ public class ImportCommandTest {
 
 
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
-    private static final String VALID_FILE_LOCATION = "./data/importsamplefile.xml";
+    private static final String VALID_FILE_LOCATION = "./src/test/data/sandbox/importsamplefile.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -47,10 +47,10 @@ public class ImportCommandTest {
 
     @Test
     public void equals() {
-        final ImportCommand comparableCommand = new ImportCommand("./data/importsamplefile.xml");
+        final ImportCommand comparableCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
 
         // same values -> returns true
-        ImportCommand comparedToCommand = new ImportCommand("./data/importsamplefile.xml");
+        ImportCommand comparedToCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
         assertTrue(comparableCommand.equals(comparedToCommand));
 
         // same object -> returns true

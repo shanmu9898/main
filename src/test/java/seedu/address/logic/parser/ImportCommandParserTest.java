@@ -38,8 +38,8 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_validString_success() {
-        String input = "./data/importsamplefile.xml";
-        ImportCommand expectedCommand = new ImportCommand("./data/importsamplefile.xml");
+        String input = "./src/test/data/sandbox/importsamplefile.xml";
+        ImportCommand expectedCommand = new ImportCommand("./src/test/data/sandbox/importsamplefile.xml");
         assertParseSuccess(importCommandParser, input, expectedCommand);
     }
 
