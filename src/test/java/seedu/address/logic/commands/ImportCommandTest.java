@@ -4,7 +4,6 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalImportedPersons.getImportedAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
@@ -16,14 +15,13 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TestUtil;
 
 public class ImportCommandTest {
 
 
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
     private static final String VALID_FILE_LOCATION =
-            TestUtil.getFilePathInSandboxFolder("importsamplefile.xml");
+            "./src/test/data/XmlAddressBookStorgageTest/importsamplefile.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -43,10 +41,14 @@ public class ImportCommandTest {
 
     @Test
     public void execute_acceptedSuccess_successfulImport() {
-        ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getImportedAddressBook(), new UserPrefs());
-        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), expectedModel);
+
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        clearCommand.executeUndoableCommand();
+
+        ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
+        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), model);
     }
 
     @Test
