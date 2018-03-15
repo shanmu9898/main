@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to help teachers and other educational professionals to *better manage their contacts* and *remenber students that they had taught*. TeachConnect is also tailored for teachers who would *prefer to use a desktop app for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to help teachers and other educational professionals *better manage their contacts* and *remember students they taught*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -26,9 +26,9 @@ TeachConnect (TC) is created to help teachers and other educational professional
 +
 [NOTE]
 This app will not work with earlier versions of Java 8. +
-You can download the lastest Java version link:https://java.com/en/download/[here].
+You can download the latest Java version link:https://java.com/en/download/[here].
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `Teachconnect.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -87,7 +87,7 @@ Forms a class of students for a specified subject and time period. +
 Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 
 ****
-* Students specified by the `INDEX` are added in the class.
+* Students specified by the `INDEX` are added to the class.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
 * Minimum of one student must be entered. There can be more than one student
@@ -126,7 +126,7 @@ Sets a task to be done by a deadline +
 Format: `set task t/TITLE e/END_DATE END_TIME`
 
 ****
-* Task with `TITLE` which needs to complete before `END_DATE` at `END_TIME` is added.
+* Task with `TITLE` which needs to completed before `END_DATE` at `END_TIME` is added.
 * `END_DATE` must be in the format `DD-MM-YYYY`.
 * `END_TIME` must be in the 24-hr format: HH:MM.
 ****
@@ -136,7 +136,7 @@ Examples:
 * `set task t/Mark papers e/05-04-2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
-=== Listing all contacts/tasks/appointments : `list`
+=== Listing all contacts/tasks/appointments/students : `list`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
@@ -152,7 +152,7 @@ Examples:
 * List all tasks: `list tasks`
 
 
-=== Editing a contact : `edit`
+=== Editing a contact : `edit` [will be updated by v1.4]
 
 
 Edits an existing contact. +
@@ -176,7 +176,7 @@ Edits the phone number and email address of the 1st contact to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-=== Locating contacts by name: `find`
+=== Locating contacts by name: `find` [will be updated by v1.2]
 
 Finds contacts whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -316,19 +316,30 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Upcoming features `[coming soon]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* Clear distinction between students and parents [coming in v1.2]
+* Finding not only by name but by any field [coming in v1.2]
+* Import and Export (Sharing of Address Book) [coming in v1.3]
+* Adding events and Appointments [coming in v1.3]
+* An All new customised UI [coming in v1.3]
+* Shortcuts and Autocompletion [coming in v1.4]
+* A login feature [coming in v1.5]
+* Dynamic search [coming in v2.0]
+* NLP for event and appointment scheduling [coming in v2.0]
+* Encrypting data files [coming in v2.0]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands coming up!
+
+*Q*: Does it automatically tell us if there are any appointment clashes? +
+*A*: Hell yes! Our aim is also to help you make your planning simpler and that is just what we do!
+
 
 == Command Summary
 
