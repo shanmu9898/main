@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -17,27 +18,28 @@ import seedu.address.model.UserPrefs;
 
 public class ImportCommandTest {
 
-    private final static String INVALID_FILE_LOCATION = "./data/samplefile.xml";
-    private final static String VALID_FILE_LOCATION = "./data/importsamplefile.xml";
+
+    private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
+    private static final String VALID_FILE_LOCATION = "./data/importsamplefile.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullString_throwsNullPointerException(){
+    public void constructor_nullString_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new ImportCommand(null);
     }
 
     @Test
-    public void execute_importFailure_throwsException(){
+    public void execute_importFailure_throwsException() {
         ImportCommand command = prepareCommand(INVALID_FILE_LOCATION);
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandFailure(command, model, String.format(command.MESSAGE_INVALID_FILE));
     }
 
     @Test
-    public void execute_acceptedSuccess_successfulImport(){
+    public void execute_acceptedSuccess_successfulImport() {
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), model);
@@ -65,11 +67,13 @@ public class ImportCommandTest {
     }
 
 
-
-
+    /**
+     * A method to prepare the Import command based on the path given
+     */
     private ImportCommand prepareCommand(String path) {
         ImportCommand importCommand = new ImportCommand(path);
-        importCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(), new UndoRedoStack());
+        importCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
         return importCommand;
     }
 

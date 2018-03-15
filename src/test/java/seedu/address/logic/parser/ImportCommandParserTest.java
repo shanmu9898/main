@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Rule;
@@ -13,10 +11,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ImportCommandParserTest {
 
-    private ImportCommandParser importCommandParser = new ImportCommandParser();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private ImportCommandParser importCommandParser = new ImportCommandParser();
 
     @Test
     public void parse_nullString_throwsNullPointerException() throws ParseException {
@@ -39,7 +37,7 @@ public class ImportCommandParserTest {
     }
 
     @Test
-    public void parse_validString_success(){
+    public void parse_validString_success() {
         String input = "./data/importsamplefile.xml";
         ImportCommand expectedCommand = new ImportCommand("./data/importsamplefile.xml");
         assertParseSuccess(importCommandParser, input, expectedCommand);
