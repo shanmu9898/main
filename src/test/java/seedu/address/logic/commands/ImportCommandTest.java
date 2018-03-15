@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalImportedPersons.getImportedAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
@@ -44,7 +45,8 @@ public class ImportCommandTest {
     public void execute_acceptedSuccess_successfulImport() {
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), model);
+        Model expectedModel = new ModelManager(getImportedAddressBook(), new UserPrefs());
+        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), expectedModel);
     }
 
     @Test
