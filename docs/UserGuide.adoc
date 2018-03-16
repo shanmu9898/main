@@ -152,7 +152,7 @@ Examples:
 * List all tasks: `list tasks`
 
 
-=== Editing a contact : `edit` [updated by v1.4]
+=== Editing a contact : `edit` [will be updated by v1.4]
 
 
 Edits an existing contact. +
@@ -319,14 +319,7 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-To be implemented
-
-// end::dataencryption[]
-
-=== Upcoming features
+=== Upcoming features `[coming soon]`
 
 * Clear distinction between students and parents [coming in v1.2]
 * Finding not only by name but by any field [coming in v1.2]
@@ -343,9 +336,6 @@ To be implemented
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands coming up!
-
-*Q*: Can I contribute to it ? +
-*A*: Sure! We would love any and every help we can get! Please visit our github repo https://github.com/CS2103JAN2018-W14-B1/main/ [here]!
 
 *Q*: Does it automatically tell us if there are any appointment clashes? +
 *A*: Hell yes! Our aim is also to help you make your planning simpler and that is just what we do!
