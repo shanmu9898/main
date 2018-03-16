@@ -14,6 +14,7 @@ public abstract class Command {
     protected CommandHistory history;
     protected UndoRedoStack undoRedoStack;
 
+
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
