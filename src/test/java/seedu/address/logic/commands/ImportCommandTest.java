@@ -21,7 +21,7 @@ public class ImportCommandTest {
 
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
     private static final String VALID_FILE_LOCATION =
-            "./src/test/data/XmlAddressBookStorgageTest/importsamplefile.xml";
+            "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -48,6 +48,7 @@ public class ImportCommandTest {
         clearCommand.executeUndoableCommand();
 
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
+
         assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), model);
     }
 
