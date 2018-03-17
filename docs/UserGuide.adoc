@@ -392,6 +392,10 @@ e.g. `set task t/Mark papers d/05-04-2018 10:00`
 * *List Schedule* : `list schedule`
 * *Delete Schedule* : `delete schedule INDEX` +
 e.g. `delete schedule 3`
+* *Import TeachConnect File* : `import` +
+e.g. `import ./data/samplefile.xml`
+* *Export* : `export n/NAME r/RANGE t/TAG p/PATH` +
+e.g. `export n/samplefile.xml r/all t/friends p/.data`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
