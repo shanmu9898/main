@@ -319,6 +319,35 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
+=== Importing the contacts : `import`
+
+TeachConnect allows you to import contacts from a different TeachConnect file by specifying the location of the file. +
+
+Format: `import [TYPE] pathname`
+
+Examples:
+Importing Contacts : `import ./data/importsample.xml`
+
+=== Exporting the contacts : `export`
+
+TeachConnect allows you to export contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes.
+
+Format: `export [TYPE] n/NAME r/RANGE t/TAG p/PATH`
+
+Format: `export [TYPE] n/NAME r/RANGE p/PATH`
+
+[TIP]
+You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command.
+
+[WARNING]
+You can only export all a people based on one or zero tags.
+
+Examples:
+
+Exporting contacts : `export n/StudentsFile1 r/all t/students p/./data`
+Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
+
+
 === Upcoming features `[coming soon]`
 
 * Clear distinction between students and parents [coming in v1.2]
