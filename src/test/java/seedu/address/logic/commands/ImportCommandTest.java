@@ -49,7 +49,7 @@ public class ImportCommandTest {
 
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
 
-        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS), model);
+        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, "7", "0"), model);
     }
 
     @Test
