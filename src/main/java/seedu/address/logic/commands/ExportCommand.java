@@ -72,7 +72,7 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String[] rangeGiven = new String[0];
+        String[] rangeGiven;
         try {
             rangeGiven = handleRange();
         } catch (IOException e) {
@@ -89,12 +89,16 @@ public class ExportCommand extends Command {
                 for (int i = 0; i < rangeGiven.length; i++) {
                     int low = Integer.parseInt(rangeGiven[0]);
                     int high = Integer.parseInt(rangeGiven[1]);
-                    try {
-                        exportRange(low, high, tag);
-                    } catch (DuplicatePersonException e) {
-                        return new CommandResult(MESSAGE_FAIL);
-                    } catch (IndexOutOfBoundsException e) {
-                        return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                    if (low >= high) {
+                        return new CommandResult(MESSAGE_RANGE_ERROR);
+                    } else {
+                        try {
+                            exportRange(low, high, tag);
+                        } catch (DuplicatePersonException e) {
+                            return new CommandResult(MESSAGE_FAIL);
+                        } catch (IndexOutOfBoundsException e) {
+                            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                        }
                     }
                 }
             } else {
