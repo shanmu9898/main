@@ -190,7 +190,7 @@ public class ExportCommand extends Command {
      */
     public String[] handleRange() throws IOException {
         String[] rangeStringArray = this.range.split(",");
-        if (rangeStringArray.length > 2){
+        if (rangeStringArray.length > 2) {
             throw new IOException();
         }
         return rangeStringArray;
