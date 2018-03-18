@@ -20,16 +20,18 @@ import seedu.address.storage.XmlAddressBookStorage;
 public class ImportCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "import";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports contacts to the address book."
             + "Parameters: file location...\n"
             + "Example: " + COMMAND_WORD + " main/src/test/data/sandbox/somerandomfile.xml";
-    public static final String MESSAGE_SUCCESS = "Contacts have been successfully imported!";
+    public static final String MESSAGE_SUCCESS = "%1$s contacts have been successfully imported "
+            + "and %2$s have been left out!";
     protected static final String MESSAGE_INVALID_FILE = "Please input a valid file location";
     protected Storage storage;
     private AddressBook addressBookImported;
     private AddressBookStorage addressBookStorage;
     private String filePath;
+    private int numberAdded = 0;
+    private int numberNotAdded = 0;
 
     /**
      * Creates an ImportCommand to import the specified TeachConnect XML file
@@ -49,8 +51,9 @@ public class ImportCommand extends UndoableCommand {
                 for (int i = 0; i < people.size(); i++) {
                     try {
                         model.addPerson(people.get(i));
+                        numberAdded++;
                     } catch (DuplicatePersonException e) {
-                        throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+                        numberNotAdded++;
                     }
                 }
             } else {
@@ -62,7 +65,7 @@ public class ImportCommand extends UndoableCommand {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE));
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberAdded, numberNotAdded));
     }
 
     @Override
