@@ -82,7 +82,7 @@ public class ExportCommand extends Command {
             try {
                 exportAllRange(tag);
             } catch (DuplicatePersonException e) {
-                return new CommandResult(MESSAGE_FAIL);
+                throw new AssertionError(MESSAGE_FAIL);
             }
         } else {
             if (rangeGiven.length != 1) {
@@ -95,7 +95,7 @@ public class ExportCommand extends Command {
                         try {
                             exportRange(low, high, tag);
                         } catch (DuplicatePersonException e) {
-                            return new CommandResult(MESSAGE_FAIL);
+                            throw new AssertionError(MESSAGE_FAIL);
                         } catch (IndexOutOfBoundsException e) {
                             return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
                         }
@@ -106,7 +106,7 @@ public class ExportCommand extends Command {
                 try {
                     exportSpecific(low);
                 } catch (DuplicatePersonException e) {
-                    return new CommandResult(MESSAGE_FAIL);
+                    throw new AssertionError(MESSAGE_FAIL);
                 } catch (IndexOutOfBoundsException e) {
                     return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
                 }

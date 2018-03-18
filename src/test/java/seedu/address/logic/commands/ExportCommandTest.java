@@ -113,12 +113,30 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_whenTagIsSupposedlyNotGiveAndRangeError_showsMessageError() {
+    public void execute_whenTagIsSupposedlyNotGivnAndRangeError_showsMessageError() {
         ExportCommand exportCommand = new ExportCommand("2,1", new Tag("shouldnotbethistag"), testingPath, name);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_RANGE_ERROR), model);
+    }
+
+    @Test
+    public void execute_whenTagIsSupposedlyNotGivenAndRangeGiven_showsNoMessageError() {
+        ExportCommand exportCommand = new ExportCommand(testingRange, new Tag("shouldnotbethistag"), testingPath, name);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
+
+    @Test
+    public void execute_whenRangeIsSelectiveAndOutOfRange_showsMessageError() {
+        ExportCommand exportCommand = new ExportCommand("10000000", new Tag("shouldnotbethistag"), testingPath, name);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_OUT_OF_BOUNDS), model);
     }
 
 
