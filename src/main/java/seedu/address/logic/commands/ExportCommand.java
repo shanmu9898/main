@@ -26,6 +26,7 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_FAIL = "TeachConnect faced some error while exporting! Please try again!";
     public static final String MESSAGE_OUT_OF_BOUNDS = "Please check the index bounds!";
     public static final String MESSAGE_SUCCESS = "Contacts have been successfully exported!";
+    public static final String MESSAGE_RANGE_ERROR = "Please input valid range";
 
     public static final String COMMAND_WORD = "export";
 
@@ -59,6 +60,7 @@ public class ExportCommand extends Command {
         requireNonNull(range);
         requireNonNull(tag);
         requireNonNull(path);
+        requireNonNull(nameOfExportFile);
 
         this.range = range;
         this.path = path;
@@ -70,7 +72,12 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String[] rangeGiven = handleRange();
+        String[] rangeGiven = new String[0];
+        try {
+            rangeGiven = handleRange();
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_RANGE_ERROR);
+        }
         if (rangeGiven[0].equals("all")) {
             try {
                 exportAllRange(tag);
@@ -181,10 +188,32 @@ public class ExportCommand extends Command {
      *
      * @return
      */
-    public String[] handleRange() {
+    public String[] handleRange() throws IOException {
         String[] rangeStringArray = this.range.split(",");
+        if (rangeStringArray.length > 2){
+            throw new IOException();
+        }
         return rangeStringArray;
 
+    }
+
+    /**@@author shanmu9898 - reused
+     *
+     * @param other
+     * @return
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (!(other instanceof ExportCommand)) {
+            return false;
+        }
+
+        ExportCommand e = (ExportCommand) other;
+        return range.equals(e.range) && path.equals(e.path);
     }
 
 }
