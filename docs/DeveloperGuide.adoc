@@ -780,7 +780,9 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+* is a teacher or educational professional
 * has a need to manage a significant number of contacts
+* has a need to remember students that are either currently in school or graduated
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -808,7 +810,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *** Minor Feature: This feature can help teachers email contacts. This might be really helpful when the teacher wants to remind parents with appointments or remind students with the work they need to finish. This also helps the teachers send group messages to class or parents regarding some important announcements.
 
-1. Rachel Ngo
+2. Rachel Ngo
 
 ** Major Feature : Setting Appointments on Calender
 
@@ -825,7 +827,19 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *** Minor Feature: This feature increases the aesthic sense and helps people set the theme according to their taste.
 
+3. Randy Pang Pang
 
+** Major Feature : Management of student contacts
+*** Student contact can be created and be added into classes
+
+**Minor Feature : Multiple tabs for the list in GUI
+*** The list in GUI will hava tabs for multiple different lists
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature is essential to TeachConnect as it helps teachers to remember which class did they taught a particular student.
+
+*** Minor Feature: This feature allows the teacher to keep multiple list, eg. one for students and one for all contacts. It also allows them to switch between multiple lists without having to type another list command.
 
 
 
