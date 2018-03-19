@@ -808,6 +808,27 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *** Minor Feature: This feature can help teachers email contacts. This might be really helpful when the teacher wants to remind parents with appointments or remind students with the work they need to finish. This also helps the teachers send group messages to class or parents regarding some important announcements.
 
+1. Rachel Ngo
+
+** Major Feature : Setting Appointments on Calender
+
+*** Appointments can be added to the Calender
+*** The colour changes as the appointments come closer.
+
+** Minor Feature : Change UI
+
+*** UI can be changed to dark theme and light theme.
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature can help in reminding teachers about their appointment. Apart from aesthic sense it also helps in keeping track of to do work for teachers and send emails [seperate feature] accordingly.
+
+*** Minor Feature: This feature increases the aesthic sense and helps people set the theme according to their taste.
+
+
+
+
+
 [appendix]
 == User Stories
 
