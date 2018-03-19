@@ -778,15 +778,19 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: teachers or educational professionals who
 
-* has a need to manage a significant number of contacts
+* need to manage a significant number of students and parents contact details
+* need to keep track of appointments with parents, students or other staff
+* need to keep track of tasks and their deadlines
 * prefer desktop apps over other types
 * can type fast
-* prefers typing over mouse input
+* prefer typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: TeachConnect provides a simple and intuitive interface to help teachers manage their contacts, events and tasks.
+
 
 *Feature Contribution*
 
@@ -840,6 +844,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *** Major Feature: Since TeachConnect has a lot of personal details of students and parents, the owner of the address book would want to encrypt the application data file to prevent outside access to sensitive information.
 
 *** Minor Feature: This helps teacher relate and understand the index of the contacts in the TeachConnect better. Indexing becomes easy when they later want to export or set appointments.
+
 
 [appendix]
 == User Stories
