@@ -13,8 +13,8 @@ public class TypicalEvents {
 
     public TypicalEvents() {
         typicalAppointment1 =
-                new EventBuilder("Meet student", "2018/10/09 10:00", "2018/10/09 11:00", ALICE).build();
+                new EventBuilder("Meet student", "09/10/2018 10:00", "09/10/2018 11:00", ALICE).build();
         typicalTask1 =
-                new EventBuilder("To do", "2018/10/10 10:00").build();
+                new EventBuilder("To do", "10/10/2018 10:00").build();
     }
 }

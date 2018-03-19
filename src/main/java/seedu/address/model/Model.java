@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -47,5 +49,21 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
+
+    /** Adds the given event */
+    void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
+
+    /** Deletes the given event. */
+    void deleteEvent(Event event) throws UniqueEventList.EventNotFoundException;
+
+    /**
+     * Replaces the given event {@code target} with {@code editedEvent}.
+     *
+     * @throws UniqueEventList.DuplicateEventException if updating the event causes it to be equivalent to
+     *      another existing person in the list.
+     * @throws UniqueEventList.EventNotFoundException if {@code target} could not be found in the list.
+     */
+    void updateEvent(Event target, Event editedEvent)
+            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException;
 
 }
