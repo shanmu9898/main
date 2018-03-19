@@ -788,6 +788,26 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
+*Feature Contribution*
+
+1. Mukesh Gadupudi
+
+** Major Feature : Sharing of Contacts
+
+*** Contacts can be imported or exported
+*** They can be exported based on the tag or index
+*** Import can be done given the file path of an XML file
+
+** Minor Feature : Email contacts
+
+*** Contacts can be emailed by either by tag or an individual contact.
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature can help teachers share contacts with other teachers. This is especially useful when teachers change classes or pass on the class to other teachers. Updating and losing data is also a common problem and to overcome this a backup can be stored by using this feature.
+
+*** Minor Feature: This feature can help teachers email contacts. This might be really helpful when the teacher wants to remind parents with appointments or remind students with the work they need to finish. This also helps the teachers send group messages to class or parents regarding some important announcements.
+
 [appendix]
 == User Stories
 
