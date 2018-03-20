@@ -356,6 +356,167 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+=== Import Feature
+==== Current Implementation
+The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
+[source,java]
+public ImportCommand(String importPath) {
+        requireNonNull(importPath);
+        this.filePath = importPath;
+        addressBookStorage = new XmlAddressBookStorage(filePath);
+}
+
+
+Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
+[source, java]
+public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+          if (addressBookStorage.readAddressBook(filePath).isPresent()) {
+              this.addressBookImported = new AddressBook(addressBookStorage.readAddressBook().get());
+              ObservableList<Person> people = addressBookImported.getPersonList();
+              for (int i = 0; i < people.size(); i++) {
+                  try {
+                      model.addPerson(people.get(i));
+                  } catch (DuplicatePersonException e) {
+                      throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+                  }
+              }
+          } else {
+              throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+          }
+      } catch (DataConversionException e) {
+          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+      } catch (IOException e) {
+          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+      }
+     return new CommandResult(MESSAGE_SUCCESS);
+}
+
+==== Design Considerations
+===== Aspects : Implementation Import Command
+
+* **Alternative 1 (current choice):** Only import from an `XML` file.
+** Pros: Goes well with the idea of TeachConnect. Easier to implement and also clear distinction of the file that needs to be imported by the user with the help of the .XML extension.
+** Cons: User might want to import from Excel only to realise this isn't possible.
+* **Alternative 2:** Include import from an `Excel` file too.
+** Pros: Might be more intuitive for the user and might come in handy.
+** Cons: Complex implementation ther by giving rise to more bugs and slower response rate.
+
+// tag::export[]
+=== Export mechanism
+
+The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
+
+[source,java]
+----
+ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
+        requireNonNull(range);
+        requireNonNull(tag);
+        requireNonNull(path);
+        requireNonNull(nameOfExportFile);
+
+        this.range = range;
+        this.path = path;
+        thispublic.tag = tag;
+        this.nameOfExportFile = nameOfExportFile;
+
+        teachConnectBook = new AddressBook();
+}
+----
+
+The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported.
+
+Below is an extract of the method `handleRange()`:
+
+[source,java]
+----
+public String[] handleRange() throws IOException {
+        String[] rangeStringArray = this.range.split(",");
+        if (rangeStringArray.length > 2) {
+            throw new IOException();
+        }
+        return rangeStringArray;
+}
+----
+
+Any range with more than 2 values in the String array returned throws an IO Exception. To add the contacts to the export file, contacts are added to the teachConnectBook. There are 4 individual cases and multiple combinations of these:
+
+* All (Without a tag)
+** if the word `all` is present in the user input, we will just export all the contacts from the last shown list.
+* All (With a Tag)
+** if the word `all` is present along with a tag specified in the user input, we will just export all the contacts with that particular tag from the last shown list
+* Specific index (e.g. 1, 2, 3)
+** if the user input contains a specific index, we will add that index (one-based) to the `teachConnectBook`.
+* Range of indexes (e.g. 1,5)
+** if the user input contains a range which is identified by the `,` character, we will add that range of index (one-based) to the `teachConnectBook` including the lower range but excluding the upper bound.
+* Range of indexes (with a tag)
+** if the user input contains a range which is identified by the `,` character along with the tag, we will add that range of index (one-based) to the `teachConnectBook` if that contact contains that particular tag including the lower range but excluding the upper bound.
+
+
+Below is the code snippet to identify the three cases in the user input:
+
+[source,java]
+----
+String[] rangeGiven;
+        try {
+            rangeGiven = handleRange();
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_RANGE_ERROR);
+        }
+        if (rangeGiven[0].equals("all")) {
+            try {
+                exportAllRange(tag);
+            } catch (DuplicatePersonException e) {
+                throw new AssertionError(MESSAGE_FAIL);
+            }
+        } else {
+            if (rangeGiven.length != 1) {
+                for (int i = 0; i < rangeGiven.length; i++) {
+                    int low = Integer.parseInt(rangeGiven[0]);
+                    int high = Integer.parseInt(rangeGiven[1]);
+                    if (low >= high) {
+                        return new CommandResult(MESSAGE_RANGE_ERROR);
+                    } else {
+                        try {
+                            exportRange(low, high, tag);
+                        } catch (DuplicatePersonException e) {
+                            throw new AssertionError(MESSAGE_FAIL);
+                        } catch (IndexOutOfBoundsException e) {
+                            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                        }
+                    }
+                }
+            } else {
+                int low = Integer.parseInt(rangeGiven[0]);
+                try {
+                    exportSpecific(low);
+                } catch (DuplicatePersonException e) {
+                    throw new AssertionError(MESSAGE_FAIL);
+                } catch (IndexOutOfBoundsException e) {
+                    return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                }
+            }
+        }
+
+        ....Storage part comes here
+----
+
+The final step is to create the xml file from the `teachConnectBook`.
+
+Below is the code snippet to export the data into an xml file using `AddressBookStorage`.
+[source,java]
+----
+teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
+        try {
+            teachConnectStorage.saveAddressBook(teachConnectBook);
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_FAIL);
+        }
+        return new CommandResult(MESSAGE_SUCCESS);
+----
+// end::export[]
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
