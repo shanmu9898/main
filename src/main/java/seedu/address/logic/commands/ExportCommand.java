@@ -17,8 +17,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.XmlAddressBookStorage;
 
+//@@author shanmu9898
 /**
- * @@author shanmu9898
+ *
  * Exports people to an XML file of choice based on tag, index or range
  */
 public class ExportCommand extends Command {
@@ -217,7 +218,8 @@ public class ExportCommand extends Command {
 
     }
 
-    /** - reused
+    //@@author shanmu9898 - reused
+    /**
      *
      * @param other [in this case ExportCommand]
      * @return a boolean value

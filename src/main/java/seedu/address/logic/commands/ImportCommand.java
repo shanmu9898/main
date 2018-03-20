@@ -14,7 +14,8 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.XmlAddressBookStorage;
 
-/**@@author shanmu9898
+//@@author shanmu9898
+/**
  * Imports contacts from a different TeachConnect XML file
  */
 public class ImportCommand extends UndoableCommand {

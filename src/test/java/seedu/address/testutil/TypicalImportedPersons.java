@@ -21,7 +21,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
-/**@@author Bumblebee
+//@@author shanmu9898
+/**
  * Special Util class to get people for ImportCommandTest class.
  */
 public class TypicalImportedPersons {

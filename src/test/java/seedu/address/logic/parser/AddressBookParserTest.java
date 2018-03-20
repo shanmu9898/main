@@ -153,6 +153,7 @@ public class AddressBookParserTest {
         parser.parseCommand("unknownCommand");
     }
 
+    //@@author shanmu9898
     @Test
     public void parseCommand_export() throws Exception {
         ExportCommand command = (ExportCommand) parser.parseCommand(
@@ -162,6 +163,7 @@ public class AddressBookParserTest {
                 "name"), command);
     }
 
+    //@@author shanmu9898
     @Test
     public  void parseCommand_import() throws Exception {
         ImportCommand command = (ImportCommand) parser.parseCommand(

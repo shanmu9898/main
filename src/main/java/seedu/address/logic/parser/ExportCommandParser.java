@@ -14,7 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.tag.Tag;
 
-/**@@author shanmu9898
+//@@author shanmu9898
+/**
  * Parses input arguments and creates a new ExportCommand object
  */
 public class ExportCommandParser implements Parser<ExportCommand> {
