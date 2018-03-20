@@ -366,6 +366,7 @@ public ImportCommand(String importPath) {
         addressBookStorage = new XmlAddressBookStorage(filePath);
 }
 
+image::ImportCommandDiagram.png[align="center"]
 
 Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
 [source, java]
@@ -423,6 +424,8 @@ ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
         teachConnectBook = new AddressBook();
 }
 ----
+
+image::ExportCommandDiagram.png[align="center"]
 
 The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported.
 
