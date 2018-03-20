@@ -102,7 +102,7 @@ Examples:
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
-=== Setting up an appointment : `set appointment` `[coming in v1.2]`
+=== Setting up an appointment : `set appointment` `[coming in v1.3]`
 
 Sets an appointment with the specified contact. +
 Format: `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
@@ -120,7 +120,7 @@ Examples:
 * `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3` +
 Sets an appointment on April 5th, 2018, 10am with the 3rd contact in the list.
 
-=== Setting a task : `set task` `[coming in v1.2]`
+=== Setting a task : `set task` `[coming in v1.3]`
 
 Sets a task to be done by a deadline +
 Format: `set task t/TITLE e/END_DATE END_TIME`
@@ -319,7 +319,7 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-=== Importing the contacts : `import`
+=== Importing the contacts : `import` `[since v1.2]`
 
 TeachConnect allows you to import contacts from a different TeachConnect file by specifying the location of the file. +
 
@@ -328,7 +328,7 @@ Format: `import [TYPE] pathname`
 Examples:
 Importing Contacts : `import ./data/importsample.xml`
 
-=== Exporting the contacts : `export`
+=== Exporting the contacts : `export` `[since v1.2]`
 
 TeachConnect allows you to export contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes.
 
@@ -350,9 +350,8 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 === Upcoming features `[coming soon]`
 
-* Clear distinction between students and parents [coming in v1.2]
-* Finding not only by name but by any field [coming in v1.2]
-* Import and Export (Sharing of Address Book) [coming in v1.3]
+* Clear distinction between students and parents [coming in v1.3]
+* Finding not only by name but by any field [coming in v1.3]
 * Adding events and Appointments [coming in v1.3]
 * An All new customised UI [coming in v1.3]
 * Shortcuts and Autocompletion [coming in v1.4]
