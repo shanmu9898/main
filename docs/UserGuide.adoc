@@ -32,7 +32,7 @@ You can download the latest Java version link:https://java.com/en/download/[here
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UI_modified.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -102,7 +102,7 @@ Examples:
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
-=== Setting up an appointment : `set appointment` `[coming in v1.2]`
+=== Setting up an appointment : `set appointment` `[coming in v1.3]`
 
 Sets an appointment with the specified contact. +
 Format: `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
@@ -120,7 +120,7 @@ Examples:
 * `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3` +
 Sets an appointment on April 5th, 2018, 10am with the 3rd contact in the list.
 
-=== Setting a task : `set task` `[coming in v1.2]`
+=== Setting a task : `set task` `[coming in v1.3]`
 
 Sets a task to be done by a deadline +
 Format: `set task t/TITLE e/END_DATE END_TIME`
@@ -176,7 +176,7 @@ Edits the phone number and email address of the 1st contact to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-=== Locating contacts by name: `find` [will be updated by v1.2]
+=== Locating contacts by name: `find` [will be updated by v1.3]
 
 Finds contacts whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
