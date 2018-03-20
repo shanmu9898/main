@@ -13,7 +13,4 @@ public class TypicalEvents {
             new EventBuilder("Meet student", "09/10/2018 10:00", "09/10/2018 11:00", ALICE).build();;
     public static final Event TYPICAL_TASK_1 =
             new EventBuilder("To do", "10/10/2018 10:00").build();
-
-    public TypicalEvents() {
-    }
 }
