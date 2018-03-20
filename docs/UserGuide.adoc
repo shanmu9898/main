@@ -32,7 +32,7 @@ You can download the latest Java version link:https://java.com/en/download/[here
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UI_modified.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -102,7 +102,7 @@ Examples:
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
-=== Setting up an appointment : `set appointment` `[coming in v1.2]`
+=== Setting up an appointment : `set appointment` `[coming in v1.3]`
 
 Sets an appointment with the specified contact. +
 Format: `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
@@ -120,7 +120,7 @@ Examples:
 * `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3` +
 Sets an appointment on April 5th, 2018, 10am with the 3rd contact in the list.
 
-=== Setting a task : `set task` `[coming in v1.2]`
+=== Setting a task : `set task` `[coming in v1.3]`
 
 Sets a task to be done by a deadline +
 Format: `set task t/TITLE e/END_DATE END_TIME`
@@ -176,7 +176,7 @@ Edits the phone number and email address of the 1st contact to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-=== Locating contacts by name: `find` [will be updated by v1.2]
+=== Locating contacts by name: `find` [will be updated by v1.3]
 
 Finds contacts whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -319,11 +319,39 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
+=== Importing the contacts : `import` `[since v1.2]`
+
+TeachConnect allows you to import contacts from a different TeachConnect file by specifying the location of the file. +
+
+Format: `import [TYPE] pathname`
+
+Examples:
+Importing Contacts : `import ./data/importsample.xml`
+
+=== Exporting the contacts : `export` `[since v1.2]`
+
+TeachConnect allows you to export contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes.
+
+Format: `export [TYPE] n/NAME r/RANGE t/TAG p/PATH`
+
+Format: `export [TYPE] n/NAME r/RANGE p/PATH`
+
+[TIP]
+You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command.
+
+[WARNING]
+You can only export all a people based on one or zero tags.
+
+Examples:
+
+Exporting contacts : `export n/StudentsFile1 r/all t/students p/./data`
+Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
+
+
 === Upcoming features `[coming soon]`
 
-* Clear distinction between students and parents [coming in v1.2]
-* Finding not only by name but by any field [coming in v1.2]
-* Import and Export (Sharing of Address Book) [coming in v1.3]
+* Clear distinction between students and parents [coming in v1.3]
+* Finding not only by name but by any field [coming in v1.3]
 * Adding events and Appointments [coming in v1.3]
 * An All new customised UI [coming in v1.3]
 * Shortcuts and Autocompletion [coming in v1.4]
@@ -363,6 +391,10 @@ e.g. `set task t/Mark papers d/05-04-2018 10:00`
 * *List Schedule* : `list schedule`
 * *Delete Schedule* : `delete schedule INDEX` +
 e.g. `delete schedule 3`
+* *Import TeachConnect File* : `import` +
+e.g. `import ./data/samplefile.xml`
+* *Export* : `export n/NAME r/RANGE t/TAG p/PATH` +
+e.g. `export n/samplefile.xml r/all t/friends p/.data`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
