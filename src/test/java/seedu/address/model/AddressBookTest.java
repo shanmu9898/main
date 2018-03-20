@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NOTUSED;
+import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_1;
+import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_1;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -28,7 +30,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TypicalEvents;
 
 public class AddressBookTest {
     @Rule
@@ -59,12 +60,10 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsAssertionError() {
-        TypicalEvents typicalEvents = new TypicalEvents();
-
         // Repeat ALICE twice
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        List<Event> newEvents = Arrays.asList(typicalEvents.typicalAppointment1, typicalEvents.typicalTask1);
+        List<Event> newEvents = Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_TASK_1);
         AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents);
 
         thrown.expect(AssertionError.class);
