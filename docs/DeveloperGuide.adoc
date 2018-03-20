@@ -519,6 +519,26 @@ teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + 
 ----
 // end::export[]
 
+// tag::studentmanagement[]
+=== [Incomplete] Student Management
+==== Current Implementation
+
+The student manangement allows the user of TeachConnect to manage a particular type of contact, a student. The user is capable of interacting with the student contact just like with any other contact, for example: adding, editing, deleting and so on. In addition, users will be able to form classes to group students of the same class together. An overview of the Model Class after implementation is shown below:
+
+image::EditedModelClassDiagram.png[align="center"]
+
+As shown above, `student` extends from `person`, giving `student` access to its constructor and getter methods for `name`, `phone`, `email`, `address` whereas only `student` will have access to `class`.
+
+==== Design Considerations
+===== Aspects : Implementation of student
+
+* **Alternative 1 (current choice):** student extends person
+** Pros: Allow students access to person methods while restricting person from accessing student methods.
+** Cons: A seperate UniqueStudentList is required to store the student contacts.
+* **Alternative 2:** only use a tag to show its a student
+** Pros: Simpler to implement and tags are visible to user
+** Cons: Requires every operation to check the tags. Tags can be removed.
+// end::studentmanagement[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
