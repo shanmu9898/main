@@ -366,7 +366,7 @@ public ImportCommand(String importPath) {
         addressBookStorage = new XmlAddressBookStorage(filePath);
 }
 
-image::ImportCommandDiagram.png[align="center"]
+image::ImportCommandFlowChart.png[align="center"]
 
 Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
 [source, java]
