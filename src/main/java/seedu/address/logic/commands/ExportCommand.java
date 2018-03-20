@@ -78,12 +78,48 @@ public class ExportCommand extends Command {
         } catch (IOException e) {
             return new CommandResult(MESSAGE_RANGE_ERROR);
         }
+        CommandResult handledRangeSituation = null;
+        try {
+            handledRangeSituation = handleRangeArray(rangeGiven);
+        } catch (DuplicatePersonException e) {
+            return new CommandResult(MESSAGE_FAIL);
+        } catch (IndexOutOfBoundsException e) {
+            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+        }
+        if (handledRangeSituation != null) {
+            return handledRangeSituation;
+        }
+
+        if (!tryStorage()) {
+            return new CommandResult(MESSAGE_FAIL);
+        }
+        return new CommandResult(MESSAGE_SUCCESS);
+
+    }
+
+    /**
+     * This method tries creating and storing the export file.
+     * @return
+     */
+    private boolean tryStorage() {
+        teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
+        try {
+            teachConnectStorage.saveAddressBook(teachConnectBook);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Handles the range array returned by the handleRange() function
+     * @param rangeGiven
+     * @return
+     */
+    private CommandResult handleRangeArray(String[] rangeGiven) throws DuplicatePersonException,
+                                                                       IndexOutOfBoundsException {
         if (rangeGiven[0].equals("all")) {
-            try {
-                exportAllRange(tag);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError(MESSAGE_FAIL);
-            }
+            exportAllRange(tag);
         } else {
             if (rangeGiven.length != 1) {
                 for (int i = 0; i < rangeGiven.length; i++) {
@@ -92,37 +128,17 @@ public class ExportCommand extends Command {
                     if (low >= high) {
                         return new CommandResult(MESSAGE_RANGE_ERROR);
                     } else {
-                        try {
-                            exportRange(low, high, tag);
-                        } catch (DuplicatePersonException e) {
-                            throw new AssertionError(MESSAGE_FAIL);
-                        } catch (IndexOutOfBoundsException e) {
-                            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
-                        }
+                        exportRange(low, high, tag);
                     }
                 }
             } else {
                 int low = Integer.parseInt(rangeGiven[0]);
-                try {
-                    exportSpecific(low);
-                } catch (DuplicatePersonException e) {
-                    throw new AssertionError(MESSAGE_FAIL);
-                } catch (IndexOutOfBoundsException e) {
-                    return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
-                }
+                exportSpecific(low);
             }
 
 
         }
-
-        teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
-        try {
-            teachConnectStorage.saveAddressBook(teachConnectBook);
-        } catch (IOException e) {
-            return new CommandResult(MESSAGE_FAIL);
-        }
-        return new CommandResult(MESSAGE_SUCCESS);
-
+        return null;
     }
 
     /**
@@ -190,7 +206,7 @@ public class ExportCommand extends Command {
     /**
      * Helper method to identify the lower and higher end of the range given
      *
-     * @return
+     * @return rangeStringArray
      */
     public String[] handleRange() throws IOException {
         String[] rangeStringArray = this.range.split(",");
@@ -201,10 +217,10 @@ public class ExportCommand extends Command {
 
     }
 
-    /**@@author shanmu9898 - reused
+    /** - reused
      *
-     * @param other
-     * @return
+     * @param other [in this case ExportCommand]
+     * @return a boolean value
      */
     @Override
     public boolean equals(Object other) {
