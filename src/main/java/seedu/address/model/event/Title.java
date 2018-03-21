@@ -19,7 +19,7 @@ public class Title {
     public final String value;
 
     /**
-     * Constructs a {@code Titlte}.
+     * Constructs a {@code Title}.
      *
      * @param title A valid title.
      */
@@ -52,5 +52,4 @@ public class Title {
     public int hashCode() {
         return value.hashCode();
     }
-
 }

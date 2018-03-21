@@ -3,8 +3,6 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.person.Person;
-
 //@@author Sisyphus25
 /**
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
@@ -15,7 +13,7 @@ public class Appointment implements Event {
     private Title title;
     private EventTime time;
     private EventTime endTime;
-    private Person personToMeet;
+    private PersonToMeet personToMeet;
 
     //Every field must be present and not null
     public Appointment(Title title, EventTime startTime, EventTime endTime) {
@@ -23,7 +21,7 @@ public class Appointment implements Event {
     }
 
     //Every field except personToMeet must be present and not null
-    public Appointment(Title title, EventTime startTime, EventTime endTime, Person personToMeet) {
+    public Appointment(Title title, EventTime startTime, EventTime endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
         checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
@@ -44,7 +42,7 @@ public class Appointment implements Event {
         return endTime;
     }
 
-    public Person getPersonToMeet() {
+    public PersonToMeet getPersonToMeet() {
         return personToMeet;
     }
 
