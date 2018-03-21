@@ -5,6 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.testutil.ExportCommandBuilder.NAME_NEEDED;
+import static seedu.address.testutil.ExportCommandBuilder.PATH_NEEDED;
+import static seedu.address.testutil.ExportCommandBuilder.RANGE_ALL;
+import static seedu.address.testutil.ExportCommandBuilder.TAG_NEEDED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -21,9 +29,11 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -31,6 +41,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -141,4 +152,26 @@ public class AddressBookParserTest {
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
     }
+
+    //@@author shanmu9898
+    @Test
+    public void parseCommand_export() throws Exception {
+        ExportCommand command = (ExportCommand) parser.parseCommand(
+                ExportCommand.COMMAND_WORD + " " + PREFIX_NAME + NAME_NEEDED + " " + PREFIX_RANGE + RANGE_ALL
+                        + " " + PREFIX_TAG_EXPORT + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED);
+        assertEquals (new ExportCommand ("all", new Tag ("friends"), "./data",
+                "name"), command);
+    }
+
+    //@@author shanmu9898
+    @Test
+    public  void parseCommand_import() throws Exception {
+        ImportCommand command = (ImportCommand) parser.parseCommand(
+                ImportCommand.COMMAND_WORD + " "
+                        + "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml");
+        assertEquals(new ImportCommand("src/test/data/XmlAddressBookStorageTest/importsamplefile.xml"),
+                command);
+    }
+
+
 }
