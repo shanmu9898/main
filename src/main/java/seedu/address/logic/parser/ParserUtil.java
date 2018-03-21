@@ -10,6 +10,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -137,6 +139,50 @@ public class ParserUtil {
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
         return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
+    }
+
+    //@@author Sisyphus25
+    /**
+     * Parses a {@code Optional<String> title} into an {@code Optional<Title>} if {@code title} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Title> parseTitle(Optional<String> title) throws IllegalValueException {
+        requireNonNull(title);
+        return title.isPresent() ? Optional.of(parseTitle(title.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws IllegalValueException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new IllegalValueException(Title.MESSAGE_TITLE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code Optional<String> eventTime} into an {@code Optional<EventTime>} if {@code eventTime} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<EventTime> parseEventTime(Optional<String> eventTime) throws IllegalValueException {
+        requireNonNull(eventTime);
+        return eventTime.isPresent() ? Optional.of(parseEventTime(eventTime.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses a {@code String eventTime} into a {@code EventTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static EventTime parseEventTime(String eventTime) {
+        requireNonNull(eventTime);
+        String trimmedEventTime = eventTime.trim();
+        return new EventTime(trimmedEventTime);
     }
 
     /**
