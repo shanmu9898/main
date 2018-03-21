@@ -356,7 +356,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
-=== Import Feature
+=== Import Contacts
 ==== Current Implementation
 The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
 [source,java]
@@ -404,7 +404,7 @@ public CommandResult executeUndoableCommand() throws CommandException {
 ** Cons: Complex implementation ther by giving rise to more bugs and slower response rate.
 
 // tag::export[]
-=== Export mechanism
+=== Export contacts
 
 The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
 
@@ -540,7 +540,57 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 ** Cons: Requires every operation to check the tags. Tags can be removed.
 // end::studentmanagement[]
 
+// tag::eventmanagement[]
+
+=== Event Management
+==== Current Implementation
+There are two types of events: an `Appointment` or a `Task`.
+The model for event are shown below:
+
+image::EventModelClassDiagram.png[align="center"]
+
+`Appointment` consist of 4 variables:
+
+* Title: Hold description for the appointment
+* Start Time: Hold the starting time of the appointment
+* End time: Hold the end time of the appointment
+* Person to meet: (optional) Hold the target  in the appointment
+
+`Task` consist of 2 variables:
+
+* Title: Hold description for the task
+* Time: Hold the time the task is expected to be finished
+
+*Commands supported for each event*
+
+* Set
+* Remove
+* Edit
+
+Similar to `UniquePersonList` and `UniqueTagList`, `UniqueEventList` is linked
+to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
+
+==== Design Considerations
+===== Aspects : Implementation of set event
+* **Alternative 1 (current choice):** user can still set appointment/task with the starting time/deadline already elapsed.
+** Pros: Might be useful if the users want to keep track of past events.
+** Cons: Not the most intuitive implementation and might be prone to error from the user side.
+* **Alternative 2:** user can only set  appointment/task with the starting time/deadline in the future
+** Pros: Is the more intuitive approach and can prevent the user from keying in "redundant" events
+** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulties may arise when he/she wants to add new event.
+
+// end::eventmanagement[]
+
+// tag::changingguitheme[]
+
+=== [Proposed] Changing GUI theme
+
+// end::changingguitheme[]
+
+_{to be finished later}_
+
 // tag::dataencryption[]
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -563,6 +613,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
