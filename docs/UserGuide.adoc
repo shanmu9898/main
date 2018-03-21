@@ -139,7 +139,7 @@ Sets a task which needs to be completed before April 5th, 2018, 10am.
 === Changing GUI theme : `theme` `[coming in v1.4]`
 
 Changes the theme of the GUI  +
-Format: ``theme THEME_NAME``
+Format: `theme THEME_NAME`
 
 ****
 * This changes the theme of the GUI to `THEME_NAME`.
@@ -151,7 +151,7 @@ Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
 
 ****
-* `TYPE` can be of the following: `contacts`, `students`, `guardians`, `tasks`, `appointments`, `themes`.
+* `TYPE` can be of the following: `contacts`, `students`, `guardians`, `tasks`, `appointments`.
 * `TYPE` cannot be empty.
 ****
 
