@@ -80,7 +80,7 @@ public class XmlAdaptedAppointment {
         }
 
         final EventTime startTime = new EventTime(this.startTime);
-        final EventTime endTime = new EventTime(this.startTime);
+        final EventTime endTime = new EventTime(this.endTime);
 
         if (!Appointment.isValidTime(startTime, endTime)) {
             throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
