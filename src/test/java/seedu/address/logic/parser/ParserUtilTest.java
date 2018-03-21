@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -78,11 +80,58 @@ public class ParserUtilTest {
         Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseName(Optional.of(INVALID_NAME)));
     }
 
+
     @Test
     public void parseName_optionalEmpty_returnsOptionalEmpty() throws Exception {
         assertFalse(ParserUtil.parseName(Optional.empty()).isPresent());
     }
 
+    //@@author Sisyphus25
+    @Test
+    public void parseTitle_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle((Optional<String>) null));
+    }
+
+    @Test
+    public void parseTitle_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseTitle(" "));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseTitle(Optional.of("  ")));
+    }
+
+    @Test
+    public void parseTitle_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseTitle(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseTitle_validValue_returnsTitle() throws Exception {
+        String validTitle = "Hanging out";
+        Title expectedTitle = new Title(validTitle);
+        assertEquals(expectedTitle, ParserUtil.parseTitle(validTitle));
+        assertEquals(Optional.of(expectedTitle), ParserUtil.parseTitle(Optional.of(validTitle)));
+    }
+
+    @Test
+    public void parseEventTime_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((Optional<String>) null));
+    }
+
+    @Test
+    public void parseEventTime_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseEventTime(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseEventTime_validValue_returnsEventTime() throws Exception {
+        String validTime = "20/10/2018 10:00";
+        EventTime expectedEventTime = new EventTime(validTime);
+        assertEquals(expectedEventTime, ParserUtil.parseEventTime(validTime));
+        assertEquals(Optional.of(expectedEventTime), ParserUtil.parseEventTime(Optional.of(validTime)));
+    }
+
+    //@@author
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
         Name expectedName = new Name(VALID_NAME);

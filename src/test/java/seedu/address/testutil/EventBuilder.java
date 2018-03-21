@@ -18,6 +18,10 @@ public class EventBuilder {
     private Person personToMeet;
     private String eventType;
 
+    public EventBuilder(String title, String time, String endTime) {
+        this(title, time, endTime, null);
+    }
+
     public EventBuilder(String title, String time, String endTime, Person personToMeet) {
         this.title = new Title(title);
         this.time = new EventTime(time);

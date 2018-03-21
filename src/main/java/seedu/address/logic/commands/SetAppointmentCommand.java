@@ -15,7 +15,7 @@ import seedu.address.model.event.UniqueEventList;
  */
 public class SetAppointmentCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "set appointment";
+    public static final String COMMAND_WORD = "set_appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to the address book. "
             + "Parameters: "

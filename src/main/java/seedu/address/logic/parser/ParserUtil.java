@@ -170,7 +170,7 @@ public class ParserUtil {
      * Parses a {@code Optional<String> eventTime} into an {@code Optional<EventTime>} if {@code eventTime} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<EventTime> parseEventTime(Optional<String> eventTime) throws IllegalValueException {
+    public static Optional<EventTime> parseEventTime(Optional<String> eventTime) throws IllegalArgumentException {
         requireNonNull(eventTime);
         return eventTime.isPresent() ? Optional.of(parseEventTime(eventTime.get())) : Optional.empty();
     }
@@ -179,7 +179,7 @@ public class ParserUtil {
      * Parses a {@code String eventTime} into a {@code EventTime}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static EventTime parseEventTime(String eventTime) {
+    public static EventTime parseEventTime(String eventTime) throws IllegalArgumentException {
         requireNonNull(eventTime);
         String trimmedEventTime = eventTime.trim();
         return new EventTime(trimmedEventTime);

@@ -61,8 +61,7 @@ public class Appointment implements Event {
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getTitle().equals(this.getTitle())
                 && otherAppointment.getTime().equals(this.getTime())
-                && otherAppointment.getEndTime().equals(this.getEndTime())
-                && otherAppointment.getPersonToMeet().equals(this.getPersonToMeet());
+                && otherAppointment.getEndTime().equals(this.getEndTime());
     }
 
     /**
