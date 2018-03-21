@@ -136,7 +136,16 @@ Examples:
 * `set task t/Mark papers e/05-04-2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
-=== Listing all contacts/tasks/appointments/students : `list`
+=== Changing GUI theme : `theme` `[coming in v1.4]`
+
+Changes the theme of the GUI  +
+Format: `theme THEME_NAME`
+
+****
+* This changes the theme of the GUI to `THEME_NAME`.
+****
+
+=== Listing all contacts/tasks/appointments/students/themes : `list`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
@@ -352,8 +361,6 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 * Clear distinction between students and parents [coming in v1.3]
 * Finding not only by name but by any field [coming in v1.3]
-* Adding events and Appointments [coming in v1.3]
-* An All new customised UI [coming in v1.3]
 * Shortcuts and Autocompletion [coming in v1.4]
 * A login feature [coming in v1.5]
 * Dynamic search [coming in v2.0]
@@ -380,17 +387,19 @@ e.g. `delete 3`
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *List* : `list TYPE` +
+e.g. `list students`, `list tasks`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Add Appointment* `set appointment t/TITLE s/START_TIME e/END_TIME i/INDEX` +
+* *Add Appointment* `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX` +
 e.g. `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
-* *Add Task* `set task t/TITLE d/DEADLINE` +
+* *Add Task* `set task t/TITLE e/END_DATE END_TIME` +
 e.g. `set task t/Mark papers d/05-04-2018 10:00`
-* *List Schedule* : `list schedule`
 * *Delete Schedule* : `delete schedule INDEX` +
 e.g. `delete schedule 3`
+* *Change GUI theme* : `theme THEME_NAME` +
+e.g. `theme DARK`
 * *Import TeachConnect File* : `import` +
 e.g. `import ./data/samplefile.xml`
 * *Export* : `export n/NAME r/RANGE t/TAG p/PATH` +
