@@ -540,7 +540,7 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 ** Cons: Requires every operation to check the tags. Tags can be removed.
 // end::studentmanagement[]
 
-// tag::dataencryption[]
+// tag::eventmanagement[]
 
 === Event Management
 ==== Current Implementation
@@ -556,7 +556,7 @@ image::EventModelClassDiagram.png[align="center"]
 * End time: Hold the end time of the appointment
 * Person to meet: (optional) Hold the target  in the appointment
 
-`Task` consist of 4 variables:
+`Task` consist of 2 variables:
 
 * Title: Hold description for the task
 * Time: Hold the time the task is expected to be finished
@@ -575,13 +575,21 @@ to `AddressBook`. Request to change to the `AddressBook` model is signalled thro
 * **Alternative 1 (current choice):** user can still set appointment/task with the starting time/deadline already elapsed.
 ** Pros: Might be useful if the users want to keep track of past events.
 ** Cons: Not the most intuitive implementation and might be prone to error from the user side.
-* **Alternative 2:** user can only set an appointment/task with the starting time/deadline in the future
+* **Alternative 2:** user can only set  appointment/task with the starting time/deadline in the future
 ** Pros: Is the more intuitive approach and can prevent the user from keying in "redundant" events
-** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulty may arise when he/she wants to add new event.
+** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulties may arise when he/she wants to add new event.
+
+// end::eventmanagement[]
+
+// tag::changingguitheme[]
 
 === [Proposed] Changing GUI theme
 
+// end::changingguitheme[]
+
 _{to be finished later}_
+
+// tag::dataencryption[]
 
 === [Proposed] Data Encryption
 
