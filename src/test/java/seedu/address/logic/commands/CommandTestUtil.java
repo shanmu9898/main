@@ -72,7 +72,8 @@ public class CommandTestUtil {
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "  "; // spaces only
     public static final String INVALID_START_TIME_DESC = " " + PREFIX_START_TIME + "911afddf"; // not a time stamp
-    public static final String INVALID_END_TIME_DESC = " " + PREFIX_END_TIME + "May 20, 2018 10am"; // not in correct format
+    public static final String INVALID_END_TIME_DESC =
+            " " + PREFIX_END_TIME + "May 20, 2018 10am"; // not in correct format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.END_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
@@ -37,12 +43,18 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetAppointmentCommand;
+import seedu.address.logic.commands.SetTaskCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.Task;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -173,5 +185,22 @@ public class AddressBookParserTest {
                 command);
     }
 
+    //@@author Sisyphus25
+    @Test
+    public void parseCommand_setAppointment() throws Exception {
+        SetAppointmentCommand command =
+                (SetAppointmentCommand) parser.parseCommand(SetAppointmentCommand.COMMAND_WORD
+                + TITLE_DESC + START_TIME_DESC + END_TIME_DESC);
+        Event appointment = new EventBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
+        assertEquals(new SetAppointmentCommand((Appointment) appointment), command);
+    }
 
+    @Test
+    public void parseCommand_setTask() throws Exception {
+        SetTaskCommand command =
+                (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
+        Event appointment = new EventBuilder(VALID_TITLE, VALID_END_TIME).build();
+        assertEquals(new SetTaskCommand((Task) appointment), command);
+    }
+    //@@author
 }

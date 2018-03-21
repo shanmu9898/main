@@ -22,7 +22,7 @@ public class EventBuilder {
     private String eventType;
 
     public EventBuilder(String title, String time, String endTime) {
-        this(title, time, endTime, new String());
+        this(title, time, endTime, (String) null);
     }
 
     public EventBuilder(String title, String time, String endTime, Person personToMeet) {
