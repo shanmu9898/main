@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asObservableList() {
+        sort();
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
@@ -116,5 +118,18 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    //@@author shanmu9898
+    /**
+     * Sorts the unique person list.
+     */
+    public void sort() {
+        internalList.sort(new Comparator<Person>() {
+            @Override
+            public int compare(Person otherMember1, Person otherMember2) {
+                return otherMember1.getName().toString().compareTo(otherMember2.getName().toString());
+            }
+        });
     }
 }
