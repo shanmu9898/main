@@ -34,6 +34,14 @@ public class PersonToMeet {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public String toString() {
         return name + EMAIL_SPLITTER + email;

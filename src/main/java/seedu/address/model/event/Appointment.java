@@ -62,6 +62,21 @@ public class Appointment implements Event {
                 && otherAppointment.getEndTime().equals(this.getEndTime());
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTitle())
+                .append(", Start Time: ")
+                .append(getTime().toString())
+                .append(", End Time: ")
+                .append(getEndTime().toString());
+        if (personToMeet != null) {
+            builder.append(", To meet: ")
+                    .append(personToMeet.getName());
+        }
+        return builder.toString();
+    }
+
     /**
      * Returns true if the given time is valid
      */
