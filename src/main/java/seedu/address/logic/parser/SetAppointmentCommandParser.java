@@ -50,7 +50,7 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
             Appointment appointment = new Appointment(title, startTime, endTime);
 
             return new SetAppointmentCommand(appointment, index);
-        } catch (IllegalValueException | IllegalArgumentException ive ) {
+        } catch (IllegalValueException | IllegalArgumentException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
     }
