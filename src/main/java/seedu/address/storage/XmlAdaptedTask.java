@@ -9,6 +9,7 @@ import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.Title;
 
+//@@author Sisyphus25
 /**
  * JAXB-friendly version of the Person.
  */

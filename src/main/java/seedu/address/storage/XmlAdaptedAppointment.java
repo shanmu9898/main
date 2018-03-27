@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.event.PersonToMeet.EMAIL_SPLITTER;
+
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -7,9 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.EventTime;
+import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.Title;
-import seedu.address.model.person.Person;
 
+//@@author Sisyphus25
 /**
  * JAXB-friendly version of the Person.
  */
@@ -23,8 +26,8 @@ public class XmlAdaptedAppointment {
     private String startTime;
     @XmlElement(required = true)
     private String endTime;
-    @XmlElement
-    private XmlAdaptedPerson personToMeet = new XmlAdaptedPerson();
+    @XmlElement(required = true)
+    private String personToMeet;
 
     /**
      * Constructs an XmlAdaptedAppointment.
@@ -32,10 +35,14 @@ public class XmlAdaptedAppointment {
      */
     public XmlAdaptedAppointment() {}
 
+    public XmlAdaptedAppointment(String title, String startTime, String endTime) {
+        this(title, startTime, endTime, null);
+    }
+
     /**
      * Constructs an {@code XmlAdaptedAppointment} with the given appointment details.
      */
-    public XmlAdaptedAppointment(String title, String startTime, String endTime, XmlAdaptedPerson personToMeet) {
+    public XmlAdaptedAppointment(String title, String startTime, String endTime, String personToMeet) {
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -54,7 +61,7 @@ public class XmlAdaptedAppointment {
         startTime = source.getTime().toString();
         endTime = source.getEndTime().toString();
         if (source.getPersonToMeet() != null) {
-            personToMeet = new XmlAdaptedPerson(source.getPersonToMeet());
+            personToMeet = source.getPersonToMeet().toString();
         }
     }
 
@@ -80,18 +87,19 @@ public class XmlAdaptedAppointment {
         }
 
         final EventTime startTime = new EventTime(this.startTime);
-        final EventTime endTime = new EventTime(this.startTime);
+        final EventTime endTime = new EventTime(this.endTime);
 
         if (!Appointment.isValidTime(startTime, endTime)) {
             throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
-        Person person = null;
         if (this.personToMeet != null) {
-            person = this.personToMeet.toModelType();
+            String[] components = this.personToMeet.split(EMAIL_SPLITTER);
+            PersonToMeet personToMeet = new PersonToMeet(components[0], components[1]);
+            return new Appointment(title, startTime, endTime, personToMeet);
         }
 
-        return new Appointment(title, startTime, endTime, person);
+        return new Appointment(title, startTime, endTime);
     }
 
     @Override

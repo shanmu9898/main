@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- @@author shanmu9898 -->
+<addressbook>
+    <persons>
+        <name>Funny Yeoh</name>
+        <phone>874388071</phone>
+        <email>funnyeoh@example.com</email>
+        <address>Blk 30 Geylang Street 29, #06-40</address>
+        <tagged>
+            <tagName>friends</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Yu</name>
+        <phone>992727581</phone>
+        <email>funnyyu@example.com</email>
+        <address>Blk 30 Lorong 3 Serangoon Gardens, #07-18</address>
+        <tagged>
+            <tagName>colleagues</tagName>
+            <tagColorStyle>yellow</tagColorStyle>
+        </tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Oliveiro</name>
+        <phone>93210283</phone>
+        <email>funny@example.com</email>
+        <address>Blk 11 Ang Mo Kio Street 74, #11-04</address>
+        <tagged>
+            <tagName>neighbours</tagName>
+            <tagColorStyle>yellow</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Li</name>
+        <phone>91031282</phone>
+        <email>lidavid@example.com</email>
+        <address>Blk 436 Serangoon Gardens Street 26, #16-43</address>
+        <tagged>
+            <tagName>family</tagName>
+            <tagColorStyle>orange</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Ibrahim</name>
+        <phone>92492021</phone>
+        <email>funnyirfan@example.com</email>
+        <address>Blk 47 Tampines Street 20, #17-35</address>
+        <tagged>
+            <tagName>classmates</tagName>
+            <tagColorStyle>teal</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Balakrishnan</name>
+        <phone>92624417</phone>
+        <email>funnyb@example.com</email>
+        <address>Blk 45 Aljunied Street 85, #11-31</address>
+        <tagged>
+            <tagName>colleagues</tagName>
+            <tagColorStyle>yellow</tagColorStyle>
+        </tagged>
+    </persons>
+    <persons>
+        <name>Funny Doe</name>
+        <phone>98765432</phone>
+        <email>funnyd@example.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+        <tagged>
+            <tagName>owesMoney</tagName>
+            <tagColorStyle>teal</tagColorStyle>
+        </tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+    </persons>
+    <tags>
+        <tagName>colleagues</tagName>
+        <tagColorStyle>yellow</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>classmates</tagName>
+        <tagColorStyle>teal</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>neighbours</tagName>
+        <tagColorStyle>yellow</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>family</tagName>
+        <tagColorStyle>orange</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+        <tagColorStyle>brown</tagColorStyle>
+    </tags>
+    <tags>
+        <tagName>owesMoney</tagName>
+        <tagColorStyle>teal</tagColorStyle>
+    </tags>
+</addressbook>

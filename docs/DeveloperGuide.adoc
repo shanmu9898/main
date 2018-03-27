@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TeachConnect - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -14,7 +14,7 @@ endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W14-B1/main/tree/master
 
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -67,10 +67,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
 
 ==== Setting up CI
 
@@ -142,7 +138,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the TeachConnect data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -206,7 +202,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores TeachConnect data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -221,7 +217,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save TeachConnect data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -236,13 +232,13 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
+The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of TeachConnect (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
 `UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
 
 image::LogicCommandClassDiagram.png[width="800"]
 
-As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of the address book before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
+As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of TeachConnect before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
 
 Commands that are not undoable are implemented this way:
 [source,java]
@@ -277,7 +273,7 @@ public class DeleteCommand extends UndoableCommand {
 
 Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
 
-The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in the address book. The current state of the address book is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
+The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in TeachConnect. The current state of TeachConnect is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
 
 image::UndoRedoStartingStackDiagram.png[width="800"]
 
@@ -290,7 +286,7 @@ If a command fails its execution, it will not be pushed to the `UndoRedoStack` a
 
 The user now decides that adding the person was a mistake, and decides to undo that action using `undo`.
 
-We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore the address book to the state before the `add` command executed.
+We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore TeachConnect to the state before the `add` command executed.
 
 image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
 
@@ -301,7 +297,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
+The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores TeachConnect to the state after the command is executed).
 
 [NOTE]
 If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
@@ -341,7 +337,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Type of commands that can be undone/redone
 
-* **Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`).
+* **Alternative 1 (current choice):** Only include commands that modifies TeachConnect (`add`, `clear`, `edit`).
 ** Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).
 ** Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing `undo`.
 * **Alternative 2:** Include all commands.
@@ -360,7 +356,241 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+=== Import Contacts
+==== Current Implementation
+The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
+[source,java]
+public ImportCommand(String importPath) {
+        requireNonNull(importPath);
+        this.filePath = importPath;
+        addressBookStorage = new XmlAddressBookStorage(filePath);
+}
+
+image::ImportCommandFlowChart.png[align="center"]
+
+Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
+[source, java]
+public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+          if (addressBookStorage.readAddressBook(filePath).isPresent()) {
+              this.addressBookImported = new AddressBook(addressBookStorage.readAddressBook().get());
+              ObservableList<Person> people = addressBookImported.getPersonList();
+              for (int i = 0; i < people.size(); i++) {
+                  try {
+                      model.addPerson(people.get(i));
+                  } catch (DuplicatePersonException e) {
+                      throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+                  }
+              }
+          } else {
+              throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+          }
+      } catch (DataConversionException e) {
+          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+      } catch (IOException e) {
+          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
+      }
+     return new CommandResult(MESSAGE_SUCCESS);
+}
+
+==== Design Considerations
+===== Aspects : Implementation Import Command
+
+* **Alternative 1 (current choice):** Only import from an `XML` file.
+** Pros: Goes well with the idea of TeachConnect. Easier to implement and also clear distinction of the file that needs to be imported by the user with the help of the .XML extension.
+** Cons: User might want to import from Excel only to realise this isn't possible.
+* **Alternative 2:** Include import from an `Excel` file too.
+** Pros: Might be more intuitive for the user and might come in handy.
+** Cons: Complex implementation ther by giving rise to more bugs and slower response rate.
+
+// tag::export[]
+=== Export contacts
+
+The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
+
+[source,java]
+----
+ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
+        requireNonNull(range);
+        requireNonNull(tag);
+        requireNonNull(path);
+        requireNonNull(nameOfExportFile);
+
+        this.range = range;
+        this.path = path;
+        thispublic.tag = tag;
+        this.nameOfExportFile = nameOfExportFile;
+
+        teachConnectBook = new AddressBook();
+}
+----
+
+image::ExportCommandDiagram.png[align="center"]
+
+The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported.
+
+Below is an extract of the method `handleRange()`:
+
+[source,java]
+----
+public String[] handleRange() throws IOException {
+        String[] rangeStringArray = this.range.split(",");
+        if (rangeStringArray.length > 2) {
+            throw new IOException();
+        }
+        return rangeStringArray;
+}
+----
+
+Any range with more than 2 values in the String array returned throws an IO Exception. To add the contacts to the export file, contacts are added to the teachConnectBook. There are 4 individual cases and multiple combinations of these:
+
+* All (Without a tag)
+** if the word `all` is present in the user input, we will just export all the contacts from the last shown list.
+* All (With a Tag)
+** if the word `all` is present along with a tag specified in the user input, we will just export all the contacts with that particular tag from the last shown list
+* Specific index (e.g. 1, 2, 3)
+** if the user input contains a specific index, we will add that index (one-based) to the `teachConnectBook`.
+* Range of indexes (e.g. 1,5)
+** if the user input contains a range which is identified by the `,` character, we will add that range of index (one-based) to the `teachConnectBook` including the lower range but excluding the upper bound.
+* Range of indexes (with a tag)
+** if the user input contains a range which is identified by the `,` character along with the tag, we will add that range of index (one-based) to the `teachConnectBook` if that contact contains that particular tag including the lower range but excluding the upper bound.
+
+
+Below is the code snippet to identify the three cases in the user input:
+
+[source,java]
+----
+String[] rangeGiven;
+        try {
+            rangeGiven = handleRange();
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_RANGE_ERROR);
+        }
+        if (rangeGiven[0].equals("all")) {
+            try {
+                exportAllRange(tag);
+            } catch (DuplicatePersonException e) {
+                throw new AssertionError(MESSAGE_FAIL);
+            }
+        } else {
+            if (rangeGiven.length != 1) {
+                for (int i = 0; i < rangeGiven.length; i++) {
+                    int low = Integer.parseInt(rangeGiven[0]);
+                    int high = Integer.parseInt(rangeGiven[1]);
+                    if (low >= high) {
+                        return new CommandResult(MESSAGE_RANGE_ERROR);
+                    } else {
+                        try {
+                            exportRange(low, high, tag);
+                        } catch (DuplicatePersonException e) {
+                            throw new AssertionError(MESSAGE_FAIL);
+                        } catch (IndexOutOfBoundsException e) {
+                            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                        }
+                    }
+                }
+            } else {
+                int low = Integer.parseInt(rangeGiven[0]);
+                try {
+                    exportSpecific(low);
+                } catch (DuplicatePersonException e) {
+                    throw new AssertionError(MESSAGE_FAIL);
+                } catch (IndexOutOfBoundsException e) {
+                    return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+                }
+            }
+        }
+
+        ....Storage part comes here
+----
+
+The final step is to create the xml file from the `teachConnectBook`.
+
+Below is the code snippet to export the data into an xml file using `AddressBookStorage`.
+[source,java]
+----
+teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
+        try {
+            teachConnectStorage.saveAddressBook(teachConnectBook);
+        } catch (IOException e) {
+            return new CommandResult(MESSAGE_FAIL);
+        }
+        return new CommandResult(MESSAGE_SUCCESS);
+----
+// end::export[]
+
+// tag::studentmanagement[]
+=== [Incomplete] Student Management
+==== Current Implementation
+
+The student manangement allows the user of TeachConnect to manage a particular type of contact, a student. The user is capable of interacting with the student contact just like with any other contact, for example: adding, editing, deleting and so on. In addition, users will be able to form classes to group students of the same class together. An overview of the Model Class after implementation is shown below:
+
+image::EditedModelClassDiagram.png[align="center"]
+
+As shown above, `student` extends from `person`, giving `student` access to its constructor and getter methods for `name`, `phone`, `email`, `address` whereas only `student` will have access to `class`.
+
+==== Design Considerations
+===== Aspects : Implementation of student
+
+* **Alternative 1 (current choice):** student extends person
+** Pros: Allow students access to person methods while restricting person from accessing student methods.
+** Cons: A seperate UniqueStudentList is required to store the student contacts.
+* **Alternative 2:** only use a tag to show its a student
+** Pros: Simpler to implement and tags are visible to user
+** Cons: Requires every operation to check the tags. Tags can be removed.
+// end::studentmanagement[]
+
+// tag::eventmanagement[]
+
+=== Event Management
+==== Current Implementation
+There are two types of events: an `Appointment` or a `Task`.
+The model for event are shown below:
+
+image::EventModelClassDiagram.png[align="center"]
+
+`Appointment` consist of 4 variables:
+
+* Title: Hold description for the appointment
+* Start Time: Hold the starting time of the appointment
+* End time: Hold the end time of the appointment
+* Person to meet: (optional) Hold the target  in the appointment
+
+`Task` consist of 2 variables:
+
+* Title: Hold description for the task
+* Time: Hold the time the task is expected to be finished
+
+*Commands supported for each event*
+
+* Set
+* Remove
+* Edit
+
+Similar to `UniquePersonList` and `UniqueTagList`, `UniqueEventList` is linked
+to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
+
+==== Design Considerations
+===== Aspects : Implementation of set event
+* **Alternative 1 (current choice):** user can still set appointment/task with the starting time/deadline already elapsed.
+** Pros: Might be useful if the users want to keep track of past events.
+** Cons: Not the most intuitive implementation and might be prone to error from the user side.
+* **Alternative 2:** user can only set  appointment/task with the starting time/deadline in the future
+** Pros: Is the more intuitive approach and can prevent the user from keying in "redundant" events
+** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulties may arise when he/she wants to add new event.
+
+// end::eventmanagement[]
+
+// tag::changingguitheme[]
+
+=== [Proposed] Changing GUI theme
+
+// end::changingguitheme[]
+
+_{to be finished later}_
+
 // tag::dataencryption[]
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -383,6 +613,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
@@ -495,7 +726,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, TeachConnect depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -538,12 +769,12 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in TeachConnect, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in TeachConnect.
 +
 ****
 * Hints
@@ -612,7 +843,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in TeachConnect.
 +
 **Before**
 +
@@ -625,7 +856,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever TeachConnect is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
@@ -637,12 +868,12 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving TeachConnect to the cloud. However, the current implementation of the application constantly saves TeachConnect after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for TeachConnect storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that TeachConnect can be saved in a fixed temporary location.
 +
 ****
 * Hint
@@ -657,7 +888,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `TeachConnect`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -782,15 +1013,84 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: teachers or educational professionals who
 
-* has a need to manage a significant number of contacts
+* is a teacher or educational professional
+* has a need to manage a significant number of students and parents contact details
+* has a need to keep track of appointments with parents, students or other staff
+* has a need to keep track of tasks and their deadlines
 * prefer desktop apps over other types
 * can type fast
-* prefers typing over mouse input
+* prefer typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: TeachConnect provides a simple and intuitive interface to help teachers manage their contacts, events and tasks.
+
+
+*Feature Contribution*
+
+1. Mukesh Gadupudi
+
+** Major Feature : Sharing of Contacts
+
+*** Contacts can be imported or exported
+*** They can be exported based on the tag or index
+*** Import can be done given the file path of an XML file
+
+** Minor Feature : Email contacts
+
+*** Contacts can be emailed by either by tag or an individual contact.
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature can help teachers share contacts with other teachers. This is especially useful when teachers change classes or pass on the class to other teachers. Updating and losing data is also a common problem and to overcome this a backup can be stored by using this feature.
+
+*** Minor Feature: This feature can help teachers email contacts. This might be really helpful when the teacher wants to remind parents with appointments or remind students with the work they need to finish. This also helps the teachers send group messages to class or parents regarding some important announcements.
+
+2. Rachel Ngo Phuong Thao
+** Major Feature : Managing Appointments & Tasks
+
+*** Users can add, edit, and remove appointments & tasks in TeachConnect
+*** The appointments & tasks would be rendered in a calendar in the GUI
+** Minor Feature : Changing the GUI theme
+
+*** Users can set the theme of the GUI to dark theme or light theme
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
+
+*** Minor Feature: This feature increases the aesthetic sense and helps people set the theme according to their taste.
+
+3. Jonathan
+
+** Major Feature : Data Encryption
+*** Encrypts the data for increased safety
+
+** Minor Feature : Sort Contacts
+
+*** Contacts can be sorted in alphabetical order of the name/tag or the phone number of the contacts.
+
+** How the features fit into the product scope :
+
+*** Major Feature: Since TeachConnect has a lot of personal details of students and parents, the owner of the address book would want to encrypt the application data file to prevent outside access to sensitive information.
+
+*** Minor Feature: This helps teacher relate and understand the index of the contacts in the TeachConnect better. Indexing becomes easy when they later want to export or set appointments.
+
+4. Randy Pang Pang
+
+** Major Feature : Management of student contacts
+*** Student contact can be created and be added into classes
+
+** Minor Feature : Multiple tabs for the list in GUI
+*** The list in GUI will hava tabs for multiple different lists
+
+** How the features fit into the product scope :
+
+*** Major Feature: This feature is essential to TeachConnect as it helps teachers to remember which class did they taught a particular student.
+
+*** Minor Feature: This feature allows the teacher to keep multiple list, eg. one for students and one for all contacts. It also allows them to switch between multiple lists without having to type another list command.
 
 [appendix]
 == User Stories
@@ -825,7 +1125,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many persons in TeachConnect |sort persons by name |locate a person easily
 
 |`*` |user |tag a person |mark their contact with details
 
@@ -835,9 +1135,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |change the background colour of the application |make the application more pleasing to my eyes
 
-|`*` |user |export persons from my address book to an external file| have persons' contacts ready for import
+|`*` |user |export persons from TeachConnect to an external file| have persons' contacts ready for import
 
-|`*` |user |import persons from an external file to my address book | have persons' contact details added without having to reenter the information
+|`*` |user |import persons from an external file to TeachConnect | have persons' contact details added without having to reenter the information
 |=======================================================================
 
 _{More to be added}_
@@ -845,7 +1145,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `teacher`, unless specified otherwise)
+(For all use cases below, the *System* is `TeachConnect` and the *Actor* is the `teacher`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -853,9 +1153,9 @@ _{More to be added}_
 *MSS*
 
 1.  Teacher requests to list persons
-2.  AddressBook shows a list of persons
+2.  TeachConnect shows a list of persons
 3.  Teacher requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TeachConnect deletes the person
 +
 Use case ends.
 
@@ -869,7 +1169,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TeachConnect shows an error message.
 +
 Use case resumes at step 2.
 
@@ -879,11 +1179,11 @@ Use case resumes at step 2.
 *MSS*
 
 1.  Teacher requests to list persons
-2.  AddressBook shows a list of persons
+2.  TeachConnect shows a list of persons
 3.  Teacher requests to create a class of a subject for a specified duration
-4.  AddressBook prompts for student(s) to be added into the class
+4.  TeachConnect prompts for student(s) to be added into the class
 5.  Teacher enters index of student(s) as shown in the list
-5.  AddressBook creates the class
+5.  TeachConnect creates the class
 +
 Use case ends.
 
@@ -897,14 +1197,14 @@ Use case ends.
 * 3a. The given subject or duration is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TeachConnect shows an error message.
 +
 Use case resumes at step 2.
 
 * 5a. One or more given index(s) is invalid.
 +
 [none]
-** 5a1. AddressBook shows an error message.
+** 5a1. TeachConnect shows an error message.
 +
 Use case resumes at step 2.
 
@@ -914,9 +1214,9 @@ Use case resumes at step 2.
 *MSS*
 
 1.  Teacher requests to add an appointment at a specified time
-2.  AddressBook prompts for a title
+2.  TeachConnect prompts for a title
 3.  Teacher enters a title
-4.  AddressBook adds the appointment
+4.  TeachConnect adds the appointment
 +
 Use case ends.
 
@@ -926,7 +1226,7 @@ Use case ends.
 * 1a. Time given is invalid.
 +
 [none]
-** 1a1. AddressBook shows error message.
+** 1a1. TeachConnect shows error message.
 +
 Use case ends.
 
@@ -936,9 +1236,9 @@ Use case ends.
 *MSS*
 
 1.  Teacher requests to list appointments
-2.  AddressBook shows list of appointments
+2.  TeachConnect shows list of appointments
 3.  Teacher requests to delete a specific appointment in the list
-4.  AddressBook deletes appointment
+4.  TeachConnect deletes appointment
 +
 Use case ends.
 
@@ -952,7 +1252,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows error message.
+** 3a1. TeachConnect shows error message.
 +
 Use case resumes at step 2.
 

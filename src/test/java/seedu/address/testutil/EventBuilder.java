@@ -1,9 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.event.PersonToMeet.EMAIL_SPLITTER;
+
 import seedu.address.model.event.Appointment;
 
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventTime;
+import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Person;
@@ -15,14 +18,25 @@ public class EventBuilder {
     private Title title;
     private EventTime time;
     private EventTime endTime;
-    private Person personToMeet;
+    private PersonToMeet personToMeet;
     private String eventType;
 
+    public EventBuilder(String title, String time, String endTime) {
+        this(title, time, endTime, (String) null);
+    }
+
     public EventBuilder(String title, String time, String endTime, Person personToMeet) {
+        this(title, time, endTime, personToMeet.getName() + EMAIL_SPLITTER + personToMeet.getEmail());
+    }
+
+    public EventBuilder(String title, String time, String endTime, String personToMeet) {
         this.title = new Title(title);
         this.time = new EventTime(time);
         this.endTime = new EventTime(endTime);
-        this.personToMeet = personToMeet;
+        if (personToMeet != null) {
+            String[] components = personToMeet.split(EMAIL_SPLITTER);
+            this.personToMeet = new PersonToMeet(components[0], components[1]);
+        }
         this.eventType = "Appointment";
     }
 

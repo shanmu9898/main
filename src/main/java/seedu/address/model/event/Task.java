@@ -39,4 +39,9 @@ public class Task implements Event {
         return otherTask.getTitle().equals(this.getTitle())
                 && otherTask.getTime().equals(this.getTime());
     }
+
+    @Override
+    public String toString() {
+        return title + ", Deadline: " + time;
+    }
 }
