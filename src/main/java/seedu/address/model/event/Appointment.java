@@ -71,7 +71,7 @@ public class Appointment implements Event {
                 .append(", End Time: ")
                 .append(getEndTime().toString());
         if (personToMeet != null) {
-            builder.append(", To meet: ")
+            builder.append(", With: ")
                     .append(personToMeet.getName());
         }
         return builder.toString();

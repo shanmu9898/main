@@ -6,8 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_TO_MEET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,14 +39,18 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
         }
 
         try {
+            Index index = null;
             Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE)).get();
             EventTime startTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME)).get();
             EventTime endTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME)).get();
-
+            Optional<Index> optionalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PERSON_TO_MEET_INDEX));
+            if (optionalIndex.isPresent()) {
+                index = optionalIndex.get();
+            }
             Appointment appointment = new Appointment(title, startTime, endTime);
 
-            return new SetAppointmentCommand(appointment);
-        } catch (IllegalValueException | IllegalArgumentException ive) {
+            return new SetAppointmentCommand(appointment, index);
+        } catch (IllegalValueException | IllegalArgumentException ive ) {
             throw new ParseException(ive.getMessage(), ive);
         }
     }

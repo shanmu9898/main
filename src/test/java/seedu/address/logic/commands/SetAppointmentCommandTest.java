@@ -30,7 +30,7 @@ public class SetAppointmentCommandTest {
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetAppointmentCommand(null);
+        new SetAppointmentCommand(null, null);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class SetAppointmentCommandTest {
      * Generates a new SetAppointmentCommand with the details of the given appointment.
      */
     private SetAppointmentCommand getSetAppointmentCommand(Appointment appointment, Model model) {
-        SetAppointmentCommand command = new SetAppointmentCommand(appointment);
+        SetAppointmentCommand command = new SetAppointmentCommand(appointment, null);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }

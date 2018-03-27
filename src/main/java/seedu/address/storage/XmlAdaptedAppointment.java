@@ -26,7 +26,7 @@ public class XmlAdaptedAppointment {
     private String startTime;
     @XmlElement(required = true)
     private String endTime;
-    @XmlElement
+    @XmlElement(required = true)
     private String personToMeet;
 
     /**
