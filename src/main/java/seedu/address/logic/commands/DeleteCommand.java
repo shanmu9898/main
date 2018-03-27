@@ -59,11 +59,11 @@ public class DeleteCommand extends UndoableCommand {
     protected void preprocessUndoableCommand() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if ( targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if ( lastShownList.get(targetIndex.getZeroBased()) instanceof Student) {
+        if (lastShownList.get(targetIndex.getZeroBased()) instanceof Student) {
             studentToDelete = (Student) lastShownList.get(targetIndex.getZeroBased());
             personToDelete = null;
         } else {
