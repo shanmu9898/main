@@ -17,6 +17,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -29,7 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueTagList tags;
     private final UniqueEventList events;
-
+    private final UniqueShortcutDoublesList shorcutCommands;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -41,6 +43,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
         events = new UniqueEventList();
+        shorcutCommands = new UniqueShortcutDoublesList();
     }
 
     public AddressBook() {}
@@ -62,6 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -168,6 +172,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    public void addShortcutDoubles(ShortcutDoubles s)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        shorcutCommands.add(s);
+    }
+
     //// util methods
 
     @Override
@@ -187,6 +196,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<ShortcutDoubles> getCommandsList() {
+        return shorcutCommands.asObservableList();
+    }
+
+    @Override
     public ObservableList<Event> getEventList() {
         return events.asObservableList();
     }
@@ -196,7 +210,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
+                && this.shorcutCommands.equals(((AddressBook) other).shorcutCommands));
     }
 
     @Override
