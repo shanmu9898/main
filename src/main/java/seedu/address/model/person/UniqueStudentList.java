@@ -103,7 +103,12 @@ public class UniqueStudentList implements Iterable<Student> {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
-    public void addListener(UniqueContactList contacts){
+    //@@author randypx
+    /**
+     * Add a listener to the list for any changes.
+     * Update {@code contacts} for any changes made.
+     */
+    public void addListener(UniqueContactList contacts) {
         internalList.addListener(new ListChangeListener<Student>() {
             @Override
             public void onChanged(Change<? extends Student> c) {

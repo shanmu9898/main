@@ -19,23 +19,23 @@ public class ListCommand extends Command {
     private static final String TYPE_CONTACT = "contacts";
     private final String typeToListed;
 
-    public ListCommand(String typeArg){
+    public ListCommand(String typeArg) {
         typeToListed = typeArg.trim();
     }
 
     @Override
-    public CommandResult execute() throws CommandException{
+    public CommandResult execute() throws CommandException {
         switch (typeToListed) {
-            case TYPE_CONTACT:
-                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-                return new CommandResult(MESSAGE_SUCCESS + TYPE_CONTACT);
+        case TYPE_CONTACT:
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_CONTACT);
 
-            case TYPE_STUDENT:
-                model.updateFilteredPersonList(PREDICATE_SHOW_ONLY_STUDENTS);
-                return new CommandResult(MESSAGE_SUCCESS + TYPE_STUDENT);
+        case TYPE_STUDENT:
+            model.updateFilteredPersonList(PREDICATE_SHOW_ONLY_STUDENTS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_STUDENT);
 
-            default:
-                throw new CommandException(MESSAGE_INVALID_TYPE);
+        default:
+            throw new CommandException(MESSAGE_INVALID_TYPE);
         }
     }
 }

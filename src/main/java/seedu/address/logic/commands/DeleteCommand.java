@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -44,15 +42,13 @@ public class DeleteCommand extends UndoableCommand {
             } catch (PersonNotFoundException pnfe) {
                 throw new AssertionError("The target person cannot be missing");
             }
-        }
-        else if (personToDelete == null && studentToDelete != null) {
+        } else if (personToDelete == null && studentToDelete != null) {
             try {
                 model.deleteStudent(studentToDelete);
             } catch (PersonNotFoundException pnfe) {
                 throw new AssertionError("The target student cannot be missing");
             }
-        }
-        else {
+        } else {
             throw new NullPointerException();
         }
 
@@ -63,11 +59,11 @@ public class DeleteCommand extends UndoableCommand {
     protected void preprocessUndoableCommand() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if ( targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (lastShownList.get(targetIndex.getZeroBased()) instanceof Student){
+        if ( lastShownList.get(targetIndex.getZeroBased()) instanceof Student) {
             studentToDelete = (Student) lastShownList.get(targetIndex.getZeroBased());
             personToDelete = null;
         } else {

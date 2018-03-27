@@ -15,7 +15,7 @@ public class UniqueContactList {
     private final UniqueStudentList students;
     private final ObservableList<Person> combinedList = FXCollections.observableArrayList();
 
-    public UniqueContactList(UniquePersonList p, UniqueStudentList s){
+    public UniqueContactList(UniquePersonList p, UniqueStudentList s) {
         persons = p;
         students = s;
         persons.addListener(this);
@@ -26,10 +26,14 @@ public class UniqueContactList {
      * This method is called when there is a change in eithor {@code UniquePersonList} or {@code UniqueStudentList}.
      * @param c this contains the change(s) that has occured.
      */
-    public void updateList(ListChangeListener.Change<? extends Person> c){
-        while (c.next()){
-            if (c.wasRemoved()) { combinedList.removeAll(c.getRemoved()); }
-            if (c.wasAdded()) { combinedList.addAll(c.getAddedSubList()); }
+    public void updateList(ListChangeListener.Change<? extends Person> c) {
+        while (c.next()) {
+            if (c.wasRemoved()) {
+                combinedList.removeAll(c.getRemoved());
+            }
+            if (c.wasAdded()) {
+                combinedList.addAll(c.getAddedSubList());
+            }
         }
     }
 

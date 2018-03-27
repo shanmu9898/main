@@ -10,8 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
@@ -110,7 +108,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person person = syncWithMasterTagList(p);
         try {
             persons.add(person);
-        } catch ( DuplicatePersonException e){
+        } catch (DuplicatePersonException e) {
             removeUnusedTags();
             throw e;
         }
@@ -127,7 +125,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         Student student = (Student) syncWithMasterTagList(s);
         try {
             students.add(student);
-        } catch ( DuplicatePersonException e){
+        } catch (DuplicatePersonException e) {
             removeUnusedTags();
             throw e;
         }
@@ -208,11 +206,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
-        if(person instanceof Student) {
+        if (person instanceof Student) {
             return new Student(
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
-        }
-        else {
+        } else {
             return new Person(
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
         }
@@ -332,7 +329,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Removes the particular tag for that particular student in the AddressBook.
      */
-    private void removeTagFromStudent(Tag tag, Student student) throws PersonNotFoundException, DuplicatePersonException {
+    private void removeTagFromStudent(Tag tag, Student student)
+            throws PersonNotFoundException, DuplicatePersonException {
         Set<Tag> listOfTags = new HashSet<>(student.getTags());
 
         if (listOfTags.contains(tag)) {
