@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NOTUSED;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.STUDENT_AMY;
+import static seedu.address.testutil.TypicalPersons.STUDENT_HOON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -39,6 +42,8 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getStudentList());
+        assertEquals(Collections.emptyList(), addressBook.getContactList());
         assertEquals(Collections.emptyList(), addressBook.getTagList());
         assertEquals(Collections.emptyList(), addressBook.getEventList());
 
@@ -63,9 +68,10 @@ public class AddressBookTest {
 
         // Repeat ALICE twice
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
+        List<Student> newStudents = Arrays.asList(STUDENT_AMY, STUDENT_HOON);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
         List<Event> newEvents = Arrays.asList(typicalEvents.typicalAppointment1, typicalEvents.typicalTask1);
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents);
+        AddressBookStub newData = new AddressBookStub(newPersons, newStudents, newTags, newEvents);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -94,11 +100,17 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Student> students = FXCollections.observableArrayList();
+        private final ObservableList<Person> contacts = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags, Collection<Event> events) {
+        AddressBookStub(Collection<Person> persons, Collection<Student> students, Collection<? extends Tag> tags
+                , Collection<Event> events) {
             this.persons.setAll(persons);
+            this.students.setAll(students);
+            this.contacts.setAll(persons);
+            this.contacts.addAll(students);
             this.tags.setAll(tags);
             this.events.setAll(events);
         }
@@ -106,6 +118,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Student> getStudentList() {
+            return students;
+        }
+
+        @Override
+        public ObservableList<Person> getContactList() {
+            return contacts;
         }
 
         @Override

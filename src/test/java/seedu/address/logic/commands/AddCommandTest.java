@@ -22,6 +22,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -103,6 +104,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addStudent(Student student) throws DuplicatePersonException {
+            fail("This method should not be called. ");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             fail("This method should not be called.");
         }
@@ -119,9 +125,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson)
-                throws DuplicatePersonException {
+        public void deleteStudent(Student target) throws PersonNotFoundException {
+            fail("This method should not be called. ");
+        }
+
+        @Override
+        public void updatePerson(Person target, Person editedPerson) {
             fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateStudent(Student target, Student editedStudent) {
+            fail("This method should not be called. ");
         }
 
         @Override
