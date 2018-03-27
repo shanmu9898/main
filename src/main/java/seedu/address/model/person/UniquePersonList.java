@@ -3,10 +3,12 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -99,6 +101,15 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    public void addListener(UniqueContactList contacts){
+        internalList.addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+                contacts.updateList(c);
+            }
+        });
     }
 
     @Override
