@@ -56,9 +56,8 @@ public class CalendarPanel extends UiPart<Region> {
     private void updateCalendar() {
         setTime();
         CalendarSource calendarSource = new CalendarSource("My Calendar");
-        int styleNum = 1;
         Calendar calendar = new Calendar("Appointments");
-        calendar.setStyle(Calendar.Style.getStyle(styleNum));
+        calendar.setStyle(Calendar.Style.getStyle(0));
         calendar.setLookAheadDuration(Duration.ofDays(365));
 
         calendarSource.getCalendars().add(calendar);
@@ -117,6 +116,6 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowSearchField(false);
         calendarView.setShowSearchResultsTray(false);
         calendarView.setShowPrintButton(false);
-        calendarView.showDayPage();
+        calendarView.showMonthPage();
     }
 }
