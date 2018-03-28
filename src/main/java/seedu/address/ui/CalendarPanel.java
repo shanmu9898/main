@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 
 import javafx.scene.layout.Region;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.ToggleCalendarViewEvent;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Event;
 
@@ -27,6 +28,7 @@ import seedu.address.model.event.Event;
 /**
  * The Calendar Panel of the App.
  */
+//@@author Sisyphus25
 public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
 
@@ -37,7 +39,6 @@ public class CalendarPanel extends UiPart<Region> {
 
     public CalendarPanel(ObservableList<Event> eventObservableList) {
         super(FXML);
-
         this.eventList = eventObservableList;
 
         calendarView = new CalendarView();
@@ -80,12 +81,6 @@ public class CalendarPanel extends UiPart<Region> {
         return entries;
     }
 
-    private void setTime() {
-        calendarView.setToday(LocalDate.now());
-        calendarView.setTime(LocalTime.now());
-        calendarView.getCalendarSources().clear();
-    }
-
     private Entry getEntry(Event event) {
         Appointment appointment = (Appointment) event;
         LocalDateTime ldtstart = LocalDateTime.ofInstant(
@@ -96,12 +91,26 @@ public class CalendarPanel extends UiPart<Region> {
         return new Entry(description, new Interval(ldtstart, ldtend));
     }
 
+    //@@author Sisyphus25-reused
+    //Reused from https://github.com/CS2103AUG2017-T17-B2/main
+    private void setTime() {
+        calendarView.setToday(LocalDate.now());
+        calendarView.setTime(LocalTime.now());
+        calendarView.getCalendarSources().clear();
+    }
+
     @Subscribe
     private void handleNewAppointmentEvent(AddressBookChangedEvent event) {
         eventList = event.data.getEventList();
         Platform.runLater(
                 this::updateCalendar
         );
+    }
+
+    @Subscribe
+    private void handleToggleCalendarViewEvent(ToggleCalendarViewEvent event) {
+        Character c = event.viewMode;
+        Platform.runLater(() -> toggleView(c));
     }
 
     public CalendarView getRoot() {
@@ -118,4 +127,28 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowPrintButton(false);
         calendarView.showMonthPage();
     }
+
+    /**
+     * Changes calendar view accordingly
+     */
+    private void toggleView(Character c) {
+        switch(c) {
+        case ('d'):
+            calendarView.showDayPage();
+            return;
+        case ('w'):
+            calendarView.showWeekPage();
+            return;
+        case ('m'):
+            calendarView.showMonthPage();
+            return;
+        case ('y'):
+            calendarView.showYearPage();
+            return;
+        default:
+            //should not reach here
+            assert (false);
+        }
+    }
+    //@@author
 }
