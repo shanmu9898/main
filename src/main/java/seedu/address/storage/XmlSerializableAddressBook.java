@@ -21,6 +21,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<XmlAdaptedTag> tags;
+    @XmlElement
+    private List<XmlAdaptedShortcutDouble> commandsList;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -29,6 +31,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         tags = new ArrayList<>();
+        commandsList = new ArrayList<>();
     }
 
     /**
@@ -38,6 +41,8 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        commandsList.addAll(src.getCommandsList().stream().map(XmlAdaptedShortcutDouble::new)
+                    .collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +58,10 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
+        }
+
+        for (XmlAdaptedShortcutDouble s : commandsList) {
+            addressBook.addShortcutDoubles(s.toModelType());
         }
         return addressBook;
     }

@@ -16,4 +16,5 @@ public class UniquePersonListTest {
         thrown.expect(UnsupportedOperationException.class);
         uniquePersonList.asObservableList().remove(0);
     }
+
 }
