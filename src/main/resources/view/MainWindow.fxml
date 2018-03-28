@@ -32,9 +32,6 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-
-
-
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS" >
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
@@ -43,16 +40,12 @@
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-
-
-
           <VBox>
-            <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+            <StackPane fx:id="calendarPlaceholder" prefWidth="200" styleClass="calendar-panel" >
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
             </StackPane>
-
             <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                        minHeight="100" prefHeight="100" maxHeight="100" alignment="BOTTOM_RIGHT" >
               <padding>
@@ -67,13 +60,11 @@
             </StackPane>
           </VBox>
 
-
-
         </SplitPane>
-
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
 </fx:root>
+
