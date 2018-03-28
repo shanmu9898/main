@@ -32,4 +32,11 @@ public class ToggleCalendarViewCommand extends Command {
         EventsCenter.getInstance().post(new ToggleCalendarViewEvent(viewMode));
         return new CommandResult(MESSAGE_VIEW_TOGGLE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ToggleCalendarViewCommand // instanceof handles nulls
+                && this.viewMode == ((ToggleCalendarViewCommand) other).viewMode); // state check
+    }
 }
