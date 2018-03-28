@@ -41,12 +41,11 @@
           </VBox>
 
           <VBox>
-            
             <StackPane fx:id="calendarPlaceholder" prefWidth="200" styleClass="calendar-panel" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+            </StackPane>
             <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                        minHeight="100" prefHeight="100" maxHeight="100" alignment="BOTTOM_RIGHT" >
               <padding>
