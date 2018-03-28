@@ -27,6 +27,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -64,7 +65,8 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
         List<Event> newEvents = Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_TASK_1);
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents);
+        List<ShortcutDoubles> newCommands = Arrays.asList(new ShortcutDoubles("a", "add"));
+        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents, newCommands);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -95,11 +97,14 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
+        private final ObservableList<ShortcutDoubles> commandslist = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags, Collection<Event> events) {
+        AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags,
+                                                    Collection<Event> events, Collection<ShortcutDoubles> commands) {
             this.persons.setAll(persons);
             this.tags.setAll(tags);
             this.events.setAll(events);
+            this.commandslist.setAll(commands);
         }
 
         @Override
@@ -115,6 +120,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public ObservableList<ShortcutDoubles> getCommandsList() {
+            return commandslist;
         }
     }
 

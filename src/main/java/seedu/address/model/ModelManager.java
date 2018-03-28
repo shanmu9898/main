@@ -17,6 +17,8 @@ import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
     }
 
     public ModelManager() {
@@ -72,6 +76,13 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+               throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        addressBook.addShortcutDoubles(shortcutDoubles);
         indicateAddressBookChanged();
     }
 
@@ -118,9 +129,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
+        return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCommandList(Predicate<ShortcutDoubles> shortcutDoublesPredicate) {
+        requireNonNull(shortcutDoublesPredicate);
+        filteredShortcutCommands.setPredicate(shortcutDoublesPredicate);
     }
 
     @Override

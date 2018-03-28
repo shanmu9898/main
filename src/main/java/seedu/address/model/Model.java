@@ -8,6 +8,8 @@ import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +31,9 @@ public interface Model {
     /** Adds the given person */
     void addPerson(Person person) throws DuplicatePersonException;
 
+    void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException;
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
@@ -47,6 +52,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    ObservableList<ShortcutDoubles> getFilteredCommandsList();
+
+    void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate);
 
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 

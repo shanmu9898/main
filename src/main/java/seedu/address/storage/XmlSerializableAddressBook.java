@@ -28,6 +28,8 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedAppointment> appointments;
     @XmlElement
     private List<XmlAdaptedTask> tasks;
+    @XmlElement
+    private List<XmlAdaptedShortcutDouble> commandsList;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -38,6 +40,7 @@ public class XmlSerializableAddressBook {
         tags = new ArrayList<>();
         appointments = new ArrayList<>();
         tasks = new ArrayList<>();
+        commandsList = new ArrayList<>();
     }
 
     /**
@@ -55,6 +58,8 @@ public class XmlSerializableAddressBook {
             }
         }
 
+        commandsList.addAll(src.getCommandsList().stream().map(XmlAdaptedShortcutDouble::new)
+                    .collect(Collectors.toList()));
     }
 
     /**
@@ -76,6 +81,9 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedTask t: tasks) {
             addressBook.addEvent(t.toModelType());
+
+        for (XmlAdaptedShortcutDouble s : commandsList) {
+            addressBook.addShortcutDoubles(s.toModelType());
         }
         return addressBook;
     }
