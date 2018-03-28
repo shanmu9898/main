@@ -12,6 +12,8 @@ import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,6 +37,12 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
+        fail("This method should not be called.");
+        return null;
+    };
+
+    @Override
     public void deletePerson(Person target) throws PersonNotFoundException {
         fail("This method should not be called.");
     }
@@ -42,6 +50,12 @@ public class ModelStub implements Model {
     @Override
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
         fail("This method should not be called.");
     }
 
@@ -56,6 +70,11 @@ public class ModelStub implements Model {
         fail("This method should not be called.");
         return null;
     }
+    
+    @Override
+    public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
+        fail("This method should not be called.");
+    };
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {

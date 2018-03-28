@@ -20,10 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.shortcuts.ShortcutDoubles;
-import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.modelstub.ModelStub;
 
@@ -91,71 +87,6 @@ public class AddCommandTest {
         AddCommand command = new AddCommand(person);
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
-                throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void deletePerson(Person target) throws PersonNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson)
-                throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
-            fail("This method should not be called");
-            return null;
-        }
-
-        @Override
-        public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public void deleteTag(Tag tag) {
-            fail("This method should not be called.");
-        }
     }
 
     /**
