@@ -32,6 +32,10 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String EXTENSIONS_STYLESHEET = "view/Extensions.css";
 
+    private static final ThemeList THEME_LIST = new ThemeList();
+
+    private static final String DEFAULT_THEME = "dark";
+
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
@@ -73,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
-        setTheme("dark theme");
+        setTheme();
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
@@ -86,13 +90,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     //@@author Sisyphus25
+    private void setTheme() {
+        setTheme(DEFAULT_THEME);
+    }
+
     private void setTheme(String theme) {
         primaryStage.getScene().getStylesheets().add(EXTENSIONS_STYLESHEET);
-        if (theme.equals("lighttheme")) {
-            primaryStage.getScene().getStylesheets().add("view/LightTheme.css");
-        } else {
-            primaryStage.getScene().getStylesheets().add("view/DarkTheme.css");
-        }
+        primaryStage.getScene().getStylesheets().add(THEME_LIST.getThemeStyleSheet(theme));
     }
 
     @Subscribe
@@ -105,7 +109,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void changeTheme() {
         primaryStage.getScene().getStylesheets().clear();
-        setTheme("lighttheme");
+        setTheme(theme);
     }
     //@@author
 
