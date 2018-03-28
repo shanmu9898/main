@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -90,6 +92,28 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addEvent(Event event) throws UniqueEventList.DuplicateEventException {
+        addressBook.addEvent(event);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteEvent(Event target) throws UniqueEventList.EventNotFoundException {
+        addressBook.removeEvent(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateEvent(Event target, Event editedEvent)
+            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
+        requireAllNonNull(target, editedEvent);
+
+        addressBook.updateEvent(target, editedEvent);
         indicateAddressBookChanged();
     }
 
