@@ -189,6 +189,10 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
+.calendar-panel .button{
+    -fx-text-fill: #000000;
+}
+
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);
 }
