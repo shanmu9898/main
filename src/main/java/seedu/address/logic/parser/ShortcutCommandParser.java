@@ -7,7 +7,7 @@ import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parsar
+ * Parser
  */
 public class ShortcutCommandParser implements Parser<ShortcutCommand> {
     /**

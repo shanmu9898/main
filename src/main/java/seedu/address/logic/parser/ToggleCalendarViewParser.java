@@ -29,7 +29,9 @@ public class ToggleCalendarViewParser implements Parser<ToggleCalendarViewComman
      * @return whether if the string is a valid view mode or not
      */
     private boolean isValidViewMode(String str) {
-        assert(str.length() == 1);
+        if (str.length() != 1) {
+            return false;
+        }
         switch (str.charAt(0)) {
         case('w'):
         case('d'):

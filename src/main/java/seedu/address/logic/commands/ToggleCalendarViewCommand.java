@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ToggleCalendarViewEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +24,7 @@ public class ToggleCalendarViewCommand extends Command {
     private Character viewMode;
 
     public ToggleCalendarViewCommand(Character viewMode) {
+        requireNonNull(viewMode);
         this.viewMode = viewMode;
     }
     @Override
