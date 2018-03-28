@@ -81,6 +81,7 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedTask t: tasks) {
             addressBook.addEvent(t.toModelType());
+        }
 
         for (XmlAdaptedShortcutDouble s : commandsList) {
             addressBook.addShortcutDoubles(s.toModelType());
