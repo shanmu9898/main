@@ -78,7 +78,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-border-color: transparent transparent transparent #ffffff;
 }
 
 .split-pane {
@@ -91,16 +91,21 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
+
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
+    -fx-padding: 10px;
+    -fx-background-insets: 3px, 3px;
+    -fx-background-color: transparent
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #515658;
 }
 
 .list-cell:filled:odd {
@@ -114,6 +119,7 @@
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
+
 }
 
 .list-cell .label {
@@ -281,34 +287,51 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#000000, 20%);
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-color: derive(#ffffff, 50%);
+
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
     -fx-background-color: transparent;
-    -fx-padding: 0 0 0 0;
+    -fx-rotate: 0;
+
 }
 
-.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-shape: " ";
+.scroll-bar .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-background-color: #ffffff;
+}
+
+.scroll-bar .decrement-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-background-color: #ffffff;
+    -fx-rotate: -180;
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 3 3 3 3;
 }
 
-.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+.scroll-bar:horizontal .increment-arrow{
+    -fx-rotate: -90;
+    -fx-padding: 3 3 3 3;
+}
+
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-rotate: 90;
+    -fx-padding: 3 3 3 3;
 }
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-width: 0;
+    -fx-border-width: 10pt;
 }
 
 #commandTypeLabel {

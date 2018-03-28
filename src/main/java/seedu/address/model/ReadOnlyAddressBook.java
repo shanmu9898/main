@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,5 +28,9 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate event.
      */
     ObservableList<Event> getEventList();
+
+
+    ObservableList<ShortcutDoubles> getCommandsList();
+
 
 }
