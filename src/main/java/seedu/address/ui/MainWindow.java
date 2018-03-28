@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ThemeChangeEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -27,6 +29,8 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+
+    private static final String EXTENSIONS_STYLESHEET = "view/Extensions.css";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -39,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private CalendarPanel calendarPanel;
 
+    private String theme;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -68,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
+        setTheme("dark theme");
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
@@ -78,6 +84,30 @@ public class MainWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+    //@@author Sisyphus25
+    private void setTheme(String theme) {
+        primaryStage.getScene().getStylesheets().add(EXTENSIONS_STYLESHEET);
+        if (theme.equals("lighttheme")) {
+            primaryStage.getScene().getStylesheets().add("view/LightTheme.css");
+        } else {
+            primaryStage.getScene().getStylesheets().add("view/DarkTheme.css");
+        }
+    }
+
+    @Subscribe
+    private void handleThemeChangeEvent(ThemeChangeEvent event) {
+        theme = event.theme;
+        Platform.runLater(
+                this::changeTheme
+        );
+    }
+
+    private void changeTheme() {
+        primaryStage.getScene().getStylesheets().clear();
+        setTheme("lighttheme");
+    }
+    //@@author
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
