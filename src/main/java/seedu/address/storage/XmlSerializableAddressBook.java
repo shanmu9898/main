@@ -104,3 +104,4 @@ public class XmlSerializableAddressBook {
                 && tasks.equals(otherAb.tasks);
     }
 }
+
