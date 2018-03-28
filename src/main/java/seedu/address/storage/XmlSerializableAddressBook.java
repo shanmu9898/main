@@ -82,7 +82,6 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedTask t: tasks) {
             addressBook.addEvent(t.toModelType());
         }
-
         for (XmlAdaptedShortcutDouble s : commandsList) {
             addressBook.addShortcutDoubles(s.toModelType());
         }
@@ -98,7 +97,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
         return persons.equals(otherAb.persons)
                 && tags.equals(otherAb.tags)
