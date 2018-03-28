@@ -42,25 +42,13 @@
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
-
-          
-
-
+                 
           <VBox>
-            <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-            </StackPane>
-            
             <StackPane fx:id="calendarPlaceholder" prefWidth="200" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
-
-
+            </StackPane>
             <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                        minHeight="100" prefHeight="100" maxHeight="100" alignment="BOTTOM_RIGHT" >
               <padding>
@@ -74,7 +62,6 @@
               </padding>
             </StackPane>
           </VBox>
-
         </SplitPane>
 
 
