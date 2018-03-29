@@ -21,7 +21,6 @@ public class ExportCommandParserTest {
     public void parse_nullString_throwsNullPointerException() throws ParseException {
         thrown.expect(NullPointerException.class);
         exportCommandParser.parse(null);
-
     }
 
     @Test

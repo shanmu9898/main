@@ -25,6 +25,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
 import seedu.address.logic.commands.ShortcutCommand;
+import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
@@ -124,8 +125,12 @@ public class AddressBookParser {
         case ShortcutCommand.COMMAND_WORD:
             return new ShortcutCommandParser().parse(arguments);
 
+        case ToggleCalendarViewCommand.COMMAND_WORD:
+            return new ToggleCalendarViewParser().parse(arguments);
+
         case ChangeThemeCommand.COMMAND_WORD:
             return new ChangeThemeCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

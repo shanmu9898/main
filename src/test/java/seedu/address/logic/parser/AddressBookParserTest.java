@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -45,6 +46,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
+import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Appointment;
@@ -187,6 +189,13 @@ public class AddressBookParserTest {
 
     //@@author Sisyphus25
     @Test
+    public void parseCommand_toggleCalendarView() throws Exception {
+        ToggleCalendarViewCommand command =
+                (ToggleCalendarViewCommand) parser.parseCommand(ToggleCalendarViewCommand.COMMAND_WORD + " " + "m");
+        assertEquals(new ToggleCalendarViewCommand('m'), command);
+    }
+
+    @Test
     public void parseCommand_setAppointment() throws Exception {
         SetAppointmentCommand command =
                 (SetAppointmentCommand) parser.parseCommand(SetAppointmentCommand.COMMAND_WORD
@@ -201,6 +210,13 @@ public class AddressBookParserTest {
                 (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
         Event appointment = new EventBuilder(VALID_TITLE, VALID_END_TIME).build();
         assertEquals(new SetTaskCommand((Task) appointment), command);
+    }
+
+    @Test
+    public void parseCommand_changeTheme() throws Exception {
+        ChangeThemeCommand command =
+                (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
+        assertEquals(new ChangeThemeCommand("dark"), command);
     }
     //@@author
 }
