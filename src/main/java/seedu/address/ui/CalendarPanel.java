@@ -125,6 +125,9 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowSearchField(false);
         calendarView.setShowSearchResultsTray(false);
         calendarView.setShowPrintButton(false);
+        calendarView.setShowPageSwitcher(false);
+        calendarView.setShowSourceTrayButton(false);
+
         calendarView.showMonthPage();
     }
 
