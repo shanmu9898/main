@@ -4,7 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.UniqueAppointmentList;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -50,6 +51,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered appointment list */
     ObservableList<Appointment> getFilteredAppointmentList();
 
+    /** Returns an unmodifiable view of the filtered appointment list */
+    ObservableList<Task> getFilteredTaskList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -63,9 +67,14 @@ public interface Model {
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given appointment */
-    void addAppointment(Appointment appointment) throws UniqueAppointmentList.DuplicateAppointmentException;
+    void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException;
 
     /** Deletes the given appointment. */
-    void deleteAppointment(Appointment appointment) throws UniqueAppointmentList.AppointmentNotFoundException;
+    void deleteAppointment(Appointment appointment) throws UniqueEventList.EventNotFoundException;
 
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueEventList.DuplicateEventException;
+
+    /** Deletes the given task */
+    void deleteTask(Task task) throws UniqueEventList.EventNotFoundException;
 }

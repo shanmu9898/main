@@ -9,6 +9,7 @@ import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Person;
 
+//@@author Sisyphus25
 /**
  * A utility class to help with building Appointment objects.
  */

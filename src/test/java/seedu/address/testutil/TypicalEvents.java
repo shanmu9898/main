@@ -8,10 +8,10 @@ import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.Title;
 
+//@@author Sisyphus25
 /**
  * A utility class containing a list of event objects to be used in tests.
  */
-//@@author Sisyphus25
 public class TypicalEvents {
     public static final Appointment TYPICAL_APPOINTMENT_1 =
             new AppointmentBuilder("Meeting with parents", "09/10/2018 10:00", "09/10/2018 11:00", ALICE).build();

@@ -49,7 +49,8 @@ public class XmlSerializableAddressBook {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream().map(
                 XmlAdaptedAppointment::new).collect(Collectors.toList()));
-
+        tasks.addAll(src.getTaskList().stream().map(
+                XmlAdaptedTask::new).collect(Collectors.toList()));
         commandsList.addAll(src.getCommandsList().stream().map(XmlAdaptedShortcutDouble::new)
                     .collect(Collectors.toList()));
     }
@@ -71,6 +72,9 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedAppointment a: appointments) {
             addressBook.addAppointment(a.toModelType());
         }
+        for (XmlAdaptedTask t: tasks) {
+            addressBook.addTask(t.toModelType());
+        }
         for (XmlAdaptedShortcutDouble s : commandsList) {
             addressBook.addShortcutDoubles(s.toModelType());
         }
@@ -90,7 +94,8 @@ public class XmlSerializableAddressBook {
         return persons.equals(otherAb.persons)
                 && tags.equals(otherAb.tags)
                 && appointments.equals(otherAb.appointments)
-                && tasks.equals(otherAb.tasks);
+                && tasks.equals(otherAb.tasks)
+                && commandsList.equals(otherAb.commandsList);
     }
 }
 

@@ -19,7 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Appointment;
 import seedu.address.testutil.modelstub.ModelStub;
 import seedu.address.testutil.modelstub.ModelStubAcceptingAppointmentAdded;
-import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateAppointmentException;
+import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateEventException;
 
 //@@author Sisyphus25
 public class SetAppointmentCommandTest {
@@ -46,7 +46,7 @@ public class SetAppointmentCommandTest {
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicateAppointmentException();
+        ModelStub modelStub = new ModelStubThrowingDuplicateEventException();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(SetAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.person.Person;
 import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.tag.Tag;
@@ -28,6 +29,12 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate appointment.
      */
     ObservableList<Appointment> getAppointmentList();
+
+    /**
+     * Returns an unmodifiable view of the tasks list.
+     * This list will not contain any duplicate tasks.
+     */
+    ObservableList<Task> getTaskList();
 
 
     ObservableList<ShortcutDoubles> getCommandsList();

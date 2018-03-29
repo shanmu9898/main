@@ -6,20 +6,20 @@ import java.util.ArrayList;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 
 //@@author Sisyphus25
 /**
- * A Model stub that always accept the appointment being added.
+ * A Model stub that always accept the task being added.
  */
-public class ModelStubAcceptingAppointmentAdded extends ModelStub {
-    public final ArrayList<Appointment> appointmentsAdded = new ArrayList<>();
+public class ModelStubAcceptingTaskAdded extends ModelStub {
+    public final ArrayList<Task> tasksAdded = new ArrayList<>();
 
     @Override
-    public void addAppointment(Appointment event) throws UniqueEventList.DuplicateEventException {
+    public void addTask(Task event) throws UniqueEventList.DuplicateEventException {
         requireNonNull(event);
-        appointmentsAdded.add(event);
+        tasksAdded.add(event);
     }
 
     @Override

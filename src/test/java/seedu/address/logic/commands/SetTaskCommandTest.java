@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Task;
 import seedu.address.testutil.modelstub.ModelStub;
-import seedu.address.testutil.modelstub.ModelStubAcceptingAppointmentAdded;
-import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateAppointmentException;
+import seedu.address.testutil.modelstub.ModelStubAcceptingTaskAdded;
+import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateEventException;
 
 //@@author Sisyphus25
 public class SetTaskCommandTest {
@@ -35,17 +35,17 @@ public class SetTaskCommandTest {
 
     @Test
     public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
 
-        CommandResult commandResult = getSetTaskCommand(TYPICAL_TASK_1, modelStub).execute();
+        CommandResult commandResult = getSetTaskCommand(TYPICAL_TASK_2, modelStub).execute();
 
-        assertEquals(String.format(SetTaskCommand.MESSAGE_SUCCESS, TYPICAL_TASK_1), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(TYPICAL_TASK_1), modelStub.appointmentsAdded);
+        assertEquals(String.format(SetTaskCommand.MESSAGE_SUCCESS, TYPICAL_TASK_2), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(TYPICAL_TASK_2), modelStub.tasksAdded);
     }
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicateAppointmentException();
+        ModelStub modelStub = new ModelStubThrowingDuplicateEventException();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(SetTaskCommand.MESSAGE_DUPLICATE_TASK);

@@ -8,7 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.UniqueAppointmentList;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -70,6 +71,13 @@ public class ModelStub implements Model {
         fail("This method should not be called.");
         return null;
     }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        fail("This method should not be called.");
+        return null;
+    }
+
     @Override
     public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
         fail("This method should not be called.");
@@ -86,12 +94,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addAppointment(Appointment appointment) throws UniqueAppointmentList.DuplicateAppointmentException {
+    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
         fail("This method should not be called.");
     }
 
     @Override
-    public void deleteAppointment(Appointment appointment) throws UniqueAppointmentList.AppointmentNotFoundException {
+    public void deleteAppointment(Appointment appointment) throws UniqueEventList.EventNotFoundException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void deleteTask(Task task) throws UniqueEventList.EventNotFoundException {
         fail("This method should not be called.");
     }
 }

@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.UniqueAppointmentList;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
@@ -55,7 +55,7 @@ public class AddressBookBuilder {
     public AddressBookBuilder withAppointment(Appointment appointment) {
         try {
             addressBook.addAppointment(appointment);
-        } catch (UniqueAppointmentList.DuplicateAppointmentException ive) {
+        } catch (UniqueEventList.DuplicateEventException ive) {
             throw new IllegalArgumentException("appointment is expected to be unique");
         }
         return this;
