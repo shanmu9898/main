@@ -12,6 +12,8 @@ public class ThemeList {
     public ThemeList() {
         themeList = new HashMap<>();
         themeList.put("dark", "view/DarkTheme.css");
+        themeList.put("light", "view/LightTheme.css");
+        themeList.put("doge", "view/DogeTheme.css");
     }
 
     public String getThemeStyleSheet(String theme) {

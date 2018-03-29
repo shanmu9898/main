@@ -32,9 +32,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String EXTENSIONS_STYLESHEET = "view/Extensions.css";
 
+    private static final String TAG_COLOUR_STYLESHEET = "view/TagColour.css";
+
     private static final ThemeList THEME_LIST = new ThemeList();
 
-    private static final String DEFAULT_THEME = "dark";
+    private static final String DEFAULT_THEME = "light";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -96,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setTheme(String theme) {
         primaryStage.getScene().getStylesheets().add(EXTENSIONS_STYLESHEET);
+        primaryStage.getScene().getStylesheets().add(TAG_COLOUR_STYLESHEET);
         primaryStage.getScene().getStylesheets().add(THEME_LIST.getThemeStyleSheet(theme));
     }
 
