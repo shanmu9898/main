@@ -16,6 +16,7 @@ import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 
+//@@author Sisyphus25
 /**
  * Adds an appointment to the address book.
  */
