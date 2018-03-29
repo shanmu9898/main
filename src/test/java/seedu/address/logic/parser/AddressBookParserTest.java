@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -209,6 +210,13 @@ public class AddressBookParserTest {
                 (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
         Event appointment = new EventBuilder(VALID_TITLE, VALID_END_TIME).build();
         assertEquals(new SetTaskCommand((Task) appointment), command);
+    }
+
+    @Test
+    public void parseCommand_changeTheme() throws Exception {
+        ChangeThemeCommand command =
+                (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
+        assertEquals(new ChangeThemeCommand("dark"), command);
     }
     //@@author
 }
