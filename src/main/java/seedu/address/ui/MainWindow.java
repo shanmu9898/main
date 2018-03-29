@@ -19,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ThemeChangeEvent;
+import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -45,6 +46,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
+    private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
     private CalendarPanel calendarPanel;
@@ -58,7 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -155,7 +158,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -168,6 +171,9 @@ public class MainWindow extends UiPart<Stage> {
 
         calendarPanel = new CalendarPanel(logic.getFilteredAppointmentList());
         calendarPlaceholder.getChildren().add(calendarPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
     }
 
     void hide() {
@@ -207,6 +213,26 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.show();
     }
 
+    /**
+     * Toggles list
+     */
+    @FXML
+    public void toggleList(String list) {
+        listPanelPlaceholder.getChildren().clear();
+        switch(list) {
+        case "appointment":
+            listPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+            break;
+        case "task":
+            listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+            break;
+        case "person":
+        default:
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -227,5 +253,11 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleToggleListEvent(ToggleListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleList(event.list);
     }
 }
