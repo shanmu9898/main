@@ -3,6 +3,10 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
@@ -17,8 +21,15 @@ public class TypicalEvents {
             new AppointmentBuilder("Meeting with parents", "09/10/2018 10:00", "09/10/2018 11:00", ALICE).build();
     public static final Appointment TYPICAL_APPOINTMENT_2 =
             new AppointmentBuilder("Consultation session", "04/07/2018 10:00", "04/07/2018 11:00", BOB).build();
+    public static final Appointment TYPICAL_APPOINTMENT_3 =
+            new AppointmentBuilder("Tutoring session", "30/04/2018 10:00", "30/04/2018 11:00").build();
+
     public static final Task TYPICAL_TASK_1 =
             new Task(new Title("To do"), new EventTime("10/10/2018 10:00"));
     public static final Task TYPICAL_TASK_2 =
             new Task(new Title("Mark papers"), new EventTime("15/04/2018 23:00"));
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2, TYPICAL_APPOINTMENT_3));
+    }
 }

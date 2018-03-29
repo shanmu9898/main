@@ -31,6 +31,8 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
+    private Label endTime;
+    @FXML
     private Label personToMeet;
 
     public AppointmentCard(Appointment appointment, int displayedIndex) {
@@ -38,7 +40,8 @@ public class AppointmentCard extends UiPart<Region> {
         this.appointment = appointment;
         id.setText(displayedIndex + ". ");
         title.setText(appointment.getTitle().value);
-        time.setText(DATE_FORMATTER.format(appointment.getTime().value.getTime()));
+        time.setText("From: " + DATE_FORMATTER.format(appointment.getTime().value.getTime()));
+        endTime.setText("To: " + DATE_FORMATTER.format(appointment.getEndTime().value.getTime()));
         if (appointment.getPersonToMeet() != null) {
             personToMeet.setText("With " + appointment.getPersonToMeet().getName());
         } else {

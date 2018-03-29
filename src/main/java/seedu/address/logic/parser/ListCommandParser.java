@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parser for ListCommand
  */
-public class ListCommandParser {
+public class ListCommandParser implements Parser<ListCommand> {
     /**
      * Parses the given {@code args} of arguments in the context of the ListCommandParser
      * and returns an ListCommand object for execution.
@@ -29,11 +29,13 @@ public class ListCommandParser {
      * @return whether if the string is a valid view mode or not
      */
     private boolean isValidItem(String str) {
+        if (str.isEmpty()) {
+            return true;
+        }
         switch (str) {
         case("appointment"):
         case("task"):
         case("person"):
-        case(""):
             return true;
         default:
             return false;

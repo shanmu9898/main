@@ -4,6 +4,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ToggleListEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Lists all persons in the address book to the user.
@@ -26,7 +27,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws CommandException {
         switch(item) {
         case("appointment"):
         case("task"):
