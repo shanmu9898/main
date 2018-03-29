@@ -11,6 +11,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Region?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600">
   <icons>
@@ -36,6 +39,15 @@
           </VBox>
 
           <VBox>
+            <StackPane fx:id="appNamePlaceholder" minHeight="70">
+              <padding>
+                <Insets top="10" right="10" bottom="3" left="10" />
+              </padding>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="id" text="TeachConnect" styleClass="app-title">
+                </Label>
+                </HBox>
+            </StackPane>
             <StackPane fx:id="calendarPlaceholder" prefWidth="200" styleClass="calendar-panel" >
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
