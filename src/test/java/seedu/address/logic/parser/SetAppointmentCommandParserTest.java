@@ -23,6 +23,7 @@ import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Title;
 import seedu.address.testutil.EventBuilder;
 
+//@@author Sisyphus25
 public class SetAppointmentCommandParserTest {
     private SetAppointmentCommandParser parser = new SetAppointmentCommandParser();
 

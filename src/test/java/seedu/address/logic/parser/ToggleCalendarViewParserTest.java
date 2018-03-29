@@ -9,7 +9,6 @@ import org.junit.Test;
 import seedu.address.logic.commands.ToggleCalendarViewCommand;
 
 //@@author Sisyphus25
-
 public class ToggleCalendarViewParserTest {
     private ToggleCalendarViewParser parser = new ToggleCalendarViewParser();
 
