@@ -16,7 +16,7 @@ public class ToggleCalendarViewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles calendar view. \n"
             + "Parameter: VIEW_MODE\n"
-            + "View mode: Day view: d, Week view: w, Month view: m, Year view: y\n"
+            + "View mode: Day view: d, Week view: w, Month view: m\n"
             + "Example: " + COMMAND_WORD + " d";
 
     public static final String MESSAGE_VIEW_TOGGLE_SUCCESS = "View changed.";

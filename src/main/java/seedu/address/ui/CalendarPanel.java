@@ -24,11 +24,10 @@ import seedu.address.commons.events.ui.ToggleCalendarViewEvent;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Event;
 
-
+//@@author Sisyphus25
 /**
  * The Calendar Panel of the App.
  */
-//@@author Sisyphus25
 public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
 
@@ -92,7 +91,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     //@@author Sisyphus25-reused
-    //Reused from https://github.com/CS2103AUG2017-T17-B2/main
+    //Reused from https://github.com/CS2103AUG2017-T17-B2/main with modifications
     private void setTime() {
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
@@ -127,8 +126,11 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowPrintButton(false);
         calendarView.setShowPageSwitcher(false);
         calendarView.setShowSourceTrayButton(false);
+        calendarView.setShowPageToolBarControls(false);
+        calendarView.setShowToolBar(false);
+        calendarView.setShowSourceTray(false);
 
-        calendarView.showMonthPage();
+        calendarView.showDayPage();
     }
 
     /**
@@ -144,9 +146,6 @@ public class CalendarPanel extends UiPart<Region> {
             return;
         case ('m'):
             calendarView.showMonthPage();
-            return;
-        case ('y'):
-            calendarView.showYearPage();
             return;
         default:
             //should not reach here

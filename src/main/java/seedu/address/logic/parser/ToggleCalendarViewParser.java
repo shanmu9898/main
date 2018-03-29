@@ -36,7 +36,6 @@ public class ToggleCalendarViewParser implements Parser<ToggleCalendarViewComman
         switch (str.charAt(0)) {
         case('w'):
         case('d'):
-        case('y'):
         case('m'):
             return true;
         default:
