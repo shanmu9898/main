@@ -45,6 +45,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
+import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Appointment;
@@ -186,6 +187,13 @@ public class AddressBookParserTest {
     }
 
     //@@author Sisyphus25
+    @Test
+    public void parseCommand_toggleCalendarView() throws Exception {
+        ToggleCalendarViewCommand command =
+                (ToggleCalendarViewCommand) parser.parseCommand(ToggleCalendarViewCommand.COMMAND_WORD + " " + "m");
+        assertEquals(new ToggleCalendarViewCommand('m'), command);
+    }
+
     @Test
     public void parseCommand_setAppointment() throws Exception {
         SetAppointmentCommand command =
