@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
@@ -13,7 +12,6 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Region?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600">
   <icons>
@@ -39,11 +37,11 @@
           </VBox>
 
           <VBox>
-            <StackPane fx:id="appNamePlaceholder" minHeight="70">
-              <padding>
-                <Insets top="10" right="10" bottom="3" left="10" />
-              </padding>
+            <StackPane fx:id="appTitle" minHeight="70">
                 <HBox spacing="5" alignment="CENTER_LEFT">
+                  <padding>
+                    <Insets top="10" right="15" bottom="0" left="10" />
+                  </padding>
                 <Label fx:id="id" text="TeachConnect" styleClass="app-title">
                 </Label>
                 </HBox>

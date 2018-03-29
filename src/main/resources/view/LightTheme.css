@@ -207,7 +207,11 @@
 }
 
 .calendar-panel .content {
-    -fx-border-color: tomato transparent tomato transparent;
+    -fx-border-color: transparent transparent tomato transparent;
+}
+
+.calendar-panel .header {
+    -fx-border-color: tomato transparent transparent transparent;
 }
 
 .context-menu {
