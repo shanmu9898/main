@@ -146,7 +146,7 @@
 
 .pane-with-border {
     -fx-background-color: derive(#ffffff, 20%);
-    -fx-border-color: derive(#ffd0d0, 10%);
+    -fx-border-color: transparent;
     -fx-border-top-width: 1px;
 }
 
@@ -198,6 +198,10 @@
 .calendar-panel {
     -fx-background-color: #ffffff;
     background-color: #ffffff;
+}
+
+.calendar-panel .content {
+    -fx-border-color: tomato transparent tomato transparent;
 }
 
 .context-menu {
@@ -368,6 +372,7 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #ffffff, transparent, #ffffff;
     -fx-background-radius: 0;
+    -fx-border-color: #ffd0d0;
 }
 
 #tags {

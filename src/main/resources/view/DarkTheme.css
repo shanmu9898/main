@@ -193,6 +193,10 @@
     -fx-text-fill: #000000;
 }
 
+.calendar-panel .list-cell:filled {
+    -fx-background-color: #808080;
+}
+
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);
 }
