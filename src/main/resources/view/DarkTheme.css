@@ -195,7 +195,7 @@
 
 .calendar-panel .list-cell:filled {
     -fx-background-color: #808080;
-
+}
 .calendar-panel {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
@@ -206,7 +206,9 @@
 .app-title {
     -fx-text-fill: white;
     -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-weight: bold;
     -fx-font-size: 36px
+}
 
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);

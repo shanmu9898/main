@@ -18,6 +18,7 @@
 .app-title {
     -fx-text-fill: black;
     -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-weight: bold;
     -fx-font-size: 36px
 }
 
