@@ -18,8 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Appointment;
 import seedu.address.testutil.modelstub.ModelStub;
-import seedu.address.testutil.modelstub.ModelStubAcceptingEventAdded;
-import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateEventException;
+import seedu.address.testutil.modelstub.ModelStubAcceptingAppointmentAdded;
+import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateAppointmentException;
 
 //@@author Sisyphus25
 public class SetAppointmentCommandTest {
@@ -35,39 +35,38 @@ public class SetAppointmentCommandTest {
 
     @Test
     public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
 
-        CommandResult commandResult = getSetAppointmentCommand(
-                (Appointment) TYPICAL_APPOINTMENT_1, modelStub).execute();
+        CommandResult commandResult = getSetAppointmentCommand(TYPICAL_APPOINTMENT_1, modelStub).execute();
 
         assertEquals(String.format(
                 SetAppointmentCommand.MESSAGE_SUCCESS, TYPICAL_APPOINTMENT_1), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(TYPICAL_APPOINTMENT_1), modelStub.eventsAdded);
+        assertEquals(Arrays.asList(TYPICAL_APPOINTMENT_1), modelStub.appointmentsAdded);
     }
 
     @Test
     public void execute_duplicateEvent_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicateEventException();
+        ModelStub modelStub = new ModelStubThrowingDuplicateAppointmentException();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(SetAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
 
-        getSetAppointmentCommand((Appointment) TYPICAL_APPOINTMENT_1, modelStub).execute();
+        getSetAppointmentCommand(TYPICAL_APPOINTMENT_1, modelStub).execute();
     }
 
     @Test
     public void equals() {
         SetAppointmentCommand addAppointment1 =
-                new SetAppointmentCommand((Appointment) TYPICAL_APPOINTMENT_1);
+                new SetAppointmentCommand(TYPICAL_APPOINTMENT_1);
         SetAppointmentCommand addAppointment2 =
-                new SetAppointmentCommand((Appointment) TYPICAL_APPOINTMENT_2);
+                new SetAppointmentCommand(TYPICAL_APPOINTMENT_2);
 
         // same object -> returns true
         assertTrue(addAppointment1.equals(addAppointment1));
 
         // same values -> returns true
         SetAppointmentCommand addAppointment1Copy =
-                new SetAppointmentCommand((Appointment) TYPICAL_APPOINTMENT_1);
+                new SetAppointmentCommand(TYPICAL_APPOINTMENT_1);
         assertTrue(addAppointment1.equals(addAppointment1Copy));
 
         // different types -> returns false

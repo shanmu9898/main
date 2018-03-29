@@ -13,7 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.PersonToMeet;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 
 //@@author Sisyphus25
@@ -68,9 +68,9 @@ public class SetAppointmentCommand extends UndoableCommand {
             } else {
                 toAdd = appointment;
             }
-            model.addEvent(toAdd);
+            model.addAppointment(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueEventList.DuplicateEventException e) {
+        } catch (UniqueAppointmentList.DuplicateAppointmentException e) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 

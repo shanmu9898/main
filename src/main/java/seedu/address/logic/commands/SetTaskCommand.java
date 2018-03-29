@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.UniqueAppointmentList;
 
 //@@author Sisyphus25
 /**
@@ -41,9 +41,9 @@ public class SetTaskCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            model.addEvent(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueEventList.DuplicateEventException e) {
+        } catch (UniqueAppointmentList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 

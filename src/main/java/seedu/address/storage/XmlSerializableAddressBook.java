@@ -10,9 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.event.Appointment;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.Task;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -50,13 +47,8 @@ public class XmlSerializableAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
-        for (Event e : src.getEventList()) {
-            if (e instanceof Appointment) {
-                appointments.add(new XmlAdaptedAppointment((Appointment) e));
-            } else if (e instanceof Task) {
-                tasks.add(new XmlAdaptedTask((Task) e));
-            }
-        }
+        appointments.addAll(src.getAppointmentList().stream().map(
+                XmlAdaptedAppointment::new).collect(Collectors.toList()));
 
         commandsList.addAll(src.getCommandsList().stream().map(XmlAdaptedShortcutDouble::new)
                     .collect(Collectors.toList()));
@@ -77,10 +69,7 @@ public class XmlSerializableAddressBook {
             addressBook.addPerson(p.toModelType());
         }
         for (XmlAdaptedAppointment a: appointments) {
-            addressBook.addEvent(a.toModelType());
-        }
-        for (XmlAdaptedTask t: tasks) {
-            addressBook.addEvent(t.toModelType());
+            addressBook.addAppointment(a.toModelType());
         }
         for (XmlAdaptedShortcutDouble s : commandsList) {
             addressBook.addShortcutDoubles(s.toModelType());

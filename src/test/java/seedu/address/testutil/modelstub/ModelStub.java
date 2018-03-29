@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -40,7 +40,7 @@ public class ModelStub implements Model {
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         fail("This method should not be called.");
         return null;
-    };
+    }
 
     @Override
     public void deletePerson(Person target) throws PersonNotFoundException {
@@ -66,14 +66,14 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
+    public ObservableList<Appointment> getFilteredAppointmentList() {
         fail("This method should not be called.");
         return null;
     }
     @Override
     public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
         fail("This method should not be called.");
-    };
+    }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
@@ -86,18 +86,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addEvent(Event event) throws UniqueEventList.DuplicateEventException {
+    public void addAppointment(Appointment appointment) throws UniqueAppointmentList.DuplicateAppointmentException {
         fail("This method should not be called.");
-    };
+    }
 
     @Override
-    public void deleteEvent(Event event) throws UniqueEventList.EventNotFoundException {
+    public void deleteAppointment(Appointment appointment) throws UniqueAppointmentList.AppointmentNotFoundException {
         fail("This method should not be called.");
-    };
-
-    @Override
-    public void updateEvent(Event target, Event editedEvent)
-            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
-        fail("This method should not be called.");
-    };
+    }
 }

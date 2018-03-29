@@ -7,7 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 /**
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
  */
-public class Appointment implements Event {
+public class Appointment {
     public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
     private Title title;

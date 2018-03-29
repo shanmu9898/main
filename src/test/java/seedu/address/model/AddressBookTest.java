@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NOTUSED;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_1;
-import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_1;
+import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_2;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -23,7 +23,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -42,7 +42,7 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getTagList());
-        assertEquals(Collections.emptyList(), addressBook.getEventList());
+        assertEquals(Collections.emptyList(), addressBook.getAppointmentList());
 
     }
 
@@ -64,9 +64,9 @@ public class AddressBookTest {
         // Repeat ALICE twice
         List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
-        List<Event> newEvents = Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_TASK_1);
+        List<Appointment> newAppointments = Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2);
         List<ShortcutDoubles> newCommands = Arrays.asList(new ShortcutDoubles("a", "add"));
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newEvents, newCommands);
+        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newAppointments, newCommands);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
@@ -85,9 +85,9 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getEventList_modifyList_throwsUnsupportedOperationException() {
+    public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getEventList().remove(0);
+        addressBook.getAppointmentList().remove(0);
     }
 
     /**
@@ -96,14 +96,14 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
-        private final ObservableList<Event> events = FXCollections.observableArrayList();
+        private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<ShortcutDoubles> commandslist = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags,
-                                                    Collection<Event> events, Collection<ShortcutDoubles> commands) {
+                        Collection<Appointment> appointments, Collection<ShortcutDoubles> commands) {
             this.persons.setAll(persons);
             this.tags.setAll(tags);
-            this.events.setAll(events);
+            this.appointments.setAll(appointments);
             this.commandslist.setAll(commands);
         }
 
@@ -118,8 +118,8 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Event> getEventList() {
-            return events;
+        public ObservableList<Appointment> getAppointmentList() {
+            return appointments;
         }
 
         @Override

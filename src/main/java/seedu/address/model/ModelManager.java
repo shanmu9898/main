@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
 
     /**
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
     }
 
@@ -98,24 +98,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addEvent(Event event) throws UniqueEventList.DuplicateEventException {
-        addressBook.addEvent(event);
+    public void addAppointment(Appointment appointment) throws UniqueAppointmentList.DuplicateAppointmentException {
+        addressBook.addAppointment(appointment);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteEvent(Event target) throws UniqueEventList.EventNotFoundException {
-        addressBook.removeEvent(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updateEvent(Event target, Event editedEvent)
-            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
-        requireAllNonNull(target, editedEvent);
-
-        addressBook.updateEvent(target, editedEvent);
+    public void deleteAppointment(Appointment target) throws UniqueAppointmentList.AppointmentNotFoundException {
+        addressBook.removeAppointment(target);
         indicateAddressBookChanged();
     }
 
@@ -131,12 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
      * {@code addressBook}
      */
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return FXCollections.unmodifiableObservableList(filteredEvents);
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return FXCollections.unmodifiableObservableList(filteredAppointments);
     }
 
     @Override

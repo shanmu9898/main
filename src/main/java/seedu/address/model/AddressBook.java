@@ -11,8 +11,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
-    private final UniqueEventList events;
+    private final UniqueAppointmentList appointments;
     private final UniqueShortcutDoublesList shorcutCommands;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -42,7 +42,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
-        events = new UniqueEventList();
+        appointments = new UniqueAppointmentList();
         shorcutCommands = new UniqueShortcutDoublesList();
     }
 
@@ -66,10 +66,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
-    public void setEvents(List<Event> events) throws UniqueEventList.DuplicateEventException {
-        this.events.setEvents(events);
+    public void setAppointments(List<Appointment> appointments)
+            throws UniqueAppointmentList.DuplicateAppointmentException {
+        this.appointments.setAppointments(appointments);
     }
-
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -80,14 +80,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
-        List<Event> eventList = newData.getEventList();
+        List<Appointment> appointmentList = newData.getAppointmentList();
 
         try {
             setPersons(syncedPersonList);
-            setEvents(eventList);
+            setAppointments(appointmentList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
-        } catch (UniqueEventList.DuplicateEventException e) {
+        } catch (UniqueAppointmentList.DuplicateAppointmentException e) {
             throw new AssertionError("AddressBooks should not have duplicate events");
         }
     }
@@ -209,8 +209,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Event> getEventList() {
-        return events.asObservableList();
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asObservableList();
     }
 
     @Override
@@ -257,39 +257,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author Sisyphus25
-    //// event operations
+    //appointment operations
 
     /**
-     * Adds an event to the address book.
+     * Adds an appointment to the address book.
      *
-     * @throws UniqueEventList.DuplicateEventException if an equivalent person already exists.
+     * @throws UniqueAppointmentList.DuplicateAppointmentException if an equivalent appointment already exists.
      */
-    public void addEvent(Event e) throws UniqueEventList.DuplicateEventException {
-        events.add(e);
-    }
-
-    /**
-     * Replaces the given event {@code target} in the list with {@code editedEvent}.
-     *
-     * @throws UniqueEventList.DuplicateEventException if updating the event's details causes the event
-     * to be equivalent to another existing person in the list.
-     * @throws UniqueEventList.EventNotFoundException if {@code target} could not be found in the list.
-     */
-    public void updateEvent(Event target, Event editedEvent)
-            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
-        requireNonNull(editedEvent);
-        events.setEvent(target, editedEvent);
+    public void addAppointment(Appointment e) throws UniqueAppointmentList.DuplicateAppointmentException {
+        appointments.add(e);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * @throws UniqueEventList.EventNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     * @throws UniqueAppointmentList.AppointmentNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removeEvent(Event key) throws UniqueEventList.EventNotFoundException {
-        if (events.remove(key)) {
+    public boolean removeAppointment(Appointment key) throws UniqueAppointmentList.AppointmentNotFoundException {
+        if (appointments.remove(key)) {
             return true;
         } else {
-            throw new UniqueEventList.EventNotFoundException();
+            throw new UniqueAppointmentList.AppointmentNotFoundException();
         }
     }
 }

@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        calendarPanel = new CalendarPanel(logic.getFilteredEventList());
+        calendarPanel = new CalendarPanel(logic.getFilteredAppointmentList());
         calendarPlaceholder.getChildren().add(calendarPanel.getRoot());
     }
 

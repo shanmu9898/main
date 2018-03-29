@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 /**
  * Represent a Task in the schedule, contains deadline as well as the title
  */
-public class Task implements Event {
+public class Task {
     private Title title;
     private EventTime time;
 
