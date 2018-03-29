@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 
+//@@author Sisyphus25
 /**
  * Adds a task to the address book.
  */
