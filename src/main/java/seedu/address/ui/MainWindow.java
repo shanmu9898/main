@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final ThemeList THEME_LIST = new ThemeList();
 
-    private static final String DEFAULT_THEME = "dark";
+    private static final String DEFAULT_THEME = "light";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
