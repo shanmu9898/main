@@ -11,6 +11,11 @@
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
+.app-title {
+    -fx-text-fill: brown;
+    -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-size: 36px
+}
 
 .label-bright {
     -fx-font-size: 11pt;
