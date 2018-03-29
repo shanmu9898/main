@@ -199,7 +199,6 @@
 .calendar-panel {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
-  
 .calendar-panel .content .header-panel {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
