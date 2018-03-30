@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -31,12 +29,12 @@ public class UniqueContactList {
     public void updateList(ListChangeListener.Change<? extends Person> c) {
         while (c.next()) {
             if (c.wasReplaced()) {
-                for (int i = 0; i < c.getRemovedSize(); i++){
+                for (int i = 0; i < c.getRemovedSize(); i++) {
                     int index = combinedList.indexOf(c.getRemoved().get(i));
                     combinedList.set(index, c.getAddedSubList().get(i));
                 }
-                if (c.getTo() > c.getRemovedSize()){
-                    for (int i = c.getRemovedSize(); i < c.getTo(); i++){
+                if (c.getTo() > c.getRemovedSize()) {
+                    for (int i = c.getRemovedSize(); i < c.getTo(); i++) {
                         combinedList.add(c.getAddedSubList().get(i));
                     }
                 }
