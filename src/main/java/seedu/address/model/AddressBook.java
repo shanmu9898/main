@@ -383,7 +383,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     
     //@@author Sisyphus25
     //event operations
-
     /**
      * Adds an appointment to the address book.
      *
