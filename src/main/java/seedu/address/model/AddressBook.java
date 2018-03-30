@@ -380,7 +380,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         updateStudent(student, updatedStudent);
     }
-  
+    
     //@@author Sisyphus25
     //event operations
 
