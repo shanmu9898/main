@@ -23,6 +23,12 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedStudent> students;
     @XmlElement
     private List<XmlAdaptedTag> tags;
+    @XmlElement
+    private List<XmlAdaptedAppointment> appointments;
+    @XmlElement
+    private List<XmlAdaptedTask> tasks;
+    @XmlElement
+    private List<XmlAdaptedShortcutDouble> commandsList;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -32,6 +38,9 @@ public class XmlSerializableAddressBook {
         persons = new ArrayList<>();
         students = new ArrayList<>();
         tags = new ArrayList<>();
+        appointments = new ArrayList<>();
+        tasks = new ArrayList<>();
+        commandsList = new ArrayList<>();
     }
 
     /**
@@ -42,13 +51,19 @@ public class XmlSerializableAddressBook {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         students.addAll(src.getStudentList().stream().map(XmlAdaptedStudent::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+        appointments.addAll(src.getAppointmentList().stream().map(
+                XmlAdaptedAppointment::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(
+                XmlAdaptedTask::new).collect(Collectors.toList()));
+        commandsList.addAll(src.getCommandsList().stream().map(XmlAdaptedShortcutDouble::new)
+                    .collect(Collectors.toList()));
     }
 
     /**
      * Converts this addressbook into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson} or {@code XmlAdaptedTag}.
+     * {@code XmlAdaptedPerson},{@code XmlAdaptedTag}, {@code XmlAdaptedAppointment}, {@code XmlAdaptedTask}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
@@ -60,6 +75,15 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedStudent s : students) {
             addressBook.addStudent(s.toModelType());
+        }
+        for (XmlAdaptedAppointment a: appointments) {
+            addressBook.addAppointment(a.toModelType());
+        }
+        for (XmlAdaptedTask t: tasks) {
+            addressBook.addTask(t.toModelType());
+        }
+        for (XmlAdaptedShortcutDouble s : commandsList) {
+            addressBook.addShortcutDoubles(s.toModelType());
         }
         return addressBook;
     }
@@ -73,8 +97,13 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
-        return persons.equals(otherAb.persons) && students.equals(otherAb.students) && tags.equals(otherAb.tags);
+        return persons.equals(otherAb.persons)
+                && students.equals(otherAb.students)
+                && tags.equals(otherAb.tags)
+                && appointments.equals(otherAb.appointments)
+                && tasks.equals(otherAb.tasks)
+                && commandsList.equals(otherAb.commandsList);
     }
 }
+

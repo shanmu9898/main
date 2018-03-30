@@ -11,7 +11,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -20,6 +21,8 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniqueStudentList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -33,8 +36,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueStudentList students;
     private final UniqueTagList tags;
-    private final UniqueEventList events;
-
+    private final UniqueEventList<Appointment> appointments;
+    private final UniqueEventList<Task> tasks;
+    private final UniqueShortcutDoublesList shorcutCommands;
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -47,7 +51,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         students = new UniqueStudentList();
         contacts = new UniqueContactList(persons, students);
         tags = new UniqueTagList();
-        events = new UniqueEventList();
+        appointments = new UniqueEventList<Appointment>();
+        tasks = new UniqueEventList<Task>();
+        shorcutCommands = new UniqueShortcutDoublesList();
     }
 
     public AddressBook() {}
@@ -74,16 +80,30 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setAppointments(List<Appointment> appointments)
+            throws UniqueEventList.DuplicateEventException {
+        this.appointments.setEvents(appointments);
+    }
+
+    public void setTasks(List<Task> tasks)
+            throws UniqueEventList.DuplicateEventException {
+        this.tasks.setEvents(tasks);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
+        List<Appointment> appointmentList = newData.getAppointmentList();
+        List<Task> taskList = newData.getTaskList();
         List<Person> syncedContactList = newData.getContactList().stream()
                 .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
         try {
+            setPersons(syncedPersonList);
+            setAppointments(appointmentList);
             persons.setPersons(new UniquePersonList());
             students.setStudents(new UniqueStudentList());
             for (Person contact:syncedContactList) {
@@ -95,6 +115,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             }
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        } catch (UniqueEventList.DuplicateEventException e) {
+            throw new AssertionError("AddressBooks should not have duplicate events");
         }
     }
 
@@ -245,6 +267,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    public void addShortcutDoubles(ShortcutDoubles s)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        shorcutCommands.add(s);
+    }
+
     //// util methods
 
     @Override
@@ -275,8 +302,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Event> getEventList() {
-        return events.asObservableList();
+    public ObservableList<ShortcutDoubles> getCommandsList() {
+        return shorcutCommands.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
     }
 
     @Override
@@ -285,8 +322,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
                 && this.students.equals(((AddressBook) other).students)
-                && this.events.equals(((AddressBook) other).events)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                && this.shorcutCommands.equals(((AddressBook) other).shorcutCommands));
     }
 
     @Override
@@ -342,6 +378,51 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person updatedStudent = new Student(student.getName(), student.getPhone(), student.getEmail(),
                                           student.getAddress(), listOfTags);
 
-        updatePerson(student, updatedStudent);
+        updateStudent(student, updatedStudent);
+    }
+  
+    //@@author Sisyphus25
+    //event operations
+
+    /**
+     * Adds an appointment to the address book.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent appointment already exists.
+     */
+    public void addAppointment(Appointment e) throws UniqueEventList.DuplicateEventException {
+        appointments.add(e);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws UniqueEventList.EventNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeAppointment(Appointment key) throws UniqueEventList.EventNotFoundException {
+        if (appointments.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
+    }
+
+    /**
+     * Adds a task to the address book.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent appointment already exists.
+     */
+    public void addTask(Task e) throws UniqueEventList.DuplicateEventException {
+        tasks.add(e);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws UniqueEventList.EventNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeTask(Task key) throws UniqueEventList.EventNotFoundException  {
+        if (tasks.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }
     }
 }

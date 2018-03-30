@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.END_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
@@ -24,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -37,11 +44,19 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetAppointmentCommand;
+import seedu.address.logic.commands.SetTaskCommand;
+import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.Title;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -116,8 +131,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " ") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " appointment") instanceof ListCommand);
     }
 
     @Test
@@ -173,5 +188,36 @@ public class AddressBookParserTest {
                 command);
     }
 
+    //@@author Sisyphus25
+    @Test
+    public void parseCommand_toggleCalendarView() throws Exception {
+        ToggleCalendarViewCommand command =
+                (ToggleCalendarViewCommand) parser.parseCommand(ToggleCalendarViewCommand.COMMAND_WORD + " " + "m");
+        assertEquals(new ToggleCalendarViewCommand('m'), command);
+    }
 
+    @Test
+    public void parseCommand_setAppointment() throws Exception {
+        SetAppointmentCommand command =
+                (SetAppointmentCommand) parser.parseCommand(SetAppointmentCommand.COMMAND_WORD
+                + TITLE_DESC + START_TIME_DESC + END_TIME_DESC);
+        Appointment appointment = new AppointmentBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
+        assertEquals(new SetAppointmentCommand(appointment), command);
+    }
+
+    @Test
+    public void parseCommand_setTask() throws Exception {
+        SetTaskCommand command =
+                (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
+        Task task = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
+        assertEquals(new SetTaskCommand(task), command);
+    }
+
+    @Test
+    public void parseCommand_changeTheme() throws Exception {
+        ChangeThemeCommand command =
+                (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
+        assertEquals(new ChangeThemeCommand("dark"), command);
+    }
+    //@@author
 }

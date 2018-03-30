@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +18,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ThemeChangeEvent;
+import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -28,19 +31,28 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    private static final String EXTENSIONS_STYLESHEET = "view/Extensions.css";
+
+    private static final String TAG_COLOUR_STYLESHEET = "view/TagColour.css";
+
+    private static final ThemeList THEME_LIST = new ThemeList();
+
+    private static final String DEFAULT_THEME = "light";
+
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
+    private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
+    private CalendarPanel calendarPanel;
 
-    @FXML
-    private StackPane browserPlaceholder;
+    private String theme;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,13 +61,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane calendarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -67,6 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
+        setTheme();
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 
@@ -77,6 +93,31 @@ public class MainWindow extends UiPart<Stage> {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
+    //@@author Sisyphus25
+    private void setTheme() {
+        setTheme(DEFAULT_THEME);
+    }
+
+    private void setTheme(String theme) {
+        primaryStage.getScene().getStylesheets().add(EXTENSIONS_STYLESHEET);
+        primaryStage.getScene().getStylesheets().add(TAG_COLOUR_STYLESHEET);
+        primaryStage.getScene().getStylesheets().add(THEME_LIST.getThemeStyleSheet(theme));
+    }
+
+    @Subscribe
+    private void handleThemeChangeEvent(ThemeChangeEvent event) {
+        theme = event.theme;
+        Platform.runLater(
+                this::changeTheme
+        );
+    }
+
+    private void changeTheme() {
+        primaryStage.getScene().getStylesheets().clear();
+        setTheme(theme);
+    }
+    //@@author
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
@@ -116,11 +157,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -130,6 +168,12 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        calendarPanel = new CalendarPanel(logic.getFilteredAppointmentList());
+        calendarPlaceholder.getChildren().add(calendarPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
     }
 
     void hide() {
@@ -169,6 +213,26 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.show();
     }
 
+    /**
+     * Toggles list
+     */
+    @FXML
+    public void toggleList(String list) {
+        listPanelPlaceholder.getChildren().clear();
+        switch(list) {
+        case "appointment":
+            listPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+            break;
+        case "task":
+            listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+            break;
+        case "person":
+        default:
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -185,13 +249,15 @@ public class MainWindow extends UiPart<Stage> {
         return this.personListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleToggleListEvent(ToggleListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleList(event.list);
     }
 }

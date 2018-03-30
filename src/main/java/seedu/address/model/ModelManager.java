@@ -12,10 +12,15 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.ShortcutDoubles;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,6 +32,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredContacts;
+    private final FilteredList<Appointment> filteredAppointments;
+    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private String currentActiveListType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +48,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
+        filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        currentActiveListType = LIST_TYPE_PERSON;
     }
 
     public ModelManager() {
@@ -86,6 +99,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
+  
+    @Override
+    public synchronized void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+               throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        addressBook.addShortcutDoubles(shortcutDoubles);
+        indicateAddressBookChanged();
+    }
 
     @Override
     public void updatePerson(Person target, Person editedPerson)
@@ -105,6 +125,30 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
+        addressBook.addAppointment(appointment);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteAppointment(Appointment target) throws UniqueEventList.EventNotFoundException {
+        addressBook.removeAppointment(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
+        addressBook.addTask(task);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTask(Task target) throws UniqueEventList.EventNotFoundException {
+        addressBook.removeTask(target);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -117,9 +161,40 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return FXCollections.unmodifiableObservableList(filteredAppointments);
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredTasks);
+    }
+
+    @Override
+    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
+        return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
+    }
+
+    @Override
+    public String getCurrentActiveListType() {
+        return currentActiveListType;
+    }
+
+    @Override
+    public void changeCurrentActiveListType(String itemType) {
+        currentActiveListType = itemType;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCommandList(Predicate<ShortcutDoubles> shortcutDoublesPredicate) {
+        requireNonNull(shortcutDoublesPredicate);
+        filteredShortcutCommands.setPredicate(shortcutDoublesPredicate);
     }
 
     @Override
