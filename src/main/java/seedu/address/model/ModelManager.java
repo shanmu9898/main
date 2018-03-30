@@ -89,6 +89,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        addressBook.removeShortcutDouble(shortcutDoubles);
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);

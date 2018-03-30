@@ -50,6 +50,10 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
 
+    /** Deletes the given command shortcut */
+    void deleteCommandShortcut(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException;
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

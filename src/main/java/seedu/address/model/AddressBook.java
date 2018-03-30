@@ -70,6 +70,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.events.setEvents(events);
     }
 
+    public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
+        this.shorcutCommands.setCommandsList(shorcutCommands);
+    }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
@@ -81,14 +85,16 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
         List<Event> eventList = newData.getEventList();
+        List<ShortcutDoubles> commandsList = newData.getCommandsList();
 
         try {
             setPersons(syncedPersonList);
             setEvents(eventList);
+            setShorcutCommands(commandsList);
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("TeachConnect should not have duplicate persons");
         } catch (UniqueEventList.DuplicateEventException e) {
-            throw new AssertionError("AddressBooks should not have duplicate events");
+            throw new AssertionError("TeachConnect should not have duplicate events");
         }
     }
 
@@ -171,6 +177,21 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         } else {
             throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     *
+     * @param commandShortcut
+     * @return
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        if (shorcutCommands.remove(commandShortcut)) {
+            return true;
+        } else {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
         }
     }
 
