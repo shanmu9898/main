@@ -16,10 +16,14 @@
 }
 
 .app-title {
-    -fx-text-fill: black;
-    -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-weight: bold;
-    -fx-font-size: 36px
+    -fx-text-fill: white;
+    -fx-font-family: "Franklin Gothic Heavy";
+    -fx-font-size: 40px;
+}
+
+.app-title .text {
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
 }
 
 .label-bright {
@@ -65,7 +69,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 35px;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -384,6 +388,6 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent;
+    -fx-background-color: #efdc7f;
     -fx-background-radius: 0;
 }
