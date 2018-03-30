@@ -32,4 +32,7 @@ public class TypicalEvents {
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2, TYPICAL_APPOINTMENT_3));
     }
+    public static List<Task> getTypicalTasks() {
+        return new ArrayList<>(Arrays.asList(TYPICAL_TASK_1, TYPICAL_TASK_2));
+    }
 }
