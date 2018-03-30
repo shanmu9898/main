@@ -233,6 +233,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
+                && this.appointments.equals(((AddressBook) other).appointments)
+                && this.tasks.equals(((AddressBook) other).tasks)
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
                 && this.shorcutCommands.equals(((AddressBook) other).shorcutCommands));
     }
@@ -240,7 +242,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, appointments, tasks, tags);
     }
 
     /**

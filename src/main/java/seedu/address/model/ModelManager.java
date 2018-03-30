@@ -27,6 +27,10 @@ import seedu.address.model.tag.Tag;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+    public static final String LIST_TYPE_PERSON = "person";
+    public static final String LIST_TYPE_APPOINTMENT = "appointment";
+    public static final String LIST_TYPE_TASK = "task";
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
