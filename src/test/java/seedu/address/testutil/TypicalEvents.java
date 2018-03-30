@@ -28,9 +28,11 @@ public class TypicalEvents {
             new Task(new Title("To do"), new EventTime("10/10/2018 10:00"));
     public static final Task TYPICAL_TASK_2 =
             new Task(new Title("Mark papers"), new EventTime("15/04/2018 23:00"));
+    public static final Task TYPICAL_TASK_3 =
+            new Task(new Title("Purchase markers"), new EventTime("19/04/2018 10:00"));
 
     public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2, TYPICAL_APPOINTMENT_3));
+        return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2));
     }
     public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(TYPICAL_TASK_1, TYPICAL_TASK_2));
