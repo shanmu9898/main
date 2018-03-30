@@ -66,7 +66,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void updateStudent(Student target, Student editedStudent) throws DuplicatePersonException, PersonNotFoundException {
+    public void updateStudent(Student target, Student editedStudent)
+            throws DuplicatePersonException, PersonNotFoundException {
         fail("This method should not be called.");
     }
 

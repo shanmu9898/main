@@ -107,7 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             persons.setPersons(new UniquePersonList());
             students.setStudents(new UniqueStudentList());
             for (Person contact:syncedContactList) {
-                if (contact instanceof Student){
+                if (contact instanceof Student) {
                     addStudent((Student) contact);
                 } else {
                     addPerson(contact);
@@ -380,10 +380,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         updateStudent(student, updatedStudent);
     }
-  
     //@@author Sisyphus25
     //event operations
-
     /**
      * Adds an appointment to the address book.
      *

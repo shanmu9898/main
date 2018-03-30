@@ -27,7 +27,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
-import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.IVAN;
 import static seedu.address.testutil.TypicalPersons.JOHN;
@@ -35,7 +34,6 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalPersons.STUDENT_AMY;
 import static seedu.address.testutil.TypicalPersons.STUDENT_BOB;
 import static seedu.address.testutil.TypicalPersons.STUDENT_HOON;
-import static seedu.address.testutil.TypicalPersons.STUDENT_IDA;
 
 import org.junit.Test;
 
