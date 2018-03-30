@@ -68,7 +68,7 @@ public class SetAppointmentCommand extends UndoableCommand {
             } else {
                 toAdd = appointment;
             }
-            model.addEvent(toAdd);
+            model.addAppointment(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueEventList.DuplicateEventException e) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);

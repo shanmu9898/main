@@ -3,7 +3,8 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -16,6 +17,8 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
+    final String LIST_TYPE_PERSON = "person";
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -47,8 +50,14 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered event list */
-    ObservableList<Event> getFilteredEventList();
+    /** Returns an unmodifiable view of the filtered appointment list */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
+    /** Returns an unmodifiable view of the filtered appointment list */
+    ObservableList<Task> getFilteredTaskList();
+
+    /** Returns the item type of the curent active list being shown in the GUI */
+    String getCurrentActiveListType();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -62,20 +71,18 @@ public interface Model {
 
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
-    /** Adds the given event */
-    void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
+    /** Adds the given appointment */
+    void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException;
 
-    /** Deletes the given event. */
-    void deleteEvent(Event event) throws UniqueEventList.EventNotFoundException;
+    /** Deletes the given appointment. */
+    void deleteAppointment(Appointment appointment) throws UniqueEventList.EventNotFoundException;
 
-    /**
-     * Replaces the given event {@code target} with {@code editedEvent}.
-     *
-     * @throws UniqueEventList.DuplicateEventException if updating the event causes it to be equivalent to
-     *      another existing person in the list.
-     * @throws UniqueEventList.EventNotFoundException if {@code target} could not be found in the list.
-     */
-    void updateEvent(Event target, Event editedEvent)
-            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException;
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueEventList.DuplicateEventException;
 
+    /** Deletes the given task */
+    void deleteTask(Task task) throws UniqueEventList.EventNotFoundException;
+
+    /** Change the current active list that is being displayed in the model */
+    void changeCurrentActiveListType(String itemType);
 }

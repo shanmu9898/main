@@ -14,11 +14,9 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.SetTaskCommand;
-import seedu.address.model.event.Event;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.Title;
-import seedu.address.testutil.EventBuilder;
 
 //@@author Sisyphus25
 public class SetTaskCommandParserTest {
@@ -26,11 +24,11 @@ public class SetTaskCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Event expectedTask = new EventBuilder(VALID_TITLE, VALID_END_TIME).build();
+        Task expectedTask = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC + END_TIME_DESC,
-                new SetTaskCommand((Task) expectedTask));
+                new SetTaskCommand(expectedTask));
     }
 
     @Test

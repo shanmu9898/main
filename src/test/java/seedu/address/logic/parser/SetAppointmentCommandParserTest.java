@@ -18,10 +18,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.Event;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Title;
-import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.AppointmentBuilder;
 
 //@@author Sisyphus25
 public class SetAppointmentCommandParserTest {
@@ -29,19 +28,19 @@ public class SetAppointmentCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Event expectedAppointment = new EventBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
+        Appointment expectedAppointment = new AppointmentBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC + START_TIME_DESC + END_TIME_DESC,
-                new SetAppointmentCommand((Appointment) expectedAppointment));
+                new SetAppointmentCommand(expectedAppointment));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // no personToMeet
-        Event expectedAppointment = new EventBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
+        Appointment expectedAppointment = new AppointmentBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
         assertParseSuccess(parser, TITLE_DESC + START_TIME_DESC + END_TIME_DESC,
-                new SetAppointmentCommand(((Appointment) expectedAppointment)));
+                new SetAppointmentCommand((expectedAppointment)));
     }
 
     @Test

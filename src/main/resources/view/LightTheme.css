@@ -14,6 +14,7 @@
 .app-title {
     -fx-text-fill: brown;
     -fx-font-family: "Franklin Gothic Medium";
+    -fx-font-weight: bold;
     -fx-font-size: 36px
 }
 
@@ -206,7 +207,11 @@
 }
 
 .calendar-panel .content {
-    -fx-border-color: tomato transparent tomato transparent;
+    -fx-border-color: transparent transparent tomato transparent;
+}
+
+.calendar-panel .header {
+    -fx-border-color: tomato transparent transparent transparent;
 }
 
 .context-menu {

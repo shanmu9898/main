@@ -31,7 +31,9 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-
+        if (!model.getCurrentActiveListType().equals(model.LIST_TYPE_PERSON)) {
+            setPersonListActive();
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

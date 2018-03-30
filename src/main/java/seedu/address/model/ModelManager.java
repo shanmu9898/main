@@ -12,7 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -30,8 +31,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Appointment> filteredAppointments;
+    private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private String currentActiveListType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,8 +47,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
+        filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        currentActiveListType = LIST_TYPE_PERSON;
     }
 
     public ModelManager() {
@@ -98,26 +103,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addEvent(Event event) throws UniqueEventList.DuplicateEventException {
-        addressBook.addEvent(event);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
+        addressBook.addAppointment(appointment);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteEvent(Event target) throws UniqueEventList.EventNotFoundException {
-        addressBook.removeEvent(target);
+    public void deleteAppointment(Appointment target) throws UniqueEventList.EventNotFoundException {
+        addressBook.removeAppointment(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updateEvent(Event target, Event editedEvent)
-            throws UniqueEventList.DuplicateEventException, UniqueEventList.EventNotFoundException {
-        requireAllNonNull(target, editedEvent);
-
-        addressBook.updateEvent(target, editedEvent);
+    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
+        addressBook.addTask(task);
         indicateAddressBookChanged();
     }
+
+    @Override
+    public void deleteTask(Task target) throws UniqueEventList.EventNotFoundException {
+        addressBook.removeTask(target);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -130,18 +138,29 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
-     * {@code addressBook}
-     */
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return FXCollections.unmodifiableObservableList(filteredEvents);
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return FXCollections.unmodifiableObservableList(filteredAppointments);
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredTasks);
     }
 
     @Override
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
+    }
+
+    @Override
+    public String getCurrentActiveListType() {
+        return currentActiveListType;
+    }
+
+    @Override
+    public void changeCurrentActiveListType(String itemType) {
+        currentActiveListType = itemType;
     }
 
     @Override

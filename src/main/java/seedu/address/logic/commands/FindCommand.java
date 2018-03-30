@@ -23,6 +23,9 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        if (!model.getCurrentActiveListType().equals(model.LIST_TYPE_PERSON)) {
+            setPersonListActive();
+        }
         model.updateFilteredPersonList(predicate);
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }

@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.Appointment;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -50,13 +50,13 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Parses {@code appointment} into a {@code Event} and adds it to the {@code AddressBook} that we are building.
+     * Add a new {@code Appointment} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withEvent(Event event) {
+    public AddressBookBuilder withAppointment(Appointment appointment) {
         try {
-            addressBook.addEvent(event);
+            addressBook.addAppointment(appointment);
         } catch (UniqueEventList.DuplicateEventException ive) {
-            throw new IllegalArgumentException("event is expected to be unique");
+            throw new IllegalArgumentException("appointment is expected to be unique");
         }
         return this;
     }

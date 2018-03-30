@@ -11,18 +11,18 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 /**
- * A list of events  that enforces uniqueness between its elements and does not allow nulls.
+ * A list of events that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  */
-public class UniqueEventList implements Iterable<Event> {
+public class UniqueEventList<A> implements Iterable<A> {
 
-    private final ObservableList<Event> internalList = FXCollections.observableArrayList();
+    private final ObservableList<A> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent Event as the given argument.
      */
-    public boolean contains(Event toCheck) {
+    public boolean contains(A toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
@@ -30,9 +30,10 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Adds an Event to the list.
      *
-     * @throws DuplicateEventException if the Event to add is a duplicate of an existing Event in the list.
+     * @throws DuplicateEventException if the event to add
+     * is a duplicate of an existing Event in the list.
      */
-    public void add(Event toAdd) throws DuplicateEventException {
+    public void add(A toAdd) throws DuplicateEventException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateEventException();
@@ -43,9 +44,9 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Removes the equivalent Event from the list.
      *
-     * @throws EventNotFoundException if no such Event could be found in the list.
+     * @throws EventNotFoundException if no such event could be found in the list.
      */
-    public boolean remove(Event toRemove) throws EventNotFoundException {
+    public boolean remove(A toRemove) throws EventNotFoundException {
         requireNonNull(toRemove);
         final boolean eventFoundAndDeleted = internalList.remove(toRemove);
         if (!eventFoundAndDeleted) {
@@ -54,36 +55,14 @@ public class UniqueEventList implements Iterable<Event> {
         return eventFoundAndDeleted;
     }
 
-    /**
-     * Replaces the person {@code target} in the list with {@code editedEvent}.
-     *
-     * @throws DuplicateEventException if the replacement is equivalent to another existing event in the list.
-     * @throws EventNotFoundException if {@code target} could not be found in the list.
-     */
-    public void setEvent(Event target, Event editedEvent)
-            throws DuplicateEventException, EventNotFoundException {
-        requireNonNull(editedEvent);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EventNotFoundException();
-        }
-
-        if (!target.equals(editedEvent) && internalList.contains(editedEvent)) {
-            throw new DuplicateEventException();
-        }
-
-        internalList.set(index, editedEvent);
-    }
-
-    public void setEvents(UniqueEventList replacement) {
+    public void setEvents(UniqueEventList<A> replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setEvents(List<Event> events) throws DuplicateEventException {
+    public void setEvents(List<A> events) throws DuplicateEventException {
         requireAllNonNull(events);
-        final UniqueEventList replacement = new UniqueEventList();
-        for (final Event event : events) {
+        final UniqueEventList<A> replacement = new UniqueEventList<A>();
+        for (final A event : events) {
             replacement.add(event);
         }
         setEvents(replacement);
@@ -92,12 +71,12 @@ public class UniqueEventList implements Iterable<Event> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Event> asObservableList() {
+    public ObservableList<A> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<Event> iterator() {
+    public Iterator<A> iterator() {
         return internalList.iterator();
     }
 
@@ -105,7 +84,7 @@ public class UniqueEventList implements Iterable<Event> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueEventList // instanceof handles nulls
-                && this.internalList.equals(((UniqueEventList) other).internalList));
+                && this.internalList.equals(((UniqueEventList<A>) other).internalList));
     }
 
     @Override
@@ -122,7 +101,7 @@ public class UniqueEventList implements Iterable<Event> {
         }
     }
     /**
-     * Signals that an operation is looking for an event doesn't exist.
+     * Signals that an operation is looking for an appointment doesn't exist.
      */
     public static class EventNotFoundException extends Exception {
         public EventNotFoundException() {
