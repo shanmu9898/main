@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ONLY_STUDENTS;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,10 +17,10 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all ";
     private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
 
-    public static final String TYPE_STUDENT = "students";
-    public static final String TYPE_CONTACT = "contacts";
-    public static final String TYPE_APPOINTMENT = "appointments";
-    public static final String TYPE_TASK = "tasks";
+    public static final String TYPE_STUDENT = "student";
+    public static final String TYPE_CONTACT = "contact";
+    public static final String TYPE_APPOINTMENT = "appointment";
+    public static final String TYPE_TASK = "task";
   
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists selected type. \n"
             + "Parameter: TYPE\n"
@@ -64,6 +62,6 @@ public class ListCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand // instanceof handles nulls
-                && this.item.equals(((ListCommand) other).item)); // state check
+                && this.type.equals(((ListCommand) other).type)); // state check
     }
 }

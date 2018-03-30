@@ -11,6 +11,7 @@ import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
@@ -23,6 +24,11 @@ import seedu.address.model.tag.Tag;
 public class ModelStub implements Model {
     @Override
     public void addPerson(Person person) throws DuplicatePersonException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void addStudent(Student student) throws DuplicatePersonException {
         fail("This method should not be called.");
     }
 
@@ -49,8 +55,18 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteStudent(Student target) throws PersonNotFoundException {
+        fail("This method should not be called.");
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void updateStudent(Student target, Student editedStudent) throws DuplicatePersonException, PersonNotFoundException {
         fail("This method should not be called.");
     }
 

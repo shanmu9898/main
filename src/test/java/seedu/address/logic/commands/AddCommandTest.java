@@ -19,7 +19,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.modelstub.ModelStub;
@@ -91,68 +90,6 @@ public class AddCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addStudent(Student student) throws DuplicatePersonException {
-            fail("This method should not be called. ");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void deletePerson(Person target) throws PersonNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void deleteStudent(Student target) throws PersonNotFoundException {
-            fail("This method should not be called. ");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updateStudent(Student target, Student editedStudent) {
-            fail("This method should not be called. ");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTag(Tag tag) {
-            fail("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that always throw a DuplicatePersonException when trying to add a person.
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
@@ -174,7 +111,7 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
+        public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
         }

@@ -131,7 +131,6 @@ public class AddressBookParser {
         case ChangeThemeCommand.COMMAND_WORD:
             return new ChangeThemeCommandParser().parse(arguments);
 
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

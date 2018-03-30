@@ -76,7 +76,7 @@ public class AddressBookTest {
         List<Appointment> newAppointments = Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2);
         List<Task> newTasks = Arrays.asList(TYPICAL_TASK_1, TYPICAL_TASK_2);
         List<ShortcutDoubles> newCommands = Arrays.asList(new ShortcutDoubles("a", "add"));
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags, newAppointments, newTasks, newCommands);
+        AddressBookStub newData = new AddressBookStub(newPersons, newStudents, newTags, newAppointments, newTasks, newCommands);
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);

@@ -51,8 +51,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         students = new UniqueStudentList();
         contacts = new UniqueContactList(persons, students);
         tags = new UniqueTagList();
-        appointments = new UniqueEventList<Appointment>();
-        tasks = new UniqueEventList<Task>();
+        appointments = new UniqueEventList<>();
+        tasks = new UniqueEventList<>();
         shorcutCommands = new UniqueShortcutDoublesList();
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
         try {
-            setPersons(syncedPersonList);
+            setPersons(syncedContactList);
             setAppointments(appointmentList);
             persons.setPersons(new UniquePersonList());
             students.setStudents(new UniqueStudentList());
@@ -277,7 +277,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return persons.asObservableList().size() + " persons, " + students.asObservableList().size() + " students, "
-                + tags.asObservableList().size() +  " tags" + events.asObservableList().size() +  " events";
+                + tags.asObservableList().size() +  " tags";
         // TODO: refine later
     }
 
@@ -375,7 +375,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             return;
         }
 
-        Person updatedStudent = new Student(student.getName(), student.getPhone(), student.getEmail(),
+        Student updatedStudent = new Student(student.getName(), student.getPhone(), student.getEmail(),
                                           student.getAddress(), listOfTags);
 
         updateStudent(student, updatedStudent);

@@ -11,6 +11,9 @@ import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
+import static seedu.address.logic.commands.ListCommand.COMMAND_WORD;
+import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
+import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
@@ -131,8 +134,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " ") instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " appointment") instanceof ListCommand);
+        assertTrue(parser.parseCommand(COMMAND_WORD + " " + TYPE_CONTACT) instanceof ListCommand);
+        assertTrue(parser.parseCommand(COMMAND_WORD + " " + TYPE_APPOINTMENT) instanceof ListCommand);
     }
 
     @Test

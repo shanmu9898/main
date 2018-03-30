@@ -14,10 +14,10 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsListCommand() {
-        assertParseSuccess(parser, "", new ListCommand(""));
-        assertParseSuccess(parser, "person", new ListCommand("person"));
-        assertParseSuccess(parser, "task", new ListCommand("task"));
-        assertParseSuccess(parser, "appointment", new ListCommand("appointment"));
+        assertParseSuccess(parser, "contact", new ListCommand(ListCommand.TYPE_CONTACT));
+        assertParseSuccess(parser, "student", new ListCommand(ListCommand.TYPE_STUDENT));
+        assertParseSuccess(parser, "task", new ListCommand(ListCommand.TYPE_TASK));
+        assertParseSuccess(parser, "appointment", new ListCommand(ListCommand.TYPE_APPOINTMENT));
     }
 
     @Test

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
 import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
+import static seedu.address.logic.commands.ListCommand.TYPE_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -57,7 +58,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listAppointment_success() throws CommandException {
-        listCommand = new ListCommand("appointment");
+        listCommand = new ListCommand(TYPE_APPOINTMENT);
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = listCommand.execute();
         assertEquals(MESSAGE_SUCCESS + TYPE_APPOINTMENT, result.feedbackToUser);
@@ -67,10 +68,10 @@ public class ListCommandTest {
 
     @Test
     public void execute_listTask_success() throws CommandException {
-        listCommand = new ListCommand("task");
+        listCommand = new ListCommand(TYPE_TASK);
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = listCommand.execute();
-        assertEquals(MESSAGE_SUCCESS + TYPE_APPOINTMENT, result.feedbackToUser);
+        assertEquals(MESSAGE_SUCCESS + TYPE_TASK, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
