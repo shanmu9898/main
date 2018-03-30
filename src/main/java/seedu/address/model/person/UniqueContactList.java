@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -8,7 +10,7 @@ import javafx.collections.ObservableList;
 /**
  * A list that is the aggregation of {@code UniquePersonList} and {@code UniqueStudentList}
  * and is the list displayed in the GUI.
- * This list remains up-to-date by listening to the changes of both lists.
+ * This list remains up-to-date by listening to the changes of both lists and is not changed by anything else.
  */
 public class UniqueContactList {
     private final UniquePersonList persons;
@@ -28,10 +30,19 @@ public class UniqueContactList {
      */
     public void updateList(ListChangeListener.Change<? extends Person> c) {
         while (c.next()) {
-            if (c.wasRemoved()) {
+            if (c.wasReplaced()) {
+                for (int i = 0; i < c.getRemovedSize(); i++){
+                    int index = combinedList.indexOf(c.getRemoved().get(i));
+                    combinedList.set(index, c.getAddedSubList().get(i));
+                }
+                if (c.getTo() > c.getRemovedSize()){
+                    for (int i = c.getRemovedSize(); i < c.getTo(); i++){
+                        combinedList.add(c.getAddedSubList().get(i));
+                    }
+                }
+            } else if (c.wasRemoved()) {
                 combinedList.removeAll(c.getRemoved());
-            }
-            if (c.wasAdded()) {
+            } else if (c.wasAdded()) {
                 combinedList.addAll(c.getAddedSubList());
             }
         }

@@ -80,16 +80,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
-        List<Person> syncedPersonList = newData.getPersonList().stream()
-                .map(this::syncWithMasterTagList)
-                .collect(Collectors.toList());
-        List<Student> syncedStudentList = newData.getStudentList().stream()
-                .map(this::syncWithMasterTagList).map(person -> (Student) person)
-                .collect(Collectors.toList());
+        List<Person> syncedContactList = newData.getContactList().stream()
+                .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
         try {
-            setPersons(syncedPersonList);
-            setStudents(syncedStudentList);
+            persons.setPersons(new UniquePersonList());
+            students.setStudents(new UniqueStudentList());
+            for (Person contact:syncedContactList) {
+                if (contact instanceof Student){
+                    addStudent((Student) contact);
+                } else {
+                    addPerson(contact);
+                }
+            }
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
@@ -179,13 +182,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes all {@code Tag}s that are not used by any {@code Person} or {@code Student} in this {@code AddressBook}.
      */
     private void removeUnusedTags() {
-        Set<Tag> tagsInPersons = persons.asObservableList().stream().map(Person::getTags).flatMap(Set::stream)
-                                 .collect(Collectors.toSet());
-        Set<Tag> tagsInStudents = students.asObservableList().stream().map(Student::getTags).flatMap(Set::stream)
+        Set<Tag> tagsInContacts = contacts.asObservableList().stream().map(Person::getTags).flatMap(Set::stream)
                                  .collect(Collectors.toSet());
 
-        tags.setTags(tagsInPersons);
-        tags.setTags(tagsInStudents);
+        tags.setTags(tagsInContacts);
     }
 
     /**
