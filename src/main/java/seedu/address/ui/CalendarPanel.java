@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 import javafx.scene.layout.Region;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AppointmentListChangedEvent;
 import seedu.address.commons.events.ui.ToggleCalendarViewEvent;
 import seedu.address.model.event.Appointment;
 
@@ -31,7 +31,9 @@ public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
 
     @FXML
-    private CalendarView calendarView;
+    private static final CalendarView calendarView = new CalendarView();
+    private static final CalendarSource calendarSource = new CalendarSource("My Calendar");
+    private static final Calendar calendar = new Calendar("Appointments");
 
     private ObservableList<Appointment> appointmentList;
 
@@ -39,10 +41,14 @@ public class CalendarPanel extends UiPart<Region> {
         super(FXML);
         this.appointmentList = appointmentObservableList;
 
-        calendarView = new CalendarView();
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
+
+        calendarView.getCalendarSources().add(calendarSource);
+        calendarSource.getCalendars().add(calendar);
+        calendar.setStyle(Calendar.Style.getStyle(0));
+        calendar.setLookAheadDuration(Duration.ofDays(365));
 
         updateCalendar();
         disableViews();
@@ -50,23 +56,14 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates a new a calendar with the update information
+     * Update information
      */
     private void updateCalendar() {
-        setTime();
-        CalendarSource calendarSource = new CalendarSource("My Calendar");
-        Calendar calendar = new Calendar("Appointments");
-        calendar.setStyle(Calendar.Style.getStyle(0));
-        calendar.setLookAheadDuration(Duration.ofDays(365));
-
-        calendarSource.getCalendars().add(calendar);
-
+        calendar.clear();
         ArrayList<Entry> entries = getEntries();
-
         for (Entry entry : entries) {
             calendar.addEntry(entry);
         }
-        calendarView.getCalendarSources().add(calendarSource);
     }
 
     private ArrayList<Entry> getEntries() {
@@ -91,12 +88,11 @@ public class CalendarPanel extends UiPart<Region> {
     private void setTime() {
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
-        calendarView.getCalendarSources().clear();
     }
 
     @Subscribe
-    private void handleNewAppointmentEvent(AddressBookChangedEvent event) {
-        appointmentList = event.data.getAppointmentList();
+    private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
+        appointmentList = event.appointmentList;
         Platform.runLater(
                 this::updateCalendar
         );
