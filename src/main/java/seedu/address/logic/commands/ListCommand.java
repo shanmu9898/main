@@ -15,8 +15,8 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all ";
     private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
 
-    private static final String TYPE_STUDENT = "students";
-    private static final String TYPE_CONTACT = "contacts";
+    public static final String TYPE_STUDENT = "students";
+    public static final String TYPE_CONTACT = "contacts";
     private final String typeToListed;
 
     public ListCommand(String typeArg) {
