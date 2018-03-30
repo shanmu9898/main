@@ -15,12 +15,12 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all ";
-    private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
 
     public static final String TYPE_CONTACT = "contact";
     public static final String TYPE_STUDENT = "student";
     public static final String TYPE_APPOINTMENT = "appointment";
     public static final String TYPE_TASK = "task";
+    private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists selected type. \n"
             + "Parameter: TYPE\n"
