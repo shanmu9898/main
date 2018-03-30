@@ -17,6 +17,8 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
+    final String LIST_TYPE_PERSON = "person";
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -54,6 +56,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered appointment list */
     ObservableList<Task> getFilteredTaskList();
 
+    /** Returns the item type of the curent active list being shown in the GUI */
+    String getCurrentActiveListType();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -77,4 +82,7 @@ public interface Model {
 
     /** Deletes the given task */
     void deleteTask(Task task) throws UniqueEventList.EventNotFoundException;
+
+    /** Change the current active list that is being displayed in the model */
+    void changeCurrentActiveListType(String itemType);
 }

@@ -31,12 +31,14 @@ public class ListCommand extends Command {
         switch(item) {
         case("appointment"):
         case("task"):
+            model.changeCurrentActiveListType(item);
             EventsCenter.getInstance().post(new ToggleListEvent(item));
             break;
         case("person"):
         default:
+            model.changeCurrentActiveListType(item);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            EventsCenter.getInstance().post(new ToggleListEvent(item));
+            EventsCenter.getInstance().post(new ToggleListEvent(model.LIST_TYPE_PERSON));
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -45,6 +47,6 @@ public class ListCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand // instanceof handles nulls
-                && this.item == ((ListCommand) other).item); // state check
+                && this.item.equals(((ListCommand) other).item)); // state check
     }
 }

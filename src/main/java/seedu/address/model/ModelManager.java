@@ -34,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private String currentActiveListType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        currentActiveListType = LIST_TYPE_PERSON;
     }
 
     public ModelManager() {
@@ -149,6 +151,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
+    }
+
+    @Override
+    public String getCurrentActiveListType() {
+        return currentActiveListType;
+    }
+
+    @Override
+    public void changeCurrentActiveListType(String itemType) {
+        currentActiveListType = itemType;
     }
 
     @Override

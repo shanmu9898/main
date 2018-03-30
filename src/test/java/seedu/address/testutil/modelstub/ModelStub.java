@@ -79,6 +79,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getCurrentActiveListType() {
+        fail("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public void changeCurrentActiveListType(String type) {
+        fail("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
         fail("This method should not be called.");
     }

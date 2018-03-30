@@ -55,7 +55,9 @@ public class ListCommandTest {
 
     @Test
     public void execute_listAppointment_success() throws CommandException {
-        CommandResult result = new ListCommand("appointment").execute();
+        listCommand = new ListCommand("appointment");
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        CommandResult result = listCommand.execute();
         assertEquals(MESSAGE_SUCCESS, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
@@ -63,7 +65,9 @@ public class ListCommandTest {
 
     @Test
     public void execute_listTask_success() throws CommandException {
-        CommandResult result = new ListCommand("task").execute();
+        listCommand = new ListCommand("task");
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        CommandResult result = listCommand.execute();
         assertEquals(MESSAGE_SUCCESS, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);

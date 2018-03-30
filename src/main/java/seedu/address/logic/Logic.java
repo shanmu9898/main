@@ -32,4 +32,7 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /** Returns the item type of the current active list that is shown in the GUI by the address book*/
+    String getCurrentActiveListType();
 }
