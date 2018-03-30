@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 
 /**
  * Contains Test for {@code RemoveCommand}
@@ -28,16 +29,25 @@ public class RemoveCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndex_success() throws Exception {
-        Appointment eventToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+    public void execute_validIndexRemoveAppointment_success() throws Exception {
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
         RemoveCommand removeCommandRemovingAppointment = prepareCommand(INDEX_FIRST, "appointment");
         String expectedMessage =
-                String.format(RemoveCommand.MESSAGE_DELETE_EVENT_SUCCESS, "appointment", eventToDelete);
-
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deleteAppointment(eventToDelete);
-
+                String.format(RemoveCommand.MESSAGE_DELETE_EVENT_SUCCESS, "appointment", appointmentToDelete);
+        expectedModel.deleteAppointment(appointmentToDelete);
         assertCommandSuccess(removeCommandRemovingAppointment, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexRemoveTask_success() throws Exception {
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        RemoveCommand removeCommandRemovingTask = prepareCommand(INDEX_FIRST, "task");
+        String expectedMessage =
+                String.format(RemoveCommand.MESSAGE_DELETE_EVENT_SUCCESS, "task", taskToDelete);
+        expectedModel.deleteTask(taskToDelete);
+        assertCommandSuccess(removeCommandRemovingTask, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -45,8 +55,14 @@ public class RemoveCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
         RemoveCommand removeCommandRemovingTask = prepareCommand(outOfBoundIndex, "task");
 
+        Index outOfBoundIndex2 = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
+        RemoveCommand removeCommandRemovingAppointment = prepareCommand(outOfBoundIndex2, "appointment");
+
         assertCommandFailure(removeCommandRemovingTask, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        assertCommandFailure(removeCommandRemovingAppointment,
+                model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
+
     @Test
     public void equals() throws Exception {
         RemoveCommand removeCommandRemovingAppointment = prepareCommand(INDEX_FIRST, "appointment");
