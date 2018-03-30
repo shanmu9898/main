@@ -31,15 +31,18 @@ public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
 
     @FXML
-    private static final CalendarView calendarView = new CalendarView();
-    private static final CalendarSource calendarSource = new CalendarSource("My Calendar");
-    private static final Calendar calendar = new Calendar("Appointments");
+    private CalendarView calendarView;
+    private Calendar calendar;
 
     private ObservableList<Appointment> appointmentList;
 
     public CalendarPanel(ObservableList<Appointment> appointmentObservableList) {
         super(FXML);
         this.appointmentList = appointmentObservableList;
+
+        calendarView = new CalendarView();
+        CalendarSource calendarSource = new CalendarSource("My Calendar");
+        calendar = new Calendar("Appointments");
 
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.setToday(LocalDate.now());
