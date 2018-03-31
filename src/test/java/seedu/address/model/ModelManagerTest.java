@@ -38,6 +38,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredCommandList_modifyList_throwsUnsupportedOperationException() {
+        ModelManager modelManager = new ModelManager();
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredCommandsList().remove(0);
+    }
+
+    @Test
     public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);

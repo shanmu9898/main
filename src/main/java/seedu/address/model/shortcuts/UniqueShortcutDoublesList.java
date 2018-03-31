@@ -2,6 +2,8 @@ package seedu.address.model.shortcuts;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
@@ -69,4 +71,30 @@ public class UniqueShortcutDoublesList {
                 && this.internalList.equals(((UniqueShortcutDoublesList) other).internalList));
     }
 
+    public void setCommandsList(List<ShortcutDoubles> commandsList) {
+        requireNonNull(commandsList);
+        internalList.setAll(commandsList);
+        assert CollectionUtil.elementsAreUnique(internalList);
+    }
+
+    /**
+     * Removes the equvivalent command shortcut from the list.
+     * @param shortcutDoubles
+     *
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean remove(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        requireNonNull(shortcutDoubles);
+        final boolean shortcutToBeDeleted = internalList.remove(shortcutDoubles);
+        if (!shortcutToBeDeleted) {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
+        }
+        return shortcutToBeDeleted;
+    }
+
+    /**
+     * Exception when the command shortcut is not present in the list of stored commands
+     */
+    public static class CommandShortcutNotFoundException extends Exception {}
 }

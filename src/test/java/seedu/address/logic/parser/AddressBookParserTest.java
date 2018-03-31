@@ -34,6 +34,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -48,6 +49,7 @@ import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
+import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -180,15 +182,30 @@ public class AddressBookParserTest {
                 "name"), command);
     }
 
-    //@@author shanmu9898
     @Test
-    public  void parseCommand_import() throws Exception {
+    public void parseCommand_import() throws Exception {
         ImportCommand command = (ImportCommand) parser.parseCommand(
                 ImportCommand.COMMAND_WORD + " "
                         + "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml");
         assertEquals(new ImportCommand("src/test/data/XmlAddressBookStorageTest/importsamplefile.xml"),
                 command);
     }
+
+    @Test
+    public void parseCommand_shortcut() throws Exception {
+        ShortcutCommand command = (ShortcutCommand) parser.parseCommand(
+                ShortcutCommand.COMMAND_WORD + " " + "list" + " " + "l");
+        assertEquals(new ShortcutCommand("list", "l"), command);
+    }
+
+    @Test
+    public void parseCommand_deleteShortcut() throws Exception {
+        DeleteShortcutCommand command = (DeleteShortcutCommand) parser.parseCommand(
+                DeleteShortcutCommand.COMMAND_WORD + " " + "list" + " " + "l");
+        assertEquals(new DeleteShortcutCommand("list", "l"), command);
+    }
+
+
 
     //@@author Sisyphus25
     @Test
@@ -232,4 +249,6 @@ public class AddressBookParserTest {
         assertEquals(new RemoveCommand(Index.fromOneBased(2), "task"), commandRemoveTask);
     }
     //@@author
+
+
 }

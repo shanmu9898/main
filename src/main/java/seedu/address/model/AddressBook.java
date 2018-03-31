@@ -74,6 +74,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setEvents(appointments);
     }
 
+    public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
+        this.shorcutCommands.setCommandsList(shorcutCommands);
+    }
     public void setTasks(List<Task> tasks)
             throws UniqueEventList.DuplicateEventException {
         this.tasks.setEvents(tasks);
@@ -88,17 +91,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
+
         List<Appointment> appointmentList = newData.getAppointmentList();
         List<Task> taskList = newData.getTaskList();
+        List<ShortcutDoubles> commandsList = newData.getCommandsList();
 
         try {
             setPersons(syncedPersonList);
             setAppointments(appointmentList);
             setTasks(taskList);
+            setShorcutCommands(commandsList);
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("TeachConnect should not have duplicate persons");
         } catch (UniqueEventList.DuplicateEventException e) {
-            throw new AssertionError("AddressBooks should not have duplicate events");
+            throw new AssertionError("TeachConnect should not have duplicate events");
         }
     }
 
@@ -181,6 +187,21 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         } else {
             throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     *
+     * @param commandShortcut
+     * @return a boolean variable
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        if (shorcutCommands.remove(commandShortcut)) {
+            return true;
+        } else {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
         }
     }
 
