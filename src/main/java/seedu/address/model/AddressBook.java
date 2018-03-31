@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      *
      * @param commandShortcut
-     * @return
+     * @return a boolean variable
      * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
      */
     public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
