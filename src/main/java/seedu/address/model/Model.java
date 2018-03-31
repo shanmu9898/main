@@ -59,6 +59,10 @@ public interface Model {
     /** Returns the item type of the curent active list being shown in the GUI */
     String getCurrentActiveListType();
 
+    /** Deletes the given command shortcut */
+    void deleteCommandShortcut(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException;
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -66,8 +70,6 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     ObservableList<ShortcutDoubles> getFilteredCommandsList();
-
-    void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate);
 
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 

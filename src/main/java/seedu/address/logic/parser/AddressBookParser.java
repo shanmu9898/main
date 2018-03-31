@@ -12,6 +12,7 @@ import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
@@ -131,6 +132,8 @@ public class AddressBookParser {
         case ChangeThemeCommand.COMMAND_WORD:
             return new ChangeThemeCommandParser().parse(arguments);
 
+        case DeleteShortcutCommand.COMMAND_WORD:
+            return new DeleteShortcutCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
