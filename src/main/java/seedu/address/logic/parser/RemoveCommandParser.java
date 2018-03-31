@@ -14,8 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class RemoveCommandParser implements Parser<RemoveCommand> {
 
-    public static final String MESSAGE_INVALID_TYPE = "Type must be student or defualt(empty).";
-
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveCommand
      * and returns an RemoveCommand object for execution.
@@ -45,5 +43,6 @@ public class RemoveCommandParser implements Parser<RemoveCommand> {
         return type.equals("appointment") || type.equals("task");
     }
 }
+
 
 

@@ -59,7 +59,8 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Update information
+     * Clear the entry list in the CalendarFX calendar and
+     * populate it with appointment in the updated appointmentList
      */
     private void updateCalendar() {
         calendar.clear();
