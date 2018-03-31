@@ -104,6 +104,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         try {
             setPersons(syncedContactList);
             setAppointments(appointmentList);
+            setTasks(taskList);
             persons.setPersons(new UniquePersonList());
             students.setStudents(new UniqueStudentList());
             for (Person contact:syncedContactList) {
