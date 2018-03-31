@@ -76,10 +76,6 @@ public class ModelStub implements Model {
         fail("This method should not be called.");
         return null;
     }
-    @Override
-    public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
-        fail("This method should not be called.");
-    };
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
