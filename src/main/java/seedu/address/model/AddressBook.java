@@ -102,7 +102,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
         try {
-            setPersons(syncedContactList);
             setAppointments(appointmentList);
             setTasks(taskList);
             persons.setPersons(new UniquePersonList());
