@@ -56,7 +56,7 @@ public class ShortcutCommandTest {
         thrown.expectMessage(ShortcutCommand.MESSAGE_NO_COMMAND_TO_MAP);
 
         CommandResult commandResult = getAddShortcutForCommand(validTestingShortcutWord,
-                invalidTestingCommandWord,
+                                                               invalidTestingCommandWord,
                                                                model).executeUndoableCommand();
     }
 
@@ -66,7 +66,7 @@ public class ShortcutCommandTest {
         ShortcutDoubles shortcutDoubles = new ShortcutDoubles(validTestingShortcutWord, validTestingCommandWord);
         model.addCommandShortcut(shortcutDoubles);
         CommandResult commandResult = getAddShortcutForCommand(validTestingShortcutWord,
-                validTestingCommandWord,
+                                                               validTestingCommandWord,
                                                                model).executeUndoableCommand();
         assertEquals(commandResult.feedbackToUser, String.format(ShortcutCommand.MESSAGE_SHORTCUT_AVAILABLE));
     }
@@ -77,8 +77,8 @@ public class ShortcutCommandTest {
         ShortcutDoubles shortcutDoubles = new ShortcutDoubles(validTestingShortcutWord, validTestingCommandWord);
         expectedModel.addCommandShortcut(shortcutDoubles);
         assertCommandSuccess(getAddShortcutForCommand(validTestingShortcutWord,
-                validTestingCommandWord,
-                                                       model), model,
+                                                      validTestingCommandWord,
+                                                      model), model,
                                                        String.format(ShortcutCommand.MESSAGE_SUCCESS), expectedModel);
     }
 
@@ -94,7 +94,7 @@ public class ShortcutCommandTest {
     @Test
     public void equals() throws Exception {
         ShortcutCommand deleteFirstCommand = getAddShortcutForCommand(validTestingShortcutWord,
-                validTestingCommandWord,
+                                                                      validTestingCommandWord,
                                                                       model);
         ShortcutCommand deleteSecondCommand = getAddShortcutForCommand("c",
                                                                        "clear",
