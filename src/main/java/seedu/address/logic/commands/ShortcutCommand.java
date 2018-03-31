@@ -60,7 +60,7 @@ public class ShortcutCommand extends UndoableCommand {
 
     /**
      * Checks if the shortcut command is valid or not
-     * @return
+     * @return whether true or false
      */
     private boolean checkIfCommandPresent() throws CommandException {
         if (!containsKeyWord(commandWord)) {
@@ -77,7 +77,7 @@ public class ShortcutCommand extends UndoableCommand {
     /**
      * Checks if the command word is in the Array of commands present
      * @param commandWord
-     * @return
+     * @return whether true or false
      */
     private boolean containsKeyWord(String commandWord) {
         for (String s : commandsPresent) {
