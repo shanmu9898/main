@@ -94,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         List<Appointment> appointmentList = newData.getAppointmentList();
         List<Task> taskList = newData.getTaskList();
-        List<ShortcutDoubles> commandsList = newData.getCommandsList();  
+        List<ShortcutDoubles> commandsList = newData.getCommandsList();
 
         try {
             setPersons(syncedPersonList);
