@@ -41,7 +41,7 @@ public class SetTaskCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            model.addEvent(toAdd);
+            model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueEventList.DuplicateEventException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

@@ -52,13 +52,14 @@ import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
+import seedu.address.model.event.Title;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -132,8 +133,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " ") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " appointment") instanceof ListCommand);
     }
 
     @Test
@@ -217,16 +218,16 @@ public class AddressBookParserTest {
         SetAppointmentCommand command =
                 (SetAppointmentCommand) parser.parseCommand(SetAppointmentCommand.COMMAND_WORD
                 + TITLE_DESC + START_TIME_DESC + END_TIME_DESC);
-        Event appointment = new EventBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
-        assertEquals(new SetAppointmentCommand((Appointment) appointment), command);
+        Appointment appointment = new AppointmentBuilder(VALID_TITLE, VALID_START_TIME, VALID_END_TIME).build();
+        assertEquals(new SetAppointmentCommand(appointment), command);
     }
 
     @Test
     public void parseCommand_setTask() throws Exception {
         SetTaskCommand command =
                 (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
-        Event appointment = new EventBuilder(VALID_TITLE, VALID_END_TIME).build();
-        assertEquals(new SetTaskCommand((Task) appointment), command);
+        Task task = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
+        assertEquals(new SetTaskCommand(task), command);
     }
 
     @Test

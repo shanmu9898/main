@@ -44,6 +44,19 @@ public class ModelManagerTest {
         modelManager.getFilteredCommandsList().remove(0);
     }
 
+    @Test
+    public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
+        ModelManager modelManager = new ModelManager();
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredAppointmentList().remove(0);
+    }
+
+    @Test
+    public void getFilteredTaskList_modifyList_throwsUnsupportedOperationException() {
+        ModelManager modelManager = new ModelManager();
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredTaskList().remove(0);
+    }
 
     @Test
     public void equals() {

@@ -18,7 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Task;
 import seedu.address.testutil.modelstub.ModelStub;
-import seedu.address.testutil.modelstub.ModelStubAcceptingEventAdded;
+import seedu.address.testutil.modelstub.ModelStubAcceptingTaskAdded;
 import seedu.address.testutil.modelstub.ModelStubThrowingDuplicateEventException;
 
 //@@author Sisyphus25
@@ -35,13 +35,12 @@ public class SetTaskCommandTest {
 
     @Test
     public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
 
-        CommandResult commandResult = getSetTaskCommand(
-                (Task) TYPICAL_TASK_1, modelStub).execute();
+        CommandResult commandResult = getSetTaskCommand(TYPICAL_TASK_2, modelStub).execute();
 
-        assertEquals(String.format(SetTaskCommand.MESSAGE_SUCCESS, TYPICAL_TASK_1), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(TYPICAL_TASK_1), modelStub.eventsAdded);
+        assertEquals(String.format(SetTaskCommand.MESSAGE_SUCCESS, TYPICAL_TASK_2), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(TYPICAL_TASK_2), modelStub.tasksAdded);
     }
 
     @Test
@@ -51,22 +50,22 @@ public class SetTaskCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(SetTaskCommand.MESSAGE_DUPLICATE_TASK);
 
-        getSetTaskCommand((Task) TYPICAL_TASK_1, modelStub).execute();
+        getSetTaskCommand(TYPICAL_TASK_1, modelStub).execute();
     }
 
     @Test
     public void equals() {
         SetTaskCommand addTask1 =
-                new SetTaskCommand((Task) TYPICAL_TASK_1);
+                new SetTaskCommand(TYPICAL_TASK_1);
         SetTaskCommand addTask2 =
-                new SetTaskCommand((Task) TYPICAL_TASK_2);
+                new SetTaskCommand(TYPICAL_TASK_2);
 
         // same object -> returns true
         assertTrue(addTask1.equals(addTask1));
 
         // same values -> returns true
         SetTaskCommand addAppointment1Copy =
-                new SetTaskCommand((Task) TYPICAL_TASK_1);
+                new SetTaskCommand(TYPICAL_TASK_1);
         assertTrue(addTask1.equals(addAppointment1Copy));
 
         // different types -> returns false

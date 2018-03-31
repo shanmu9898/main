@@ -22,7 +22,6 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ToggleCalendarViewEvent;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.Event;
 
 //@@author Sisyphus25
 /**
@@ -34,11 +33,11 @@ public class CalendarPanel extends UiPart<Region> {
     @FXML
     private CalendarView calendarView;
 
-    private ObservableList<Event> eventList;
+    private ObservableList<Appointment> appointmentList;
 
-    public CalendarPanel(ObservableList<Event> eventObservableList) {
+    public CalendarPanel(ObservableList<Appointment> appointmentObservableList) {
         super(FXML);
-        this.eventList = eventObservableList;
+        this.appointmentList = appointmentObservableList;
 
         calendarView = new CalendarView();
         calendarView.setRequestedTime(LocalTime.now());
@@ -62,7 +61,7 @@ public class CalendarPanel extends UiPart<Region> {
 
         calendarSource.getCalendars().add(calendar);
 
-        ArrayList<Entry> entries = getEntries(eventList);
+        ArrayList<Entry> entries = getEntries();
 
         for (Entry entry : entries) {
             calendar.addEntry(entry);
@@ -70,18 +69,15 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.getCalendarSources().add(calendarSource);
     }
 
-    private ArrayList<Entry> getEntries(ObservableList<Event> eventList) {
+    private ArrayList<Entry> getEntries() {
         ArrayList<Entry> entries = new ArrayList<>();
-        for (Event event : eventList) {
-            if (event instanceof Appointment) {
-                entries.add(getEntry(event));
-            }
+        for (Appointment appointment : appointmentList) {
+            entries.add(getEntry(appointment));
         }
         return entries;
     }
 
-    private Entry getEntry(Event event) {
-        Appointment appointment = (Appointment) event;
+    private Entry getEntry(Appointment appointment) {
         LocalDateTime ldtstart = LocalDateTime.ofInstant(
                 appointment.getTime().value.getTime().toInstant(), ZoneId.systemDefault());
         LocalDateTime ldtend = LocalDateTime.ofInstant(
@@ -100,7 +96,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     @Subscribe
     private void handleNewAppointmentEvent(AddressBookChangedEvent event) {
-        eventList = event.data.getEventList();
+        appointmentList = event.data.getAppointmentList();
         Platform.runLater(
                 this::updateCalendar
         );

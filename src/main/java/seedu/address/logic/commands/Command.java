@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,5 +42,14 @@ public abstract class Command {
      */
     public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack) {
         this.model = model;
+    }
+
+    /**
+     * Set the person list to active and switch to person list view for the GUI.
+     * Method used to support command that needed the person list to be shown: Find, Select
+     */
+    public void setPersonListActive() {
+        model.changeCurrentActiveListType(model.LIST_TYPE_PERSON);
+        EventsCenter.getInstance().post(new ToggleListEvent(model.LIST_TYPE_PERSON));
     }
 }

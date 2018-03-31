@@ -13,8 +13,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
 
+import junit.framework.TestCase;
+import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
@@ -23,11 +26,15 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
@@ -61,14 +68,18 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FindCommand command = prepareCommand(" ");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
+        assertCommandSuccessWithNoToggleListEvent(command, expectedMessage, Collections.emptyList());
+        model.changeCurrentActiveListType("appointment");
+        assertCommandSuccessWithToggleListEvent(command, expectedMessage, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommand("Kurz Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+        assertCommandSuccessWithNoToggleListEvent(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+        model.changeCurrentActiveListType("appointment");
+        assertCommandSuccessWithToggleListEvent(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
     }
 
     /**
@@ -87,12 +98,32 @@ public class FindCommandTest {
      *     - the {@code FilteredList<Person>} is equal to {@code expectedList}<br>
      *     - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
-    private void assertCommandSuccess(FindCommand command, String expectedMessage, List<Person> expectedList) {
+    private void assertCommandSuccessWithNoToggleListEvent(
+            FindCommand command, String expectedMessage, List<Person> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredPersonList());
         assertEquals(expectedAddressBook, model.getAddressBook());
+    }
+
+    /**
+     * Asserts that {@code command} is successfully executed, and<br>
+     *     - the command feedback is equal to {@code expectedMessage}<br>
+     *     - the {@code FilteredList<Person>} is equal to {@code expectedList}<br>
+     *     - the {@code AddressBook} in model remains the same after executing the {@code command}
+     *     - a {@code ToggleListEvent} is called
+     */
+    private void assertCommandSuccessWithToggleListEvent(
+            FindCommand command, String expectedMessage, List<Person> expectedList) {
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        CommandResult commandResult = command.execute();
+
+        assertEquals(expectedMessage, commandResult.feedbackToUser);
+        assertEquals(expectedList, model.getFilteredPersonList());
+        assertEquals(expectedAddressBook, model.getAddressBook());
+        TestCase.assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
+        TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 }

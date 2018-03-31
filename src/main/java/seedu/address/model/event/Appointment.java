@@ -7,13 +7,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 /**
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
  */
-public class Appointment implements Event {
+public class Appointment {
     public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
-    private Title title;
-    private EventTime time;
-    private EventTime endTime;
-    private PersonToMeet personToMeet;
+    private final Title title;
+    private final EventTime time;
+    private final EventTime endTime;
+    private final PersonToMeet personToMeet;
 
     //Every field must be present and not null
     public Appointment(Title title, EventTime startTime, EventTime endTime) {

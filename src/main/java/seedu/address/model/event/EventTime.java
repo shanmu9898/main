@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Represents an Event's time stamp in the address book.
+ * Represents an event's time stamp in the address book.
  * Guarantees: immutable
  */
 public class EventTime {
