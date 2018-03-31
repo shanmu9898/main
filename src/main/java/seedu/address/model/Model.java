@@ -62,8 +62,6 @@ public interface Model {
 
     ObservableList<ShortcutDoubles> getFilteredCommandsList();
 
-    void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate);
-
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given event */

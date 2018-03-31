@@ -24,14 +24,4 @@ public class ShortcutDoubles {
                 && this.shortcutWord.equals(((ShortcutDoubles) other).shortcutWord)
                 && this.commandWord.equals(((ShortcutDoubles) other).commandWord)); // state check
     }
-
-    public String getShortcutWord() {
-        return shortcutWord;
-    }
-
-    public String getCommandWord() {
-        return commandWord;
-    }
-
-
 }

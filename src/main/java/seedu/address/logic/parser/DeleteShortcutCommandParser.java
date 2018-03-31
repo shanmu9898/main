@@ -20,7 +20,7 @@ public class DeleteShortcutCommandParser implements Parser<DeleteShortcutCommand
         requireNonNull(args);
         String trimmedArgs = args.trim();
         String[] splitWords = trimmedArgs.split(" ");
-        if (splitWords.length > 2) {
+        if (splitWords.length > 2 || splitWords.length < 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteShortcutCommand.MESSAGE_USAGE));
         } else {

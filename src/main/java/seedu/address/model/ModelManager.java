@@ -157,12 +157,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredCommandList(Predicate<ShortcutDoubles> shortcutDoublesPredicate) {
-        requireNonNull(shortcutDoublesPredicate);
-        filteredShortcutCommands.setPredicate(shortcutDoublesPredicate);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

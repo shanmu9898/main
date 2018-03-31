@@ -16,9 +16,9 @@ public class ShortcutCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "shortcut";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " CommandWord " + " ShortcutWord "
                                                + " :Creates a shortcut for any command word";
-    private static final String MESSAGE_SHORTCUT_AVAILABLE = "This shortcut already exists!";
-    private static final String MESSAGE_SUCCESS = "Successfully added the shortcut";
-    private static final String MESSAGE_NO_COMMAND_TO_MAP = "The command word is invalid and hence cant be mapped!";
+    public static final String MESSAGE_SHORTCUT_AVAILABLE = "This shortcut already exists!";
+    public static final String MESSAGE_SUCCESS = "Successfully added the shortcut";
+    public static final String MESSAGE_NO_COMMAND_TO_MAP = "The command word is invalid and hence cant be mapped!";
 
     private final String shortcutWord;
 
@@ -32,7 +32,8 @@ public class ShortcutCommand extends UndoableCommand {
                                               "delete_shortcut"};
 
     public ShortcutCommand(String commandWord, String shortcutWord) {
-        requireNonNull(commandWord, shortcutWord);
+        requireNonNull(commandWord);
+        requireNonNull(shortcutWord);
         this.shortcutWord = shortcutWord;
         this.commandWord = commandWord;
     }
@@ -85,5 +86,13 @@ public class ShortcutCommand extends UndoableCommand {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ShortcutCommand // instanceof handles nulls
+                && this.shortcutWord.equals(((ShortcutCommand) other).shortcutWord) // state check
+                && this.commandWord.equals(((ShortcutCommand) other).commandWord)); // state check
     }
 }

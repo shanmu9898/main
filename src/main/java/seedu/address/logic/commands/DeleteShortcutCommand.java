@@ -15,7 +15,7 @@ public class DeleteShortcutCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "delete_shortcut";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " CommandWord " + " ShortcutWord "
                                                + " :Deletes a shortcut for any command word";
-    private static final String MESSAGE_DELETE_SHORTCUT_SUCCESS = "The shortcut has been deleted!";
+    public static final String MESSAGE_DELETE_SHORTCUT_SUCCESS = "The shortcut has been deleted!";
     private final String shortcutWord;
 
     private final String commandWord;
