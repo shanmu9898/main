@@ -15,7 +15,7 @@ import seedu.address.model.event.Title;
  */
 public class XmlAdaptedTask {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     @XmlElement(required = true)
     private String title;
@@ -29,7 +29,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask() {}
 
     /**
-     * Constructs an {@code XmlAdaptedTask} with the given appointment details.
+     * Constructs an {@code XmlAdaptedTask} with the given task details.
      */
     public XmlAdaptedTask(String title, String time) {
         this.title = title;
@@ -37,7 +37,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts a given Appointment into this class for JAXB use.
+     * Converts a given Task into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
@@ -49,7 +49,7 @@ public class XmlAdaptedTask {
     /**
      * Converts this jaxb-friendly adapted person object into the model's Task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
         if (this.title == null) {
@@ -78,8 +78,8 @@ public class XmlAdaptedTask {
             return false;
         }
 
-        XmlAdaptedTask otherAppointment = (XmlAdaptedTask) other;
-        return Objects.equals(title, otherAppointment.title)
-                && Objects.equals(time, otherAppointment.time);
+        XmlAdaptedTask otherTask = (XmlAdaptedTask) other;
+        return Objects.equals(title, otherTask.title)
+                && Objects.equals(time, otherTask.time);
     }
 }
