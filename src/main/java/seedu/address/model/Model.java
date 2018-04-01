@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    String LIST_TYPE_PERSON = "person";
+    String LIST_TYPE_CONTACT = "contact";
     String LIST_TYPE_APPOINTMENT = "appointment";
     String LIST_TYPE_TASK = "task";
 

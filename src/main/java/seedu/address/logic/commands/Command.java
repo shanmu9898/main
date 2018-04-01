@@ -49,7 +49,7 @@ public abstract class Command {
      * Method used to support command that needed the person list to be shown: Find, Select
      */
     public void setPersonListActive() {
-        model.changeCurrentActiveListType(model.LIST_TYPE_PERSON);
-        EventsCenter.getInstance().post(new ToggleListEvent(model.LIST_TYPE_PERSON));
+        model.changeCurrentActiveListType(model.LIST_TYPE_CONTACT);
+        EventsCenter.getInstance().post(new ToggleListEvent(model.LIST_TYPE_CONTACT));
     }
 }

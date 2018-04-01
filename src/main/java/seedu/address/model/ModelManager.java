@@ -30,9 +30,6 @@ import seedu.address.model.tag.Tag;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-    public static final String LIST_TYPE_PERSON = "person";
-    public static final String LIST_TYPE_APPOINTMENT = "appointment";
-    public static final String LIST_TYPE_TASK = "task";
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -57,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        currentActiveListType = LIST_TYPE_PERSON;
+        currentActiveListType = LIST_TYPE_CONTACT;
     }
 
     public ModelManager() {

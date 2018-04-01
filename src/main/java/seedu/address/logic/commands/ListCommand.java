@@ -36,21 +36,25 @@ public class ListCommand extends Command {
     public CommandResult execute() throws CommandException {
         switch (type) {
         case TYPE_CONTACT:
+            model.changeCurrentActiveListType(TYPE_CONTACT);
+            EventsCenter.getInstance().post(new ToggleListEvent(TYPE_CONTACT));
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(MESSAGE_SUCCESS + TYPE_CONTACT);
 
         case TYPE_STUDENT:
+            model.changeCurrentActiveListType(TYPE_CONTACT);
+            EventsCenter.getInstance().post(new ToggleListEvent(TYPE_CONTACT));
             model.updateFilteredPersonList(PREDICATE_SHOW_ONLY_STUDENTS);
             return new CommandResult(MESSAGE_SUCCESS + TYPE_STUDENT);
 
         case TYPE_APPOINTMENT:
-            model.changeCurrentActiveListType(type);
-            EventsCenter.getInstance().post(new ToggleListEvent(type));
+            model.changeCurrentActiveListType(TYPE_APPOINTMENT);
+            EventsCenter.getInstance().post(new ToggleListEvent(TYPE_APPOINTMENT));
             return new CommandResult(MESSAGE_SUCCESS + TYPE_APPOINTMENT);
 
         case TYPE_TASK:
-            model.changeCurrentActiveListType(type);
-            EventsCenter.getInstance().post(new ToggleListEvent(type));
+            model.changeCurrentActiveListType(TYPE_TASK);
+            EventsCenter.getInstance().post(new ToggleListEvent(TYPE_TASK));
             return new CommandResult(MESSAGE_SUCCESS + TYPE_TASK);
 
         default:
