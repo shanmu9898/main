@@ -13,7 +13,7 @@ import java.util.Date;
  * Guarantees: immutable
  */
 public class EventTime {
-    public static final String MESSAGE_TIME_CONSTRAINTS = "Time must be in the format dd/MM/yyyy HH:mm";
+    public static final String MESSAGE_TIME_CONSTRAINTS = "Date and time must be in the format: dd/MM/yyyy HH:mm";
 
     private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm";
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);

@@ -25,12 +25,12 @@ public class SetAppointmentCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "set_appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an appoinment to the address book. "
+            + ": Adds an appoinment to the address book.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_START_TIME + "START TIME "
-            + PREFIX_END_TIME + "END TIME "
-            + PREFIX_PERSON_TO_MEET_INDEX + "PERSON TO MEET "
+            + PREFIX_START_TIME + "START-DATE START-TIME "
+            + PREFIX_END_TIME + "END-DATE END-TIME "
+            + PREFIX_PERSON_TO_MEET_INDEX + "PERSON TO MEET\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Meet James "
             + PREFIX_START_TIME + "20/05/2018 10:00 "

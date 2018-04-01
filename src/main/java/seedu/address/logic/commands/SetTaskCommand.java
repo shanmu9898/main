@@ -16,10 +16,10 @@ public class SetTaskCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "set_task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
-            + PREFIX_END_TIME + "TIME "
+            + PREFIX_END_TIME + "DATE TIME\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Mark papers "
             + PREFIX_END_TIME + "20/05/2018 12:00 ";
