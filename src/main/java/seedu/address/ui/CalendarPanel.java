@@ -87,19 +87,20 @@ public class CalendarPanel extends UiPart<Region> {
         return new Entry(description, new Interval(ldtstart, ldtend));
     }
 
-    //@@author Sisyphus25-reused
-    //Reused from https://github.com/CS2103AUG2017-T17-B2/main with modifications
-    private void setTime() {
-        calendarView.setToday(LocalDate.now());
-        calendarView.setTime(LocalTime.now());
-    }
-
     @Subscribe
     private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
         appointmentList = event.appointmentList;
         Platform.runLater(
                 this::updateCalendar
         );
+    }
+
+
+    //@@author Sisyphus25-reused
+    //Reused from https://github.com/CS2103AUG2017-T17-B2/main with modifications
+    private void setTime() {
+        calendarView.setToday(LocalDate.now());
+        calendarView.setTime(LocalTime.now());
     }
 
     @Subscribe
