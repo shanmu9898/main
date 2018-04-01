@@ -23,7 +23,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (!model.getCurrentActiveListType().equals(model.LIST_TYPE_PERSON)) {
+        if (!model.getCurrentActiveListType().equals(model.LIST_TYPE_CONTACT)) {
             setPersonListActive();
         }
         model.updateFilteredPersonList(predicate);

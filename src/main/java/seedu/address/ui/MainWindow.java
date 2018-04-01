@@ -226,7 +226,9 @@ public class MainWindow extends UiPart<Stage> {
         case "task":
             listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
             break;
-        case "person":
+        case "contact":
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            break;
         default:
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }

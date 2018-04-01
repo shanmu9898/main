@@ -27,7 +27,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
-import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.IVAN;
 import static seedu.address.testutil.TypicalPersons.JOHN;
@@ -35,7 +34,6 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalPersons.STUDENT_AMY;
 import static seedu.address.testutil.TypicalPersons.STUDENT_BOB;
 import static seedu.address.testutil.TypicalPersons.STUDENT_HOON;
-import static seedu.address.testutil.TypicalPersons.STUDENT_IDA;
 
 import org.junit.Test;
 
@@ -79,7 +77,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        model.addStudent(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -142,22 +140,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate student -> rejected */
-        command = PersonUtil.getAddCommand(STUDENT_HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add an existing student as default person -> rejected */
-        command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add an existing person as a student -> rejected */
-        command = PersonUtil.getAddCommand(STUDENT_IDA);
+        command = PersonUtil.getAddStudentCommand(STUDENT_HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate student except with different tags -> rejected */
         // "student" is an existing tag used in the default model, see TypicalPersons#STUDENT_ALICE
         // This test will fail if a new tag that is not in the model is used, see the bug documented in
         // AddressBook#addPerson(Person)
-        command = PersonUtil.getAddCommand(STUDENT_HOON) + " " + PREFIX_TAG.getPrefix() + "student";
+        command = PersonUtil.getAddStudentCommand(STUDENT_HOON) + " " + PREFIX_TAG.getPrefix() + "student";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
@@ -264,7 +254,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Student toAdd) {
         Model expectedModel = getModel();
         try {
-            expectedModel.addPerson(toAdd);
+            expectedModel.addStudent(toAdd);
         } catch (DuplicatePersonException dpe) {
             throw new IllegalArgumentException("toAdd already exists in the model.");
         }

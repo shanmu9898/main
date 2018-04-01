@@ -12,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 
 //@@author Sisyphus25
 /**
@@ -51,7 +51,7 @@ public class RemoveCommand extends UndoableCommand {
             } else if (eventTypeOfDeletedTarget.equals(LIST_TYPE_TASK)) {
                 model.deleteTask((Task) eventToBeDeleted);
             }
-        } catch (UniqueEventList.EventNotFoundException ive) {
+        } catch (EventNotFoundException ive) {
             throw new AssertionError(String.format("The target %s cannot be missing", eventTypeOfDeletedTarget));
         }
         return new CommandResult(
