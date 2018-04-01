@@ -39,6 +39,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueEventList<Appointment> appointments;
     private final UniqueEventList<Task> tasks;
     private final UniqueShortcutDoublesList shorcutCommands;
+}
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
