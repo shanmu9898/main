@@ -20,8 +20,6 @@ public class XmlSerializableAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
-    private List<XmlAdaptedStudent> students;
-    @XmlElement
     private List<XmlAdaptedTag> tags;
     @XmlElement
     private List<XmlAdaptedAppointment> appointments;
@@ -36,7 +34,6 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
-        students = new ArrayList<>();
         tags = new ArrayList<>();
         appointments = new ArrayList<>();
         tasks = new ArrayList<>();
@@ -49,7 +46,6 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        students.addAll(src.getStudentList().stream().map(XmlAdaptedStudent::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
         appointments.addAll(src.getAppointmentList().stream().map(
                 XmlAdaptedAppointment::new).collect(Collectors.toList()));
@@ -72,9 +68,6 @@ public class XmlSerializableAddressBook {
         }
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
-        }
-        for (XmlAdaptedStudent s : students) {
-            addressBook.addStudent(s.toModelType());
         }
         for (XmlAdaptedAppointment a: appointments) {
             addressBook.addAppointment(a.toModelType());
@@ -99,7 +92,6 @@ public class XmlSerializableAddressBook {
         }
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
         return persons.equals(otherAb.persons)
-                && students.equals(otherAb.students)
                 && tags.equals(otherAb.tags)
                 && appointments.equals(otherAb.appointments)
                 && tasks.equals(otherAb.tasks)

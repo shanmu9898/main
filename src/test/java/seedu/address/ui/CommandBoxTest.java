@@ -17,8 +17,7 @@ import seedu.address.model.ModelManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD
-            + " "  + ListCommand.TYPE_CONTACT;
+    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -33,7 +32,6 @@ public class CommandBoxTest extends GuiUnitTest {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
-
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartRule.setUiPart(commandBox);
 
@@ -93,7 +91,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list contact";
+        String thirdCommand = "list";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
@@ -121,7 +119,7 @@ public class CommandBoxTest extends GuiUnitTest {
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
-        String thirdCommand = "list contact";
+        String thirdCommand = "list";
         commandBoxHandle.run(thirdCommand);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);

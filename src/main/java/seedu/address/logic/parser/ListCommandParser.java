@@ -29,11 +29,13 @@ public class ListCommandParser implements Parser<ListCommand> {
      * @return whether if the string is a valid view mode or not
      */
     private boolean isValidItem(String str) {
+        if (str.isEmpty()) {
+            return true;
+        }
         switch (str) {
-        case(ListCommand.TYPE_CONTACT):
-        case(ListCommand.TYPE_STUDENT):
-        case(ListCommand.TYPE_APPOINTMENT):
-        case(ListCommand.TYPE_TASK):
+        case("appointment"):
+        case("task"):
+        case("person"):
             return true;
         default:
             return false;

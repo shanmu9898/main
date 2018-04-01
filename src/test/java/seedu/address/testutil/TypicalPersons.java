@@ -19,7 +19,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -45,7 +45,7 @@ public class TypicalPersons {
             .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+    public static final Student GEORGE = new StudentBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
     public static final Student IVAN = new StudentBuilder().withName("Ivan Kutz").withPhone("9867723")
             .withEmail("wolf@example.com").withAddress("Centre Street").build();
@@ -95,14 +95,14 @@ public class TypicalPersons {
         for (Appointment ap : TypicalEvents.getTypicalAppointments()) {
             try {
                 ab.addAppointment(ap);
-            } catch (DuplicateEventException e) {
+            } catch (UniqueEventList.DuplicateEventException e) {
                 throw new AssertionError("not possible");
             }
         }
         for (Task t : TypicalEvents.getTypicalTasks()) {
             try {
                 ab.addTask(t);
-            } catch (DuplicateEventException e) {
+            } catch (UniqueEventList.DuplicateEventException e) {
                 throw new AssertionError("not possible");
             }
         }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ONLY_STUDENTS;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ToggleListEvent;
@@ -14,54 +13,40 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all ";
+    public static final String MESSAGE_SUCCESS = "Item List Changed";
 
-    public static final String TYPE_CONTACT = "contact";
-    public static final String TYPE_STUDENT = "student";
-    public static final String TYPE_APPOINTMENT = "appointment";
-    public static final String TYPE_TASK = "task";
-    private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists selected type. \n"
-            + "Parameter: TYPE\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Show listing of item selected. \n"
+            + "Parameter: ITEM\n"
+            + "Item list: person, appointments\n"
             + "Example: " + COMMAND_WORD + " appointment";
 
-    private final String type;
+    private String item;
 
-    public ListCommand(String type) {
-        this.type = type;
+    public ListCommand(String item) {
+        this.item = item;
     }
 
     @Override
     public CommandResult execute() throws CommandException {
-        switch (type) {
-        case TYPE_CONTACT:
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(MESSAGE_SUCCESS + TYPE_CONTACT);
-
-        case TYPE_STUDENT:
-            model.updateFilteredPersonList(PREDICATE_SHOW_ONLY_STUDENTS);
-            return new CommandResult(MESSAGE_SUCCESS + TYPE_STUDENT);
-
-        case TYPE_APPOINTMENT:
-            model.changeCurrentActiveListType(type);
-            EventsCenter.getInstance().post(new ToggleListEvent(type));
-            return new CommandResult(MESSAGE_SUCCESS + TYPE_APPOINTMENT);
-
-        case TYPE_TASK:
-            model.changeCurrentActiveListType(type);
-            EventsCenter.getInstance().post(new ToggleListEvent(type));
-            return new CommandResult(MESSAGE_SUCCESS + TYPE_TASK);
-
+        switch(item) {
+        case("appointment"):
+        case("task"):
+            model.changeCurrentActiveListType(item);
+            EventsCenter.getInstance().post(new ToggleListEvent(item));
+            break;
+        case("person"):
         default:
-            throw new CommandException(MESSAGE_INVALID_TYPE);
+            model.changeCurrentActiveListType(item);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            EventsCenter.getInstance().post(new ToggleListEvent(model.LIST_TYPE_PERSON));
         }
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand // instanceof handles nulls
-                && this.type.equals(((ListCommand) other).type)); // state check
+                && this.item.equals(((ListCommand) other).item)); // state check
     }
 }

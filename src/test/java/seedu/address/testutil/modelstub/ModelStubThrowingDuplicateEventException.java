@@ -4,7 +4,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.UniqueEventList;
 
 //@@author Sisyphus25
 /**
@@ -12,13 +12,13 @@ import seedu.address.model.event.exceptions.DuplicateEventException;
  */
 public class ModelStubThrowingDuplicateEventException extends ModelStub {
     @Override
-    public void addAppointment (Appointment appointment) throws DuplicateEventException {
-        throw new DuplicateEventException();
+    public void addAppointment (Appointment appointment) throws UniqueEventList.DuplicateEventException {
+        throw new UniqueEventList.DuplicateEventException();
     }
 
     @Override
-    public void addTask (Task task) throws DuplicateEventException {
-        throw new DuplicateEventException();
+    public void addTask (Task task) throws UniqueEventList.DuplicateEventException {
+        throw new UniqueEventList.DuplicateEventException();
     }
 
     @Override
