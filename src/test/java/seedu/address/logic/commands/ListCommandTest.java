@@ -5,9 +5,6 @@ import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
-import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
-import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
-import static seedu.address.logic.commands.ListCommand.TYPE_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -43,35 +40,35 @@ public class ListCommandTest {
 
     @Test
     public void execute_personListIsNotFiltered_showsSameList() {
-        listCommand = new ListCommand(TYPE_CONTACT);
+        listCommand = new ListCommand("");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS + TYPE_CONTACT, expectedModel);
+        assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_personListIsFiltered_showsEverything() {
-        listCommand = new ListCommand(TYPE_CONTACT);
+        listCommand = new ListCommand("");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         showPersonAtIndex(model, INDEX_FIRST);
-        assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS + TYPE_CONTACT, expectedModel);
+        assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listAppointment_success() throws CommandException {
-        listCommand = new ListCommand(TYPE_APPOINTMENT);
+        listCommand = new ListCommand("appointment");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = listCommand.execute();
-        assertEquals(MESSAGE_SUCCESS + TYPE_APPOINTMENT, result.feedbackToUser);
+        assertEquals(MESSAGE_SUCCESS, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
     public void execute_listTask_success() throws CommandException {
-        listCommand = new ListCommand(TYPE_TASK);
+        listCommand = new ListCommand("task");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = listCommand.execute();
-        assertEquals(MESSAGE_SUCCESS + TYPE_TASK, result.feedbackToUser);
+        assertEquals(MESSAGE_SUCCESS, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }

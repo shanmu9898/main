@@ -8,8 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.event.exceptions.DuplicateEventException;
-import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.commons.exceptions.DuplicateDataException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -91,5 +90,22 @@ public class UniqueEventList<A> implements Iterable<A> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     */
+    public static class DuplicateEventException extends DuplicateDataException {
+        public DuplicateEventException() {
+            super("Operation would result in duplicate events");
+        }
+    }
+    /**
+     * Signals that an operation is looking for an appointment doesn't exist.
+     */
+    public static class EventNotFoundException extends Exception {
+        public EventNotFoundException() {
+            super("Event not found");
+        }
     }
 }

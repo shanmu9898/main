@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.UniqueEventList;
 
 //@@author Sisyphus25
 /**
@@ -17,7 +17,7 @@ public class ModelStubAcceptingTaskAdded extends ModelStub {
     public final ArrayList<Task> tasksAdded = new ArrayList<>();
 
     @Override
-    public void addTask(Task event) throws DuplicateEventException {
+    public void addTask(Task event) throws UniqueEventList.DuplicateEventException {
         requireNonNull(event);
         tasksAdded.add(event);
     }

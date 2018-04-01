@@ -15,10 +15,8 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.exceptions.DuplicateEventException;
-import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
@@ -37,7 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredContacts;
+    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
@@ -53,7 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
@@ -92,21 +90,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteStudent(Student target) throws PersonNotFoundException {
-        addressBook.removeStudent(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
     public synchronized void addPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public synchronized void addStudent(Student student) throws DuplicatePersonException {
-        addressBook.addStudent(student);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -134,39 +119,31 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateStudent(Student target, Student editedStudent)
-            throws DuplicatePersonException, PersonNotFoundException {
-        requireAllNonNull(target, editedStudent);
-
-        addressBook.updateStudent(target, editedStudent);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addAppointment(Appointment appointment) throws DuplicateEventException {
+    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
         addressBook.addAppointment(appointment);
         indicateAddressBookChanged();
         indicateAppointmentListChanged();
     }
 
     @Override
-    public void deleteAppointment(Appointment target) throws EventNotFoundException {
+    public void deleteAppointment(Appointment target) throws UniqueEventList.EventNotFoundException {
         addressBook.removeAppointment(target);
         indicateAddressBookChanged();
         indicateAppointmentListChanged();
     }
 
     @Override
-    public void addTask(Task task) throws DuplicateEventException {
+    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
         addressBook.addTask(task);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteTask(Task target) throws EventNotFoundException {
+    public void deleteTask(Task target) throws UniqueEventList.EventNotFoundException {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -176,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredContacts);
+        return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
@@ -207,7 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredContacts.setPredicate(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
@@ -225,7 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredContacts.equals(other.filteredContacts);
+                && filteredPersons.equals(other.filteredPersons);
     }
 
     @Override
