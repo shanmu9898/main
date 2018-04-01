@@ -5,7 +5,7 @@ import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class ListCommandTest {
     public void execute_personListIsFiltered_showsEverything() {
         listCommand = new ListCommand("");
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS, expectedModel);
     }
 

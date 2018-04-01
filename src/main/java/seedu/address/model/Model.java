@@ -17,7 +17,9 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    final String LIST_TYPE_PERSON = "person";
+    String LIST_TYPE_PERSON = "person";
+    String LIST_TYPE_APPOINTMENT = "appointment";
+    String LIST_TYPE_TASK = "task";
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
