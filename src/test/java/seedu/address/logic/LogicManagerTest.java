@@ -41,8 +41,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " " + ListCommand.TYPE_CONTACT;
+        assertCommandSuccess(listCommand,
+                ListCommand.MESSAGE_SUCCESS + ListCommand.TYPE_CONTACT, model);
         assertHistoryCorrect(listCommand);
     }
 

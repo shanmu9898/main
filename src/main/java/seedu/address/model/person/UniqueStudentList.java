@@ -15,31 +15,31 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * <p>
+ * A list of students that enforces uniqueness between its elements and does not allow nulls.
+ *
  * Supports a minimal set of list operations.
  *
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniqueStudentList implements Iterable<Student> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Student> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Student toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
     /**
-     * Adds a person to the list.
+     * Adds a student to the list.
      *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * @throws DuplicatePersonException if the person to add is a duplicate of an existing student in the list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
+    public void add(Student toAdd) throws DuplicatePersonException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -48,58 +48,58 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the student {@code target} in the list with {@code editedStudent}.
      *
      * @throws DuplicatePersonException if the replacement is equivalent to another existing person in the list.
-     * @throws PersonNotFoundException  if {@code target} could not be found in the list.
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void setPerson(Person target, Person editedPerson)
+    public void setStudent(Student target, Student editedStudent)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireNonNull(editedPerson);
+        requireNonNull(editedStudent);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedPerson) && internalList.contains(editedPerson)) {
+        if (!target.equals(editedStudent) && internalList.contains(editedStudent)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedStudent);
     }
 
     /**
-     * Removes the equivalent person from the list.
+     * Removes the equivalent student from the list.
      *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws PersonNotFoundException if no such student could be found in the list.
      */
-    public boolean remove(Person toRemove) throws PersonNotFoundException {
+    public boolean remove(Student toRemove) throws PersonNotFoundException {
         requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        final boolean studentFoundAndDeleted = internalList.remove(toRemove);
+        if (!studentFoundAndDeleted) {
             throw new PersonNotFoundException();
         }
-        return personFoundAndDeleted;
+        return studentFoundAndDeleted;
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setStudents(UniqueStudentList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setPersons(List<Person> persons) throws DuplicatePersonException {
-        requireAllNonNull(persons);
-        final UniquePersonList replacement = new UniquePersonList();
-        for (final Person person : persons) {
-            replacement.add(person);
+    public void setStudents(List<Student> students) throws DuplicatePersonException {
+        requireAllNonNull(students);
+        final UniqueStudentList replacement = new UniqueStudentList();
+        for (final Student student : students) {
+            replacement.add(student);
         }
-        setPersons(replacement);
+        setStudents(replacement);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asObservableList() {
+    public ObservableList<Student> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
@@ -109,29 +109,28 @@ public class UniquePersonList implements Iterable<Person> {
      * Update {@code contacts} for any changes made.
      */
     public void addListener(UniqueContactList contacts) {
-        internalList.addListener(new ListChangeListener<Person>() {
+        internalList.addListener(new ListChangeListener<Student>() {
             @Override
-            public void onChanged(Change<? extends Person> c) {
+            public void onChanged(Change<? extends Student> c) {
                 contacts.updateList(c);
             }
         });
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Student> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                && this.internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueStudentList // instanceof handles nulls
+                && this.internalList.equals(((UniqueStudentList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

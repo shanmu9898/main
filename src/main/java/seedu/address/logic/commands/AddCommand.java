@@ -53,10 +53,12 @@ public class AddCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         requireNonNull(model);
         try {
-            model.addPerson(toAdd);
+
             if (toAdd instanceof Student) {
+                model.addStudent((Student) toAdd);
                 return new CommandResult(String.format(MESSAGE_ADD_STUDENT_SUCCESS, toAdd));
             } else {
+                model.addPerson(toAdd);
                 return new CommandResult(String.format(MESSAGE_ADD_PERSON_SUCCESS, toAdd));
             }
         } catch (DuplicatePersonException e) {
