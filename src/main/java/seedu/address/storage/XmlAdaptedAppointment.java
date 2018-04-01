@@ -68,7 +68,7 @@ public class XmlAdaptedAppointment {
     /**
      * Converts this jaxb-friendly adapted person object into the model's Appointment object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
      */
     public Appointment toModelType() throws IllegalValueException {
         if (this.title == null) {

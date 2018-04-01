@@ -18,13 +18,14 @@ import seedu.address.model.person.Person;
 
 //@@author Sisyphus25
 /**
- * Adds an appointment to the address book.
+ * Adds an appointment with the person at {@code index} in the person list to the address book.
  */
 public class SetAppointmentCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "set_appointment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds an appoinment to the address book. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_START_TIME + "START TIME "
@@ -39,21 +40,24 @@ public class SetAppointmentCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
 
-    private final Appointment appointment;
+    private final Appointment baseAppointmentWithoutPerson;
     private final Index index;
 
     private PersonToMeet personToMeet;
 
-    public SetAppointmentCommand(Appointment appointment) {
-        this(appointment, null);
+    /**
+     * Creates a SetAppointmentCommand without any PersonToMeet
+     */
+    public SetAppointmentCommand(Appointment baseAppointmentWithoutPerson) {
+        this(baseAppointmentWithoutPerson, null);
     }
 
     /**
      * Creates a SetAppointmentCommand to add the specified {@code Appointment}
      */
-    public SetAppointmentCommand(Appointment appointment, Index index) {
-        requireNonNull(appointment);
-        this.appointment = appointment;
+    public SetAppointmentCommand(Appointment baseAppointmentWithoutPerson, Index index) {
+        requireNonNull(baseAppointmentWithoutPerson);
+        this.baseAppointmentWithoutPerson = baseAppointmentWithoutPerson;
         this.index = index;
     }
 
@@ -63,10 +67,10 @@ public class SetAppointmentCommand extends UndoableCommand {
         try {
             Appointment toAdd;
             if (personToMeet != null) {
-                toAdd = new Appointment(appointment.getTitle(), appointment.getTime(),
-                        appointment.getEndTime(), personToMeet);
+                toAdd = new Appointment(baseAppointmentWithoutPerson.getTitle(), baseAppointmentWithoutPerson.getTime(),
+                        baseAppointmentWithoutPerson.getEndTime(), personToMeet);
             } else {
-                toAdd = appointment;
+                toAdd = baseAppointmentWithoutPerson;
             }
             model.addAppointment(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -94,6 +98,6 @@ public class SetAppointmentCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SetAppointmentCommand // instanceof handles nulls
-                && appointment.equals(((SetAppointmentCommand) other).appointment));
+                && baseAppointmentWithoutPerson.equals(((SetAppointmentCommand) other).baseAppointmentWithoutPerson));
     }
 }

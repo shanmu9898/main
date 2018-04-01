@@ -1,7 +1,10 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
@@ -108,4 +111,22 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
+    @Test
+    public void equals() {
+        XmlAdaptedPerson person = new XmlAdaptedPerson(BENSON);
+
+        //same object
+        assertTrue(person.equals(person));
+
+        //same value
+        XmlAdaptedPerson personCopy = new XmlAdaptedPerson(BENSON);
+        assertTrue(person.equals(personCopy));
+
+        //different type
+        assertFalse(person.equals(1));
+
+        //different obj
+        XmlAdaptedPerson anotherPerson = new XmlAdaptedPerson(ALICE);
+        assertFalse(person.equals(anotherPerson));
+    }
 }

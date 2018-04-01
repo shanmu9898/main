@@ -47,7 +47,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_multiplerange_showsMessageError() {
+    public void execute_multipleRange_showsMessageError() {
         String testingMultiRange = "1,2,3";
         ExportCommand exportCommand = new ExportCommand(testingMultiRange, testingTag, testingPath, name);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
@@ -59,8 +59,8 @@ public class ExportCommandTest {
 
     @Test
     public void execute_outOfRange_showsMessageError() {
-        String testingOutofRange = "0,10000000";
-        ExportCommand exportCommand = new ExportCommand(testingOutofRange, testingTag, testingPath, name);
+        String testingOutOfRange = "0,10000000";
+        ExportCommand exportCommand = new ExportCommand(testingOutOfRange, testingTag, testingPath, name);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

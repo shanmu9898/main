@@ -36,7 +36,7 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         title.setText(task.getTitle().value);
-        time.setText(DATE_FORMATTER.format(task.getTime().value.getTime()));
+        time.setText("Finish before: " + DATE_FORMATTER.format(task.getTime().value.getTime()));
     }
 
     @Override

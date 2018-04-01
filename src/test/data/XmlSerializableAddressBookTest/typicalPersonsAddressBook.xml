@@ -64,4 +64,24 @@
         <tagName>friends</tagName>
         <tagColorStyle>brown</tagColorStyle>
     </tags>
+    <appointments>
+        <title>Meeting with parents</title>
+        <startTime>09/10/2018 10:00</startTime>
+        <endTime>09/10/2018 11:00</endTime>
+        <personToMeet>Alice Pauline Email: alice@example.com</personToMeet>
+    </appointments>
+    <appointments>
+        <title>Consultation session</title>
+        <startTime>04/07/2018 10:00</startTime>
+        <endTime>04/07/2018 11:00</endTime>
+        <personToMeet>Bob Choo Email: bob@example.com</personToMeet>
+    </appointments>
+    <tasks>
+        <title>To do</title>
+        <time>10/10/2018 10:00</time>
+    </tasks>
+    <tasks>
+        <title>Mark papers</title>
+        <time>15/04/2018 23:00</time>
+    </tasks>
 </addressbook>

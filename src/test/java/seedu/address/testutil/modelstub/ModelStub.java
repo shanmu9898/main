@@ -78,6 +78,12 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        fail("This method should not be called");
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         fail("This method should not be called.");
         return null;
@@ -103,11 +109,6 @@ public class ModelStub implements Model {
 
     @Override
     public void changeCurrentActiveListType(String type) {
-        fail("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredCommandList(Predicate<ShortcutDoubles> predicate) {
         fail("This method should not be called.");
     }
 

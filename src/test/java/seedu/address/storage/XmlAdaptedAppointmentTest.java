@@ -1,11 +1,14 @@
 package seedu.address.storage;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
 import static seedu.address.storage.XmlAdaptedAppointment.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_1;
+import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_2;
 
 import org.junit.Test;
 
@@ -24,7 +27,7 @@ public class XmlAdaptedAppointmentTest {
 
     @Test
     public void toModelType_validAppointmentDetails_returnsPerson() throws Exception {
-        XmlAdaptedAppointment appointment = new XmlAdaptedAppointment((Appointment) TYPICAL_APPOINTMENT_1);
+        XmlAdaptedAppointment appointment = new XmlAdaptedAppointment(TYPICAL_APPOINTMENT_1);
         assertEquals(TYPICAL_APPOINTMENT_1, appointment.toModelType());
     }
 
@@ -82,5 +85,24 @@ public class XmlAdaptedAppointmentTest {
                 new XmlAdaptedAppointment(VALID_TITLE, "20/10/2018 10:00", "20/10/2018 09:00");
         String expectedMessage = Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
+    }
+
+    @Test
+    public void equals() {
+        XmlAdaptedAppointment appointment = new XmlAdaptedAppointment(TYPICAL_APPOINTMENT_1);
+
+        //same object
+        assertTrue(appointment.equals(appointment));
+
+        //same value
+        XmlAdaptedAppointment appointmentCopy = new XmlAdaptedAppointment(TYPICAL_APPOINTMENT_1);
+        assertTrue(appointment.equals(appointmentCopy));
+
+        //different type
+        assertFalse(appointment.equals(TYPICAL_APPOINTMENT_1));
+
+        //different obj
+        XmlAdaptedAppointment anotherAppointment = new XmlAdaptedAppointment(TYPICAL_APPOINTMENT_2);
+        assertFalse(appointment.equals(anotherAppointment));
     }
 }

@@ -51,6 +51,7 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getContactList());
         assertEquals(Collections.emptyList(), addressBook.getTagList());
         assertEquals(Collections.emptyList(), addressBook.getAppointmentList());
+        assertEquals(Collections.emptyList(), addressBook.getTaskList());
 
     }
 
@@ -99,6 +100,12 @@ public class AddressBookTest {
     public void getAppointmentList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getAppointmentList().remove(0);
+    }
+
+    @Test
+    public void getTaskList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getTaskList().remove(0);
     }
 
     /**

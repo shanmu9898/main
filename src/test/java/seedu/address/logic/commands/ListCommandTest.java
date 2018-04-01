@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
 import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
 import static seedu.address.logic.commands.ListCommand.TYPE_TASK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class ListCommandTest {
     public void execute_personListIsFiltered_showsEverything() {
         listCommand = new ListCommand(TYPE_CONTACT);
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS + TYPE_CONTACT, expectedModel);
     }
 

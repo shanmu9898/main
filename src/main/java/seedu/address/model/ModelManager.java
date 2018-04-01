@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AppointmentListChangedEvent;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
@@ -28,6 +29,10 @@ import seedu.address.model.tag.Tag;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+    public static final String LIST_TYPE_PERSON = "person";
+    public static final String LIST_TYPE_APPOINTMENT = "appointment";
+    public static final String LIST_TYPE_TASK = "task";
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -74,6 +79,11 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(addressBook));
     }
 
+    /** Raises an event to indicate the appointment list has changed */
+    private void indicateAppointmentListChanged() {
+        raise(new AppointmentListChangedEvent(addressBook.getAppointmentList()));
+    }
+
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
@@ -108,6 +118,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        addressBook.removeShortcutDouble(shortcutDoubles);
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
@@ -129,12 +145,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
         addressBook.addAppointment(appointment);
         indicateAddressBookChanged();
+        indicateAppointmentListChanged();
     }
 
     @Override
     public void deleteAppointment(Appointment target) throws UniqueEventList.EventNotFoundException {
         addressBook.removeAppointment(target);
         indicateAddressBookChanged();
+        indicateAppointmentListChanged();
     }
 
     @Override
@@ -189,12 +207,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredCommandList(Predicate<ShortcutDoubles> shortcutDoublesPredicate) {
-        requireNonNull(shortcutDoublesPredicate);
-        filteredShortcutCommands.setPredicate(shortcutDoublesPredicate);
     }
 
     @Override

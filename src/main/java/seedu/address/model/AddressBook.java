@@ -85,6 +85,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setEvents(appointments);
     }
 
+    public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
+        this.shorcutCommands.setCommandsList(shorcutCommands);
+    }
     public void setTasks(List<Task> tasks)
             throws UniqueEventList.DuplicateEventException {
         this.tasks.setEvents(tasks);
@@ -96,27 +99,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
+        List<ShortcutDoubles> commandsList = newData.getCommandsList();
         List<Appointment> appointmentList = newData.getAppointmentList();
         List<Task> taskList = newData.getTaskList();
         List<Person> syncedContactList = newData.getContactList().stream()
                 .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
-        try {
-            setAppointments(appointmentList);
-            setTasks(taskList);
-            persons.setPersons(new UniquePersonList());
-            students.setStudents(new UniqueStudentList());
-            for (Person contact:syncedContactList) {
-                if (contact instanceof Student) {
-                    addStudent((Student) contact);
-                } else {
-                    addPerson(contact);
-                }
+    try {
+        setShorcutCommands(commandsList);
+        setAppointments(appointmentList);
+        setTasks(taskList);
+        persons.setPersons(new UniquePersonList());
+        students.setStudents(new UniqueStudentList());
+        for (Person contact:syncedContactList) {
+            if (contact instanceof Student) {
+                addStudent((Student) contact);
+            } else {
+                addPerson(contact);
             }
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("TeachConnect should not have duplicate persons");
         } catch (UniqueEventList.DuplicateEventException e) {
-            throw new AssertionError("AddressBooks should not have duplicate events");
+            throw new AssertionError("TeachConnect should not have duplicate events");
         }
     }
 
@@ -260,6 +264,21 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
+      
+    /**
+     *
+     * @param commandShortcut
+     * @return a boolean variable
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        if (shorcutCommands.remove(commandShortcut)) {
+            return true;
+        } else {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
+        }
+    }
 
     //// tag-level operations
 
@@ -276,8 +295,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + students.asObservableList().size() + " students, "
-                + tags.asObservableList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, "
+                + students.asObservableList().size() + " students, "
+                + tags.asObservableList().size() +  " tags, "
+                + appointments.asObservableList().size() + " appointments, "
+                + tasks.asObservableList().size() +  " tasks";
         // TODO: refine later
     }
 
@@ -322,13 +344,16 @@ public class AddressBook implements ReadOnlyAddressBook {
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
                 && this.students.equals(((AddressBook) other).students)
+                && this.appointments.equals(((AddressBook) other).appointments)
+                && this.tasks.equals(((AddressBook) other).tasks)
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
                 && this.shorcutCommands.equals(((AddressBook) other).shorcutCommands));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons, appointments, tasks, tags);
     }
 
     /**

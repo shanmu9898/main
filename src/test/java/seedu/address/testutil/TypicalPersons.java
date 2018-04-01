@@ -17,6 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -86,6 +89,20 @@ public class TypicalPersons {
             try {
                 ab.addPerson(person);
             } catch (DuplicatePersonException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Appointment ap : TypicalEvents.getTypicalAppointments()) {
+            try {
+                ab.addAppointment(ap);
+            } catch (UniqueEventList.DuplicateEventException e) {
+                throw new AssertionError("not possible");
+            }
+        }
+        for (Task t : TypicalEvents.getTypicalTasks()) {
+            try {
+                ab.addTask(t);
+            } catch (UniqueEventList.DuplicateEventException e) {
                 throw new AssertionError("not possible");
             }
         }

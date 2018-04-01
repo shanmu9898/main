@@ -22,7 +22,7 @@ import static seedu.address.testutil.ExportCommandBuilder.NAME_NEEDED;
 import static seedu.address.testutil.ExportCommandBuilder.PATH_NEEDED;
 import static seedu.address.testutil.ExportCommandBuilder.RANGE_ALL;
 import static seedu.address.testutil.ExportCommandBuilder.TAG_NEEDED;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,10 +32,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -46,9 +48,11 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
+import seedu.address.logic.commands.ShortcutCommand;
 import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -86,8 +90,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -95,8 +99,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getPersonDetails(person));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getPersonDetails(person));
+        assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
@@ -141,8 +145,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
+                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -181,15 +185,30 @@ public class AddressBookParserTest {
                 "name"), command);
     }
 
-    //@@author shanmu9898
     @Test
-    public  void parseCommand_import() throws Exception {
+    public void parseCommand_import() throws Exception {
         ImportCommand command = (ImportCommand) parser.parseCommand(
                 ImportCommand.COMMAND_WORD + " "
                         + "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml");
         assertEquals(new ImportCommand("src/test/data/XmlAddressBookStorageTest/importsamplefile.xml"),
                 command);
     }
+
+    @Test
+    public void parseCommand_shortcut() throws Exception {
+        ShortcutCommand command = (ShortcutCommand) parser.parseCommand(
+                ShortcutCommand.COMMAND_WORD + " " + "list" + " " + "l");
+        assertEquals(new ShortcutCommand("list", "l"), command);
+    }
+
+    @Test
+    public void parseCommand_deleteShortcut() throws Exception {
+        DeleteShortcutCommand command = (DeleteShortcutCommand) parser.parseCommand(
+                DeleteShortcutCommand.COMMAND_WORD + " " + "list" + " " + "l");
+        assertEquals(new DeleteShortcutCommand("list", "l"), command);
+    }
+
+
 
     //@@author Sisyphus25
     @Test
@@ -222,5 +241,17 @@ public class AddressBookParserTest {
                 (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
         assertEquals(new ChangeThemeCommand("dark"), command);
     }
+
+    @Test
+    public void parseCommand_remove() throws Exception {
+        RemoveCommand commandRemoveAppointment =
+                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "appointment" + " " + "1");
+        RemoveCommand commandRemoveTask =
+                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "task" + " " + "2");
+        assertEquals(new RemoveCommand(Index.fromOneBased(1), "appointment"), commandRemoveAppointment);
+        assertEquals(new RemoveCommand(Index.fromOneBased(2), "task"), commandRemoveTask);
+    }
     //@@author
+
+
 }

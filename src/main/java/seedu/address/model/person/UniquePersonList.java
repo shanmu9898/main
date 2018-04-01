@@ -100,7 +100,6 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asObservableList() {
-        //sort();
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
@@ -135,16 +134,4 @@ public class UniquePersonList implements Iterable<Person> {
         return internalList.hashCode();
     }
 
-    //@@author shanmu9898
-    //* Sorts the unique person list.
-    //
-    //    public void sort() {
-    //        SortedList<Person> sortedInternalList =  internalList.sorted();
-    //        ObservableList<Person> sortedReturningInternalList = ;
-    //        for(Person p : sortedInternalList) {
-    //            sortedReturningInternalList.add(p);
-    //        }
-    //
-    //
-    //    }
 }

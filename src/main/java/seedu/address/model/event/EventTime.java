@@ -38,10 +38,10 @@ public class EventTime {
     /**
      * Returns true if the given time has already passed the current time
      */
-    public static boolean isExpired(EventTime time) {
+    public boolean isExpired() {
         Calendar currentTime = Calendar.getInstance();
         currentTime.setTime(new Date());
-        return time.value.after(currentTime);
+        return value.before(currentTime);
     }
 
     @Override
