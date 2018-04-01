@@ -24,11 +24,11 @@ public class EventTimeTest {
 
     @Test
     public void isExpired() {
-        assertFalse(EventTime.isExpired(new EventTime("10/10/2017 10:00")));
-        assertFalse(EventTime.isExpired(new EventTime("09/01/2018 10:00")));
+        EventTime pastTime = new EventTime("20/10/2013 10:00");
+        EventTime futureTime = new EventTime("20/10/2100 10:00");
+        assertFalse(futureTime.isExpired());
 
-        assertTrue(EventTime.isExpired(new EventTime("10/10/2019 10:00")));
-        assertTrue(EventTime.isExpired(new EventTime("09/01/2019 10:00")));
+        assertTrue(pastTime.isExpired());
     }
 }
 
