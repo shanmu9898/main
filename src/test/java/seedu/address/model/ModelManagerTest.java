@@ -26,7 +26,8 @@ import org.junit.rules.ExpectedException;
 import junit.framework.TestCase;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -86,7 +87,7 @@ public class ModelManagerTest {
 
     @Test
     public void addTask_addTaskToAddressBook_evokeAddressBookChangedEvent()
-            throws UniqueEventList.DuplicateEventException {
+            throws DuplicateEventException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.addTask(TYPICAL_TASK_3);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
@@ -94,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void removeTask_removeTaskFromAddressBook_evokeAddressBookChangedEvent()
-            throws UniqueEventList.EventNotFoundException {
+            throws EventNotFoundException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.deleteTask(TYPICAL_TASK_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
@@ -102,7 +103,7 @@ public class ModelManagerTest {
 
     @Test
     public void addTask_addAppointmentToAddressBook_evokeAppointmentListChangedEvent()
-            throws UniqueEventList.DuplicateEventException {
+            throws DuplicateEventException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.addAppointment(TYPICAL_APPOINTMENT_3);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);
@@ -111,7 +112,7 @@ public class ModelManagerTest {
 
     @Test
     public void removeTask_removeAppointmentFromAddressBook_evokeAppointmentListChangedEvent()
-            throws UniqueEventList.EventNotFoundException {
+            throws EventNotFoundException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.deleteAppointment(TYPICAL_APPOINTMENT_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);

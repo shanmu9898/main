@@ -15,7 +15,8 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -142,27 +143,27 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
+    public void addAppointment(Appointment appointment) throws DuplicateEventException {
         addressBook.addAppointment(appointment);
         indicateAddressBookChanged();
         indicateAppointmentListChanged();
     }
 
     @Override
-    public void deleteAppointment(Appointment target) throws UniqueEventList.EventNotFoundException {
+    public void deleteAppointment(Appointment target) throws EventNotFoundException {
         addressBook.removeAppointment(target);
         indicateAddressBookChanged();
         indicateAppointmentListChanged();
     }
 
     @Override
-    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
+    public void addTask(Task task) throws DuplicateEventException {
         addressBook.addTask(task);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void deleteTask(Task target) throws UniqueEventList.EventNotFoundException {
+    public void deleteTask(Task target) throws EventNotFoundException {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }

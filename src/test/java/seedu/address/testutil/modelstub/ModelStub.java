@@ -10,6 +10,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -123,22 +125,22 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException {
+    public void addAppointment(Appointment appointment) throws DuplicateEventException {
         fail("This method should not be called.");
     }
 
     @Override
-    public void deleteAppointment(Appointment appointment) throws UniqueEventList.EventNotFoundException {
+    public void deleteAppointment(Appointment appointment) throws EventNotFoundException {
         fail("This method should not be called.");
     }
 
     @Override
-    public void addTask(Task task) throws UniqueEventList.DuplicateEventException {
+    public void addTask(Task task) throws DuplicateEventException {
         fail("This method should not be called.");
     }
 
     @Override
-    public void deleteTask(Task task) throws UniqueEventList.EventNotFoundException {
+    public void deleteTask(Task task) throws EventNotFoundException {
         fail("This method should not be called.");
     }
 }

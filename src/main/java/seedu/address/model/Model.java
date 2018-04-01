@@ -5,7 +5,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
-import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.event.exceptions.DuplicateEventException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -96,16 +97,16 @@ public interface Model {
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given appointment */
-    void addAppointment(Appointment appointment) throws UniqueEventList.DuplicateEventException;
+    void addAppointment(Appointment appointment) throws DuplicateEventException;
 
     /** Deletes the given appointment. */
-    void deleteAppointment(Appointment appointment) throws UniqueEventList.EventNotFoundException;
+    void deleteAppointment(Appointment appointment) throws EventNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueEventList.DuplicateEventException;
+    void addTask(Task task) throws DuplicateEventException;
 
     /** Deletes the given task */
-    void deleteTask(Task task) throws UniqueEventList.EventNotFoundException;
+    void deleteTask(Task task) throws EventNotFoundException;
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);
