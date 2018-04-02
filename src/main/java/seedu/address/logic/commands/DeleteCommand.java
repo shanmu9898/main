@@ -23,6 +23,7 @@ public class DeleteCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
 
     private final Index targetIndex;
 
@@ -39,20 +40,20 @@ public class DeleteCommand extends UndoableCommand {
         if (personToDelete != null && studentToDelete == null) {
             try {
                 model.deletePerson(personToDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
             } catch (PersonNotFoundException pnfe) {
                 throw new AssertionError("The target person cannot be missing");
             }
         } else if (personToDelete == null && studentToDelete != null) {
             try {
                 model.deleteStudent(studentToDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete));
             } catch (PersonNotFoundException pnfe) {
                 throw new AssertionError("The target student cannot be missing");
             }
         } else {
             throw new NullPointerException();
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     @Override
