@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to help teachers and other educational professionals *better manage their contacts* and *remember students they taught*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -126,7 +126,7 @@ Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/I
 Examples:
 
 * `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
-Sets an appointment on April 5th, 2018, 10am with the 3rd contact in the list.
+Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
 +
 image::appointmentAdded.jpg[width="800"]
     Figure 3: Appointment added successfully example
@@ -227,20 +227,20 @@ image::calendarMonth.jpg[width="800"]
 +
 
 
-=== Listing all contacts/tasks/appointments/students : `list` `[updated since v1.4]`
+=== Listing all contact/task/appointment/student : `list` `[updated since v1.4]`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
 
 ****
-* `TYPE` can be of the following: `contact`, `student`, `tasks`, `appointments`.
+* `TYPE` can be of the following: `contact`, `student`, `task`, `appointment`.
 * `TYPE` cannot be empty.
 ****
 
 Examples:
 
-* List all students: `list students` +
-* List all tasks: `list tasks`
+* List all student: `list student` +
+* List all task: `list task`
 
 
 === Editing a contact : `edit`
