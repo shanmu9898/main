@@ -77,7 +77,7 @@ Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 ****
 * `[TYPE]` field represents the type of contact you wish to add.  +
-* It can be `student`, `guardian` or `{nbsp}` (empty for a default contact).
+* It can be `student`, or `{nbsp}` (empty for a default contact).
 ****
 
 [TIP]
@@ -111,7 +111,7 @@ Forms an English class containing the first, second and fifth contact in the lis
 
 === Setting up an appointment : `set_appointment` `[since v1.3]`
 
-Sets an appointment with the specified contact. +
+Sets up an appointment with the specified contact. +
 Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
 
 ****
@@ -132,9 +132,10 @@ image::appointmentAdded.jpg[width="800"]
     Figure 3: Appointment added successfully example
 +
 
-=== Setting a task : `set_task` `[since v1.3]`
 
-Sets a task to be done by a deadline +
+=== Setting up a task : `set_task` `[since v1.3]`
+
+Sets up a task to be done by a deadline +
 Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
@@ -191,7 +192,7 @@ image::themeDark.jpg[width="800"]
 Changes the theme of TeachConnect to Galaxy Theme.
 +
 image::themeGalaxy.jpg[width="800"]
-    Figure 5: GUI with Galaxy Theme
+    Figure 6: GUI with Galaxy Theme
 +
 
 
