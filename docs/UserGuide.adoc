@@ -170,7 +170,7 @@ image::appointmentRemoved.jpg[width="800"]
 +
 
 
-=== Changing GUI theme : `theme` `[since in v1.4]`
+=== Changing GUI theme : `theme` `[since v1.4]`
 
 Changes the theme of the GUI.  +
 Format: `theme THEME_NAME`
@@ -196,7 +196,7 @@ image::themeGalaxy.jpg[width="800"]
 +
 
 
-=== Switching Calendar Viewmode : `calendar` `[since in v1.4]`
+=== Switching Calendar Viewmode : `calendar` `[since v1.4]`
 
 Switches the Calendar view mode.  +
 Format: `calendar VIEW_MODE`
@@ -227,7 +227,7 @@ image::calendarMonth.jpg[width="800"]
 +
 
 
-=== Listing all contacts/tasks/appointments/students : `list`
+=== Listing all contacts/tasks/appointments/students : `list` `[updated since v1.4]`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
