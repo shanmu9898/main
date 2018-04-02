@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_1;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_2;
+import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_EXPIRED;
 
 import org.junit.Test;
 
@@ -34,8 +35,9 @@ public class TaskCardTest extends GuiUnitTest {
         Task differentTask = TYPICAL_TASK_1;
         assertFalse(taskCard.equals(new TaskCard(differentTask, 0)));
 
+        Task expiredTask = TYPICAL_TASK_EXPIRED;
+        TaskCard expiredTaskCard = new TaskCard(TYPICAL_TASK_EXPIRED, 1);
         // same task, different index -> returns false
-        assertFalse(taskCard.equals(new TaskCard(task, 1)));
+        assertFalse(taskCard.equals(expiredTaskCard));
     }
-
 }
