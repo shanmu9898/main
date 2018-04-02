@@ -65,7 +65,7 @@ image::commandbox.jpg[width="800"]
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing mannual : `help`
+=== Viewing manual : `help`
 
 Accesses the User Guide for TeachConnect. +
 Format: `help`
@@ -135,7 +135,7 @@ image::appointmentAdded.jpg[width="800"]
 
 === Setting up a task : `set_task` `[since v1.3]`
 
-Sets up a task to be done by a deadline +
+Sets up a task to be done by a deadline. +
 Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
@@ -151,8 +151,8 @@ Sets a task which needs to be completed before April 5th, 2018, 10am.
 
 === Removing an appointment or a task: `remove` `[since v1.4]`
 
-Removes an appointment or a task by the index number used from their respective listing +
-Format: `remove EVENT_TYPE INDEX`
+Removes an appointment or a task by the index number used from their respective listing. +
+Format: `remove EVENT_TYPE INDEX`.
 
 ****
 * `EVENT_TYPE` can be either `appointment` or `task`.
@@ -440,9 +440,6 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 === Upcoming features `[coming soon]`
 
-* Clear distinction between students and parents [since v1.3]
-* Finding not only by name but by any field [since v1.3]
-* Shortcuts and Autocompletion [coming in v1.4]
 * A login feature [coming in v1.5]
 * Dynamic search [coming in v2.0]
 * NLP for event and appointment scheduling [coming in v2.0]
@@ -458,7 +455,7 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 
 == Command Summary
-TeachConnect Command List:
+The table below summarizes TeachConnect's command list.
 
 [width="59%",cols="22%,<30%,<30%",options="header",]
 |=======================================================================
@@ -474,7 +471,7 @@ TeachConnect Command List:
 
 |*Find*|`find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
 
-|*List*|`list TYPE` | `list students`, `list tasks`
+|*List*|`list TYPE` | `list student`
 
 |*Help*|`help`|`help`
 
@@ -500,4 +497,8 @@ TeachConnect Command List:
 
 |*Undo*|`undo`|`undo`
 
-|*Redo*|`redo`|`redo`
+|*Redo*|`redo`|`redo`|
+
+|=======================================================================
+
+ Table 1: TeachConnect's command list
