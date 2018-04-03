@@ -111,26 +111,26 @@ Forms an English class containing the first, second and fifth contact in the lis
 
 === Setting up an appointment : `set_appointment` `[since v1.3]`
 
-Sets up an appointment with the specified contact. +
-Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
+ Sets up an appointment with the specified contact. +
+ Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
 
-****
-* This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* `1, 2, 3, ...`.
-* `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
-* `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
-* The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
-****
+ ****
+ * This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
+ * The index refers to the index number shown in the most recent listing.
+ * The index *must be a positive integer* `1, 2, 3, ...`.
+ * `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
+ * `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
+ * The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
+ ****
 
-Examples:
+ Examples:
 
-* `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
-Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
-+
-image::appointmentAdded.jpg[width="800"]
-    Figure 3: Appointment added successfully example
-+
+ * `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
+ Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
+ +
+ image::appointmentAdded.jpg[width="800"]
+     Figure 3: Appointment added successfully example
+ +
 
 
 === Setting up a task : `set_task` `[since v1.3]`
@@ -233,14 +233,15 @@ Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
 
 ****
-* `TYPE` can be of the following: `contact`, `student`, `task`, `appointment`.
+* `TYPE` can be of the following: `contact`, `student`, `task`, `appointment`, `shortcut`.
 * `TYPE` cannot be empty.
 ****
 
 Examples:
 
 * List all student: `list student` +
-* List all task: `list task`
+* List all task: `list task` +
+* List all task: `list shortcut`
 
 
 === Editing a contact : `edit`
@@ -409,38 +410,76 @@ Format: `exit`
 TeachConnect data are saved in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-=== Importing the contacts : `import` `[since v1.2]`
+=== Importing the contacts : `import` `[since v1.4]`
 
 TeachConnect allows you to import contacts from a different TeachConnect file by specifying the location of the file. +
 
 Format: `import [TYPE] pathname`
 
 Examples:
-Importing Contacts : `import ./data/importsample.xml`
+* Importing Contacts : `import ./data/importsample.xml`
 
-=== Exporting the contacts : `export` `[since v1.2]`
+=== Exporting the contacts : `export` `[since v1.4]`
 
-TeachConnect allows you to export contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes.
+TeachConnect allows you to export contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes. By specifying the type of the export you want it saves either only the xml file or both the xml and Csv file.
 
-Format: `export [TYPE] n/NAME r/RANGE t/TAG p/PATH`
+Format: `export n/NAME r/RANGE t/TAG p/PATH te/normal`
 
-Format: `export [TYPE] n/NAME r/RANGE p/PATH`
+Format: `export n/NAME r/RANGE p/PATH te/excel`
 
 [TIP]
-You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command.
+You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command. +
+You can also choose to export it in Csv format which you can later open in Excel.
 
 [WARNING]
-You can only export all a people based on one or zero tags.
+You can only export all or people based on one or zero tags. +
+Be careful about the parameter value for the format type. It has to exactly be either `normal` or `excel`.
 
 Examples:
 
-Exporting contacts : `export n/StudentsFile1 r/all t/students p/./data`
-Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
+* Exporting contacts : `export n/StudentsFile1 r/all t/students p/./data te/normal`
+* Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data te/excel`
+
+=== Adding your own shortcut : `shortcut` `[since v1.4]`
+
+TeachConnect also allows you to set your own personal shortcut for any of the commands above.
+
+Format: `shortcut [command word] [shortcut word]`
+
+[TIP]
+You can choose multiple shortcuts for the same command. +
+You can later use these shortcuts in place of the original command even after closing and reopening the app. +
+You can also set shortcut for the shortcut command.
+
+[WARNING]
+You cannot set the shortcut word to a already preregistered command. +
+Your shortcut word cannot be more than a single word.
+
+Examples:
+* Personalised Alias : `shortcut list l`
+* Personalised Alias : `shortcut add a`
+
+=== Deleting the shortcut you created : `delete_shortcut` `[since v1.4]`
+
+TeachConnect allows you to delete your personalised Alias if you don't want them or if you created them by mistake.
+
+Format: `delete_shortcut [command word] [shortcut word]`
+
+[TIP]
+You can choose to just undo the delete_shortcut if you delete a shortcut by mistake. +
+Listing all the shortcuts using the `list shortcuts` command as mentioned above might help in seeing all the shortcuts at once. +
+
+[WARNING]
+You can only delete shortcuts that you have already added.
+
+Examples:
+* Deleting the Personalised Alias : `delete_shortcut list l`
+* Deleting the Personalised Alias : `delete_shortcut add a`
 
 
 === Upcoming features `[coming soon]`
 
-* A login feature [coming in v1.5]
+* A login feature [coming in v2.0]
 * Dynamic search [coming in v2.0]
 * NLP for event and appointment scheduling [coming in v2.0]
 * Encrypting data files [coming in v2.0]
@@ -448,11 +487,7 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands coming up!
-
-*Q*: Does it automatically tell us if there are any appointment clashes? +
-*A*: Hell yes! Our aim is also to help you make your planning simpler and that is just what we do!
-
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands!
 
 == Command Summary
 The table below summarizes TeachConnect's command list.
@@ -491,7 +526,11 @@ The table below summarizes TeachConnect's command list.
 
 |*Import TeachConnect File*|`import` | `import ./data/samplefile.xml`
 
-|*Export*|`export n/NAME r/RANGE t/TAG p/PATH` | `export n/samplefile.xml r/all t/friends p/.data`
+|*Export*|`export n/NAME r/RANGE t/TAG p/PATH te/TYPE` | `export n/samplefile.xml r/all t/friends p/.data te/excel`
+
+|*Set Shortcut*|`shortcut [command word] [shortcut word]` | `shortcut list l`
+
+|*Delete Shortcut*|`delete_shortcut [command word] [shortcut word]` | `delete_shortcut list l`
 
 |*History*|`history`|`history`
 
