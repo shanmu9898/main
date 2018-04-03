@@ -1,6 +1,5 @@
-<!-- @@author shanmu9898 -->
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- @@author shanmu9898 -->
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
