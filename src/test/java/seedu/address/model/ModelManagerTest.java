@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalShortcuts.SHORTCUT_DOUBLES_1;
 
 import java.util.Arrays;
 
@@ -32,6 +33,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -117,6 +119,14 @@ public class ModelManagerTest {
         modelManager.deleteAppointment(TYPICAL_APPOINTMENT_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);
         TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 2);
+    }
+
+    @Test
+    public void addShortcut_addShortcutToAddressBook_evokeAddressBookChangedEvent()
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        ModelManager model = new ModelManager(addressBook, userPrefs);
+        modelManager.addCommandShortcut(SHORTCUT_DOUBLES_1);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
 
     @Test

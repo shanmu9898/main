@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.person.Person;
+import seedu.address.model.shortcuts.ShortcutDoubles;
 
 /**
  * The main LogicManager of the app.
@@ -71,4 +72,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public String getCurrentActiveListType() {
         return model.getCurrentActiveListType();
     }
+
+    @Override
+    public ObservableList<ShortcutDoubles> getFilteredShortcutList() { return  model.getFilteredCommandsList(); }
 }

@@ -19,9 +19,16 @@ public class ShortcutDoubles {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ShortcutDoubles // instanceof handles nulls
-                && this.shortcutWord.equals(((ShortcutDoubles) other).shortcutWord)
-                && this.commandWord.equals(((ShortcutDoubles) other).commandWord)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ShortcutDoubles)) {
+            return false;
+        }
+
+        ShortcutDoubles otherShortcut = (ShortcutDoubles) other;
+        return otherShortcut.commandWord.equals(this.commandWord)
+                && otherShortcut.shortcutWord.equals(this.shortcutWord);
     }
 }

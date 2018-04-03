@@ -14,16 +14,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
 import static seedu.address.logic.commands.ListCommand.COMMAND_WORD;
 import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
 import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
+import static seedu.address.logic.commands.ListCommand.TYPE_SHORTCUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.address.testutil.ExportCommandBuilder.NAME_NEEDED;
-import static seedu.address.testutil.ExportCommandBuilder.PATH_NEEDED;
-import static seedu.address.testutil.ExportCommandBuilder.RANGE_ALL;
-import static seedu.address.testutil.ExportCommandBuilder.TAG_NEEDED;
-import static seedu.address.testutil.ExportCommandBuilder.TYPE_NEEDED;
+import static seedu.address.testutil.ExportCommandHelper.NAME_NEEDED;
+import static seedu.address.testutil.ExportCommandHelper.PATH_NEEDED;
+import static seedu.address.testutil.ExportCommandHelper.RANGE_ALL;
+import static seedu.address.testutil.ExportCommandHelper.TAG_NEEDED;
+import static seedu.address.testutil.ExportCommandHelper.TYPE_NEEDED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
@@ -142,6 +143,7 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(COMMAND_WORD + " " + TYPE_CONTACT) instanceof ListCommand);
         assertTrue(parser.parseCommand(COMMAND_WORD + " " + TYPE_APPOINTMENT) instanceof ListCommand);
+        assertTrue(parser.parseCommand(COMMAND_WORD + " " + TYPE_SHORTCUT) instanceof ListCommand);
     }
 
     @Test

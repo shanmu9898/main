@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
 import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
+import static seedu.address.logic.commands.ListCommand.TYPE_SHORTCUT;
 import static seedu.address.logic.commands.ListCommand.TYPE_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -72,6 +73,16 @@ public class ListCommandTest {
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = listCommand.execute();
         assertEquals(MESSAGE_SUCCESS + TYPE_TASK, result.feedbackToUser);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+    }
+
+    @Test
+    public void execute_listShortcut_success() throws CommandException {
+        listCommand = new ListCommand(TYPE_SHORTCUT);
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        CommandResult result = listCommand.execute();
+        assertEquals(MESSAGE_SUCCESS + TYPE_SHORTCUT, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
