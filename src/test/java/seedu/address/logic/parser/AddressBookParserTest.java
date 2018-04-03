@@ -18,10 +18,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.testutil.ExportCommandBuilder.NAME_NEEDED;
 import static seedu.address.testutil.ExportCommandBuilder.PATH_NEEDED;
 import static seedu.address.testutil.ExportCommandBuilder.RANGE_ALL;
 import static seedu.address.testutil.ExportCommandBuilder.TAG_NEEDED;
+import static seedu.address.testutil.ExportCommandBuilder.TYPE_NEEDED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
@@ -180,9 +182,10 @@ public class AddressBookParserTest {
     public void parseCommand_export() throws Exception {
         ExportCommand command = (ExportCommand) parser.parseCommand(
                 ExportCommand.COMMAND_WORD + " " + PREFIX_NAME + NAME_NEEDED + " " + PREFIX_RANGE + RANGE_ALL
-                        + " " + PREFIX_TAG_EXPORT + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED);
+                        + " " + PREFIX_TAG_EXPORT + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
+                        + TYPE_NEEDED);
         assertEquals (new ExportCommand ("all", new Tag ("friends"), "./data",
-                "name"), command);
+                "name", "normal"), command);
     }
 
     @Test

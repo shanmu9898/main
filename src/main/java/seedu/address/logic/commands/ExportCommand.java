@@ -5,9 +5,27 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.AddressBook;
@@ -34,17 +52,17 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports contacts to the TeachConnect Book based "
             + "on index, range or tag \n"
             + "Parameters: "
-            + " [TYPE] "
             + PREFIX_NAME + " NAME "
             + PREFIX_RANGE + " RANGE "
             + PREFIX_TAG_EXPORT + " TAG "
-            + PREFIX_PATH + " PATH \n"
-            + "Example 1: " + COMMAND_WORD + " " + PREFIX_NAME + "Exportfile " + PREFIX_RANGE + "all "
-            + PREFIX_TAG_EXPORT + " friends " + PREFIX_PATH + "/src/main/data \n"
-            + "Example 2: " + COMMAND_WORD + " " + PREFIX_NAME + "Exportfile " + PREFIX_RANGE + "1 "
-            + PREFIX_TAG_EXPORT + " friends " + PREFIX_PATH + "/src/main/data \n"
-            + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "Exportfile " + PREFIX_RANGE + "1,2 "
-            + PREFIX_TAG_EXPORT + " friends " + PREFIX_PATH + "/src/main/data";
+            + PREFIX_PATH + " PATH "
+            + PREFIX_TYPE + "FORMAT \n"
+            + "Example 1: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "all "
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + "Example 2: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1 "
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1,2 "
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/normal \n";
 
 
     private Tag tag;
@@ -53,20 +71,24 @@ public class ExportCommand extends Command {
     private AddressBook teachConnectBook;
     private AddressBookStorage teachConnectStorage;
     private final String nameOfExportFile;
+    private final String type;
 
     /**
      * Creates an ExportCommand to export the specified {@code Persons}
      */
-    public ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
+    public ExportCommand(String range, Tag tag, String path, String nameOfExportFile, String type) {
         requireNonNull(range);
         requireNonNull(tag);
         requireNonNull(path);
         requireNonNull(nameOfExportFile);
+        requireNonNull(type);
 
         this.range = range;
         this.path = path;
         this.tag = tag;
         this.nameOfExportFile = nameOfExportFile;
+        this.type = type;
+
 
         teachConnectBook = new AddressBook();
     }
@@ -79,7 +101,7 @@ public class ExportCommand extends Command {
         } catch (IOException e) {
             return new CommandResult(MESSAGE_RANGE_ERROR);
         }
-        CommandResult handledRangeSituation = null;
+        CommandResult handledRangeSituation;
         try {
             handledRangeSituation = handleRangeArray(rangeGiven);
         } catch (DuplicatePersonException e) {
@@ -91,7 +113,7 @@ public class ExportCommand extends Command {
             return handledRangeSituation;
         }
 
-        if (!tryStorage()) {
+        if (!tryStorage(type)) {
             return new CommandResult(MESSAGE_FAIL);
         }
         return new CommandResult(MESSAGE_SUCCESS);
@@ -102,13 +124,58 @@ public class ExportCommand extends Command {
      * This method tries creating and storing the export file.
      * @return
      */
-    private boolean tryStorage() {
+    private boolean tryStorage(String type) {
         teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
         try {
             teachConnectStorage.saveAddressBook(teachConnectBook);
         } catch (IOException e) {
             return false;
         }
+        if (type.equals("excel")) {
+            return saveAsCsv();
+        }
+        return true;
+    }
+
+    /**
+     * Will save as a CSV file depending on the type of input
+     * @return boolean
+     */
+    private boolean saveAsCsv() {
+        File stylesheet = new File(String.valueOf("/Users/Bumblebee/Desktop/main/src/main/resources/Util/style.xsl"));
+        File xmlSource = new File(path + "/" + nameOfExportFile + ".xml");
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            return false;
+        }
+        Document document;
+        try {
+            document = builder.parse(xmlSource);
+        } catch (SAXException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+
+        StreamSource styleSource = new StreamSource(stylesheet);
+        Transformer transformer;
+        try {
+            transformer = TransformerFactory.newInstance().newTransformer(styleSource);
+        } catch (TransformerConfigurationException e) {
+            return false;
+        }
+        Source source = new DOMSource(document);
+        Result outputTarget = new StreamResult(new File(path + "/" + nameOfExportFile + ".csv"));
+        try {
+            transformer.transform(source, outputTarget);
+        } catch (TransformerException e) {
+            return false;
+        }
+
         return true;
     }
 
@@ -218,7 +285,6 @@ public class ExportCommand extends Command {
 
     }
 
-    //@@author shanmu9898 - reused
     /**
      *
      * @param other [in this case ExportCommand]
