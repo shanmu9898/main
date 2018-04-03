@@ -54,12 +54,14 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    //@@author shanmu9898
     @Test
     public void getFilteredCommandList_modifyList_throwsUnsupportedOperationException() {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredCommandsList().remove(0);
     }
+    //@@author
 
     @Test
     public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
@@ -121,6 +123,7 @@ public class ModelManagerTest {
         TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 2);
     }
 
+    //@@author shanmu9898
     @Test
     public void addShortcut_addShortcutToAddressBook_evokeAddressBookChangedEvent()
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
@@ -128,6 +131,7 @@ public class ModelManagerTest {
         modelManager.addCommandShortcut(SHORTCUT_DOUBLES_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
+    //@@author shanmu9898
 
     @Test
     public void equals() {
@@ -162,7 +166,7 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookName("differentName");
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
-
+    //@@author shanmu9898
     @Test
     public void deleteTag_tagNotPresent_modelUnchanged() throws DuplicatePersonException, PersonNotFoundException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
@@ -188,4 +192,5 @@ public class ModelManagerTest {
 
         assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }
+    //@@author
 }

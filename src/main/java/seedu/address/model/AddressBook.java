@@ -88,9 +88,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointments.setEvents(appointments);
     }
 
+    //@@author shanmu9898
     public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
         this.shorcutCommands.setCommandsList(shorcutCommands);
     }
+    //@@author
+
     public void setTasks(List<Task> tasks)
             throws DuplicateEventException {
         this.tasks.setEvents(tasks);
@@ -268,6 +271,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
+    //@@author shanmu9898
     /**
      *
      * @param commandShortcut
@@ -282,17 +286,19 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
         }
     }
+    //author
 
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
-
+    //@@author shanmu9898
     public void addShortcutDoubles(ShortcutDoubles s)
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
         shorcutCommands.add(s);
     }
+    //@@author
 
     //// util methods
 
@@ -359,6 +365,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return Objects.hash(persons, appointments, tasks, tags);
     }
 
+    //@@author shanmu9898
     /**
      * Removes the particular tag for all people in the AddressBook.
      */
@@ -371,6 +378,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
     }
+
 
     /**
      * Removes the particular tag for that particular person in the AddressBook.
@@ -389,7 +397,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         updatePerson(person, updatedPerson);
     }
-
+    //@@author
     /**
      * Removes the particular tag for that particular student in the AddressBook.
      */

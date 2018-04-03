@@ -212,7 +212,7 @@ public class AddressBookParserTest {
                 DeleteShortcutCommand.COMMAND_WORD + " " + "list" + " " + "l");
         assertEquals(new DeleteShortcutCommand("list", "l"), command);
     }
-
+    //@@author
 
 
     //@@author Sisyphus25

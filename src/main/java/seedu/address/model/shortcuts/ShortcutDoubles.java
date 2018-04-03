@@ -1,3 +1,4 @@
+//@@author shanmu9898
 package seedu.address.model.shortcuts;
 
 import static java.util.Objects.requireNonNull;

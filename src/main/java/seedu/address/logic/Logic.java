@@ -37,6 +37,7 @@ public interface Logic {
     /** Returns the item type of the current active list that is shown in the GUI by the address book*/
     String getCurrentActiveListType();
 
+    //@@author shanmu9898
     /** Returns an unmodifiable view of the filtered list of Shortcuts */
     ObservableList<ShortcutDoubles> getFilteredShortcutList();
 }

@@ -77,6 +77,7 @@ public class ListCommandTest {
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
+    //@@author shanmu9898
     @Test
     public void execute_listShortcut_success() throws CommandException {
         listCommand = new ListCommand(TYPE_SHORTCUT);

@@ -72,6 +72,7 @@ public class ModelStub implements Model {
         fail("This method should not be called.");
     }
 
+    //@@author shanmu9898
     @Override
     public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
@@ -83,6 +84,7 @@ public class ModelStub implements Model {
             throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
         fail("This method should not be called");
     }
+    //@@author
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
