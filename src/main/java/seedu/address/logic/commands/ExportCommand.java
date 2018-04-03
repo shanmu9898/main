@@ -142,7 +142,7 @@ public class ExportCommand extends Command {
      * @return boolean
      */
     private boolean saveAsCsv() {
-        File stylesheet = new File(String.valueOf("/Users/Bumblebee/Desktop/main/src/main/resources/Util/style.xsl"));
+        File stylesheet = new File("./src/main/resources/Util/style.xsl");
         File xmlSource = new File(path + "/" + nameOfExportFile + ".xml");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

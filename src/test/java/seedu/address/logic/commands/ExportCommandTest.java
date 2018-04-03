@@ -107,7 +107,7 @@ public class ExportCommandTest {
 
     @Test
     public void execute_successfulExportWithExcel_showsNoMessageError() {
-        ExportCommand exportCommand = new ExportCommand("2", testingTag, testingPath, name, fileTypeExcel);
+        ExportCommand exportCommand = new ExportCommand("1,6", testingTag, testingPath, name, fileTypeExcel);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
