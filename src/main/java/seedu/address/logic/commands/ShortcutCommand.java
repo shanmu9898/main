@@ -18,7 +18,7 @@ public class ShortcutCommand extends UndoableCommand {
                                                + " :Creates a shortcut for any command word";
     public static final String MESSAGE_SHORTCUT_AVAILABLE = "This shortcut already exists!";
     public static final String MESSAGE_SUCCESS = "Successfully added the shortcut";
-    public static final String MESSAGE_NO_COMMAND_TO_MAP = "The command word is invalid and hence cant be mapped!";
+    public static final String MESSAGE_NO_COMMAND_TO_MAP = "The command statement is invalid and hence cant be mapped!";
 
     private final String shortcutWord;
 
@@ -26,10 +26,10 @@ public class ShortcutCommand extends UndoableCommand {
 
     private List<ShortcutDoubles> commandsList;
 
-    private final String[] commandsPresent = {"add", "clear", "delete", "edit", "exit", "export", "find",
+    private final String[] commandsPresent = {"add", "clear", "theme", "delete", "edit", "exit", "export", "find",
                                               "help", "history", "import", "list", "redo", "undo", "select",
                                               "set_appointment", "set_task", "shortcut", "undo", "calendar",
-                                              "delete_shortcut"};
+                                              "delete_shortcut", "remove"};
 
     public ShortcutCommand(String commandWord, String shortcutWord) {
         requireNonNull(commandWord);
@@ -63,7 +63,7 @@ public class ShortcutCommand extends UndoableCommand {
      * @return whether true or false
      */
     private boolean checkIfCommandPresent() throws CommandException {
-        if (!containsKeyWord(commandWord)) {
+        if (!containsKeyWord(commandWord) || containsKeyWord(shortcutWord)) {
             throw new CommandException(MESSAGE_NO_COMMAND_TO_MAP);
         }
         for (ShortcutDoubles s : commandsList) {
@@ -77,7 +77,7 @@ public class ShortcutCommand extends UndoableCommand {
     /**
      * Checks if the command word is in the Array of commands present
      * @param commandWord
-     * @return whether true or false
+     * @return whether true if the command is present in the command word list or false otherwise
      */
     private boolean containsKeyWord(String commandWord) {
         for (String s : commandsPresent) {
