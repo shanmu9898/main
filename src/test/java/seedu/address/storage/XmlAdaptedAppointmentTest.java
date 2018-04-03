@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE;
