@@ -7,11 +7,11 @@ https://coveralls.io/github/CS2103JAN2018-W14-B1/main?branch=master[image:https:
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/StartupUI.jpg[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/StartupUI.jpg[width="600"]
 endif::[]
 __TeachConnect - The only management application you'll ever need
 __

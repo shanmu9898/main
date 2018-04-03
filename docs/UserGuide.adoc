@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to help teachers and other educational professionals *better manage their contacts* and *remember students they taught*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -32,10 +32,16 @@ You can download the latest Java version link:https://java.com/en/download/[here
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::UI_modified.png[width="790"]
+image::StartupUI.jpg[width="800"]
+    Figure 1: Successful start up UI with Light Theme selected
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
++
+image::commandbox.jpg[width="800"]
+    Figure 2: Position of the command box
++
+
 .  Some example commands you can try:
 
 
@@ -59,8 +65,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing mannual : `help`
+=== Viewing manual : `help`
 
+Accesses the User Guide for TeachConnect. +
 Format: `help`
 
 === Adding a contact: `add`
@@ -70,7 +77,7 @@ Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 ****
 * `[TYPE]` field represents the type of contact you wish to add.  +
-* It can be `student`, `guardian` or `{nbsp}` (empty for a default contact).
+* It can be `student`, or `{nbsp}` (empty for a default contact).
 ****
 
 [TIP]
@@ -81,7 +88,7 @@ Examples:
 Adding a default contact: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` t/friend +
 Adding a student contact: `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02`
 
-=== Forming a class `[coming in v1.3]`
+=== Forming a class `[coming in v1.5]`
 
 Forms a class of students for a specified subject and time period. +
 Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
@@ -97,15 +104,15 @@ Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 
 Examples:
 
-* `list` +
+* `list student` +
 `form 1,2,5 subj/English s/18-01-2018 e/17-07-2019` +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
-=== Setting up an appointment : `set appointment` `[coming in v1.3]`
+=== Setting up an appointment : `set_appointment` `[since v1.3]`
 
-Sets an appointment with the specified contact. +
-Format: `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
+Sets up an appointment with the specified contact. +
+Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
 
 ****
 * This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
@@ -113,17 +120,23 @@ Format: `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/I
 * The index *must be a positive integer* `1, 2, 3, ...`.
 * `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
 * `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
+* The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
 ****
 
 Examples:
 
-* `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3` +
-Sets an appointment on April 5th, 2018, 10am with the 3rd contact in the list.
+* `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
+Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
++
+image::appointmentAdded.jpg[width="800"]
+    Figure 3: Appointment added successfully example
++
 
-=== Setting a task : `set task` `[coming in v1.3]`
 
-Sets a task to be done by a deadline +
-Format: `set task t/TITLE e/END_DATE END_TIME`
+=== Setting up a task : `set_task` `[since v1.3]`
+
+Sets up a task to be done by a deadline. +
+Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
 * Task with `TITLE` which needs to completed before `END_DATE` at `END_TIME` is added.
@@ -133,36 +146,104 @@ Format: `set task t/TITLE e/END_DATE END_TIME`
 
 Examples:
 
-* `set task t/Mark papers e/05-04-2018 10:00` +
+* `set_task t/Mark papers e/05-04-2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
-=== Changing GUI theme : `theme` `[coming in v1.4]`
+=== Removing an appointment or a task: `remove` `[since v1.4]`
 
-Changes the theme of the GUI  +
+Removes an appointment or a task by the index number used from their respective listing. +
+Format: `remove EVENT_TYPE INDEX`.
+
+****
+* `EVENT_TYPE` can be either `appointment` or `task`.
+* The index *must be a positive integer* `1, 2, 3, ...`.
+****
+
+Examples:
+
+* `list appointment` +
+`remove appointment 2` +
+Removes the appointment with the index 2 in the appointment list.
++
+image::appointmentRemoved.jpg[width="800"]
+    Figure 4: Remove command usage example
++
+
+
+=== Changing GUI theme : `theme` `[since v1.4]`
+
+Changes the theme of the GUI.  +
 Format: `theme THEME_NAME`
 
 ****
 * This changes the theme of the GUI to `THEME_NAME`.
-****
+* `THEME_NAME` can be `dark`, `light` or `galaxy`.
 
-=== Listing all contacts/tasks/appointments/students/themes : `list`
+****
+Examples:
+
+* `theme dark` +
+Changes the theme of TeachConnect to Dark Theme.
++
+image::themeDark.jpg[width="800"]
+    Figure 5: GUI with Dark Theme
++
+* `theme galaxy` +
+Changes the theme of TeachConnect to Galaxy Theme.
++
+image::themeGalaxy.jpg[width="800"]
+    Figure 6: GUI with Galaxy Theme
++
+
+
+=== Switching Calendar Viewmode : `calendar` `[since v1.4]`
+
+Switches the Calendar view mode.  +
+Format: `calendar VIEW_MODE`
+
+****
+* This changes the view mode of the TeachConnect Calendar.
+* `VIEW_MODE` can be `d`, `w` or `m`, which are respective short forms for day, week and month.
+****
+Examples:
+
+* `calendar d` +
+Changes the view mode of TeachConnect Calendar to Day View.
++
+image::calendarDay.jpg[width="800"]
+    Figure 7: Calendar Day View
++
+* `calendar w` +
+Changes the view mode of TeachConnect Calendar to Week View.
++
+image::calendarWeek.jpg[width="800"]
+    Figure 8: Calendar Week View
++
+* `calendar m` +
+Changes the view mode of TeachConnect Calendar to Month View.
++
+image::calendarMonth.jpg[width="800"]
+    Figure 9: Calendar Month View
++
+
+
+=== Listing all contact/task/appointment/student : `list` `[updated since v1.4]`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
 
 ****
-* `TYPE` can be of the following: `contacts`, `students`, `guardians`, `tasks`, `appointments`.
+* `TYPE` can be of the following: `contact`, `student`, `task`, `appointment`.
 * `TYPE` cannot be empty.
 ****
 
 Examples:
 
-* List all students: `list students` +
-* List all tasks: `list tasks`
+* List all student: `list student` +
+* List all task: `list task`
 
 
-=== Editing a contact : `edit` [will be updated by v1.4]
-
+=== Editing a contact : `edit`
 
 Edits an existing contact. +
 
@@ -185,7 +266,7 @@ Edits the phone number and email address of the 1st contact to be `91234567` and
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-=== Locating contacts by name: `find` [will be updated by v1.3]
+=== Locating contacts by name: `find`
 
 Finds contacts whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -237,7 +318,7 @@ Selects the contact identified by the index number used in the last contact list
 Format: `select INDEX`
 
 ****
-* Contact specified by `INDEX` is selected and is searched for in a Google search page.
+* Contact specified by `INDEX` is selected.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
 ****
@@ -359,9 +440,6 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 === Upcoming features `[coming soon]`
 
-* Clear distinction between students and parents [coming in v1.3]
-* Finding not only by name but by any field [coming in v1.3]
-* Shortcuts and Autocompletion [coming in v1.4]
 * A login feature [coming in v1.5]
 * Dynamic search [coming in v2.0]
 * NLP for event and appointment scheduling [coming in v2.0]
@@ -377,33 +455,50 @@ Exporting contacts : `export n/StudentsFile2 r/1,10 t/students p/./data`
 
 
 == Command Summary
+The table below summarizes TeachConnect's command list.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list TYPE` +
-e.g. `list students`, `list tasks`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *Add Appointment* `set appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX` +
-e.g. `set appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
-* *Add Task* `set task t/TITLE e/END_DATE END_TIME` +
-e.g. `set task t/Mark papers d/05-04-2018 10:00`
-* *Delete Schedule* : `delete schedule INDEX` +
-e.g. `delete schedule 3`
-* *Change GUI theme* : `theme THEME_NAME` +
-e.g. `theme DARK`
-* *Import TeachConnect File* : `import` +
-e.g. `import ./data/samplefile.xml`
-* *Export* : `export n/NAME r/RANGE t/TAG p/PATH` +
-e.g. `export n/samplefile.xml r/all t/friends p/.data`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+[width="59%",cols="22%,<30%,<30%",options="header",]
+|=======================================================================
+|Command |Format |Example
+
+|*Add*|`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`|`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+|*Clear*|`clear`|`clear`
+
+|*Delete*|`delete INDEX`|`delete 3`
+
+|*Edit*|`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`|`edit 2 n/James Lee e/jameslee@example.com`
+
+|*Find*|`find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
+
+|*List*|`list TYPE` | `list student`
+
+|*Help*|`help`|`help`
+
+|*Select Contact*|`select INDEX` |`select 2`
+
+|*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
+
+|*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05-04-2018 10:00`
+
+|*Remove*|`remove EVENT_TYPE INDEX` | `remove task 3`
+
+|*Change GUI theme*|`theme THEME_NAME` | `theme dark`
+
+|*Change Calendar View mode*|`calendar VIEW_MODE` | `calendar d`
+
+|*Change GUI theme*|`theme THEME_NAME` | `theme dark`
+
+|*Import TeachConnect File*|`import` | `import ./data/samplefile.xml`
+
+|*Export*|`export n/NAME r/RANGE t/TAG p/PATH` | `export n/samplefile.xml r/all t/friends p/.data`
+
+|*History*|`history`|`history`
+
+|*Undo*|`undo`|`undo`
+
+|*Redo*|`redo`|`redo`|
+
+|=======================================================================
+
+ Table 1: TeachConnect's command list
