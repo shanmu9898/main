@@ -13,7 +13,8 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Task;
 
-//@@author Sisyphus24
+//@@author Sisyphus25-reused
+//Reuse from PersonListPanel class with modification
 /**
  * Panel containing the list of tasks.
  */

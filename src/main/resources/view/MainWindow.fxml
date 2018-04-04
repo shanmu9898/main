@@ -37,7 +37,7 @@
           </VBox>
 
           <VBox>
-            <StackPane fx:id="appTitle" minHeight="70">
+            <StackPane fx:id="appTitle" maxHeight="60">
                 <HBox spacing="5" alignment="CENTER_LEFT">
                   <padding>
                     <Insets top="10" right="15" bottom="0" left="10" />
