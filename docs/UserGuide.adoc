@@ -244,7 +244,7 @@ Examples:
 
 * List all student: `list students` +
 * List all task: `list tasks` +
-* List all task: `list shortcuts`
+* List all command shortcu: `list shortcuts`
 
 
 === Editing a contact : `edit`
