@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Rule;
@@ -24,18 +26,30 @@ public class ExportCommandParserTest {
     }
 
     @Test
+    public void parse_differentType_invalidFormatCommandResult() throws ParseException {
+        Tag testingTag = new Tag("shouldnotbethistag");
+        String testingInput = " n/name r/all p/./data te/random";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
+        assertParseFailure(exportCommandParser, testingInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ExportCommand.MESSAGE_USAGE));
+
+    }
+
+    @Test
     public void parse_optionalFieldsMissing_success() {
         Tag testingTag = new Tag("shouldnotbethistag");
-        String testingInput = " n/name r/all p/./data";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name");
+        String testingInput = " n/name r/all p/./data te/normal";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
+
+
 
     @Test
     public void parse_allfieldsPresent_success() {
         Tag testingTag = new Tag("friends");
-        String testingInput = " n/name r/all t/friends p/./data";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name");
+        String testingInput = " n/name r/all t/friends p/./data te/normal";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
 

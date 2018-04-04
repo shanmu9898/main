@@ -52,6 +52,7 @@ public class AddressBookTest {
         assertEquals(Collections.emptyList(), addressBook.getTagList());
         assertEquals(Collections.emptyList(), addressBook.getAppointmentList());
         assertEquals(Collections.emptyList(), addressBook.getTaskList());
+        assertEquals(Collections.emptyList(), addressBook.getCommandsList());
 
     }
 
@@ -107,6 +108,14 @@ public class AddressBookTest {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTaskList().remove(0);
     }
+
+    //@@author shanmu9898
+    @Test
+    public void getShortcutList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getCommandsList().remove(0);
+    }
+    //@@author shanmu9898
 
     /**
      * A stub ReadOnlyAddressBook whose persons, tags and events lists can violate interface constraints.
@@ -179,6 +188,7 @@ public class AddressBookTest {
         assertEquals(testAddressBook, expectedAddressBook);
     }
 
+    //@@author shanmu9898
     @Test
     public void removeTag_tagNotPresent_addressBookUnchanged() throws PersonNotFoundException,
                                                                       DuplicatePersonException {
@@ -205,5 +215,6 @@ public class AddressBookTest {
 
         assertEquals(expectedAddressBook, testAddressBook);
     }
+    //@@author
 
 }

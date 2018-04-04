@@ -57,6 +57,8 @@ public class TypicalPersons {
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Person DING = new PersonBuilder().withName("Ding Thunderstorm").withPhone("81524871")
+            .withEmail("hansolo@example.com").withAddress("Science Park Road").build();
 
     public static final Student STUDENT_HOON = new StudentBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();

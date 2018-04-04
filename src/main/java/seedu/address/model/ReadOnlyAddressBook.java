@@ -49,7 +49,10 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Task> getTaskList();
 
-
+    /**
+     * Returns an unmodifiable view of the commands list.
+     * This list will not contain any duplicate commands.
+     */
     ObservableList<ShortcutDoubles> getCommandsList();
 
 

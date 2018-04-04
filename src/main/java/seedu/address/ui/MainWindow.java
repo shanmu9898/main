@@ -51,6 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private CalendarPanel calendarPanel;
+    private ShortcutListPanel shortcutListPanel;
 
     private String theme;
 
@@ -174,6 +175,9 @@ public class MainWindow extends UiPart<Stage> {
 
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+
+        shortcutListPanel = new ShortcutListPanel(logic.getFilteredShortcutList());
+
     }
 
     void hide() {
@@ -220,15 +224,19 @@ public class MainWindow extends UiPart<Stage> {
     public void toggleList(String list) {
         listPanelPlaceholder.getChildren().clear();
         switch(list) {
-        case "appointment":
+        case "appointments":
             listPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
             break;
-        case "task":
+        case "tasks":
             listPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
             break;
-        case "contact":
+        case "contacts":
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             break;
+        case "shortcuts":
+            listPanelPlaceholder.getChildren().add(shortcutListPanel.getRoot());
+            break;
+
         default:
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }

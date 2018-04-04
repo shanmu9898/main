@@ -69,7 +69,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FindCommand command = prepareCommand(" ");
         assertCommandSuccessWithNoToggleListEvent(command, expectedMessage, Collections.emptyList());
-        model.changeCurrentActiveListType("appointment");
+        model.changeCurrentActiveListType("appointments");
         assertCommandSuccessWithToggleListEvent(command, expectedMessage, Collections.emptyList());
     }
 
@@ -78,7 +78,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCommand command = prepareCommand("Kurz Elle Kunz");
         assertCommandSuccessWithNoToggleListEvent(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
-        model.changeCurrentActiveListType("appointment");
+        model.changeCurrentActiveListType("appointments");
         assertCommandSuccessWithToggleListEvent(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
     }
 

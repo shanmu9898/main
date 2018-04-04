@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
@@ -29,10 +30,10 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_RANGE,
-                PREFIX_TAG_EXPORT, PREFIX_PATH);
+                PREFIX_TAG_EXPORT, PREFIX_PATH, PREFIX_TYPE);
 
         String[] preambleArgs = argMultiMap.getPreamble().split(" ");
-        if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_RANGE, PREFIX_PATH)
+        if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_RANGE, PREFIX_PATH, PREFIX_TYPE)
                 || preambleArgs.length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
@@ -41,9 +42,14 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         String range = argMultiMap.getValue(PREFIX_RANGE).orElse("all");
         String tag = argMultiMap.getValue(PREFIX_TAG_EXPORT).orElse("shouldnotbethistag");
         String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
+        String type = argMultiMap.getValue(PREFIX_TYPE).orElse("normal");
+
+        if (!(type.equals("excel") || type.equals("normal"))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+        }
 
         Tag tagExport = new Tag(tag);
-        return new ExportCommand(range, tagExport, path, name);
+        return new ExportCommand(range, tagExport, path, name, type);
 
 
     }

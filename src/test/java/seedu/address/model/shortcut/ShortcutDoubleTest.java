@@ -1,3 +1,4 @@
+//@@author shanmu9898
 package seedu.address.model.shortcut;
 
 import static org.junit.Assert.assertFalse;

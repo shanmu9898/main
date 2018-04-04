@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalShortcuts.SHORTCUT_DOUBLES_1;
 
 import java.util.Arrays;
 
@@ -32,6 +33,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -52,12 +54,14 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    //@@author shanmu9898
     @Test
     public void getFilteredCommandList_modifyList_throwsUnsupportedOperationException() {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredCommandsList().remove(0);
     }
+    //@@author
 
     @Test
     public void getFilteredAppointmentList_modifyList_throwsUnsupportedOperationException() {
@@ -119,6 +123,16 @@ public class ModelManagerTest {
         TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 2);
     }
 
+    //@@author shanmu9898
+    @Test
+    public void addShortcut_addShortcutToAddressBook_evokeAddressBookChangedEvent()
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        ModelManager model = new ModelManager(addressBook, userPrefs);
+        modelManager.addCommandShortcut(SHORTCUT_DOUBLES_1);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
+    }
+    //@@author shanmu9898
+
     @Test
     public void equals() {
         AddressBook differentAddressBook = new AddressBook();
@@ -152,7 +166,7 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookName("differentName");
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
-
+    //@@author shanmu9898
     @Test
     public void deleteTag_tagNotPresent_modelUnchanged() throws DuplicatePersonException, PersonNotFoundException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
@@ -178,4 +192,5 @@ public class ModelManagerTest {
 
         assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }
+    //@@author
 }
