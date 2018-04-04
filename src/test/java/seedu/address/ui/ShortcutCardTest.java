@@ -1,4 +1,4 @@
-//@@author shanmu9898
+//@@author shanmu9898 - unused
 //package seedu.address.ui;
 //
 //import static org.junit.Assert.assertFalse;
