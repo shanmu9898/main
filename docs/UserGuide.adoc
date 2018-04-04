@@ -460,6 +460,7 @@ You cannot set the shortcut word to a already preregistered command. +
 Your shortcut word cannot be more than a single word.
 
 Examples:
+
 * Personalised Alias : `shortcut list l`
 * Personalised Alias : `shortcut add a`
 
@@ -477,6 +478,7 @@ Listing all the shortcuts using the `list shortcuts` command as mentioned above 
 You can only delete shortcuts that you have already added.
 
 Examples:
+
 * Deletes the Personalised Alias : `delete_shortcut list l`
 * Deletes the Personalised Alias : `delete_shortcut add a`
 
