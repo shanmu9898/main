@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author Sisyphus25
 public class TitleTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -25,11 +26,11 @@ public class TitleTest {
         // null title
         Assert.assertThrows(NullPointerException.class, () -> Title.isValidTitle(null));
 
-        // invalid Appointment
+        // invalid title
         assertFalse(Title.isValidTitle("")); // empty string
         assertFalse(Title.isValidTitle(" ")); // spaces only
 
-        // valid Appointment
+        // valid title
         assertTrue(Title.isValidTitle("Meet Dave"));
         assertTrue(Title.isValidTitle("-")); // one character
     }

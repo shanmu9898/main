@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import seedu.address.model.event.Appointment;
 
-//@@author Sisyphus25
+//@@author Sisyphus25-reused
+//Reuse with modification from PersonCardTest
 public class AppointmentCardTest extends GuiUnitTest {
 
     @Test
@@ -31,8 +32,7 @@ public class AppointmentCardTest extends GuiUnitTest {
         assertFalse(appointmentCard.equals(0));
 
         // different appointment, same index -> returns false
-        Appointment differentAppointment = TYPICAL_APPOINTMENT_3;
-        assertFalse(appointmentCard.equals(new AppointmentCard(differentAppointment, 0)));
+        assertFalse(appointmentCard.equals(new AppointmentCard(TYPICAL_APPOINTMENT_3, 0)));
 
         // same appointment, different index -> returns false
         assertFalse(appointmentCard.equals(new AppointmentCard(appointment, 1)));

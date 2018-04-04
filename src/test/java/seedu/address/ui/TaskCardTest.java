@@ -10,7 +10,8 @@ import org.junit.Test;
 
 import seedu.address.model.event.Task;
 
-//@@author Sisyphus25
+//@@author Sisyphus25-reused
+//Reuse with modification from PersonCardTest
 public class TaskCardTest extends GuiUnitTest {
 
     @Test

@@ -5,6 +5,12 @@ import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.EventTime;
+import seedu.address.model.event.PersonToMeet;
+import seedu.address.model.event.Task;
+import seedu.address.model.event.Title;
+import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -49,6 +55,31 @@ public class SampleDataUtil {
         };
     }
 
+    public static Appointment[] getSampleAppointment() {
+        return new Appointment[]{
+            new Appointment(new Title("Consultation"),
+                        new EventTime("04/04/2018 15:00"),
+                        new EventTime("04/04/2018 18:00"),
+                        new PersonToMeet("Bernice Yu", "berniceyu@example.com")),
+            new Appointment(new Title("Tutoring Session"),
+                        new EventTime("08/04/2018 10:00"),
+                        new EventTime("08/04/2018 12:00"),
+                        new PersonToMeet("Roy Balakrishnan", "royb@example.com")),
+            new Appointment(new Title("Meet up with parents"),
+                        new EventTime("07/04/2018 13:00"),
+                        new EventTime("07/04/2018 15:00"))
+        };
+    }
+
+    public static Task[] getSampleTask() {
+        return new Task[] {
+            new Task(new Title("Mark papers"), new EventTime("30/03/2018 18:00")),
+            new Task(new Title("Collect documents"), new EventTime("28/03/2018 10:00")),
+            new Task(new Title("Arrange tutor session"), new EventTime("05/04/2018 23:00")),
+            new Task(new Title("Prepare documents for meeting"), new EventTime("08/04/2018 10:00"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
 
@@ -61,11 +92,21 @@ public class SampleDataUtil {
                 sampleAb.addShortcutDoubles(s);
             }
 
+            for (Appointment a : getSampleAppointment()) {
+                sampleAb.addAppointment(a);
+            }
+
+            for (Task t : getSampleTask()) {
+                sampleAb.addTask(t);
+            }
+
             return sampleAb;
         } catch (DuplicatePersonException e) {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
         } catch (UniqueShortcutDoublesList.DuplicateShortcutDoublesException e) {
             throw new AssertionError("sample data cannot contain duplicate command shortcuts", e);
+        } catch (DuplicateEventException e) {
+            throw new AssertionError("sample data cannot contain duplicate events", e);
         }
     }
 
