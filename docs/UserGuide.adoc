@@ -85,8 +85,11 @@ A contact can have any number of tags (including 0)
 
 Examples:
 
-Adding a default contact: `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` t/friend +
-Adding a student contact: `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/friend` +
+Adds a default contact.
+* `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02` +
+Adds a student contact.
+
 
 === Forming a class `[coming in v1.5]`
 
