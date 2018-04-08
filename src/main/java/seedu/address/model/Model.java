@@ -1,8 +1,12 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -111,6 +115,12 @@ public interface Model {
 
     /** Deletes the given task */
     void deleteTask(Task task) throws EventNotFoundException;
+
+    /** Adds the given class group */
+    void addClass(Class group, List<Student> studentList) throws DuplicateClassException;
+
+    /** Deletes the given class */
+    void removeClass(Class target) throws StudentClassNotFoundException;
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);

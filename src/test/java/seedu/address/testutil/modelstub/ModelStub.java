@@ -2,11 +2,15 @@ package seedu.address.testutil.modelstub;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -142,6 +146,16 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteTask(Task task) throws EventNotFoundException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void removeClass(Class target) throws StudentClassNotFoundException {
         fail("This method should not be called.");
     }
 }
