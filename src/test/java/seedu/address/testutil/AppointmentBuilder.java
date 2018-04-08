@@ -29,8 +29,8 @@ public class AppointmentBuilder {
 
     public AppointmentBuilder(String title, String time, String endTime, String personToMeet) {
         this.title = new Title(title);
-        this.time = new Time(time);
-        this.endTime = new Time(endTime);
+        this.time = new Time(time, false);
+        this.endTime = new Time(endTime, false);
         if (personToMeet != null) {
             String[] components = personToMeet.split(EMAIL_SPLITTER);
             this.personToMeet = new PersonToMeet(components[0], components[1]);

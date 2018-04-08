@@ -33,13 +33,13 @@ public class TypicalEvents {
 
 
     public static final Task TYPICAL_TASK_1 =
-            new Task(new Title("To do"), new Time("10/10/2018 10:00"));
+            new Task(new Title("To do"), new Time("10/10/2018 10:00", false));
     public static final Task TYPICAL_TASK_2 =
-            new Task(new Title("Mark papers"), new Time("15/04/2018 23:00"));
+            new Task(new Title("Mark papers"), new Time("15/04/2018 23:00", false));
     public static final Task TYPICAL_TASK_3 =
-            new Task(new Title("Purchase markers"), new Time("19/04/2018 10:00"));
+            new Task(new Title("Purchase markers"), new Time("19/04/2018 10:00", false));
     public static final Task TYPICAL_TASK_EXPIRED =
-            new Task(new Title("Expired task"), new Time("19/04/2013 10:00"));
+            new Task(new Title("Expired task"), new Time("19/04/2013 10:00", false));
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2));

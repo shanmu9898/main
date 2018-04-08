@@ -72,10 +72,10 @@ public class SetAppointmentCommandParserTest {
 
         // invalid start time
         assertParseFailure(parser, TITLE_DESC + INVALID_START_TIME_DESC + END_TIME_DESC,
-                Time.MESSAGE_TIME_CONSTRAINTS);
+                Time.MESSAGE_DATE_TIME_CONSTRAINTS);
 
         // invalid end time
         assertParseFailure(parser, TITLE_DESC + START_TIME_DESC + INVALID_END_TIME_DESC,
-                Time.MESSAGE_TIME_CONSTRAINTS);
+                Time.MESSAGE_DATE_TIME_CONSTRAINTS);
     }
 }

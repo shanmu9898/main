@@ -126,7 +126,7 @@ public class ParserUtilTest {
     @Test
     public void parseEventTime_validValue_returnsEventTime() throws Exception {
         String validTime = "20/10/2018 10:00";
-        Time expectedTime = new Time(validTime);
+        Time expectedTime = new Time(validTime, false);
         assertEquals(expectedTime, ParserUtil.parseTime(validTime));
         assertEquals(Optional.of(expectedTime), ParserUtil.parseTime(Optional.of(validTime)));
     }

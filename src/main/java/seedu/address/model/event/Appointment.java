@@ -23,7 +23,7 @@ public class Appointment {
     //Every field except personToMeet must be present and not null
     public Appointment(Title title, Time startTime, Time endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
-        checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
+        checkArgument(Time.isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -75,12 +75,5 @@ public class Appointment {
                     .append(personToMeet.getName());
         }
         return builder.toString();
-    }
-
-    /**
-     * Returns true if the given time is valid
-     */
-    public static boolean isValidTime(Time startTime, Time endTime) {
-        return endTime.value.after(startTime.value);
     }
 }

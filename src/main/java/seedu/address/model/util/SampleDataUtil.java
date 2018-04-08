@@ -58,25 +58,25 @@ public class SampleDataUtil {
     public static Appointment[] getSampleAppointment() {
         return new Appointment[]{
             new Appointment(new Title("Consultation"),
-                        new Time("04/04/2018 15:00"),
-                        new Time("04/04/2018 18:00"),
+                        new Time("04/04/2018 15:00", false),
+                        new Time("04/04/2018 18:00", false),
                         new PersonToMeet("Bernice Yu", "berniceyu@example.com")),
             new Appointment(new Title("Tutoring Session"),
-                        new Time("08/04/2018 10:00"),
-                        new Time("08/04/2018 12:00"),
+                        new Time("08/04/2018 10:00", false),
+                        new Time("08/04/2018 12:00", false),
                         new PersonToMeet("Roy Balakrishnan", "royb@example.com")),
             new Appointment(new Title("Meet up with parents"),
-                        new Time("07/04/2018 13:00"),
-                        new Time("07/04/2018 15:00"))
+                        new Time("07/04/2018 13:00", false),
+                        new Time("07/04/2018 15:00", false))
         };
     }
 
     public static Task[] getSampleTask() {
         return new Task[] {
-            new Task(new Title("Mark papers"), new Time("30/03/2018 18:00")),
-            new Task(new Title("Collect documents"), new Time("28/03/2018 10:00")),
-            new Task(new Title("Arrange tutor session"), new Time("05/04/2018 23:00")),
-            new Task(new Title("Prepare documents for meeting"), new Time("08/04/2018 10:00"))
+            new Task(new Title("Mark papers"), new Time("30/03/2018 18:00", false)),
+            new Task(new Title("Collect documents"), new Time("28/03/2018 10:00", false)),
+            new Task(new Title("Arrange tutor session"), new Time("05/04/2018 23:00", false)),
+            new Task(new Title("Prepare documents for meeting"), new Time("08/04/2018 10:00", false))
         };
     }
 

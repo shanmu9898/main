@@ -40,7 +40,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         XmlAdaptedTask task =
                 new XmlAdaptedTask(VALID_TITLE, INVALID_TIME);
-        String expectedMessage = Time.MESSAGE_TIME_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_DATE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalArgumentException.class, expectedMessage, task::toModelType);
     }
 
