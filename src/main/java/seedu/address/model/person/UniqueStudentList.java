@@ -14,6 +14,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//author randypx-reused
 /**
  * A list of students that enforces uniqueness between its elements and does not allow nulls.
  *
@@ -117,6 +118,7 @@ public class UniqueStudentList implements Iterable<Student> {
         });
     }
 
+    //@@author randypx-reused
     @Override
     public Iterator<Student> iterator() {
         return internalList.iterator();
