@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.EventTime;
 import seedu.address.model.event.PersonToMeet;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 
 //@@author Sisyphus25
@@ -58,7 +58,7 @@ public class XmlAdaptedAppointment {
      */
     public XmlAdaptedAppointment(Appointment source) {
         title = source.getTitle().toString();
-        startTime = source.getTime().toString();
+        startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
         if (source.getPersonToMeet() != null) {
             personToMeet = source.getPersonToMeet().toString();
@@ -86,8 +86,8 @@ public class XmlAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Time"));
         }
 
-        final EventTime startTime = new EventTime(this.startTime);
-        final EventTime endTime = new EventTime(this.endTime);
+        final Time startTime = new Time(this.startTime);
+        final Time endTime = new Time(this.endTime);
 
         if (!Appointment.isValidTime(startTime, endTime)) {
             throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);

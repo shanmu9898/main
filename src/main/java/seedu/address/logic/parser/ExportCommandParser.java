@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
@@ -30,7 +30,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_RANGE,
-                PREFIX_TAG_EXPORT, PREFIX_PATH, PREFIX_TYPE);
+                PREFIX_TAG, PREFIX_PATH, PREFIX_TYPE);
 
         String[] preambleArgs = argMultiMap.getPreamble().split(" ");
         if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_RANGE, PREFIX_PATH, PREFIX_TYPE)
@@ -40,7 +40,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
 
         String name = argMultiMap.getValue(PREFIX_NAME).orElse("");
         String range = argMultiMap.getValue(PREFIX_RANGE).orElse("all");
-        String tag = argMultiMap.getValue(PREFIX_TAG_EXPORT).orElse("shouldnotbethistag");
+        String tag = argMultiMap.getValue(PREFIX_TAG).orElse("shouldnotbethistag");
         String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
         String type = argMultiMap.getValue(PREFIX_TYPE).orElse("normal");
 

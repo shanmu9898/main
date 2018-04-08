@@ -5,5 +5,5 @@ package seedu.address.model.event;
  */
 public interface Event {
     Title getTitle();
-    EventTime getTime();
+    Time getTime();
 }

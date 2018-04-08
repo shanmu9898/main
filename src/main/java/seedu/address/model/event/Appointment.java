@@ -11,21 +11,21 @@ public class Appointment {
     public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
     private final Title title;
-    private final EventTime time;
-    private final EventTime endTime;
+    private final Time startTime;
+    private final Time endTime;
     private final PersonToMeet personToMeet;
 
     //Every field must be present and not null
-    public Appointment(Title title, EventTime startTime, EventTime endTime) {
+    public Appointment(Title title, Time startTime, Time endTime) {
         this(title, startTime, endTime, null);
     }
 
     //Every field except personToMeet must be present and not null
-    public Appointment(Title title, EventTime startTime, EventTime endTime, PersonToMeet personToMeet) {
+    public Appointment(Title title, Time startTime, Time endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
         checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
-        this.time = startTime;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.personToMeet = personToMeet;
     }
@@ -34,11 +34,11 @@ public class Appointment {
         return title;
     }
 
-    public EventTime getTime() {
-        return time;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public EventTime getEndTime() {
+    public Time getEndTime() {
         return endTime;
     }
 
@@ -58,7 +58,7 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getTitle().equals(this.getTitle())
-                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getStartTime().equals(this.getStartTime())
                 && otherAppointment.getEndTime().equals(this.getEndTime());
     }
 
@@ -67,7 +67,7 @@ public class Appointment {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
                 .append(", Start Time: ")
-                .append(getTime().toString())
+                .append(getStartTime().toString())
                 .append(", End Time: ")
                 .append(getEndTime().toString());
         if (personToMeet != null) {
@@ -80,7 +80,7 @@ public class Appointment {
     /**
      * Returns true if the given time is valid
      */
-    public static boolean isValidTime(EventTime startTime, EventTime endTime) {
+    public static boolean isValidTime(Time startTime, Time endTime) {
         return endTime.value.after(startTime.value);
     }
 }

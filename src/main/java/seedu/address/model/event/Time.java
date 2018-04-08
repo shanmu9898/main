@@ -12,7 +12,7 @@ import java.util.Date;
  * Represents an event's time stamp in the address book.
  * Guarantees: immutable
  */
-public class EventTime {
+public class Time {
     public static final String MESSAGE_TIME_CONSTRAINTS = "Date and time must be in the format: dd/MM/yyyy HH:mm";
 
     private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm";
@@ -21,11 +21,11 @@ public class EventTime {
     public final Calendar value;
 
     /**
-     * Constructs a {@code EventTime}.
+     * Constructs a {@code Time}.
      *
      * @param timeStamp valid timeStamp.
      */
-    public EventTime(String timeStamp) {
+    public Time(String timeStamp) {
         requireNonNull(timeStamp);
         value = Calendar.getInstance();
         try {
@@ -52,8 +52,8 @@ public class EventTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventTime // instanceof handles nulls
-                && this.value.equals(((EventTime) other).value)); // state check
+                || (other instanceof Time // instanceof handles nulls
+                && this.value.equals(((Time) other).value)); // state check
     }
 
     @Override

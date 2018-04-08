@@ -4,8 +4,8 @@ import static seedu.address.model.event.PersonToMeet.EMAIL_SPLITTER;
 
 import seedu.address.model.event.Appointment;
 
-import seedu.address.model.event.EventTime;
 import seedu.address.model.event.PersonToMeet;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Person;
 
@@ -15,8 +15,8 @@ import seedu.address.model.person.Person;
  */
 public class AppointmentBuilder {
     private Title title;
-    private EventTime time;
-    private EventTime endTime;
+    private Time time;
+    private Time endTime;
     private PersonToMeet personToMeet;
 
     public AppointmentBuilder(String title, String time, String endTime) {
@@ -29,8 +29,8 @@ public class AppointmentBuilder {
 
     public AppointmentBuilder(String title, String time, String endTime, String personToMeet) {
         this.title = new Title(title);
-        this.time = new EventTime(time);
-        this.endTime = new EventTime(endTime);
+        this.time = new Time(time);
+        this.endTime = new Time(endTime);
         if (personToMeet != null) {
             String[] components = personToMeet.split(EMAIL_SPLITTER);
             this.personToMeet = new PersonToMeet(components[0], components[1]);
