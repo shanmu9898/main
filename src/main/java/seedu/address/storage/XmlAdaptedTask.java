@@ -63,7 +63,7 @@ public class XmlAdaptedTask {
         if (this.time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Time"));
         }
-        final Time time = new Time(this.time);
+        final Time time = new Time(this.time, false);
 
         return new Task(title, time);
     }

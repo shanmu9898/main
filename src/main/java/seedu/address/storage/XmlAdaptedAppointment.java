@@ -86,10 +86,10 @@ public class XmlAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Time"));
         }
 
-        final Time startTime = new Time(this.startTime);
-        final Time endTime = new Time(this.endTime);
+        final Time startTime = new Time(this.startTime, false);
+        final Time endTime = new Time(this.endTime, false);
 
-        if (!Appointment.isValidTime(startTime, endTime)) {
+        if (!Time.isValidTime(startTime, endTime)) {
             throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
