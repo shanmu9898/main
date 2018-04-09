@@ -49,12 +49,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
-        fail("This method should not be called.");
-        return null;
-    }
-
-    @Override
     public void deletePerson(Person target) throws PersonNotFoundException {
         fail("This method should not be called.");
     }
@@ -75,21 +69,6 @@ public class ModelStub implements Model {
             throws DuplicatePersonException, PersonNotFoundException {
         fail("This method should not be called.");
     }
-
-    //@@author shanmu9898
-    @Override
-    public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
-            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        fail("This method should not be called.");
-    }
-
-    @Override
-    public void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
-            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
-        fail("This method should not be called");
-    }
-    //@@author
-
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         fail("This method should not be called.");
@@ -104,6 +83,18 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
+        fail("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
+        fail("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public ObservableList<Class> getFilteredClassList() {
         fail("This method should not be called.");
         return null;
     }
@@ -149,6 +140,20 @@ public class ModelStub implements Model {
         fail("This method should not be called.");
     }
 
+    //@@author shanmu9898
+    @Override
+    public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        fail("This method should not be called");
+    }
+
+    //@@author randypx
     @Override
     public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
         fail("This method should not be called.");
