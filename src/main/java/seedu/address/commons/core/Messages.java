@@ -12,4 +12,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_INDEX = "Index %1$s is invalid";
     public static final String MESSAGE_INVALID_STUDENT_INDEX = "Index %1$s is invalid is not a student";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_DELETE_UNSUPPORTED = "Current listing does not support 'delete'\n";
 }
