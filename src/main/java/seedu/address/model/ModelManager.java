@@ -42,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private final FilteredList<Class> filteredClass;
     private String currentActiveListType;
 
     /**
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredClass = new FilteredList<>(this.addressBook.getClassList());
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -185,6 +187,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException {
+        addressBook.removeTag(tag);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -211,6 +218,13 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
     }
+
+    //@@author randypx-reused
+    @Override
+    public ObservableList<Class> getFilteredClassList() {
+        return FXCollections.unmodifiableObservableList(filteredClass);
+    }
+
     //@@author
     @Override
     public String getCurrentActiveListType() {
@@ -244,11 +258,6 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredContacts.equals(other.filteredContacts);
-    }
-
-    @Override
-    public void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException {
-        addressBook.removeTag(tag);
     }
 
 }

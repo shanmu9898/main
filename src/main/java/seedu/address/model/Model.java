@@ -23,9 +23,10 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    String LIST_TYPE_CONTACT = "contact";
-    String LIST_TYPE_APPOINTMENT = "appointment";
-    String LIST_TYPE_TASK = "task";
+    String LIST_TYPE_CONTACT = "contacts";
+    String LIST_TYPE_APPOINTMENT = "appointments";
+    String LIST_TYPE_TASK = "tasks";
+    String LIST_TYPE_CLASS = "classes";
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
@@ -87,6 +88,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered commands list */
     ObservableList<ShortcutDoubles> getFilteredCommandsList();
 
+    /** Returns an unmodifiable view of the filtered class list */
+    ObservableList<Class> getFilteredClassList();
+
     /** Returns the item type of the curent active list being shown in the GUI */
     String getCurrentActiveListType();
 
@@ -101,7 +105,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
 
-
+    /** Delete the given tag */
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given appointment */
