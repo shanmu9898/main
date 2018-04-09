@@ -5,7 +5,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.education.Subject;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -39,6 +41,8 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label subjects;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -49,6 +53,11 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);
+        if (person instanceof Student) {
+            initSubjects((Student) person);
+        } else {
+            subjects.setText("");
+        }
     }
 
     //@@author Sisyphus25-reused
@@ -62,6 +71,19 @@ public class PersonCard extends UiPart<Region> {
             tagLabel.getStyleClass().add(tag.tagColorStyle);
             tags.getChildren().add(tagLabel);
         });
+    }
+
+    //@@author randypx
+    /**
+     * Sets the text of  the {@code subjects} label with all the {@code Subject} of the student's classes.
+     */
+    private void initSubjects(Student student) {
+        StringBuilder str = new StringBuilder();
+        str.append("Subjects: ");
+        for (Subject subject: student.getSubjectList()) {
+            str.append(subject.toString());
+        }
+        subjects.setText(str.toString());
     }
 
     //@@author
