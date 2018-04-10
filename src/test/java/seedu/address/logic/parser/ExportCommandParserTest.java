@@ -33,13 +33,14 @@ public class ExportCommandParserTest {
         assertParseFailure(exportCommandParser, testingInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ExportCommand.MESSAGE_USAGE));
 
+
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         Tag testingTag = new Tag("shouldnotbethistag");
-        String testingInput = " n/name r/all p/./data te/normal";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
+        String testingInput = " n/name r/all p/./data te/xml";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "xml");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
 
@@ -48,8 +49,8 @@ public class ExportCommandParserTest {
     @Test
     public void parse_allfieldsPresent_success() {
         Tag testingTag = new Tag("friends");
-        String testingInput = " n/name r/all t/friends p/./data te/normal";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
+        String testingInput = " n/name r/all t/friends p/./data te/xml";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "xml");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
 
