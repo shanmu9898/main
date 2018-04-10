@@ -20,12 +20,6 @@ public class PersonToMeet {
     private final String name;
     private final String email;
 
-    public PersonToMeet(Person person) {
-        requireNonNull(person);
-        this.name = person.getName().fullName;
-        this.email = person.getEmail().value;
-    }
-
     public PersonToMeet(String name, String email) {
         requireNonNull(name, email);
         checkArgument(Name.isValidName(name), MESSAGE_NAME_CONSTRAINTS);

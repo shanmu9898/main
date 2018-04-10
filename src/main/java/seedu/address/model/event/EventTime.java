@@ -69,10 +69,4 @@ public class EventTime {
                 || (other instanceof EventTime // instanceof handles nulls
                 && this.value.equals(((EventTime) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

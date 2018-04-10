@@ -47,9 +47,4 @@ public class Title {
                 || (other instanceof Title // instanceof handles nulls
                 && this.value.equals(((Title) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
 }
