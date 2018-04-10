@@ -30,11 +30,16 @@
             </HBox>
             <Label fx:id="subject" styleClass="cell_small_label" text="\$subject" />
             <Label fx:id="duration" styleClass="cell_small_label" text="\$duration" />
-         <FlowPane fx:id="students">
-            <VBox.margin>
-               <Insets bottom="5.0" right="10.0" top="5.0" />
-            </VBox.margin>
-         </FlowPane>
+         <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="20.0" spacing="5">
+            <children>
+               <Label fx:id="id1" styleClass="cell_big_label" text="Students:">
+                  <minWidth>
+                     <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+               </Label>
+               <FlowPane fx:id="students" hgap="10.0" />
+            </children>
+         </HBox>
         </VBox>
       <rowConstraints>
          <RowConstraints />
