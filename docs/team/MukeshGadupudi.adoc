@@ -34,7 +34,7 @@ Showing a list of the shortcut words and the commands to which they have assigne
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=displaypic]
+include::../DeveloperGuide.adoc[tag=shortcut]
 
 #End of Extract#
 
@@ -65,7 +65,7 @@ This also eliminates the need for a common shortcut word which many teachers mig
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=location]
+include::../DeveloperGuide.adoc[tag=shortcut]
 
 #End of Extract#
 
@@ -96,7 +96,7 @@ There is a also a big chance that the assigned number of alias or shortcuts to a
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=email]
+include::../DeveloperGuide.adoc[tag=deleteshortcut]
 
 #End of Extract#
 
@@ -127,7 +127,7 @@ There might also be cases where teachers might take over a class from another te
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=fvc]
+include::../DeveloperGuide.adoc[tag=import]
 
 #End of Extract#
 
@@ -161,7 +161,7 @@ Another very important feature is to export to a CSV file (which can be opened i
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=details]
+include::../DeveloperGuide.adoc[tag=export]
 
 #End of Extract#
 
@@ -174,7 +174,7 @@ include::../DeveloperGuide.adoc[tag=details]
 * Wrote additional tests to increase coverage.
 * Took the role of Team Leader to make important decisions regarding development of product.
 * Managed GitHub effectively to keep track of issues, merging Pull requests by resolving conflicts and keeping track of deadlines so that the weekly releases are made on time with a working product.
-* Fixed various(5+) bugs in the product including some bugs which existed previously in the product.
+* Fixed various(5+) bugs in the product including some bugs which existed previously in the product. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/144[`Pull Request Bug Fix Example`]
 * Added several Use Cases for features in Developed Guide.
 * Improved User Interface design by changing the orientation and location of various parts of UI.
 * Helped teammate create his first PR along with helping him setup git and checkstyle. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/82[`Pull Request AutoSort`].
