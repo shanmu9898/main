@@ -397,6 +397,7 @@ public CommandResult executeUndoableCommand() throws CommandException {
 
 // tag::export[]
 === Export contacts
+==== Current Implementation
 
 The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
 
@@ -592,8 +593,8 @@ As of now the conditions to take note of are:
 // end::shortcut[]
 
 // tag::deleteshortcut[]
-==== Deleting Personalised Shortcut
-===== Current Implementation
+=== Deleting Personalised Shortcut
+==== Current Implementation
 The personalised shortcut uses a `ShortcutDouble` to hold the shortcut word and the command word. There is a `UniqueShortcutDoublesList` to which these `ShortcutDoubles` are added. The comparator in the `ShortcutDouble` accounts to check for any duplicates in the `UniqueShortcutDoublesList`. This list is then added to the `addressbook.xml` so as to load the shortcuts on initialisation. Below is a short code snippet of the constructor of the ShortcutDouble:
 
 [source,java]
