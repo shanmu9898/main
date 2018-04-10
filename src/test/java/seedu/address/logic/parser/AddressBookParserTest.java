@@ -35,7 +35,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -51,7 +50,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
@@ -246,17 +244,4 @@ public class AddressBookParserTest {
                 (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
         assertEquals(new ChangeThemeCommand("dark"), command);
     }
-
-    @Test
-    public void parseCommand_remove() throws Exception {
-        RemoveCommand commandRemoveAppointment =
-                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "appointment" + " " + "1");
-        RemoveCommand commandRemoveTask =
-                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "task" + " " + "2");
-        assertEquals(new RemoveCommand(Index.fromOneBased(1), "appointment"), commandRemoveAppointment);
-        assertEquals(new RemoveCommand(Index.fromOneBased(2), "task"), commandRemoveTask);
-    }
-    //@@author
-
-
 }

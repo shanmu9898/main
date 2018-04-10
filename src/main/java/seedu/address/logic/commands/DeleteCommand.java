@@ -21,8 +21,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+//@@author Sisyphus25
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes an entry identified using it's last displayed index.
  */
 public class DeleteCommand extends UndoableCommand {
 
@@ -80,7 +81,7 @@ public class DeleteCommand extends UndoableCommand {
             }
         } else if (toDelete instanceof Class) {
             try {
-                model.removeClass((Class) toDelete);
+                model.deleteClass((Class) toDelete);
                 return new CommandResult(String.format(MESSAGE_DELETE_CLASS_SUCCESS, toDelete));
             } catch (StudentClassNotFoundException scnfe) {
                 throw new AssertionError("The target class cannot be missing");
@@ -98,7 +99,7 @@ public class DeleteCommand extends UndoableCommand {
         case LIST_TYPE_CONTACT: {
             List<Person> lastShownList = model.getFilteredPersonList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             toDelete = lastShownList.get(targetIndex.getZeroBased());
             break;
@@ -125,7 +126,7 @@ public class DeleteCommand extends UndoableCommand {
         case LIST_TYPE_CLASS: {
             List<Class> lastShownList = model.getFilteredClassList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_CLASS_DISPLAYED_INDEX);
             }
             toDelete = lastShownList.get(targetIndex.getZeroBased());
             break;

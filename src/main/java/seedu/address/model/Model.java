@@ -124,7 +124,7 @@ public interface Model {
     void addClass(Class group, List<Student> studentList) throws DuplicateClassException;
 
     /** Deletes the given class */
-    void removeClass(Class target) throws StudentClassNotFoundException;
+    void deleteClass(Class target) throws StudentClassNotFoundException;
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);

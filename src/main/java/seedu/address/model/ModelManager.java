@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void removeClass(Class target) throws StudentClassNotFoundException {
+    public void deleteClass(Class target) throws StudentClassNotFoundException {
         addressBook.removeClass(target);
         indicateAddressBookChanged();
     }

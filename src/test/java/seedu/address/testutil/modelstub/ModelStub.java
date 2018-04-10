@@ -160,7 +160,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void removeClass(Class target) throws StudentClassNotFoundException {
+    public void deleteClass(Class target) throws StudentClassNotFoundException {
         fail("This method should not be called.");
     }
 }
