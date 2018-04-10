@@ -7,7 +7,6 @@ import static seedu.address.model.person.Name.MESSAGE_NAME_CONSTRAINTS;
 
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 /**
  * Represents an Appointment's personToMeet in the address book.
