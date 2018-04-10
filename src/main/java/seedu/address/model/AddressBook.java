@@ -142,11 +142,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) throws DuplicatePersonException {
         Person person = syncWithMasterTagList(p);
-        try {
-            persons.add(person);
-        } catch (DuplicatePersonException e) {
-            removeUnusedTags();
-            throw e;
+        if (!students.contains(new Student(person.getName(), person.getPhone(), person.getEmail(),
+                person.getAddress(), person.getTags()))) {
+            try {
+                persons.add(person);
+            } catch (DuplicatePersonException e) {
+                removeUnusedTags();
+                throw e;
+            }
+        } else {
+            throw new DuplicatePersonException();
         }
     }
 
@@ -159,11 +164,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addStudent(Student s) throws DuplicatePersonException {
         Student student = (Student) syncWithMasterTagList(s);
-        try {
-            students.add(student);
-        } catch (DuplicatePersonException e) {
-            removeUnusedTags();
-            throw e;
+        if (!persons.contains(student)) {
+            try {
+                students.add(student);
+            } catch (DuplicatePersonException e) {
+                removeUnusedTags();
+                throw e;
+            }
+        } else {
+            throw new DuplicatePersonException();
         }
     }
 
@@ -182,10 +191,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
-        try {
-            persons.setPerson(target, syncedEditedPerson);
-        } finally {
-            removeUnusedTags();
+        if (!students.contains(new Student(syncedEditedPerson.getName(), syncedEditedPerson.getPhone(),
+                syncedEditedPerson.getEmail(), syncedEditedPerson.getAddress(), syncedEditedPerson.getTags()))) {
+            try {
+                persons.setPerson(target, syncedEditedPerson);
+            } finally {
+                removeUnusedTags();
+            }
+        } else {
+            throw new DuplicatePersonException();
         }
     }
 
@@ -204,10 +218,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedStudent);
 
         Student syncedEditedStudent = (Student) syncWithMasterTagList(editedStudent);
-        try {
-            students.setStudent(target, syncedEditedStudent);
-        } finally {
-            removeUnusedTags();
+        if (!persons.contains(syncedEditedStudent)) {
+            try {
+                students.setStudent(target, syncedEditedStudent);
+            } finally {
+                removeUnusedTags();
+            }
+        } else {
+            throw new DuplicatePersonException();
         }
     }
 
