@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.education.Class;
+import seedu.address.model.education.Subject;
 import seedu.address.model.education.UniqueClassList;
 import seedu.address.model.education.exceptions.DuplicateClassException;
 import seedu.address.model.education.exceptions.StudentClassNotFoundException;
@@ -248,6 +249,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean removeStudent(Student key) throws PersonNotFoundException {
         if (students.remove(key)) {
+            for (Class group: classes) {
+                if (group.containStudent(key)) {
+                    group.removeStudent(key);
+                }
+            }
             return true;
         } else {
             throw new PersonNotFoundException();
@@ -364,8 +370,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
         if (person instanceof Student) {
+            List<Subject> subjectList = ((Student) person).getSubjectList();
             return new Student(
-                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences,
+                    subjectList);
         } else {
             return new Person(
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
@@ -435,6 +443,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean removeClass(Class key) throws StudentClassNotFoundException {
         if (classes.remove(key)) {
+            for (Student student: students) {
+                if (student.isAttending(key)) {
+                    student.exitClass(key);
+                }
+            }
             return true;
         } else {
             throw new StudentClassNotFoundException();
