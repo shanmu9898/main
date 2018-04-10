@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -26,7 +27,7 @@ public class ExportCommandTest {
     private final String testingPath = "./test/data/XmlAddressBookStorageTest";
     private final String name = "testingName";
     private final String testingRange = "1,5";
-    private final String fileTypeNormal = "normal";
+    private final String fileTypeNormal = "xml";
     private final String fileTypeExcel = "excel";
 
 
@@ -97,8 +98,18 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_successfulExportWithSingleRange_showsNoMessageError() {
+    public void execute_exportWithSingleRangeAndMismatchTag_showsMessageError() {
         ExportCommand exportCommand = new ExportCommand("2", testingTag, testingPath, name, fileTypeNormal);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandFailure(exportCommand, model, String.format(exportCommand.MESSAGE_TAG_CONTACT_MISMATCH));
+    }
+
+    @Test
+    public void execute_successfulExportWithSingleRange_showsNoMessageError() {
+        Tag friendsTag = new Tag("friends");
+        ExportCommand exportCommand = new ExportCommand("2", friendsTag, testingPath, name, fileTypeNormal);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -108,6 +119,16 @@ public class ExportCommandTest {
     @Test
     public void execute_successfulExportWithExcel_showsNoMessageError() {
         ExportCommand exportCommand = new ExportCommand("1,6", testingTag, testingPath, name, fileTypeExcel);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
+
+    @Test
+    public void execute_successfulExportWithAllRangeExcel_showsNoMessageError() {
+        Tag friendTag = new Tag("friends");
+        ExportCommand exportCommand = new ExportCommand("all", friendTag, testingPath, name, fileTypeExcel);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
