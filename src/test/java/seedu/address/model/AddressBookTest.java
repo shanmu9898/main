@@ -172,7 +172,9 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Class> getClassList() { return classes; }
+        public ObservableList<Class> getClassList() {
+            return classes;
+        }
     }
 
     @Test
