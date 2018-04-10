@@ -3,11 +3,11 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: iContacts
+== Project: TeachConnect
 
 TC is created to help teachers and other educational professionals better manage their contacts and remember their past students. It is tailored for teachers/educational professionals who would prefer to use a Desktop App for managing contacts especially for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC will manage your contacts in the wink of an eye!
 
-*Code contributed*: [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/main/shanmu9898.md[Functional code]] [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/test/shanmu9898.md[Test code]]
+*Code contributed*: [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/functional/shanmu9898.md[Functional code]] [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/test/shanmu9898.md[Test code]]
 
 === Enhancement Added: List Display for Shortcut Commands
 
