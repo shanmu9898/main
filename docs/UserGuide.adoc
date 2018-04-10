@@ -108,7 +108,7 @@ Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 Examples:
 
 * `list students` +
-`form 1,2,5 subj/English s/18-01-2018 e/17-07-2019` +
+`form 1,2,5 subj/English s/18/01/2018 e/17/07/2019` +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
@@ -121,14 +121,14 @@ Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/I
 * This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
-* `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
+* `START_DATE` and `END_DATE` must be in the format `DD/MM/YYYY`.
 * `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
 * The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
 ****
 
 Examples:
 
-* `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
+* `set_appointment t/Tutoring session s/02/04/2018 19:00 e/02/04/2018 20:00` +
 Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
 +
 image::appointmentAdded.jpg[width="800"]
@@ -143,13 +143,13 @@ Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
 * Task with `TITLE` which needs to completed before `END_DATE` at `END_TIME` is added.
-* `END_DATE` must be in the format `DD-MM-YYYY`.
+* `END_DATE` must be in the format `DD/MM/YYYY`.
 * `END_TIME` must be in the 24-hr format: HH:MM.
 ****
 
 Examples:
 
-* `set_task t/Mark papers e/05-04-2018 10:00` +
+* `set_task t/Mark papers e/05/04/2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
 === Removing an appointment or a task: `remove` `[since v1.4]`
@@ -518,9 +518,9 @@ The table below summarizes TeachConnect's command list.
 
 |*Select Contact*|`select INDEX` |`select 2`
 
-|*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
+|*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05/04/2018 10:00 e/05/04/2018 11:00 i/3`
 
-|*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05-04-2018 10:00`
+|*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
 
 |*Remove*|`remove EVENT_TYPE INDEX` | `remove task 3`
 
