@@ -44,7 +44,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
         String type = argMultiMap.getValue(PREFIX_TYPE).orElse("normal");
 
-        if (!(type.equals("excel") || type.equals("normal"))) {
+        if (!(type.equalsIgnoreCase("excel") || type.equalsIgnoreCase("xml"))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 

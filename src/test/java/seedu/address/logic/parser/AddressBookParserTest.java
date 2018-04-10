@@ -185,7 +185,7 @@ public class AddressBookParserTest {
                         + " " + PREFIX_TAG + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
                         + TYPE_NEEDED);
         assertEquals (new ExportCommand ("all", new Tag ("friends"), "./data",
-                "name", "normal"), command);
+                "name", "xml"), command);
     }
 
     @Test
