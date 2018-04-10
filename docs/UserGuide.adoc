@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -86,9 +86,9 @@ A contact can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/friend` +
-Adds a default contact.
+Adds a default contact to TeachConnect's contact list.
 * `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02` +
-Adds a student contact.
+Adds a student contact to TeachConnect's contact list.
 
 
 === Forming a class `[coming in v1.5]`
@@ -102,7 +102,7 @@ Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 * The index *must be a positive integer* `1, 2, 3, ...`.
 * Minimum of one student must be entered. There can be more than one student
 * Only a student contact can be entered, default and guardian contacts are not allowed.
-* Dates must be in the format: `DD-MM-YYYY`.
+* Dates must be in the format: `DD/MM/YYYY`.
 ****
 
 Examples:
@@ -242,9 +242,12 @@ Format: `list TYPE`.
 
 Examples:
 
-* List all student: `list students` +
-* List all task: `list tasks` +
-* List all command shortcut: `list shortcuts`
+* `list students` +
+Lists all student.
+* `list tasks` +
+Lists all task.
+* `list shortcuts` +
+Lists all command shortcuts.
 
 
 === Editing a contact : `edit`
@@ -461,8 +464,10 @@ Your shortcut word cannot be more than a single word.
 
 Examples:
 
-* Personalised Alias : `shortcut list l`
-* Personalised Alias : `shortcut add a`
+* `shortcut list l` +
+Sets `l` as the Personalised Alias for `list` command.
+* `shortcut add a` +
+Sets `a` as the Personalised Alias for `add` command.
 
 === Deleting your personalised Alias : `delete_shortcut` `[since v1.4]`
 
@@ -479,8 +484,10 @@ You can only delete shortcuts that you have already added.
 
 Examples:
 
-* Deletes the Personalised Alias : `delete_shortcut list l`
-* Deletes the Personalised Alias : `delete_shortcut add a`
+* `delete_shortcut list l` +
+Deletes the Personalised Alias `l` for `list` command.
+* `delete_shortcut add a` +
+Deletes the Personalised Alias `a` for `add` command.
 
 
 === Upcoming features `[coming soon]`
