@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.event.Time;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Student;
 
 //@@author randypx
 /**
@@ -58,10 +59,18 @@ public class Class {
     }
 
     /**
-     * Returns true if the given time is valid
+     * Removes a student from the list of students attending the class.
      */
-    public static boolean isValidTime(Time startTime, Time endTime) {
-        return endTime.value.after(startTime.value);
+    public void removeStudent(Student student) {
+        Name studentName = student.getName();
+        attendingStudents.remove(studentName);
+    }
+
+    /**
+     * Checks if given {@code student} is attending this class.
+     */
+    public boolean containStudent(Student student) {
+        return attendingStudents.contains(student.getName());
     }
 
     @Override

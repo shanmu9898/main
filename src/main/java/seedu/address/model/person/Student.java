@@ -58,6 +58,13 @@ public class Student extends Person {
         return subjectList;
     }
 
+    /**
+     * Checks if student is attending the given {@code class}.
+     */
+    public boolean isAttending(Class group) {
+        return subjectList.contains(group.getSubject());
+    }
+
 
     @Override
     public String toString() {
