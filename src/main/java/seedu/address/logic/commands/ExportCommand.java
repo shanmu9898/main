@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.io.BufferedWriter;
@@ -46,15 +46,15 @@ public class ExportCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + " NAME "
             + PREFIX_RANGE + " RANGE "
-            + PREFIX_TAG + " TAG "
+            + PREFIX_TAG_EXPORT + " TAG "
             + PREFIX_PATH + " PATH "
             + PREFIX_TYPE + "FORMAT \n"
             + "Example 1: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "all "
-            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
             + "Example 2: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1 "
-            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
             + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1,2 "
-            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/normal \n";
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n";
 
 
     private Tag tag;
@@ -185,8 +185,8 @@ public class ExportCommand extends Command {
      * @return
      */
     private CommandResult handleRangeArray(String[] rangeGiven) throws DuplicatePersonException,
-                                                                       IndexOutOfBoundsException,
-                                                                       CommandException {
+            IndexOutOfBoundsException,
+            CommandException {
         if (rangeGiven[0].equals("all")) {
             exportAllRange(tag);
         } else {
@@ -218,8 +218,8 @@ public class ExportCommand extends Command {
      * @throws IndexOutOfBoundsException
      */
     private void exportSpecific(int low, Tag tag) throws DuplicatePersonException,
-                                                         IndexOutOfBoundsException,
-                                                         CommandException {
+            IndexOutOfBoundsException,
+            CommandException {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
         if (exportPeople.get(low - 1).getTags().contains(tag) || tag.equals(new Tag("shouldnotbethistag"))) {
             exportAddition.add(exportPeople.get(low - 1));
