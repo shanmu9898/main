@@ -16,7 +16,8 @@ public class ShortcutCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "shortcut";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " CommandWord " + " ShortcutWord "
-                                               + " :Creates a shortcut for any command word";
+                                               + " :Creates a shortcut for any command word \n"
+                                               + "Example: " + COMMAND_WORD + " list l";
     public static final String MESSAGE_SHORTCUT_AVAILABLE = "This shortcut already exists!";
     public static final String MESSAGE_SUCCESS = "Successfully added the shortcut";
     public static final String MESSAGE_NO_COMMAND_TO_MAP = "The command statement is invalid and hence cant be mapped!";
