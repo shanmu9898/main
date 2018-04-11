@@ -42,7 +42,7 @@ include::../UserGuide.adoc[tag=task]
 ==== Justification
 
 ---
-These features allow users of TeachConnect to manage their events like appointments and to-do easily. 
+These features make it easier for teachers and educational staff to review appointments they have set with students and parents, or to review the list of tasks they have to do before a certain deadline.
 
 ---
 
@@ -101,8 +101,11 @@ include::../DeveloperGuide.adoc[tag=theme]
 
 ** Tag Colour for Person tags
 ** Toggle Calendar View command
-** Modify `list` command to toggle list displayed on GUI.
+** Modification `list` command to toggle list displayed on GUI.
 ** 2 new themes for GUI: `light` and `galaxy`
+** Project issues assignment and management
+** Project PR review
+** Bugs fixes for various issues raised by other teammates and testers
 ** User Guide +
 *** Commands usage +
 *** Demo images +
