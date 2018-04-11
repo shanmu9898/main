@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.education.Subject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -34,6 +35,8 @@ public class XmlAdaptedStudent {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement
+    private List<String> subjectList = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedStudent.
@@ -44,7 +47,8 @@ public class XmlAdaptedStudent {
     /**
      * Constructs an {@code XmlAdaptedStudent} with the given student details.
      */
-    public XmlAdaptedStudent(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedStudent(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged,
+                             List<String> subjectList) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -52,12 +56,15 @@ public class XmlAdaptedStudent {
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
+        if (subjectList != null) {
+            this.subjectList = new ArrayList<>(subjectList);
+        }
     }
 
     /**
      * Converts a given Student into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedStudent
      */
     public XmlAdaptedStudent(Student source) {
         name = source.getName().fullName;
@@ -68,17 +75,24 @@ public class XmlAdaptedStudent {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+        for (Subject subject : source.getSubjectList()) {
+            subjectList.add(subject.toString());
+        }
     }
 
     /**
      * Converts this jaxb-friendly adapted student object into the model's Student object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted student
      */
     public Student toModelType() throws IllegalValueException {
         final List<Tag> studentTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             studentTags.add(tag.toModelType());
+        }
+        final List<Subject> subjects = new ArrayList<>();
+        for (String subject : subjectList) {
+            subjects.add(new Subject(subject));
         }
 
         if (this.name == null) {
@@ -114,7 +128,7 @@ public class XmlAdaptedStudent {
         final Address address = new Address(this.address);
 
         final Set<Tag> tags = new HashSet<>(studentTags);
-        return new Student(name, phone, email, address, tags);
+        return new Student(name, phone, email, address, tags, subjects);
     }
 
     @Override
@@ -123,7 +137,7 @@ public class XmlAdaptedStudent {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedStudent)) {
             return false;
         }
 
@@ -132,6 +146,7 @@ public class XmlAdaptedStudent {
                 && Objects.equals(phone, otherStudent.phone)
                 && Objects.equals(email, otherStudent.email)
                 && Objects.equals(address, otherStudent.address)
-                && tagged.equals(otherStudent.tagged);
+                && tagged.equals(otherStudent.tagged)
+                && subjectList.equals(otherStudent.subjectList);
     }
 }

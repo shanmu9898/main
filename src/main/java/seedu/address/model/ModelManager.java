@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,9 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -38,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private final FilteredList<Class> filteredClass;
     private String currentActiveListType;
 
     /**
@@ -54,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        filteredClass = new FilteredList<>(this.addressBook.getClassList());
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -166,6 +172,26 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
+        addressBook.addClass(group);
+        for (Student student : studentList) {
+            student.enterClass(group);
+        }
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteClass(Class target) throws StudentClassNotFoundException {
+        addressBook.removeClass(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException {
+        addressBook.removeTag(tag);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -192,6 +218,13 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
     }
+
+    //@@author randypx-reused
+    @Override
+    public ObservableList<Class> getFilteredClassList() {
+        return FXCollections.unmodifiableObservableList(filteredClass);
+    }
+
     //@@author
     @Override
     public String getCurrentActiveListType() {
@@ -225,11 +258,6 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredContacts.equals(other.filteredContacts);
-    }
-
-    @Override
-    public void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException {
-        addressBook.removeTag(tag);
     }
 
 }

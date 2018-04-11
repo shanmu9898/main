@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.io.BufferedWriter;
@@ -46,15 +46,15 @@ public class ExportCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + " NAME "
             + PREFIX_RANGE + " RANGE "
-            + PREFIX_TAG_EXPORT + " TAG "
+            + PREFIX_TAG + " TAG "
             + PREFIX_PATH + " PATH "
             + PREFIX_TYPE + "FORMAT \n"
             + "Example 1: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "all "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
+            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
             + "Example 2: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1 "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
+            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
             + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1,2 "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n";
+            + PREFIX_TAG + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/normal \n";
 
 
     private Tag tag;

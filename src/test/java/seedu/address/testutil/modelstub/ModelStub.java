@@ -2,11 +2,15 @@ package seedu.address.testutil.modelstub;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -45,12 +49,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
-        fail("This method should not be called.");
-        return null;
-    }
-
-    @Override
     public void deletePerson(Person target) throws PersonNotFoundException {
         fail("This method should not be called.");
     }
@@ -71,21 +69,6 @@ public class ModelStub implements Model {
             throws DuplicatePersonException, PersonNotFoundException {
         fail("This method should not be called.");
     }
-
-    //@@author shanmu9898
-    @Override
-    public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
-            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        fail("This method should not be called.");
-    }
-
-    @Override
-    public void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
-            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
-        fail("This method should not be called");
-    }
-    //@@author
-
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         fail("This method should not be called.");
@@ -100,6 +83,18 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
+        fail("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
+        fail("This method should not be called.");
+        return null;
+    }
+
+    @Override
+    public ObservableList<Class> getFilteredClassList() {
         fail("This method should not be called.");
         return null;
     }
@@ -142,6 +137,30 @@ public class ModelStub implements Model {
 
     @Override
     public void deleteTask(Task task) throws EventNotFoundException {
+        fail("This method should not be called.");
+    }
+
+    //@@author shanmu9898
+    @Override
+    public void addCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void deleteCommandShortcut(ShortcutDoubles shortcutDoubles)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        fail("This method should not be called");
+    }
+
+    //@@author randypx
+    @Override
+    public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void deleteClass(Class target) throws StudentClassNotFoundException {
         fail("This method should not be called.");
     }
 }

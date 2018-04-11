@@ -80,7 +80,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     private Entry getEntry(Appointment appointment) {
         LocalDateTime ldtstart = LocalDateTime.ofInstant(
-                appointment.getTime().value.getTime().toInstant(), ZoneId.systemDefault());
+                appointment.getStartTime().value.getTime().toInstant(), ZoneId.systemDefault());
         LocalDateTime ldtend = LocalDateTime.ofInstant(
                 appointment.getEndTime().value.getTime().toInstant(), ZoneId.systemDefault());
         String description = appointment.getTitle().value;

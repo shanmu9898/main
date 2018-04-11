@@ -52,6 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private CalendarPanel calendarPanel;
     private ShortcutListPanel shortcutListPanel;
+    private ClassListPanel classListPanel;
 
     private String theme;
 
@@ -178,6 +179,8 @@ public class MainWindow extends UiPart<Stage> {
 
         shortcutListPanel = new ShortcutListPanel(logic.getFilteredShortcutList());
 
+        classListPanel = new ClassListPanel(logic.getFilteredClassList());
+
     }
 
     void hide() {
@@ -235,6 +238,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "shortcuts":
             listPanelPlaceholder.getChildren().add(shortcutListPanel.getRoot());
+            break;
+        case "classes":
+            listPanelPlaceholder.getChildren().add(classListPanel.getRoot());
             break;
 
         default:

@@ -21,13 +21,15 @@ public class ListCommand extends Command {
     public static final String TYPE_APPOINTMENT = "appointments";
     public static final String TYPE_TASK = "tasks";
     public static final String TYPE_SHORTCUT = "shortcuts";
+    public static final String TYPE_CLASS = "classes";
     private static final String MESSAGE_INVALID_TYPE = "TYPE is missing or invalid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists selected type. \n"
-            + "Parameter: TYPE\n"
-            + "Example: " + COMMAND_WORD + " appointments \n"
-            + "Example: " + COMMAND_WORD + " tasks \n"
-            + "Example: " + COMMAND_WORD + " shortcuts \n";
+            + "Parameter: TYPE. "
+            + "Accepted TYPEs are " + TYPE_CONTACT + " " + TYPE_STUDENT
+            + " " + TYPE_APPOINTMENT + " " + TYPE_TASK
+            + " " + TYPE_SHORTCUT + " " + TYPE_CLASS + "\n"
+            + "Example: " + COMMAND_WORD + " appointments \n";
 
     private final String type;
 
@@ -58,9 +60,12 @@ public class ListCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS + TYPE_TASK);
 
         case TYPE_SHORTCUT:
-            model.changeCurrentActiveListType(TYPE_SHORTCUT);
-            EventsCenter.getInstance().post(new ToggleListEvent(TYPE_SHORTCUT));
+            evokeToggleListEvent(TYPE_SHORTCUT);
             return new CommandResult(MESSAGE_SUCCESS + TYPE_SHORTCUT);
+
+        case TYPE_CLASS:
+            evokeToggleListEvent(TYPE_CLASS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_CLASS);
 
         default:
             throw new CommandException(MESSAGE_INVALID_TYPE);
