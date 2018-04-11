@@ -7,7 +7,6 @@ import static seedu.address.model.person.Name.MESSAGE_NAME_CONSTRAINTS;
 
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 /**
  * Represents an Appointment's personToMeet in the address book.
@@ -19,12 +18,6 @@ public class PersonToMeet {
 
     private final String name;
     private final String email;
-
-    public PersonToMeet(Person person) {
-        requireNonNull(person);
-        this.name = person.getName().fullName;
-        this.email = person.getEmail().value;
-    }
 
     public PersonToMeet(String name, String email) {
         requireNonNull(name, email);

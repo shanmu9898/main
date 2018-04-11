@@ -74,5 +74,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ShortcutDoubles> getFilteredShortcutList() { return  model.getFilteredCommandsList(); }
+    public ObservableList<ShortcutDoubles> getFilteredShortcutList() {
+        return  model.getFilteredCommandsList();
+    }
 }

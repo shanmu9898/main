@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -86,9 +86,9 @@ A contact can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/friend` +
-Adds a default contact.
+Adds a default contact to TeachConnect's contact list.
 * `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02` +
-Adds a student contact.
+Adds a student contact to TeachConnect's contact list.
 
 
 === Forming a class `[coming in v1.5]`
@@ -102,13 +102,13 @@ Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 * The index *must be a positive integer* `1, 2, 3, ...`.
 * Minimum of one student must be entered. There can be more than one student
 * Only a student contact can be entered, default and guardian contacts are not allowed.
-* Dates must be in the format: `DD-MM-YYYY`.
+* Dates must be in the format: `DD/MM/YYYY`.
 ****
 
 Examples:
 
 * `list students` +
-`form 1,2,5 subj/English s/18-01-2018 e/17-07-2019` +
+`form 1,2,5 subj/English s/18/01/2018 e/17/07/2019` +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
@@ -121,14 +121,14 @@ Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/I
 * This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
-* `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
+* `START_DATE` and `END_DATE` must be in the format `DD/MM/YYYY`.
 * `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
 * The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
 ****
 
 Examples:
 
-* `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
+* `set_appointment t/Tutoring session s/02/04/2018 19:00 e/02/04/2018 20:00` +
 Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
 +
 image::appointmentAdded.jpg[width="800"]
@@ -143,13 +143,13 @@ Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
 * Task with `TITLE` which needs to completed before `END_DATE` at `END_TIME` is added.
-* `END_DATE` must be in the format `DD-MM-YYYY`.
+* `END_DATE` must be in the format `DD/MM/YYYY`.
 * `END_TIME` must be in the 24-hr format: HH:MM.
 ****
 
 Examples:
 
-* `set_task t/Mark papers e/05-04-2018 10:00` +
+* `set_task t/Mark papers e/05/04/2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
 === Removing an appointment or a task: `remove` `[since v1.4]`
@@ -242,9 +242,12 @@ Format: `list TYPE`.
 
 Examples:
 
-* List all student: `list students` +
-* List all task: `list tasks` +
-* List all command shortcut: `list shortcuts`
+* `list students` +
+Lists all student.
+* `list tasks` +
+Lists all task.
+* `list shortcuts` +
+Lists all command shortcuts.
 
 // end::list[]
 
@@ -494,6 +497,81 @@ Format: `exit`
 Saves data in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
+
+=== Importing the contacts : `import` `[since v1.4]`
+
+Imports contacts from a different TeachConnect file by specifying the location of the file. +
+
+Format: `import [TYPE] pathname`
+
+Examples:
+
+* Imports Contacts : `import ./data/importsample.xml`
+
+=== Exporting the contacts : `export` `[since v1.4]`
+
+Exports contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes. By specifying the type of the export you want it saves either only the xml file or both the xml and Csv file.
+
+Format: `export n/NAME r/RANGE t/TAG p/PATH te/normal`
+
+Format: `export n/NAME r/RANGE p/PATH te/excel`
+
+[TIP]
+You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command. +
+You can also choose to export it in Csv format which you can later open in Excel.
+
+[WARNING]
+You can only export all or people based on one or zero tags. +
+Be careful about the parameter value for the format type. It has to exactly be either `normal` or `excel`.
+
+Examples:
+
+* Exports contacts : `export n/StudentsFile1 r/all t/students p/./data te/normal`
+* Exports contacts : `export n/StudentsFile2 r/1,10 t/students p/./data te/excel`
+
+=== Adding your own shortcut : `shortcut` `[since v1.4]`
+
+Sets your own personal shortcut for any of the commands above.
+
+Format: `shortcut [command word] [shortcut word]`
+
+[TIP]
+You can choose multiple shortcuts for the same command. +
+You can later use these shortcuts in place of the original command even after closing and reopening the app. +
+You can also set shortcut for the shortcut command.
+
+[WARNING]
+You cannot set the shortcut word to a already preregistered command. +
+Your shortcut word cannot be more than a single word.
+
+Examples:
+
+* `shortcut list l` +
+Sets `l` as the Personalised Alias for `list` command.
+* `shortcut add a` +
+Sets `a` as the Personalised Alias for `add` command.
+
+=== Deleting your personalised Alias : `delete_shortcut` `[since v1.4]`
+
+Deletes your personalised Alias if you don't want them or if you created them by mistake.
+
+Format: `delete_shortcut [command word] [shortcut word]`
+
+[TIP]
+You can choose to just undo the delete_shortcut if you delete a shortcut by mistake. +
+Listing all the shortcuts using the `list shortcuts` command as mentioned above might help in seeing all the shortcuts at once. +
+
+[WARNING]
+You can only delete shortcuts that you have already added.
+
+Examples:
+
+* `delete_shortcut list l` +
+Deletes the Personalised Alias `l` for `list` command.
+* `delete_shortcut add a` +
+Deletes the Personalised Alias `a` for `add` command.
+
+
 === Upcoming features `[coming soon]`
 
 * A login feature [coming in v2.0]
@@ -529,9 +607,9 @@ The table below summarizes TeachConnect's command list.
 
 |*Select Contact*|`select INDEX` |`select 2`
 
-|*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05-04-2018 10:00 e/05-04-2018 11:00 i/3`
+|*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05/04/2018 10:00 e/05/04/2018 11:00 i/3`
 
-|*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05-04-2018 10:00`
+|*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
 
 |*Remove*|`remove EVENT_TYPE INDEX` | `remove task 3`
 
