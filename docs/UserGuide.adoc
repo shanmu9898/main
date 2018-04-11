@@ -308,8 +308,10 @@ Your shortcut word cannot be more than a single word.
 
 Examples:
 
-* Personalised Alias : `shortcut list l`
-* Personalised Alias : `shortcut add a`
+* `shortcut list l` +
+Sets `l` as the Personalised Alias for `list` command.
+* `shortcut add a` +
+Sets `a` as the Personalised Alias for `add` command.
 
 // end::shortcut[]
 
@@ -329,8 +331,10 @@ You can only delete shortcuts that you have already added.
 
 Examples:
 
-* Deletes the Personalised Alias : `delete_shortcut list l`
-* Deletes the Personalised Alias : `delete_shortcut add a`
+* `delete_shortcut list l` +
+Deletes the Personalised Alias `l` for `list` command.
+* `delete_shortcut add a` +
+Deletes the Personalised Alias `a` for `add` command.
 // end::deleteshortcut[]
 
 === Editing a contact : `edit`
