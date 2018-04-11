@@ -7,8 +7,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: TeachConnect
 TeachConnect is a contact and event management application designed for teachers and educational professionals. +
 
-MedNus aims to eliminate the existing inefficient and space consuming filing system and aid medical professionals +
-in working efficiently and effectively.
+TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of Graphical User Interface (GUI).
 
 *Code contributed*: +
 link:{collatedDir}/main/Sisyphus25.md[Functional code] +
@@ -43,7 +42,7 @@ include::../UserGuide.adoc[tag=task]
 ==== Justification
 
 ---
-These features allow users of TeachConnect to manage their events like appointments and to-do easily.
+These features allow users of TeachConnect to manage their events like appointments and to-do easily. 
 
 ---
 
