@@ -43,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
     private final FilteredList<Class> filteredClass;
+    private final FilteredList<Student> filteredStudents;
     private String currentActiveListType;
 
     /**
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
+        filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredClass = new FilteredList<>(this.addressBook.getClassList());
         currentActiveListType = LIST_TYPE_CONTACT;
@@ -203,6 +205,8 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredContacts);
     }
 
+
+
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return FXCollections.unmodifiableObservableList(filteredAppointments);
@@ -217,6 +221,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
+    }
+
+    @Override
+    public ObservableList<Student> getFilteredStudentsList() {
+        return FXCollections.unmodifiableObservableList(filteredStudents);
     }
 
     //@@author randypx-reused

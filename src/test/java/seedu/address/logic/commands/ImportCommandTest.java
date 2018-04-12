@@ -4,17 +4,31 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.STUDENT_AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.TreeSet;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.education.Subject;
+import seedu.address.model.event.Time;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.StudentBuilder;
 
 //@@author shanmu9898
 public class ImportCommandTest {
@@ -23,6 +37,8 @@ public class ImportCommandTest {
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
     private static final String VALID_FILE_LOCATION =
             "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml";
+    private static final String VALID_FILE_LOCATION2 =
+            "src/test/data/XmlAddressBookStorageTest/importClassAndStudentSample.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -50,7 +66,30 @@ public class ImportCommandTest {
 
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
 
-        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, "7", "0"), model);
+        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, 7, 0, 0, 0, 0, 0), model);
+    }
+
+    @Test
+    public void execute_duplicateClassesAndStudents_successfulImport() throws DuplicatePersonException {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Student STUDENT_SAMPLE = new StudentBuilder().withName("Mary Jane8").withPhone("98765432")
+                .withEmail("MJ@example.com").withAddress("478, Pasir Ris, #03-12").withTags("AStar").build();
+        model.addStudent(STUDENT_SAMPLE);
+        ImportCommand command = prepareCommand(VALID_FILE_LOCATION2);
+        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, 0, 0, 7, 0, 2, 0), model);
+    }
+
+    @Test
+    public void execute_acceptedSuccess_successfulClassAndStudentImport() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        clearCommand.executeUndoableCommand();
+
+        ImportCommand command = prepareCommand(VALID_FILE_LOCATION2);
+
+        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS, 0, 0, 7, 0, 2, 0), model);
     }
 
     @Test

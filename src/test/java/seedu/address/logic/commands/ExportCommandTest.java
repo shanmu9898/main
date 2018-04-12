@@ -127,8 +127,8 @@ public class ExportCommandTest {
 
     @Test
     public void execute_successfulExportWithAllRangeExcel_showsNoMessageError() {
-        Tag friendTag = new Tag("friends");
-        ExportCommand exportCommand = new ExportCommand("all", friendTag, testingPath, name, fileTypeExcel);
+        Tag colleguesTag = new Tag("collegues");
+        ExportCommand exportCommand = new ExportCommand("all", colleguesTag, testingPath, name, fileTypeExcel);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -166,7 +166,7 @@ public class ExportCommandTest {
 
     @Test
     public void execute_whenTagIsSupposedlyNotGivenAndRangeGiven_showsNoMessageError() {
-        ExportCommand exportCommand = new ExportCommand(testingRange, new Tag("shouldnotbethistag"),
+        ExportCommand exportCommand = new ExportCommand("1,6", new Tag("shouldnotbethistag"),
                 testingPath, name, fileTypeNormal);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
@@ -186,6 +186,23 @@ public class ExportCommandTest {
         assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_OUT_OF_BOUNDS), model);
     }
 
+    @Test
+    public void execute_classesBeingExported_showsNoError() {
+        ExportCommand exportCommand = new ExportCommand(testingPath, name, fileTypeExcel);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
+
+    @Test
+    public void execute_classesBeingExportedXML_showsNoError() {
+        ExportCommand exportCommand = new ExportCommand(testingPath, name, fileTypeNormal);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
 
 
     @Test

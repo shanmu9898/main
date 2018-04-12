@@ -89,7 +89,9 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             try {
-                ab.addPerson(person);
+                if (!(person instanceof Student)) {
+                    ab.addPerson(person);
+                }
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
             }
@@ -108,10 +110,22 @@ public class TypicalPersons {
                 throw new AssertionError("not possible");
             }
         }
+//        for (Student s : getTypicalStudents()) {
+//            try {
+//                ab.addStudent(s);
+//            } catch (DuplicatePersonException e) {
+//                throw new AssertionError("not possible");
+//            }
+//        }
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    //@@author-shanmu9898
+    public static List<Student> getTypicalStudents() {
+        return new ArrayList<>(Arrays.asList(STUDENT_AMY, STUDENT_BOB, STUDENT_HOON, STUDENT_IDA));
     }
 }

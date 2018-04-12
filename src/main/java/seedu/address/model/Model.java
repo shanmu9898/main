@@ -88,6 +88,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered commands list */
     ObservableList<ShortcutDoubles> getFilteredCommandsList();
 
+    /** Returns an unmodifiable view of the filtered students list */
+    ObservableList<Student> getFilteredStudentsList();
+
     /** Returns an unmodifiable view of the filtered class list */
     ObservableList<Class> getFilteredClassList();
 
