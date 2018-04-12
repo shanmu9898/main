@@ -110,13 +110,6 @@ public class TypicalPersons {
                 throw new AssertionError("not possible");
             }
         }
-//        for (Student s : getTypicalStudents()) {
-//            try {
-//                ab.addStudent(s);
-//            } catch (DuplicatePersonException e) {
-//                throw new AssertionError("not possible");
-//            }
-//        }
         return ab;
     }
 

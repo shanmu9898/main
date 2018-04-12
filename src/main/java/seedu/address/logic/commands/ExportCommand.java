@@ -60,8 +60,8 @@ public class ExportCommand extends Command {
             + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
             + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1,2 "
             + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
-            + "Example 4: " + COMMAND_WORD + " classes " + PREFIX_NAME + "{Name of file} " + PREFIX_PATH + "{Path to store} "
-            + PREFIX_TYPE + "excel/xml \n";
+            + "Example 4: " + COMMAND_WORD + " classes " + PREFIX_NAME + "{Name of file} " + PREFIX_PATH
+            + "{Path to store} " + PREFIX_TYPE + "excel/xml \n";
 
 
     private Tag tag;
@@ -223,7 +223,8 @@ public class ExportCommand extends Command {
         } else {
             try {
                 for (Class c : exportClassAddition) {
-                    csvPrinter.printRecord(c.getName(), c.getSubject(), c.getStartDate(), c.getEndDate(), c.getStudents());
+                    csvPrinter.printRecord(c.getName(), c.getSubject(), c.getStartDate(),
+                                           c.getEndDate(), c.getStudents());
                 }
 
                 csvPrinter.flush();
@@ -245,9 +246,11 @@ public class ExportCommand extends Command {
 
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "/" + nameOfExportFile + ".csv"));
         if (!isClassesOrNot) {
-            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Email", "Phone", "Address", "Tags"));
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Email", "Phone",
+                                                                             "Address", "Tags"));
         } else {
-            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Subject", "Start Date", "End Date", "Students"));
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Subject", "Start Date",
+                                                                             "End Date", "Students"));
         }
 
         return csvPrinter;

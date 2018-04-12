@@ -196,7 +196,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_classesBeingExportedXML_showsNoError() {
+    public void execute_classesBeingExportedXml_showsNoError() {
         ExportCommand exportCommand = new ExportCommand(testingPath, name, fileTypeNormal);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());

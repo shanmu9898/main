@@ -28,7 +28,8 @@ public class ImportCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports contacts to the address book."
             + "Parameters: file location...\n"
             + "Example: " + COMMAND_WORD + " main/src/test/data/sandbox/somerandomfile.xml";
-    public static final String MESSAGE_SUCCESS = "%1$s contacts, %3$d students and %5$d classes have been successfully imported \n"
+    public static final String MESSAGE_SUCCESS = "%1$s contacts, %3$d students and %5$d classes"
+            + " have been successfully imported \n"
             + "and %2$s contacts, %4$d students and %6$d classes have been left out!";
     protected static final String MESSAGE_INVALID_FILE = "Please input a valid file location";
     protected Storage storage;
@@ -92,7 +93,8 @@ public class ImportCommand extends UndoableCommand {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfContactsAdded, numberOfContactsNotAdded, numberOfStudentsAdded, numberOfStudentsNotAdded, numberOfClassesAdded, numberOfClassesNotAdded));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfContactsAdded, numberOfContactsNotAdded,
+                numberOfStudentsAdded, numberOfStudentsNotAdded, numberOfClassesAdded, numberOfClassesNotAdded));
     }
 
     @Override
