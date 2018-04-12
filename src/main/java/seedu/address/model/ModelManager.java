@@ -148,6 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author Sisyphus25
     @Override
     public void addAppointment(Appointment appointment) throws DuplicateEventException {
         addressBook.addAppointment(appointment);
@@ -173,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
