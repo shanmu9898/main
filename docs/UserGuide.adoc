@@ -620,7 +620,7 @@ The table below summarizes TeachConnect's command list.
 
 |*List*|`list TYPE` | `list student`
 
-|*Redo*|`redo`|`redo`|
+|*Redo*|`redo`|`redo`
 
 |*Select Contact*|`select INDEX` |`select 2`
 
@@ -630,7 +630,7 @@ The table below summarizes TeachConnect's command list.
 
 |*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
 
-|*Undo*|`undo`|`undo`
+|*Undo*|`undo`|`undo`|
 
 
 |=======================================================================
