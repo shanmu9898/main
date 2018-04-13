@@ -14,6 +14,9 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
+import seedu.address.commons.events.model.ClassListChangedEvent;
+import seedu.address.commons.events.model.StudentListChangedEvent;
+import seedu.address.commons.events.ui.ToggleListEvent;
 import seedu.address.model.education.Class;
 import seedu.address.model.education.exceptions.DuplicateClassException;
 import seedu.address.model.education.exceptions.StudentClassNotFoundException;
@@ -90,6 +93,23 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AppointmentListChangedEvent(addressBook.getAppointmentList()));
     }
 
+    //@@author randypx
+    /** Raises an event to indicate the change of list view */
+    private void evokeToggleListEvent(String type) {
+        changeCurrentActiveListType(type);
+        raise(new ToggleListEvent(type));
+    }
+    /** Raises an event to indicate the student list has changed due to the addition/deletion of a class*/
+    private void indicateStudentListChanged() {
+        raise(new StudentListChangedEvent());
+    }
+
+    /** Raises an event to indicate the class list has changed due to the deletion/edit of a student*/
+    private void indicateClassListChanged() {
+        raise(new ClassListChangedEvent());
+    }
+
+    //@@author
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
@@ -100,12 +120,14 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteStudent(Student target) throws PersonNotFoundException {
         addressBook.removeStudent(target);
         indicateAddressBookChanged();
+        indicateClassListChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        evokeToggleListEvent(LIST_TYPE_CONTACT);
         indicateAddressBookChanged();
     }
 
@@ -113,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addStudent(Student student) throws DuplicatePersonException {
         addressBook.addStudent(student);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        evokeToggleListEvent(LIST_TYPE_CONTACT);
         indicateAddressBookChanged();
     }
 
@@ -121,6 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addCommandShortcut(ShortcutDoubles shortcutDoubles)
                throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
         addressBook.addShortcutDoubles(shortcutDoubles);
+        evokeToggleListEvent(LIST_TYPE_SHORTCUT);
         indicateAddressBookChanged();
     }
 
@@ -146,11 +170,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updateStudent(target, editedStudent);
         indicateAddressBookChanged();
+        indicateClassListChanged();
     }
 
+    //@@author Sisyphus25
     @Override
     public void addAppointment(Appointment appointment) throws DuplicateEventException {
         addressBook.addAppointment(appointment);
+        evokeToggleListEvent(LIST_TYPE_APPOINTMENT);
         indicateAddressBookChanged();
         indicateAppointmentListChanged();
     }
@@ -165,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addTask(Task task) throws DuplicateEventException {
         addressBook.addTask(task);
+        evokeToggleListEvent(LIST_TYPE_TASK);
         indicateAddressBookChanged();
     }
 
@@ -173,6 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
@@ -180,13 +209,16 @@ public class ModelManager extends ComponentManager implements Model {
         for (Student student : studentList) {
             student.enterClass(group);
         }
+        evokeToggleListEvent(LIST_TYPE_CLASS);
         indicateAddressBookChanged();
+        indicateStudentListChanged();
     }
 
     @Override
     public void deleteClass(Class target) throws StudentClassNotFoundException {
         addressBook.removeClass(target);
         indicateAddressBookChanged();
+        indicateStudentListChanged();
     }
 
     @Override

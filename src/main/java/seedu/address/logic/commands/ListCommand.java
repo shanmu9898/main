@@ -72,6 +72,7 @@ public class ListCommand extends Command {
         }
     }
 
+    /** Raises an event to indicate the change of list view */
     private void evokeToggleListEvent(String type) {
         model.changeCurrentActiveListType(type);
         EventsCenter.getInstance().post(new ToggleListEvent(type));

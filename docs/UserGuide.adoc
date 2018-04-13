@@ -155,26 +155,6 @@ Examples:
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 // end::task[]
 
-=== Removing an appointment or a task: `remove` `[since v1.4]`
-
-Removes an appointment or a task by the index number used from their respective listing. +
-Format: `remove EVENT_TYPE INDEX`.
-
-****
-* `EVENT_TYPE` can be either `appointment` or `task`.
-* The index *must be a positive integer* `1, 2, 3, ...`.
-****
-
-Examples:
-
-* `list appointments` +
-`remove appointment 2` +
-Removes the appointment with the index 2 in the appointment list.
-+
-image::appointmentRemoved.jpg[width="800"]
-    Figure 4: Remove command usage example
-+
-
 // tag::theme[]
 
 === Changing GUI theme : `theme` `[since v1.4]`

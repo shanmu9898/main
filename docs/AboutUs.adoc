@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Mukesh Gadupudi
 image::shanmu9898.jpg[width="150", align="left"]
-{empty}[https://cs2103jan2018-w14-b1.github.io/main/team/MukeshGadupudi.adoc[portfolio]] [https://github.com/shanmu9898[github]]
+{empty}[https://github.com/shanmu9898/main/blob/DocsUpdate/docs/team/MukeshGadupudi.adoc[portfolio]] [https://github.com/shanmu9898[github]]
 
 Role: Team Lead,
 
@@ -25,7 +25,7 @@ Responsibilities: Model + Deliverable and Deadlines + Integration + Tools Expert
 
 === Rachel Ngo Phuong Thao
 image::sisyphus.jpg[width="150", align="left"]
-{empty}[http://github.com/Sisyphus[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/rachelngo.adoc[portfolio]]
+{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer
 

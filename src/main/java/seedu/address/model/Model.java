@@ -27,6 +27,7 @@ public interface Model {
     String LIST_TYPE_APPOINTMENT = "appointments";
     String LIST_TYPE_TASK = "tasks";
     String LIST_TYPE_CLASS = "classes";
+    String LIST_TYPE_SHORTCUT = "shortcuts";
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
