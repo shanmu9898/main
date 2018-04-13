@@ -20,6 +20,18 @@ Reused from DarkTheme.css with modifications */
     -fx-font-size: 36px
 }
 
+.cell_index_label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Franklin Gothic Medium";
+}
+
+.cell_circle {
+    -fx-background-color: transparent;
+    -fx-radius: 25px;
+    -fx-stroke: black;
+    -fx-stroke-width: 2px;
+}
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";

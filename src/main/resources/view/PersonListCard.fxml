@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,38 +9,67 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-      </HBox>
-      <FlowPane fx:id="tags">
-        <padding>
-          <Insets bottom="5" left="0" right="10" top="5" />
-        </padding>
-      </FlowPane>
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="subjects" styleClass="cell_small_label" text="\$subjects" />
-    </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <StackPane prefWidth="290">
+      <children>
+        <GridPane>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+          </columnConstraints>
+          <HBox>
+            <VBox alignment="CENTER" minHeight="105" prefHeight="107.0" prefWidth="2.0" GridPane.columnIndex="0">
+              <padding>
+                <Insets bottom="5" left="5" right="0" top="5" />
+              </padding>
+                  <StackPane prefHeight="99.0" prefWidth="0.0">
+                     <children>
+                        <Circle fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="1.5" />
+                    <Label fx:id="id" styleClass="cell_index_label" text="\$id">
+                      <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                      </minWidth>
+                    </Label>
+                     </children>
+                  </StackPane>
+            </VBox>
+          <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+              <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="5">
+              <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+            </HBox>
+            <FlowPane fx:id="tags">
+              <padding>
+                <Insets bottom="5" left="0" right="10" top="5" />
+              </padding>
+            </FlowPane>
+            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+            <Label fx:id="subjects" styleClass="cell_small_label" text="\$subjects" />
+          </VBox>
+          </HBox>
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+         <Polygon fx:id="studentTag" fill="BROWN" nodeOrientation="RIGHT_TO_LEFT" stroke="TRANSPARENT" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT">
+           <points>
+             <Double fx:value="0.0" />
+             <Double fx:value="0.0" />
+             <Double fx:value="30.0" />
+             <Double fx:value="0.0" />
+             <Double fx:value="0.0" />
+             <Double fx:value="30.0" />
+           </points>
+         </Polygon>
+      </children>
+   </StackPane>
 </HBox>

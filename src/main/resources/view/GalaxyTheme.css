@@ -21,6 +21,12 @@ reused from DarkTheme.css with modifications */
     -fx-font-size: 40px;
 }
 
+
+.cell_index_label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Franklin Gothic Medium";
+}
+
 .app-title .text {
     -fx-stroke: black;
     -fx-stroke-width: 1px;

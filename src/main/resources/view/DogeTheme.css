@@ -15,6 +15,12 @@ Reused from DarkTheme.css with modifications */
     -fx-opacity: 0.9;
 }
 
+
+.cell_index_label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Franklin Gothic Medium";
+}
+
 .app-title {
     -fx-text-fill: white;
     -fx-font-family: "Franklin Gothic Heavy";
