@@ -67,6 +67,14 @@ public class Class {
     }
 
     /**
+     * Adds a student to the list of students attending the class.
+     */
+    public void addStudent(Student student) {
+        Name studentName = student.getName();
+        attendingStudents.add(studentName);
+    }
+
+    /**
      * Checks if given {@code student} is attending this class.
      */
     public boolean containStudent(Student student) {
