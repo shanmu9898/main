@@ -17,6 +17,7 @@ import java.util.Date;
 public class Time {
     public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Date and time must be in the format: DD/MM/YYYY HH:MM";
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date must be in the format: DD/MM/YYYY";
+    public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
     public static final String TIME_VALIDATION_REGEX = "((^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|"
             + "((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|"
             + "[2-9][0-9])\\d\\d)|(^29[\\/]02[\\/](19|[2-9][0-9])"
