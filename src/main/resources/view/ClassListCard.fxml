@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -17,7 +16,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
         <HBox>
-            <VBox alignment="CENTER" minHeight="105" prefHeight="107.0" prefWidth="2.0" GridPane.columnIndex="0">
+            <VBox alignment="CENTER" minHeight="105" prefWidth="2.0" GridPane.columnIndex="0">
                 <padding>
                     <Insets bottom="5" left="5" right="0" top="5"/>
                 </padding>
@@ -44,16 +43,15 @@
                 </HBox>
                 <Label fx:id="subject" styleClass="cell_small_label" text="\$subject"/>
                 <Label fx:id="duration" styleClass="cell_small_label" text="\$duration"/>
-                <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="20.0" spacing="5">
-                    <children>
-                        <Label fx:id="id1" styleClass="cell_big_label" text="Students:">
-                            <minWidth>
-                                <Region fx:constant="USE_PREF_SIZE"/>
-                            </minWidth>
+                <VBox styleClass="studentList">
+                    <padding>
+                        <Insets bottom="5" left="5" right="5" top="5"/>
+                    </padding>
+                        <Label fx:id="id1" styleClass="cell_big_label" text="Student List">
                         </Label>
-                        <FlowPane fx:id="students" hgap="10.0"/>
-                    </children>
-                </HBox>
+                        <Label fx:id="students" styleClass="cell_small_label">
+                        </Label>
+                </VBox>
             </VBox>
         </HBox>
         <rowConstraints>
