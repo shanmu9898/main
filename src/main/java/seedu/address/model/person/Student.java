@@ -82,4 +82,22 @@ public class Student extends Person {
         getSubjectList().forEach(builder::append);
         return builder.toString();
     }
+
+    //@@author shanmu9898
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Student)) {
+            return false;
+        }
+
+        Student otherPerson = (Student) other;
+        return otherPerson.getName().equals(this.getName())
+                && otherPerson.getPhone().equals(this.getPhone())
+                && otherPerson.getEmail().equals(this.getEmail())
+                && otherPerson.getAddress().equals(this.getAddress());
+    }
 }
