@@ -315,7 +315,8 @@ You cannot set the shortcut word to a already preregistered command. +
 Your shortcut word cannot be more than a single word.
 
 [REMINDER]
-You can always see the list of shortcuts your set using `list shortcuts` as shown in the figure below.
+You can always see the list of shortcuts your set using `list shortcuts` as shown in the figure below. +
+
 image::ShortcutsList.png[width="800"]
     Figure 10: List of shortcuts stored
 
