@@ -136,6 +136,7 @@ image::appointmentAdded.jpg[width="800"]
 +
 
 // end::appointment[]
+
 // tag::task[]
 === Setting up a task : `set_task` `[since v1.3]`
 
@@ -175,6 +176,7 @@ image::appointmentRemoved.jpg[width="800"]
 +
 
 // tag::theme[]
+
 === Changing GUI theme : `theme` `[since v1.4]`
 
 Changes the theme of the GUI.  +
@@ -441,7 +443,7 @@ Format: `history`
 
 [NOTE]
 ====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+Pressing the kbd:[Up] and kbd:[Down] arrows will display the previous and next input respectively in the command box.
 ====
 
 // tag::undoredo[]
