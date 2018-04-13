@@ -39,7 +39,7 @@ public class ClassCard extends UiPart<Region> {
     public ClassCard(Class group, int displayedIndex) {
         super(FXML);
         this.classroom = group;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         className.setText(group.getName().fullName);
         subject.setText(group.getSubject().value);
         duration.setText("From " + DATE_FORMATTER.format(group.getStartDate().value.getTime()) + " to "
