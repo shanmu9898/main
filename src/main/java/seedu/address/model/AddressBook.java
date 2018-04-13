@@ -253,6 +253,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (!persons.contains(syncedEditedStudent)) {
             try {
                 students.setStudent(target, syncedEditedStudent);
+                for (Class group: classes) {
+                    if (group.containStudent(target)) {
+                        group.removeStudent(target);
+                        group.addStudent(syncedEditedStudent);
+                    }
+                }
             } finally {
                 removeUnusedTags();
             }
