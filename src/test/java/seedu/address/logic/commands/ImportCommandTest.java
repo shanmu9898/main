@@ -1,3 +1,4 @@
+//@@author shanmu9898
 package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertTrue;
@@ -19,7 +20,6 @@ import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.StudentBuilder;
 
-//@@author shanmu9898
 public class ImportCommandTest {
 
 

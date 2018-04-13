@@ -33,14 +33,13 @@ import seedu.address.storage.XmlAddressBookStorage;
 
 
 /**
- *
  * Exports people to an XML file of choice based on tag, index or range
  */
 public class ExportCommand extends Command {
 
     public static final String MESSAGE_FAIL = "TeachConnect faced some error while exporting! Please try again!";
     public static final String MESSAGE_OUT_OF_BOUNDS = "Please check the index bounds!";
-    public static final String MESSAGE_SUCCESS = "Contacts have been successfully exported!";
+    public static final String MESSAGE_SUCCESS = "Export Success!";
     public static final String MESSAGE_RANGE_ERROR = "Please input valid range";
     public static final String MESSAGE_TAG_CONTACT_MISMATCH = "The tag and contact don't match";
 
@@ -72,7 +71,7 @@ public class ExportCommand extends Command {
     private final String nameOfExportFile;
     private final String type;
     private ArrayList<Person> exportPersonAddition = new ArrayList<Person>();
-    private ArrayList<Class>  exportClassAddition = new ArrayList<Class>();
+    private ArrayList<Class> exportClassAddition = new ArrayList<Class>();
     private ArrayList<Student> exportStudentAddition = new ArrayList<Student>();
     private boolean isClassesOrNot = false;
 
@@ -108,7 +107,6 @@ public class ExportCommand extends Command {
     }
 
 
-
     /**
      * Handles exceptions of various messages and takes care of the actual execution of the command.
      */
@@ -131,7 +129,6 @@ public class ExportCommand extends Command {
             } catch (IOException e) {
                 return new CommandResult(MESSAGE_RANGE_ERROR);
             }
-
 
             try {
                 handledRangeSituation = handleRangeArray(rangeGiven);
@@ -161,13 +158,7 @@ public class ExportCommand extends Command {
         ObservableList<Student> students = model.getFilteredStudentsList();
         for (Class c : classes) {
             List<Name> studentNames = c.getStudents();
-            for (Student s : students) {
-                if (studentNames.contains(s.getName())) {
-                    if (!exportStudentAddition.contains(s)) {
-                        exportStudentAddition.add(s);
-                    }
-                }
-            }
+            addStudentsToList(students, studentNames);
 
         }
         for (Class c : classes) {
@@ -179,18 +170,24 @@ public class ExportCommand extends Command {
     }
 
     /**
+     * Adds students into the list to add to the XML file later for supporting classes
+     */
+    private void addStudentsToList(ObservableList<Student> students, List<Name> studentNames) {
+        for (Student s : students) {
+            if (studentNames.contains(s.getName()) && !exportStudentAddition.contains(s)) {
+                exportStudentAddition.add(s);
+            }
+        }
+    }
+
+    /**
      * This method saves the file either as an XML file or an CSV file depending on the user preferences.
+     *
      * @return a boolean values if the storage has been possible or not
      */
     private boolean tryStorage(String type, boolean isClassesOrNot) throws CommandException {
         if (type.equalsIgnoreCase("xml")) {
-            teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
-            try {
-                teachConnectStorage.saveAddressBook(teachConnectBook);
-            } catch (IOException e) {
-                return false;
-            }
-
+            return saveAsXml();
         } else if (type.equalsIgnoreCase("excel")) {
             return saveAsCsv(isClassesOrNot);
         }
@@ -198,7 +195,21 @@ public class ExportCommand extends Command {
     }
 
     /**
+     * Tries to save the file as an XML file
+     */
+    private boolean saveAsXml() {
+        teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
+        try {
+            teachConnectStorage.saveAddressBook(teachConnectBook);
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Will save as a CSV file using a CSVPrinter including the list of tags
+     *
      * @return boolean
      */
     private boolean saveAsCsv(boolean isClassesOrNot) throws CommandException {
@@ -209,32 +220,52 @@ public class ExportCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FAIL));
         }
 
-        if (!isClassesOrNot) {
-            try {
-                for (Person p : exportPersonAddition) {
-                    csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
-                }
-
-                csvPrinter.flush();
-
-            } catch (IOException e) {
-                throw new CommandException(String.format(MESSAGE_FAIL));
-            }
+        if (isClassesOrNot) {
+            saveAsCsvClasses(csvPrinter);
         } else {
-            try {
-                for (Class c : exportClassAddition) {
-                    csvPrinter.printRecord(c.getName(), c.getSubject(), c.getStartDate(),
-                                           c.getEndDate(), c.getStudents());
-                }
+            saveAsCsvPersons(csvPrinter);
+        }
 
-                csvPrinter.flush();
-            } catch (IOException e) {
-                throw new CommandException(String.format(MESSAGE_FAIL));
-            }
-
+        try {
+            csvPrinter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return true;
+    }
+
+    /**
+     * Helper for a saving Persons in a CSV format
+     *
+     * @param csvPrinter
+     * @throws CommandException
+     */
+    private void saveAsCsvPersons(CSVPrinter csvPrinter) throws CommandException {
+        for (Person p : exportPersonAddition) {
+            try {
+                csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
+            } catch (IOException e) {
+                throw new CommandException(String.format(MESSAGE_FAIL));
+            }
+        }
+    }
+
+    /**
+     * Helper for a saving Classes in a CSV format
+     *
+     * @param csvPrinter
+     * @throws CommandException
+     */
+    private void saveAsCsvClasses(CSVPrinter csvPrinter) throws CommandException {
+        try {
+            for (Class c : exportClassAddition) {
+                csvPrinter.printRecord(c.getName(), c.getSubject(), c.getStartDate(),
+                        c.getEndDate(), c.getStudents());
+            }
+        } catch (IOException e) {
+            throw new CommandException(String.format(MESSAGE_FAIL));
+        }
     }
 
 
@@ -247,10 +278,10 @@ public class ExportCommand extends Command {
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "/" + nameOfExportFile + ".csv"));
         if (!isClassesOrNot) {
             csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Email", "Phone",
-                                                                             "Address", "Tags"));
+                    "Address", "Tags"));
         } else {
             csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Subject", "Start Date",
-                                                                             "End Date", "Students"));
+                    "End Date", "Students"));
         }
 
         return csvPrinter;
@@ -259,6 +290,7 @@ public class ExportCommand extends Command {
 
     /**
      * Handles the range array returned by the handleRange() function
+     *
      * @param rangeGiven
      * @return
      */
@@ -268,29 +300,37 @@ public class ExportCommand extends Command {
         if (rangeGiven[0].equals("all")) {
             exportAllRange(tag);
         } else {
-            if (rangeGiven.length != 1) {
-                int low = Integer.parseInt(rangeGiven[0]);
-                int high = Integer.parseInt(rangeGiven[1]);
-                if (low >= high) {
-                    return new CommandResult(MESSAGE_RANGE_ERROR);
-                } else {
-                    exportRange(low, high, tag);
-                }
-
-            } else {
-                int low = Integer.parseInt(rangeGiven[0]);
-                exportSpecific(low, tag);
+            if (exportGivenRange(rangeGiven)) {
+                return new CommandResult(MESSAGE_RANGE_ERROR);
             }
-
-
         }
         return null;
     }
 
     /**
+     * Exports a particular range considering all the edge constraints.
+     */
+    private boolean exportGivenRange(String[] rangeGiven) throws DuplicatePersonException, CommandException {
+        if (rangeGiven.length != 1) {
+            int low = Integer.parseInt(rangeGiven[0]);
+            int high = Integer.parseInt(rangeGiven[1]);
+            if (low >= high) {
+                return true;
+            } else {
+                exportRange(low, high, tag);
+            }
+
+        } else {
+            int low = Integer.parseInt(rangeGiven[0]);
+            exportSpecific(low, tag);
+        }
+        return false;
+    }
+
+    /**
      * Adds a specific person/student to the teachConnectBook
-     *
      * parameters are an integer and a tag
+     *
      * @throws DuplicatePersonException
      * @throws IndexOutOfBoundsException
      */
@@ -316,9 +356,6 @@ public class ExportCommand extends Command {
     /**
      * Exports a range of people based on the tag and the index range given
      *
-     * @param low
-     * @param high
-     * @param tag
      * @throws DuplicatePersonException
      * @throws IndexOutOfBoundsException
      */
@@ -326,24 +363,9 @@ public class ExportCommand extends Command {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
 
         if (tag.equals(new Tag("shouldnotbethistag"))) {
-            for (int i = low; i <= high; i++) {
-                if (exportPeople.get(i - 1) instanceof Student) {
-                    exportStudentAddition.add((Student) exportPeople.get(i - 1));
-                } else {
-                    exportPersonAddition.add(exportPeople.get(i - 1));
-                }
-            }
+            exportWithoutTag(low, high, exportPeople);
         } else {
-            for (int i = low; i <= high; i++) {
-                if (exportPeople.get(i - 1).getTags().contains(tag)) {
-                    if (exportPeople.get(i - 1) instanceof Student) {
-                        exportStudentAddition.add((Student) exportPeople.get(i - 1));
-                    } else {
-                        exportPersonAddition.add(exportPeople.get(i - 1));
-                    }
-                }
-
-            }
+            exportWithTag(low, high, tag, exportPeople);
         }
 
         teachConnectBook.setPersons(exportPersonAddition);
@@ -351,13 +373,71 @@ public class ExportCommand extends Command {
     }
 
     /**
+     * Exports people or students when tag is present and range is given
+     *
+     * @param low  - lower range
+     * @param high - higher range
+     * @param tag  - tag given based on which people can be exported
+     */
+    private void exportWithTag(int low, int high, Tag tag, ObservableList<Person> exportPeople) {
+        for (int i = low; i <= high; i++) {
+            if (exportPeople.get(i - 1).getTags().contains(tag) && exportPeople.get(i - 1) instanceof Student) {
+                exportStudentAddition.add((Student) exportPeople.get(i - 1));
+            } else if (exportPeople.get(i - 1).getTags().contains(tag)) {
+                exportPersonAddition.add(exportPeople.get(i - 1));
+            }
+        }
+    }
+
+    /**
+     * Exports people or students when tag is not present and range is given
+     *
+     * @param low  - lower range
+     * @param high - higher range
+     */
+    private void exportWithoutTag(int low, int high, ObservableList<Person> exportPeople) {
+        for (int i = low; i <= high; i++) {
+            if (exportPeople.get(i - 1) instanceof Student) {
+                exportStudentAddition.add((Student) exportPeople.get(i - 1));
+            } else {
+                exportPersonAddition.add(exportPeople.get(i - 1));
+            }
+        }
+    }
+
+    /**
      * Exports all the contacts in the TeachConnect book if contain certain tag
      *
-     * @param tag
      * @throws DuplicatePersonException
      */
     private void exportAllRange(Tag tag) throws DuplicatePersonException {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
+        if (tag.equals(new Tag("shouldnotbethistag"))) {
+            exportEveryoneWithoutTag(exportPeople);
+        } else {
+            exportEveryoneWithTag(tag, exportPeople);
+        }
+        teachConnectBook.setPersons(exportPersonAddition);
+        teachConnectBook.setStudents(exportStudentAddition);
+    }
+
+    /**
+     * Export everyone with a tag given
+     */
+    private void exportEveryoneWithTag(Tag tag, ObservableList<Person> exportPeople) {
+        for (Person p : exportPeople) {
+            if (p.getTags().contains(tag) && p instanceof Student) {
+                exportStudentAddition.add((Student) p);
+            } else if (p.getTags().contains(tag)) {
+                exportPersonAddition.add(p);
+            }
+        }
+    }
+
+    /**
+     * Export everyone without a tag given
+     */
+    private void exportEveryoneWithoutTag(ObservableList<Person> exportPeople) {
         for (Person p : exportPeople) {
             if (p instanceof Student) {
                 exportStudentAddition.add((Student) p);
@@ -365,25 +445,8 @@ public class ExportCommand extends Command {
                 exportPersonAddition.add(p);
             }
         }
-        if (tag.equals(new Tag("shouldnotbethistag"))) {
-            teachConnectBook.setPersons(exportPersonAddition);
-            teachConnectBook.setStudents(exportStudentAddition);
-        } else {
-            for (Person p : exportPeople) {
-                if (p.getTags().contains(tag)) {
-                    if (p instanceof Student) {
-                        exportStudentAddition.add((Student) p);
-                    } else if (p instanceof Person) {
-                        exportPersonAddition.add(p);
-
-                    }
-                }
-
-            }
-            teachConnectBook.setPersons(exportPersonAddition);
-            teachConnectBook.setStudents(exportStudentAddition);
-        }
     }
+
 
     /**
      * Helper method to identify the lower and higher end of the range given
@@ -400,7 +463,6 @@ public class ExportCommand extends Command {
     }
 
     /**
-     *
      * @param other [in this case ExportCommand]
      * @return a boolean value
      */
