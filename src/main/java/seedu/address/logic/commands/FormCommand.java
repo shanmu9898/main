@@ -83,7 +83,7 @@ public class FormCommand extends UndoableCommand {
 
         for (Index targetIndex: indexList) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_INDEX, targetIndex));
+                throw new CommandException(String.format(Messages.MESSAGE_INVALID_INDEX, targetIndex.getOneBased()));
             }
 
             if (lastShownList.get(targetIndex.getZeroBased()) instanceof Student) {
@@ -91,7 +91,8 @@ public class FormCommand extends UndoableCommand {
                 studentList.add(enteringStudent);
                 studentNames.add(enteringStudent.getName());
             } else {
-                throw new CommandException(String.format(Messages.MESSAGE_INVALID_STUDENT_INDEX, targetIndex));
+                throw new CommandException(String.format(Messages.MESSAGE_INVALID_STUDENT_INDEX,
+                        targetIndex.getOneBased()));
             }
         }
 
