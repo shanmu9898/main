@@ -16,11 +16,11 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
         <HBox>
-            <VBox alignment="CENTER" minHeight="105" prefWidth="2.0" GridPane.columnIndex="0">
+            <VBox alignment="TOP_CENTER" prefHeight="105" prefWidth="2.0" GridPane.columnIndex="0">
                 <padding>
-                    <Insets bottom="5" left="5" right="0" top="5"/>
+                    <Insets bottom="5" left="5" right="0" top="0"/>
                 </padding>
-                <StackPane prefHeight="99.0" prefWidth="0.0">
+                <StackPane alignment="CENTER" prefHeight="99.0" prefWidth="0.0">
                     <children>
                         <Circle styleClass="cell_circle" fill="TRANSPARENT" radius="25.0" stroke="WHITE"
                                 strokeType="INSIDE" strokeWidth="1.5"/>
