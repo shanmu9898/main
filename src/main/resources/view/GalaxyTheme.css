@@ -27,6 +27,10 @@ reused from DarkTheme.css with modifications */
     -fx-font-family: "Franklin Gothic Medium";
 }
 
+.cell_circle {
+    -fx-stroke: derive(#070f60, 50%);
+}
+
 .app-title .text {
     -fx-stroke: black;
     -fx-stroke-width: 1px;

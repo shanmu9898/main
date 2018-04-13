@@ -26,10 +26,7 @@ Reused from DarkTheme.css with modifications */
 }
 
 .cell_circle {
-    -fx-background-color: transparent;
-    -fx-radius: 25px;
-    -fx-stroke: black;
-    -fx-stroke-width: 2px;
+    -fx-stroke: brown;
 }
 
 .label-bright {

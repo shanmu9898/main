@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Polygon?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <StackPane prefWidth="290">
+   <StackPane prefWidth="291">
       <children>
         <GridPane>
           <columnConstraints>
@@ -28,7 +28,7 @@
               </padding>
                   <StackPane prefHeight="99.0" prefWidth="0.0">
                      <children>
-                        <Circle fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="1.5" />
+                        <Circle styleClass="cell_circle" fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="1.5" />
                     <Label fx:id="id" styleClass="cell_index_label" text="\$id">
                       <minWidth>
                         <!-- Ensures that the label text is never truncated -->
@@ -60,14 +60,14 @@
                <RowConstraints />
             </rowConstraints>
         </GridPane>
-         <Polygon fx:id="studentTag" fill="BROWN" nodeOrientation="RIGHT_TO_LEFT" stroke="TRANSPARENT" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT">
+         <Polygon fx:id="studentTag" fill="DODGERBLUE" nodeOrientation="RIGHT_TO_LEFT" stroke="TRANSPARENT" strokeType="INSIDE" StackPane.alignment="TOP_RIGHT">
            <points>
              <Double fx:value="0.0" />
              <Double fx:value="0.0" />
-             <Double fx:value="30.0" />
+             <Double fx:value="20.0" />
              <Double fx:value="0.0" />
              <Double fx:value="0.0" />
-             <Double fx:value="30.0" />
+             <Double fx:value="20.0" />
            </points>
          </Polygon>
       </children>

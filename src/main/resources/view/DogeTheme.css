@@ -21,6 +21,10 @@ Reused from DarkTheme.css with modifications */
     -fx-font-family: "Franklin Gothic Medium";
 }
 
+.cell_circle {
+    -fx-stroke: black;
+}
+
 .app-title {
     -fx-text-fill: white;
     -fx-font-family: "Franklin Gothic Heavy";
