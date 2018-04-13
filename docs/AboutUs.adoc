@@ -25,7 +25,7 @@ Responsibilities: Model + Deliverable and Deadlines + Integration + Tools Expert
 
 === Rachel Ngo Phuong Thao
 image::sisyphus.jpg[width="150", align="left"]
-{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/CS2103JAN2018-W14-B1/main/blob/master/docs/team/rachelngo.adoc[portfolio]] [http://github.com/Sisyphus25[github]]
 
 Role: Developer
 
@@ -35,7 +35,7 @@ Responsibilities: UI + Storage + Scheduling and Tracking + Documentation + Revie
 
 === Randy Pang Chung
 image::randypx.jpg[width="150", align="left"]
-{empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
+{empty} [<<johndoe#, portfolio>>][http://github.com/randypx[github]]
 
 Role: Developer
 
@@ -45,7 +45,7 @@ Responsibilities: Logic + Testing + Reviewing + Design Consideration and Impleme
 
 === Jonathan Lim
 image::LimShiMinJonathan.jpg[width="150", align="left"]
-{empty}[http://github.com/LimShiMinJonathan[github]] [<<johndoe#, portfolio>>]
+{empty}[<<johndoe#, portfolio>>][http://github.com/LimShiMinJonathan[github]]
 
 Role: Developer
 
