@@ -359,7 +359,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::import[]
 === Import Contacts
 ==== Current Implementation
-The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
+The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts or the classes found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
 [source,java]
 public ImportCommand(String importPath) {
         requireNonNull(importPath);
@@ -369,18 +369,14 @@ public ImportCommand(String importPath) {
 
 image::ImportCommandFlowChart.png[align="center"]
 
-Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
+Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialises the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`.For importing classes class objects are first created and students related to the classes are stored before being added to the model. The code can be found below.
 [source, java]
 ----
 public CommandResult executeUndoableCommand() throws CommandException {
-     ObservableList<Person> people = addressBookImported.getPersonList();
-     for (int i = 0; i < people.size(); i++) {
-           try {
-             model.addPerson(people.get(i));
-           } catch (DuplicatePersonException e) {
-             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-           }
-     }
+     peopleToBeImported(people);
+     studentToBeImported(students);
+     classesToBeImported(students, classes);
+
      return new CommandResult(MESSAGE_SUCCESS);
 }
 ----
@@ -393,13 +389,13 @@ public CommandResult executeUndoableCommand() throws CommandException {
 ** Cons: User might want to import from Excel only to realise this isn't possible.
 * **Alternative 2:** Include import from an `Excel` file too.
 ** Pros: Might be more intuitive for the user and might come in handy.
-** Cons: Complex implementation ther by giving rise to more bugs and slower response rate.
+** Cons: Will not really help the user distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
 
 // tag::export[]
 === Export contacts
 ==== Current Implementation
 
-The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
+The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`.It is also possible to export classes with String `path` String `name` String `type` as parameters. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
 
 [source,java]
 ----
@@ -431,6 +427,8 @@ public String[] handleRange() throws IOException {
 }
 ----
 
+Choosing to export classes follows a different pattern. It exports all the classes and the students related to those classes.
+
 Any range with more than 2 values in the String array returned throws an IO Exception. To add the contacts to the export file, contacts are added to the teachConnectBook. There are 4 individual cases and multiple combinations of these:
 
 * All (Without a tag)
@@ -443,7 +441,6 @@ Any range with more than 2 values in the String array returned throws an IO Exce
 ** if the user input contains a range which is identified by the `,` character, we will add that range of index (one-based) to the `teachConnectBook` including the lower range but excluding the upper bound.
 * Range of indexes (with a tag)
 ** if the user input contains a range which is identified by the `,` character along with the tag, we will add that range of index (one-based) to the `teachConnectBook` if that contact contains that particular tag including the lower range but excluding the upper bound.
-
 
 Below is the code snippet to identify the three cases in the user input:
 
@@ -491,21 +488,24 @@ Below is the code snipped to export the data into an excel file.
 [source,java]
 ----
 CSVPrinter csvPrinter;
-        try {
-            csvPrinter = csvFileToBeWritten();
-        } catch (IOException e) {
-           handle exception...
-        }
-
-        try {
-            for (Person p : exportAddition) {
-                csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
+       try {
+            csvPrinter = csvFileToBeWritten(isClassesOrNot);
+            } catch (IOException e) {
+                throw new CommandException(String.format(MESSAGE_FAIL));
             }
 
-            csvPrinter.flush();
+            if (isClassesOrNot) {
+               saveAsCsvClasses(csvPrinter);
+            } else {
+               saveAsCsvPersons(csvPrinter);
+            }
 
-        }
-        exceptions are to be handled...
+            try {
+                csvPrinter.flush();
+                } catch (IOException e) {
+                e.printStackTrace();
+            }
+       exceptions are to be handled...
 ----
 
 ==== Design Considerations
