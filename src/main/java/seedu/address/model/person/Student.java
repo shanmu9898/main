@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -52,10 +53,11 @@ public class Student extends Person {
     }
 
     /**
-     * Returns the list of classes the student is attending.
+     * Returns an immutable subject list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
     public List<Subject> getSubjectList() {
-        return subjectList;
+        return Collections.unmodifiableList(subjectList);
     }
 
     /**

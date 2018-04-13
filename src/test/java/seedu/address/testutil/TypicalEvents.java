@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.STUDENT_ANGUS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ public class TypicalEvents {
     public static final Appointment TYPICAL_APPOINTMENT_2 =
             new AppointmentBuilder("Consultation session", "04/07/2018 10:00", "04/07/2018 11:00", BOB).build();
     public static final Appointment TYPICAL_APPOINTMENT_3 =
-            new AppointmentBuilder("Tutoring session", "30/04/2018 10:00", "30/04/2018 11:00", CARL).build();
+            new AppointmentBuilder("Tutoring session", "30/04/2018 10:00", "30/04/2018 11:00", STUDENT_ANGUS).build();
     public static final Appointment APPOINTMENT_WITHOUT_PERSON_1 =
             new AppointmentBuilder("Meeting with parents", "09/10/2018 10:00", "09/10/2018 11:00").build();
     public static final Appointment APPOINTMENT_WITHOUT_PERSON_2 =
