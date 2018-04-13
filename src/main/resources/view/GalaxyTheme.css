@@ -15,6 +15,12 @@ reused from DarkTheme.css with modifications */
     -fx-opacity: 0.9;
 }
 
+.studentList {
+    -fx-background-color: white;
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
 .app-title {
     -fx-text-fill: white;
     -fx-font-family: "Franklin Gothic Heavy";
