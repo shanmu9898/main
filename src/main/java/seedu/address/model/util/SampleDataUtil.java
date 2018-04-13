@@ -1,10 +1,13 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.education.Subject;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.Task;
@@ -16,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
@@ -110,7 +114,6 @@ public class SampleDataUtil {
         }
     }
 
-
     /**
      * Returns a tag set containing the list of strings given.
      */
@@ -123,6 +126,30 @@ public class SampleDataUtil {
         return tags;
     }
 
+    //@@author randypx
+    /**
+     * Returns a subject list containing the list of strings given.
+     */
+    public static List<Subject> getSubjectList(String... strings) {
+        ArrayList<Subject> subjectList = new ArrayList<>();
+        for (String s : strings) {
+            subjectList.add(new Subject(s));
+        }
+        return subjectList;
+    }
+
+    /**
+     * Returns a student list containing the list of strings given.
+     */
+    public static List<Name> getStudentList(String... strings) {
+        ArrayList<Name> studentList = new ArrayList<>();
+        for (String s : strings) {
+            studentList.add(new Name(s));
+        }
+        return studentList;
+    }
+
+    //@@author
     public static Set<ShortcutDoubles> getSampleShortcutDoublesTagSet(String... strings) {
         HashSet<ShortcutDoubles> shortcutDoubles = new HashSet<>();
         for (String s : strings) {

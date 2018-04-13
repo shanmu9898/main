@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -47,10 +49,6 @@ public class TypicalPersons {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
-    public static final Student IVAN = new StudentBuilder().withName("Ivan Kutz").withPhone("9867723")
-            .withEmail("wolf@example.com").withAddress("Centre Street").build();
-    public static final Student JOHN = new StudentBuilder().withName("John Blake").withPhone("9575232")
-            .withEmail("star@example.com").withAddress("Hollywood").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -60,11 +58,6 @@ public class TypicalPersons {
     public static final Person DING = new PersonBuilder().withName("Ding Thunderstorm").withPhone("81524871")
             .withEmail("hansolo@example.com").withAddress("Science Park Road").build();
 
-    public static final Student STUDENT_HOON = new StudentBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Student STUDENT_IDA = new StudentBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
-
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
@@ -72,12 +65,42 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Student STUDENT_AMY = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
-    public static final Student STUDENT_BOB = new StudentBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT)
-            .build();
+    //@@author randypx
+    // Students
+    public static final Student STUDENT_ANGUS = new StudentBuilder().withName("Angus Wyndham")
+            .withPhone("9867723").withEmail("wynd@example.com").withAddress("Centre Street")
+            .withSubjects("Biology").build();
+    public static final Student STUDENT_BRUCE = new StudentBuilder().withName("Bruce Wayne")
+            .withPhone("9575232").withEmail("star@example.com").withAddress("Hollywood")
+            .withSubjects().build();
+    public static final Student STUDENT_COOPER = new StudentBuilder().withName("Cooper Crouch")
+            .withPhone("9247637").withEmail("freeman@example.com").withAddress("Kansas")
+            .withSubjects("Mathematics", "Biology").build();
+    public static final Student STUDENT_DAVID = new StudentBuilder().withName("David Gray")
+            .withPhone("9234718").withEmail("alien@example.com").withAddress("Chinatown")
+            .withSubjects("Mathematics").build();
+    public static final Student STUDENT_EMILY = new StudentBuilder().withName("Emily Walter")
+            .withPhone("8537425").withEmail("lily@example.com").withAddress("4th Avenue")
+            .withSubjects("Biology", "Physics").build();
 
+    // Manually added
+    public static final Student STUDENT_FAUST = new StudentBuilder().withName("Faust Meier")
+            .withPhone("9524284").withEmail("mephist@example.com").withAddress("raffles hall")
+            .withTags("absent").build();
+    public static final Student STUDENT_GUASS = new StudentBuilder().withName("Guass Muller")
+            .withPhone("8824681").withEmail("greg@example.com").withAddress("university town").build();
+    public static final Student STUDENT_HELEN = new StudentBuilder().withName("Hellen Wetscott")
+            .withPhone("8315264").withEmail("knight@example.com").withAddress("Sentosa Resort").build();
+    public static final Student STUDENT_ILLYA = new StudentBuilder().withName("Illya Einzbern")
+            .withPhone("9275423").withEmail("berserker@example.com").withAddress("fuyuki").build();
+
+    // Manually added - Person's details found in {@code CommandTestUtil}
+    public static final Student STUDENT_AMY = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
+    public static final Student STUDENT_BOB = new StudentBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).build();
+
+    //@@author
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {} // prevents instantiation
@@ -87,10 +110,12 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
+        for (Person person : getTypicalContacts()) {
             try {
                 if (!(person instanceof Student)) {
                     ab.addPerson(person);
+                } else {
+                    ab.addStudent((Student) person);
                 }
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
@@ -110,15 +135,18 @@ public class TypicalPersons {
                 throw new AssertionError("not possible");
             }
         }
+        for (Class c : TypicalClass.getTypicalClasses()) {
+            try {
+                ab.addClass(c);
+            } catch (DuplicateClassException e) {
+                throw new AssertionError("not possible");
+            }
+        }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
-
-    //@@author-shanmu9898
-    public static List<Student> getTypicalStudents() {
-        return new ArrayList<>(Arrays.asList(STUDENT_AMY, STUDENT_BOB, STUDENT_HOON, STUDENT_IDA));
+    public static List<Person> getTypicalContacts() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, STUDENT_ANGUS, STUDENT_BRUCE,
+                CARL, DANIEL, STUDENT_COOPER, ELLE, STUDENT_DAVID, FIONA, STUDENT_EMILY, GEORGE));
     }
 }
