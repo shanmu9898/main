@@ -9,7 +9,7 @@
 == Overview
 
 TeachConnect(TC) is application designed to help teachers and other teaching proffessionals manage their contacts and schedule.
-TC is tailored for teachers who would prefer to use a desktop application and its Command Line Interface is meant for teachers who 
+TC is tailored for teachers who would prefer to use a desktop application and its Command Line Interface is meant for teachers who
 are used to typing frequently and can type fast, allowing them to use it faster than any other app.Nevertheless, TC also supports normal
 graphic interfaces like clicking and scrolling.
 
@@ -38,9 +38,9 @@ include::../UserGuide.adoc[tag=class]
 ==== Justification
 
 ---
-The feature of adding students as a seperate type of contact allows teachers to manage their student contacts seperately from their 
+The feature of adding students as a seperate type of contact allows teachers to manage their student contacts seperately from their
 personal contacts. The class feature furhter allows teachers to group their students into groups based on the classes they are teaching.
-This helps teachers to view their student contacts in a more organized manner and also keep track on what and when they have taught a 
+This helps teachers to view their student contacts in a more organized manner and also keep track on what and when they have taught a
 student.
 
 ---
@@ -54,7 +54,7 @@ include::../DeveloperGuide.adoc[tag=studentmanagement]
 ---
 
 === Enhancement Proposed (for Version 2.0)
-* Another add command to enter students into a already existing group. 
+* Another add command to enter students into a already existing group.
 * A grading feature to allow teachers to store a student's grades as well.
 * A relations feature to 'relate' two contacts (student or not) together. A way to store any two contacts' relationship.
 
