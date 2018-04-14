@@ -423,7 +423,7 @@ public CommandResult executeUndoableCommand() throws CommandException {
 ** Cons: Will not really help the user distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
 
 // tag::export[]
-=== Export contacts
+=== Export Contacts
 ==== Current Implementation
 
 The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`.It is also possible to export classes with String `path` String `name` String `type` as parameters. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
@@ -704,8 +704,7 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 
 === Schedule Management
 ==== Current Implementation
-There are two types of schedule: an `Appointment` or a `Task`.
-The model diagrams for `Appointment` and `Task` shown in `Figure 24` and `Figure 25`.
+There are two types of schedule: an `Appointment` or a `Task`. The model diagrams for `Appointment` and `Task` are shown in `Figure 24` and `Figure 25`.
 
 image::AppointmentModelClassDiagram.png[align="center"]
     Figure 24: Appointment Class Diagram
@@ -713,47 +712,72 @@ image::AppointmentModelClassDiagram.png[align="center"]
 image::TaskModelClassDiagram.png[align="center"]
     Figure 25: Task Class Diagram
 
-`Appointment` consist of 4 variables:
+`Appointment` has 4 variables:
 
-* Title: Hold description for the appointment
-* Start Time: Hold the starting time of the appointment
-* End time: Hold the end time of the appointment
-* Person to meet: (optional) Hold the target in the appointment
+* Title: Holds description for the appointment.
+* Start Time: Holds the starting time of the appointment.
+* End time: Holds the end time of the appointment.
+* Person to meet: (optional) Holds the target in the appointment.
 
-`Task` consist of 2 variables:
+`Task` has 2 variables:
 
-* Title: Hold description for the task
-* Time: Hold the time the task is expected to be finished
+* Title: Holds description for the task.
+* Time: Holds the time the task is expected to be finished.
 
-Similar to `UniquePersonList` and `UniqueTagList`, `UniqueAppointmentList` and `UniqueTaskList` is linked
-to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
+Similar to `UniquePersonList` and `UniqueTagList`, `UniqueAppointmentList` and `UniqueTaskList` is linked to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
+
+Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar entry list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar entry list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
+[source,java]
+----
+private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
+        appointmentList = event.appointmentList;
+        Platform.runLater(
+                this::updateCalendar
+        );
+}
+private void updateCalendar() {
+        calendar.clear();
+        ArrayList<Entry> entries = getEntries();
+        for (Entry entry : entries) {
+                calendar.addEntry(entry);
+        }
+}
+----
 
 ==== Design Considerations
-===== Aspects : Implementation of set event
-* **Alternative 1 (current choice):** user can still set appointment/task with the starting time/deadline already elapsed.
-** Pros: Might be useful if the users want to keep track of past events.
-** Cons: Not the most intuitive implementation and might be prone to error from the user side.
-* **Alternative 2:** user can only set  appointment/task with the starting time/deadline in the future
-** Pros: Is the more intuitive approach and can prevent the user from keying in "redundant" events
-** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulties may arise when he/she wants to add new event.
+===== Aspects : Implementation of set appointment/task
+* **Alternative 1 (current choice):** Users can set appointment/task with already elapsed starting time/deadline.
+** Pros: With this implementation, TeachConnect can help the user keep track of past schedules which weren't added to the schedule list.
+** Cons: This is not the most intuitive implementation and the application could accept error-prone date input from the user side.
+* **Alternative 2:** Users can only set  appointment/task with the starting time/deadline in the future.
+** Pros: This is the more intuitive approach and it can prevent the user from keying in "redundant" schedule.
+** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes sets the system's time to deviate from the world clock, some difficulties may arise when he/she wants to add new event.
 
 // end::eventmanagement[]
 
-// tag::changingguitheme[]
+// tag::theme[]
 
 === [Proposed] Changing GUI theme
+==== Current Implementation
+The current implementation of this command only involves `Logic`, `EventsCenter` and `UI` components of the application.
 
-// end::changingguitheme[]
+To illustrate how the change theme command works, `Figure 26` shows the sequence diagram for changing the theme to `dark` theme.
 
-_{to be finished later}_
+image::ChangeThemeSequenceDiagram.png[align="center"]
+    Figure 26: Change Theme Command Sequence Diagram
 
-// tag::dataencryption[]
 
-=== [Proposed] Data Encryption
+==== Design Considerations
+===== Aspects : Saving of user selected theme to `UserPrefs` or `Storage`
 
-_{Explain here how the data encryption feature will be implemented}_
+* **Alternative 1 (current choice):** Theme selected is not saved to storage or `UserPrefs`, thus when TeachConnect starts the default theme is always selected.
+** Pros: This implementation is more simple and we don't need to interact with `Model`.
+** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to change the theme every time they start up TeachConnect.
+* **Alternative 2:** Last selected theme by the users would be saved to storage or `UserPrefs`.
+** Pros: Users experience can be enhanced as users can have the theme they like selected automatically each time they start up TeachConnect.
+** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.
 
-// end::dataencryption[]
+// end::theme[]
 
 === Logging
 
@@ -801,10 +825,10 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 27` below.
 
 image::chrome_save_as_pdf.png[width="300"]
-    Figure 26: Saving document as pdf window in Chrome
+    Figure 27: Saving Document as pdf settings
 
 [[Testing]]
 == Testing
