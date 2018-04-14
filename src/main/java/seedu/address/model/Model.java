@@ -27,6 +27,7 @@ public interface Model {
     String LIST_TYPE_APPOINTMENT = "appointments";
     String LIST_TYPE_TASK = "tasks";
     String LIST_TYPE_CLASS = "classes";
+    String LIST_TYPE_SHORTCUT = "shortcuts";
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
@@ -131,4 +132,7 @@ public interface Model {
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);
+
+    /** Raises an event to indicate the appointment list has changed */
+    void indicateAppointmentListChanged();
 }

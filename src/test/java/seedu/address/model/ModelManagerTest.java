@@ -106,16 +106,16 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addTask_addAppointmentToAddressBook_evokeAppointmentListChangedEvent()
+    public void addAppointment_addAppointmentToAddressBook_evokeAppointmentListChangedEvent()
             throws DuplicateEventException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.addAppointment(TYPICAL_APPOINTMENT_3);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);
-        TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 2);
+        TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 3);
     }
 
     @Test
-    public void removeTask_removeAppointmentFromAddressBook_evokeAppointmentListChangedEvent()
+    public void removeAppointment_removeAppointmentFromAddressBook_evokeAppointmentListChangedEvent()
             throws EventNotFoundException {
         ModelManager model = new ModelManager(addressBook, userPrefs);
         modelManager.deleteAppointment(TYPICAL_APPOINTMENT_1);
