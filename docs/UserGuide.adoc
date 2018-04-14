@@ -18,7 +18,8 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps.
+
 
 == About this guide
 
@@ -26,7 +27,7 @@ TC has many features at your disposal. This guide will help you learn and use th
 various features available to utilise TC to its fullest potential. +
 Don’t worry if you are not a computer geek, we will walk you through the simple steps to
 become a TC master user! +
-Let’s jump to Section 3, “Quick Start” to get started. Enjoy!
+Let’s jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
