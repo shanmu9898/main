@@ -24,7 +24,7 @@ The content includes are:
 
 <<<
 
-=== Enhancement Added: Task and Appointment commands
+=== Enhancement Added: Task and Appointment management
 
 ==== External behavior
 
