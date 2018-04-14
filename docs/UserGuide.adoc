@@ -20,6 +20,14 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
+== About this guide
+
+TC has many features at your disposal. This guide will help you learn and use the
+various features available to utilise TC to its fullest potential. +
+Don’t worry if you are not a computer geek, we will walk you through the simple steps to
+become a TC master user! +
+Let’s jump to Section 3, “Quick Start” to get started. Enjoy!
+
 == Quick Start
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
@@ -30,28 +38,34 @@ You can download the latest Java version link:https://java.com/en/download/[here
 +
 .  Download the latest `Teachconnect.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The GUI should appear in a few seconds. For details of each GUI component, you can refer to <<UserInterface>>. `Figure 1` displays an example of a successfully start up GUI.
 +
 image::StartupUI.jpg[width="800"]
-    Figure 1: Successful start up UI with Light Theme selected
+    Figure 1: GUI with Light Theme selected
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-+
-image::commandbox.jpg[width="800"]
-    Figure 2: Position of the command box
-+
 
 .  Some example commands you can try:
 
 
-* *`list`* : lists all contacts
+* *`list`* : lists all contacts.
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe`.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`delete`**`3` : deletes the 3rd contact shown in the current list.
+* *`exit`* : exits the app.
 
 
 .  Refer to <<Features>> for details of each command.
+
+
+[[UserInterface]]
+== User Interface
+TeachConnect GUI consists of 5 major components: command box, command result box, active list, calendar view and menu bar. `Figure 2` annotates the position of each component in the GUI.
+
+
+image::GUIcomponents.jpg[width="800"]
+    Figure 2: Position of the GUI components
+
 
 [[Features]]
 == Features
