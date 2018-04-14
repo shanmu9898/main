@@ -76,8 +76,9 @@ Adds a contact.  +
 Format: `add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 ****
-* `[TYPE]` field represents the type of contact you wish to add.  +
+* `[TYPE]` field represents the type of contact you wish to add.
 * It can be `student`, or `{nbsp}` (empty for a default contact).
+* Only student contacts can be added into a class.
 ****
 
 [TIP]
@@ -86,49 +87,48 @@ A contact can have any number of tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 t/friend` +
-Adds a default contact.
+Adds a default contact named `John Doe`.
 * `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02` +
-Adds a student contact.
+Adds a student contact named `Betsy Crowe`.
 
 
-=== Forming a class `[coming in v1.5]`
+=== Forming a class
 
 Forms a class of students for a specified subject and time period. +
-Format: `form subj/SUBJECT s/START_DATE e/END_DATE i/INDEX...`
+Format: `form SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 
 ****
-* Students specified by the `INDEX` are added to the class.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
-* Minimum of one student must be entered. There can be more than one student
-* Only a student contact can be entered, default and guardian contacts are not allowed.
-* Dates must be in the format: `DD-MM-YYYY`.
+* Minimum of one student must be entered. There can be more than one student.
+* Only a student contact can be entered, default contacts are not allowed.
+* *Students cannot be added in after the class is formed.*
+* Dates must be in the format: `DD/MM/YYYY`.
 ****
 
 Examples:
 
 * `list students` +
-`form 1,2,5 subj/English s/18-01-2018 e/17-07-2019` +
+`form English s/18/01/2018 e/17/07/2019` i/1,5,2 +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 
 
-=== Setting up an appointment : `set_appointment` `[since v1.3]`
+=== Setting up an appointment : `set_appointment`
 
 Sets up an appointment with the specified contact. +
 Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`
 
 ****
-* This sets an appointment with `TITLE`, from `START_DATE` at `START_TIME` to `END_DATE` at `END_TIME`, with contact at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
-* `START_DATE` and `END_DATE` must be in the format `DD-MM-YYYY`.
+* `START_DATE` and `END_DATE` must be in the format `DD/MM/YYYY`.
 * `START_TIME` and `END_TIME` must be in the 24-hr format: HH:MM.
 * The new appointment will be listed on both the appointment list and the TeachConnect Calendar.
 ****
 
 Examples:
 
-* `set_appointment t/Tutoring session s/02-04-2018 19:00 e/02-04-2018 20:00` +
+* `set_appointment t/Tutoring session s/02/04.2018 19:00 e/02/04/2018 20:00` +
 Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
 +
 image::appointmentAdded.jpg[width="800"]
@@ -136,44 +136,22 @@ image::appointmentAdded.jpg[width="800"]
 +
 
 
-=== Setting up a task : `set_task` `[since v1.3]`
+=== Setting up a task : `set_task`
 
 Sets up a task to be done by a deadline. +
 Format: `set_task t/TITLE e/END_DATE END_TIME`
 
 ****
-* Task with `TITLE` which needs to completed before `END_DATE` at `END_TIME` is added.
-* `END_DATE` must be in the format `DD-MM-YYYY`.
+* `END_DATE` must be in the format `DD/MM/YYYY`.
 * `END_TIME` must be in the 24-hr format: HH:MM.
 ****
 
 Examples:
 
-* `set_task t/Mark papers e/05-04-2018 10:00` +
+* `set_task t/Mark papers e/05/04/2018 10:00` +
 Sets a task which needs to be completed before April 5th, 2018, 10am.
 
-=== Removing an appointment or a task: `remove` `[since v1.4]`
-
-Removes an appointment or a task by the index number used from their respective listing. +
-Format: `remove EVENT_TYPE INDEX`.
-
-****
-* `EVENT_TYPE` can be either `appointment` or `task`.
-* The index *must be a positive integer* `1, 2, 3, ...`.
-****
-
-Examples:
-
-* `list appointments` +
-`remove appointment 2` +
-Removes the appointment with the index 2 in the appointment list.
-+
-image::appointmentRemoved.jpg[width="800"]
-    Figure 4: Remove command usage example
-+
-
-
-=== Changing GUI theme : `theme` `[since v1.4]`
+=== Changing GUI theme : `theme`
 
 Changes the theme of the GUI.  +
 Format: `theme THEME_NAME`
@@ -199,7 +177,7 @@ image::themeGalaxy.jpg[width="800"]
 +
 
 
-=== Switching Calendar Viewmode : `calendar` `[since v1.4]`
+=== Switching Calendar Viewmode : `calendar`
 
 Switches the Calendar view mode.  +
 Format: `calendar VIEW_MODE`
@@ -230,7 +208,7 @@ image::calendarMonth.jpg[width="800"]
 +
 
 
-=== Listing all contact/task/appointment/student : `list` `[updated since v1.4]`
+=== Listing all contact/task/appointment/student : `list`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
@@ -242,9 +220,9 @@ Format: `list TYPE`.
 
 Examples:
 
-* List all student: `list students` +
-* List all task: `list tasks` +
-* List all command shortcut: `list shortcuts`
+* `list students`: lists all students. +
+* `list tasks`: lists all tasks. +
+* `list shortcuts`: lists all shortcuts.
 
 
 === Editing a contact : `edit`
@@ -254,8 +232,7 @@ Edits an existing contact. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Contact at the specified `INDEX` is edited.
-* The index refers to the index number shown in the last contact listing.
+* The index refers to the index number shown in the last contact or student listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -265,10 +242,12 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `list contacts` + 
+`edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
+* `list students` +
+`edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
 === Locating contacts by name: `find`
 
@@ -286,9 +265,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find John` +
-Returns `john` and `John Doe`
+Shows all contacts with `john` in their name.
 * `find Betsy Tim John` +
-Returns any contact having names `Betsy`, `Tim`, or `John`
+Shows al contacts with `Betsy`, `Tim`, or `John` in their name.
 
 === Deleting an entry in the list : `delete`
 
@@ -297,7 +276,6 @@ Deletes the specified entry in the list. +
 Format: `delete INDEX`
 
 ****
-* Entry at the specified `INDEX` is deleted.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
 ****
@@ -307,10 +285,6 @@ Examples:
 * `list contacts` +
 `delete 2` +
 Deletes the 2nd contact in the list
-
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st contact in the results of the `find` command.
 
 * `list tasks` +
 `delete 4` +
@@ -322,7 +296,6 @@ Selects the contact identified by the index number used in the last contact list
 Format: `select INDEX`
 
 ****
-* Contact specified by `INDEX` is selected.
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`.
 ****
@@ -413,7 +386,7 @@ Format: `exit`
 Saves data in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
 There is no need to save manually.
 
-=== Importing the contacts : `import` `[since v1.4]`
+=== Importing the contacts : `import`
 
 Imports contacts from a different TeachConnect file by specifying the location of the file. +
 
@@ -421,9 +394,9 @@ Format: `import [TYPE] pathname`
 
 Examples:
 
-* Imports Contacts : `import ./data/importsample.xml`
+* `import ./data/importsample.xml` : Import contacts from `importsample.xml`
 
-=== Exporting the contacts : `export` `[since v1.4]`
+=== Exporting the contacts : `export`
 
 Exports contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes. By specifying the type of the export you want it saves either only the xml file or both the xml and Csv file.
 
@@ -441,10 +414,12 @@ Be careful about the parameter value for the format type. It has to exactly be e
 
 Examples:
 
-* Exports contacts : `export n/StudentsFile1 r/all t/students p/./data te/normal`
-* Exports contacts : `export n/StudentsFile2 r/1,10 t/students p/./data te/excel`
+* `export n/StudentsFile1 r/all t/students p/./data te/normal` : +
+export all contacts with tag student to an xml file named `StudentsFile1` in the `data` folder.
+* `export n/StudentsFile2 r/1,10 t/students p/./data te/excel` : +
+export contacts from 1 to 10 with tag students to an excel file named `StudentsFile2` in the `data` folder.
 
-=== Adding your own shortcut : `shortcut` `[since v1.4]`
+=== Adding your own shortcut : `shortcut`
 
 Sets your own personal shortcut for any of the commands above.
 
@@ -461,10 +436,10 @@ Your shortcut word cannot be more than a single word.
 
 Examples:
 
-* Personalised Alias : `shortcut list l`
-* Personalised Alias : `shortcut add a`
+* `shortcut list l` : typing `l` is now equivalent to typing `list`.
+* `shortcut add a` : typing `a` is now equivalent to typing `add`.
 
-=== Deleting your personalised Alias : `delete_shortcut` `[since v1.4]`
+=== Deleting your personalised Alias : `delete_shortcut`
 
 Deletes your personalised Alias if you don't want them or if you created them by mistake.
 
@@ -479,8 +454,8 @@ You can only delete shortcuts that you have already added.
 
 Examples:
 
-* Deletes the Personalised Alias : `delete_shortcut list l`
-* Deletes the Personalised Alias : `delete_shortcut add a`
+* `delete_shortcut list l` : typing `l` is no longer equivalent to typing `list`.
+* `delete_shortcut add a` : typing `a` is no longer equivalent to typing `add`.
 
 
 === Upcoming features `[coming soon]`
@@ -489,6 +464,7 @@ Examples:
 * Dynamic search [coming in v2.0]
 * NLP for event and appointment scheduling [coming in v2.0]
 * Encrypting data files [coming in v2.0]
+* Adding a student into an already formed class [coming in v2.0]
 
 == FAQ
 
@@ -502,7 +478,7 @@ The table below summarizes TeachConnect's command list.
 |=======================================================================
 |Command |Format |Example
 
-|*Add*|`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`|`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+|*Add*|`add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`|`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
 |*Clear*|`clear`|`clear`
 
@@ -511,6 +487,8 @@ The table below summarizes TeachConnect's command list.
 |*Edit*|`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`|`edit 2 n/James Lee e/jameslee@example.com`
 
 |*Find*|`find KEYWORD [MORE_KEYWORDS]` | `find James Jake`
+
+|*Form*|`form SUBJECT n/CLASS_NAME s/START_DATE e/END_DATE i/INDEX...`| `form math n/math101 s/14/04/2018 e/15/09/2018 i/1,4`
 
 |*List*|`list TYPE` | `list student`
 
