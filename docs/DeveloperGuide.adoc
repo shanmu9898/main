@@ -356,6 +356,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::import[]
 === Import Contacts
 ==== Current Implementation
 The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
@@ -370,28 +371,19 @@ image::ImportCommandFlowChart.png[align="center"]
 
 Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
 [source, java]
+----
 public CommandResult executeUndoableCommand() throws CommandException {
-        try {
-          if (addressBookStorage.readAddressBook(filePath).isPresent()) {
-              this.addressBookImported = new AddressBook(addressBookStorage.readAddressBook().get());
-              ObservableList<Person> people = addressBookImported.getPersonList();
-              for (int i = 0; i < people.size(); i++) {
-                  try {
-                      model.addPerson(people.get(i));
-                  } catch (DuplicatePersonException e) {
-                      throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-                  }
-              }
-          } else {
-              throw new CommandException(String.format(MESSAGE_INVALID_FILE));
-          }
-      } catch (DataConversionException e) {
-          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
-      } catch (IOException e) {
-          throw new CommandException(String.format(MESSAGE_INVALID_FILE));
-      }
+     ObservableList<Person> people = addressBookImported.getPersonList();
+     for (int i = 0; i < people.size(); i++) {
+           try {
+             model.addPerson(people.get(i));
+           } catch (DuplicatePersonException e) {
+             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+           }
+     }
      return new CommandResult(MESSAGE_SUCCESS);
 }
+----
 
 ==== Design Considerations
 ===== Aspects : Implementation Import Command
@@ -405,21 +397,18 @@ public CommandResult executeUndoableCommand() throws CommandException {
 
 // tag::export[]
 === Export contacts
+==== Current Implementation
 
-The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
+The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
 
 [source,java]
 ----
-ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
-        requireNonNull(range);
-        requireNonNull(tag);
-        requireNonNull(path);
-        requireNonNull(nameOfExportFile);
-
+ExportCommand(String range, Tag tag, String path, String nameOfExportFile, String type) {
         this.range = range;
         this.path = path;
         thispublic.tag = tag;
         this.nameOfExportFile = nameOfExportFile;
+        this.type = type;
 
         teachConnectBook = new AddressBook();
 }
@@ -427,7 +416,7 @@ ExportCommand(String range, Tag tag, String path, String nameOfExportFile) {
 
 image::ExportCommandDiagram.png[align="center"]
 
-The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported.
+The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported. Based on the type it also exports to an excel format or XML format.
 
 Below is an extract of the method `handleRange()`:
 
@@ -466,45 +455,23 @@ String[] rangeGiven;
         } catch (IOException e) {
             return new CommandResult(MESSAGE_RANGE_ERROR);
         }
-        if (rangeGiven[0].equals("all")) {
-            try {
-                exportAllRange(tag);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError(MESSAGE_FAIL);
-            }
-        } else {
-            if (rangeGiven.length != 1) {
-                for (int i = 0; i < rangeGiven.length; i++) {
-                    int low = Integer.parseInt(rangeGiven[0]);
-                    int high = Integer.parseInt(rangeGiven[1]);
-                    if (low >= high) {
-                        return new CommandResult(MESSAGE_RANGE_ERROR);
-                    } else {
-                        try {
-                            exportRange(low, high, tag);
-                        } catch (DuplicatePersonException e) {
-                            throw new AssertionError(MESSAGE_FAIL);
-                        } catch (IndexOutOfBoundsException e) {
-                            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
-                        }
-                    }
-                }
-            } else {
-                int low = Integer.parseInt(rangeGiven[0]);
-                try {
-                    exportSpecific(low);
-                } catch (DuplicatePersonException e) {
-                    throw new AssertionError(MESSAGE_FAIL);
-                } catch (IndexOutOfBoundsException e) {
-                    return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
-                }
-            }
+
+
+        try {
+            handledRangeSituation = handleRangeArray(rangeGiven);
+        } catch (DuplicatePersonException e) {
+            return new CommandResult(MESSAGE_FAIL);
+        } catch (IndexOutOfBoundsException e) {
+            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
         }
 
+        if (handledRangeSituation != null) {
+            return handledRangeSituation;
+        }
         ....Storage part comes here
 ----
 
-The final step is to create the xml file from the `teachConnectBook`.
+The final step is to create the xml/excel file from the `teachConnectBook`.
 
 Below is the code snippet to export the data into an xml file using `AddressBookStorage`.
 [source,java]
@@ -517,7 +484,166 @@ teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + 
         }
         return new CommandResult(MESSAGE_SUCCESS);
 ----
+
+Depending on the type of export it can also be exported to an excel format using an arrayList called `exportAddition`.
+
+Below is the code snipped to export the data into an excel file.
+[source,java]
+----
+CSVPrinter csvPrinter;
+        try {
+            csvPrinter = csvFileToBeWritten();
+        } catch (IOException e) {
+           handle exception...
+        }
+
+        try {
+            for (Person p : exportAddition) {
+                csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
+            }
+
+            csvPrinter.flush();
+
+        }
+        exceptions are to be handled...
+----
+
+==== Design Considerations
+===== Aspects : Implementation Export Command
+* **Alternative 1:** Only export to an `XML` file.
+** Pros: Easier implementation and very helpful for the import command as import can only be done from an XML file.
+** Cons: The exported file might not be very user friendly to read in the xml file format and hence later referencing to the file after exporting can be a nightmare.
+* **Alternative 2 (current choice):** Include export to an `Excel` file too.
+** Pros: Might be more intuitive for the user and might come in handy especially when the user wants to print it or later read the contents in a user friendly format.
+** Cons: Complex implementation there by giving rise to more boundary cases to consider.
 // end::export[]
+
+// tag::shortcut[]
+=== Personalised Shortcut
+==== Current Implementation
+
+The personalised shortcut uses a `ShortcutDouble` to hold the shortcut word and the command word. There is a `UniqueShortcutDoublesList` to which these `ShortcutDoubles` are added. The comparator in the `ShortcutDouble` accounts to check for any duplicates in the `UniqueShortcutDoublesList`. This list is then added to the `addressbook.xml` so as to load the shortcuts on initialisation. Below is a short code snippet of the constructor of the ShortcutDouble:
+
+[source,java]
+----
+public ShortcutDoubles(String shortcutWord, String commandWord) {
+        this.shortcutWord = shortcutWord;
+        this.commandWord = commandWord;
+}
+----
+
+This ShortcutDouble is called using the `ShortcutCommand`. Below is the constructor to the ShortcutCommand:
+[source,java]
+----
+public ShortcutCommand(String commandWord, String shortcutWord) {
+        this.shortcutWord = shortcutWord;
+        this.commandWord = commandWord;
+}
+----
+
+Shortcut command extends `UndoableCommand` and hence is undoable. It initially calls a filtered commandsList to which a new `ShortcutDouble` is added based on the checks. Below is the implementation of the `executeUndoableCommand()` method in the ShortcutCommand class.
+[source,java]
+----
+commandsList = model.getFilteredCommandsList();
+        checks for checking if the command is already present...
+
+        ShortcutDoubles toAdd = new ShortcutDoubles(shortcutWord, commandWord);
+        try {
+            model.addCommandShortcut(toAdd);
+        } catch (UniqueShortcutDoublesList.DuplicateShortcutDoublesException e) {
+            return new CommandResult(String.format(MESSAGE_SHORTCUT_AVAILABLE));
+        }
+
+        returns the success message....
+----
+
+There is a check to find if the command is already present and the method used for this is called `checkIfCommandPresent()`.By default it returns false. Below is a small code snippet to take notice of:
+[source,java]
+----
+if (!containsKeyWord(commandWord) || containsKeyWord(shortcutWord)) {
+            throw new CommandException(MESSAGE_NO_COMMAND_TO_MAP);
+}
+for (ShortcutDoubles s : commandsList) {
+     if (s.shortcutWord.equals(shortcutWord)) {
+         return true;
+     }
+}
+return false;
+----
+
+You can also choose to list all the shortcuts created uptil now. This displays the `UniqueShortcutDoublesList` instead of the contacts in the list panel. A high level sequence diagram is given below :
+
+image::ListShortcutsHighLevelSequenceDiagrams.png[width="600"]
+
+
+
+As of now the conditions to take note of are:
+* Shortcut can be only one word.
+* The command word should already exist.
+* New commands are to be added in the `commandsPresent` String array.
+
+==== Design Considerations
+===== Aspects : Implementation Shortcut Command
+* **Alternative 1:** Restricting the number of aliases of a command word.
+** Pros: Allows for setting up a shortcut word there by increasing the usability of the app.
+** Cons: Wouldn't help much if the user keeps forgetting the shortcut word too because there is only one shortcut alias and the user might forget it.
+* **Alternative 2 (current choice):** Allowing multiple number of shortcut words for a single command word
+** Pros: User can create multiple aliases there by giving the user more personalisation and the flexibility of forgetting the words as he can create more of them.
+** Cons: Need to consider several cases for duplicate shortcuts and maintain a dynamic list without forgetting the shortcuts when the app is closed without hardcoding the shortcut word into each command.
+// end::shortcut[]
+
+// tag::deleteshortcut[]
+=== Deleting Personalised Shortcut
+==== Current Implementation
+The personalised shortcut uses a `ShortcutDouble` to hold the shortcut word and the command word. There is a `UniqueShortcutDoublesList` to which these `ShortcutDoubles` are added. The comparator in the `ShortcutDouble` accounts to check for any duplicates in the `UniqueShortcutDoublesList`. This list is then added to the `addressbook.xml` so as to load the shortcuts on initialisation. Below is a short code snippet of the constructor of the ShortcutDouble:
+
+[source,java]
+----
+public ShortcutDoubles(String shortcutWord, String commandWord) {
+        this.shortcutWord = shortcutWord;
+        this.commandWord = commandWord;
+}
+----
+
+This ShortcutDouble can be deleted using the `DeleteShortcutCommand`. The sequence diagram is below :
+
+image::DeleteShortcutSequenceDiagram.png[width="600"]
+
+Below is the constructor to the DeleteShortcutCommand:
+[source,java]
+----
+public DeleteShortcutCommand(String commandWord, String shortcutWord) {
+        this.commandWord = commandWord;
+        this.shortcutWord = shortcutWord;
+        commandShortcut = new ShortcutDoubles(shortcutWord, commandWord);
+}
+----
+
+DeleteShortcut command extends `UndoableCommand` and hence is undoable. It calls the method `deleteCommandShortcut()` in the model class to achieve its objective. Below is a code snippet of the `executeUndoableCommand()` used to for deleting the shortcut:
+[source,java]
+----
+       try {
+            model.deleteCommandShortcut(commandShortcut);
+        } catch (UniqueShortcutDoublesList.CommandShortcutNotFoundException csnf) {
+            throw new CommandException("Please enter a valid Shortcut Command you have saved");
+        }
+        returns the success message....
+----
+
+There is a check to find if the shortcut is already present or not and `CommandShortcutNotFoundException` is thrown if the shortcut is not present.
+
+As of now the conditions to take note of are:
+* DeleteShortcut can be only delete something if the command is already present.
+
+==== Design Considerations
+===== Aspects : Validity of the Delete Shortcut Command
+* **Alternative 1:** Omit the delete shortcut command.
+** Pros: Would require less implementation considering the fact that the shortcut has been added by the user.
+** Cons: Would not give the user any room for mistake or change of mind as once added cannot be deleted.
+* **Alternative 2 (current choice):** Include the delete shortcut command.
+** Pros: Will give the user the room to make mistake and change the shortcuts if needed. Would also help him in clearing the clutter of shortcuts which would have developed over time.
+** Cons: Will have to take care of various edge cases when the shortcuts are not present and keep modifying the dynamic list. Several relevant exceptions have to be thrown and taken care of.
+// end::endshortcut[]
 
 // tag::studentmanagement[]
 === [Incomplete] Student Management
@@ -534,7 +660,7 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 
 * **Alternative 1 (current choice):** student extends person
 ** Pros: Allow students access to person methods while restricting person from accessing student methods.
-** Cons: A seperate UniqueStudentList is required to store the student contacts.
+** Cons: A separate UniqueStudentList is required to store the student contacts.
 * **Alternative 2:** only use a tag to show its a student
 ** Pros: Simpler to implement and tags are visible to user
 ** Cons: Requires every operation to check the tags. Tags can be removed.
