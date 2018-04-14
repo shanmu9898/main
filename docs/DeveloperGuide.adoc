@@ -16,6 +16,19 @@ endif::[]
 
 By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
+== Introduction
+Welcome to Teach Connect (TC)! TC is a command-line application which provides a convenient way for teachers and other educational professionals to better manage their contacts and schedules. This developer guide provides information that helps you to get started as a TC contributor, and aids you even if you are an experienced contributor.
+
+The developer guide consists of the following sections:
+
+* Setting up
+* Design
+* Implementation
+* Documentation
+* Testing
+* Dev Ops
+* Appendices
+
 == Setting up
 
 === Prerequisites
@@ -91,7 +104,7 @@ When you are ready to start coding,
 
 == Design
 
-This section focuses on the design of TeachConnect's major components.
+This section discusses the design of TeachConnect's major components.
 
 [[Design-Architecture]]
 === Architecture
