@@ -18,7 +18,7 @@ import static seedu.address.logic.commands.ListCommand.TYPE_SHORTCUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.testutil.ExportCommandHelper.NAME_NEEDED;
 import static seedu.address.testutil.ExportCommandHelper.PATH_NEEDED;
@@ -35,7 +35,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ChangeThemeCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -51,7 +50,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
@@ -61,8 +59,8 @@ import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -185,7 +183,7 @@ public class AddressBookParserTest {
     public void parseCommand_export() throws Exception {
         ExportCommand command = (ExportCommand) parser.parseCommand(
                 ExportCommand.COMMAND_WORD + " " + PREFIX_NAME + NAME_NEEDED + " " + PREFIX_RANGE + RANGE_ALL
-                        + " " + PREFIX_TAG_EXPORT + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
+                        + " " + PREFIX_TAG + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
                         + TYPE_NEEDED);
         assertEquals (new ExportCommand ("all", new Tag ("friends"), "./data",
                 "name", "xml"), command);
@@ -237,7 +235,7 @@ public class AddressBookParserTest {
     public void parseCommand_setTask() throws Exception {
         SetTaskCommand command =
                 (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
-        Task task = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
+        Task task = new Task(new Title(VALID_TITLE), new Time(VALID_END_TIME, false));
         assertEquals(new SetTaskCommand(task), command);
     }
 
@@ -268,5 +266,4 @@ public class AddressBookParserTest {
 
     }
     //@@author
-
 }

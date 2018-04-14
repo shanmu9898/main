@@ -8,10 +8,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  */
 public class Task {
     private Title title;
-    private EventTime time;
+    private Time time;
 
     //Every field must be present and not null
-    public Task(Title title, EventTime deadline) {
+    public Task(Title title, Time deadline) {
         requireAllNonNull(title, deadline);
         this.title = title;
         this.time = deadline;
@@ -21,7 +21,7 @@ public class Task {
         return title;
     }
 
-    public EventTime getTime() {
+    public Time getTime() {
         return time;
     }
 

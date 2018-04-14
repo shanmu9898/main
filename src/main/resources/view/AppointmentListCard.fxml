@@ -8,27 +8,41 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
+        <HBox>
+            <VBox alignment="CENTER" minHeight="90" prefWidth="2.0" GridPane.columnIndex="0">
+                <padding>
+                    <Insets bottom="5" left="5" right="0" top="5" />
+                </padding>
+                <StackPane prefWidth="0.0">
+                    <children>
+                        <Circle styleClass="cell_circle" fill="TRANSPARENT" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="1.5" />
+                        <Label fx:id="id" styleClass="cell_index_label" text="\$id">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                    </children>
+                </StackPane>
+            </VBox>
         <VBox alignment="CENTER_LEFT" minHeight="80" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
                 <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
             <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
             <Label fx:id="personToMeet" styleClass="cell_small_label" text="\$personToMeet" />
         </VBox>
+        </HBox>
     </GridPane>
 </HBox>

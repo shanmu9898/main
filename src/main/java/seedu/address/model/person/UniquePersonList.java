@@ -117,6 +117,7 @@ public class UniquePersonList implements Iterable<Person> {
         });
     }
 
+    //@@author
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.education.Class;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.person.Person;
@@ -55,5 +56,10 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<ShortcutDoubles> getCommandsList();
 
+    /**
+     * Returns an unmodifiable view of the class list.
+     * This list will not contain any duplicate classes.
+     */
+    ObservableList<Class> getClassList();
 
 }

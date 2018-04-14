@@ -24,7 +24,11 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        undoRedoStack.popUndo().undo();
+        UndoableCommand toUndo = undoRedoStack.popUndo();
+        toUndo.undo();
+        if (toUndo instanceof SetAppointmentCommand || toUndo instanceof DeleteCommand) {
+            model.indicateAppointmentListChanged();
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

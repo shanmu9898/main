@@ -2,15 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.event.EventTime;
+import seedu.address.model.education.Subject;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -54,6 +57,33 @@ public class ParserUtil {
     public static Optional<Index> parseIndex(Optional<String> oneBasedIndex) throws IllegalValueException {
         requireNonNull(oneBasedIndex);
         return oneBasedIndex.isPresent() ? Optional.of(parseIndex(oneBasedIndex.get())) : Optional.empty();
+    }
+
+    /**
+     * Parses {@code oneBasedIndexes} into a {@code List<Index>} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws IllegalValueException if the specified indexes is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndexes(String oneBasedIndexes) throws IllegalValueException {
+        List<Index> indexList = new ArrayList<>();
+        String[] indexArr = oneBasedIndexes.split("[ ,]");
+        for (String index: indexArr) {
+            if (!StringUtil.isNonZeroUnsignedInteger(index)) {
+                throw new IllegalValueException(MESSAGE_INVALID_INDEX);
+            }
+            indexList.add(Index.fromOneBased(Integer.parseInt(index)));
+        }
+        return indexList;
+    }
+
+    /**
+     * Parses a {@code Optional<String> onebasedIndexes} into an {@code Optional<List<Index>>}
+     * if {@code onebasedIndexes} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<List<Index>> parseIndexes(Optional<String> oneBasedIndexes) throws IllegalValueException {
+        requireNonNull(oneBasedIndexes);
+        return oneBasedIndexes.isPresent() ? Optional.of(parseIndexes(oneBasedIndexes.get())) : Optional.empty();
     }
 
     /**
@@ -178,24 +208,44 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> eventTime} into an {@code Optional<EventTime>} if {@code eventTime} is present.
+     * Parses a {@code Optional<String> time} into an {@code Optional<Time>} if {@code time} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<EventTime> parseEventTime(Optional<String> eventTime) throws IllegalArgumentException {
-        requireNonNull(eventTime);
-        return eventTime.isPresent() ? Optional.of(parseEventTime(eventTime.get())) : Optional.empty();
+    public static Optional<Time> parseTime(Optional<String> time) throws IllegalArgumentException {
+        requireNonNull(time);
+        return time.isPresent() ? Optional.of(parseTime(time.get())) : Optional.empty();
     }
 
     /**
-     * Parses a {@code String eventTime} into a {@code EventTime}.
+     * Parses a {@code String time} into a {@code Time}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static EventTime parseEventTime(String eventTime) throws IllegalArgumentException {
-        requireNonNull(eventTime);
-        String trimmedEventTime = eventTime.trim();
-        return new EventTime(trimmedEventTime);
+    public static Time parseTime(String time) throws IllegalArgumentException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        return new Time(trimmedTime, false);
+    }
+    //@@author randypx-reused
+    /**
+     * Parses a {@code Optional<String> time} into an {@code Optional<Time>} if {@code time} is present.
+     * See header comment of this class regarding the use of {@code Optional} parameters.
+     */
+    public static Optional<Time> parseDate(Optional<String> date) throws IllegalArgumentException {
+        requireNonNull(date);
+        return date.isPresent() ? Optional.of(parseDate(date.get())) : Optional.empty();
     }
 
+    /**
+     * Parses a {@code String time} into a {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Time parseDate(String date) throws IllegalArgumentException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        return new Time(trimmedDate, true);
+    }
+
+    //@@author
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
@@ -221,5 +271,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    //@@author randypx
+    /**
+     * Parses a {@code String subject} into a {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code subject} is invalid.
+     */
+    public static Subject parseSubject(String subject) throws IllegalValueException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new IllegalValueException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+        }
+        return new Subject(trimmedSubject);
     }
 }

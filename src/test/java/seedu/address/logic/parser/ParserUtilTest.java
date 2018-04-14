@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -114,21 +114,21 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventTime_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((String) null));
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((Optional<String>) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((Optional<String>) null));
     }
 
     @Test
     public void parseEventTime_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        assertFalse(ParserUtil.parseEventTime(Optional.empty()).isPresent());
+        assertFalse(ParserUtil.parseTime(Optional.empty()).isPresent());
     }
 
     @Test
     public void parseEventTime_validValue_returnsEventTime() throws Exception {
         String validTime = "20/10/2018 10:00";
-        EventTime expectedEventTime = new EventTime(validTime);
-        assertEquals(expectedEventTime, ParserUtil.parseEventTime(validTime));
-        assertEquals(Optional.of(expectedEventTime), ParserUtil.parseEventTime(Optional.of(validTime)));
+        Time expectedTime = new Time(validTime, false);
+        assertEquals(expectedTime, ParserUtil.parseTime(validTime));
+        assertEquals(Optional.of(expectedTime), ParserUtil.parseTime(Optional.of(validTime)));
     }
 
     //@@author
