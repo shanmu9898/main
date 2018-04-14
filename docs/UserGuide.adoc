@@ -151,6 +151,7 @@ image::appointmentAdded.jpg[width="800"]
 
 // end::appointment[]
 // tag::task[]
+
 === Setting up a task : `set_task` `[since v1.3]`
 
 Sets up a task to be done by a deadline. +
