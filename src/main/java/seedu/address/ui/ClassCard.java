@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.education.Class;
@@ -34,17 +33,19 @@ public class ClassCard extends UiPart<Region> {
     @FXML
     private Label duration;
     @FXML
-    private FlowPane students;
+    private Label students;
 
     public ClassCard(Class group, int displayedIndex) {
         super(FXML);
         this.classroom = group;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         className.setText(group.getName().fullName);
         subject.setText(group.getSubject().value);
         duration.setText("From " + DATE_FORMATTER.format(group.getStartDate().value.getTime()) + " to "
                 + DATE_FORMATTER.format(group.getEndDate().value.getTime()));
-        group.getStudents().forEach(student -> students.getChildren().add(new Label(student.fullName)));
+        StringBuilder studentList = new StringBuilder();
+        group.getStudents().forEach(student -> studentList.append(student.fullName).append("\n"));
+        students.setText(studentList.toString());
     }
 
     @Override

@@ -421,6 +421,7 @@ public CommandResult executeUndoableCommand() throws CommandException {
 * **Alternative 2:** Include import from an `Excel` file too.
 ** Pros: Might be more intuitive for the user and might come in handy.
 ** Cons: Will not really help the user distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
+// end::import[]
 
 // tag::export[]
 === Export Contacts
@@ -676,7 +677,7 @@ As of now the conditions to take note of are:
 * **Alternative 2 (current choice):** Include the delete shortcut command.
 ** Pros: Will give the user the room to make mistake and change the shortcuts if needed. Would also help him in clearing the clutter of shortcuts which would have developed over time.
 ** Cons: Will have to take care of various edge cases when the shortcuts are not present and keep modifying the dynamic list. Several relevant exceptions have to be thrown and taken care of.
-// end::endshortcut[]
+// end::deleteshortcut[]
 
 // tag::studentmanagement[]
 === [Incomplete] Student Management

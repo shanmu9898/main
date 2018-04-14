@@ -32,7 +32,7 @@ public class SetAppointmentCommand extends UndoableCommand {
             + PREFIX_END_TIME + "END-DATE END-TIME "
             + PREFIX_INDEX + "PERSON TO MEET\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "Meet James "
+            + PREFIX_TITLE + "Consultation "
             + PREFIX_START_TIME + "20/05/2018 10:00 "
             + PREFIX_END_TIME + "20/05/2018 12:00 "
             + PREFIX_INDEX + "3 ";

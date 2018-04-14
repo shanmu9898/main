@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.ClassListChangedEvent;
+import seedu.address.commons.events.model.StudentListChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ThemeChangeEvent;
@@ -276,4 +278,15 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         toggleList(event.list);
     }
+
+    @Subscribe
+    private void handleStudentListChangedEvent(StudentListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+    }
+
+    @Subscribe
+    private void handleClassListChangedEvent(ClassListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        classListPanel = new ClassListPanel(logic.getFilteredClassList());    }
 }
