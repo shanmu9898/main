@@ -99,6 +99,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tasks.setEvents(tasks);
     }
 
+    public void sortContacts() {
+        contacts.sortList();
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */

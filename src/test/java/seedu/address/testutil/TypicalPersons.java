@@ -114,4 +114,8 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
+    public static List<Person> getUnsortedPersons() {
+        return new ArrayList<>(Arrays.asList(ELLE, BENSON, FIONA, DANIEL, ALICE, CARL, GEORGE));
+    }
 }

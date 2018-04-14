@@ -90,6 +90,7 @@ public interface Model {
     void deleteCommandShortcut(ShortcutDoubles commandShortcut)
             throws UniqueShortcutDoublesList.CommandShortcutNotFoundException;
 
+    /** Returns a sorted list of contacts*/
     void sortByNameFilteredPersonList();
 
     /**

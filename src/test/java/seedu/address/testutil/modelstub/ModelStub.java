@@ -124,6 +124,7 @@ public class ModelStub implements Model {
     public void sortByNameFilteredPersonList() {
         fail("This method should not be called.");
     }
+
     @Override
     public void deleteTag(Tag tag) {
         fail("This method should not be called.");

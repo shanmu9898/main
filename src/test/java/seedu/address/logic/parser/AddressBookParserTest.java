@@ -267,7 +267,6 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
 
     }
-
     //@@author
 
 }

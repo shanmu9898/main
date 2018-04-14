@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -178,21 +177,14 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(sortedFilteredConatacts);
+        return FXCollections.unmodifiableObservableList(filteredContacts);
     }
 
 
     //@@author LimShiMinJonathan
     @Override
     public void sortByNameFilteredPersonList() {
-        Comparator<Person> sortByName = new Comparator<Person>() {
-            @Override
-            public int compare(Person contact1, Person contact2) {
-                return contact1.getName().fullName.compareToIgnoreCase(contact2.getName().fullName);
-            }
-        };
-
-        sortedFilteredConatacts.setComparator(sortByName);
+        addressBook.sortContacts();
         indicateAddressBookChanged();
     }
     //@@author

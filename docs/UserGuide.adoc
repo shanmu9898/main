@@ -70,6 +70,11 @@ image::commandbox.jpg[width="800"]
 Accesses the User Guide for TeachConnect. +
 Format: `help`
 
+=== Sorting all contacts : `sort`
+
+Sorts all contacts in alphabetical order. +
+Format: `sort`
+
 === Adding a contact: `add`
 
 Adds a contact.  +
