@@ -131,4 +131,7 @@ public interface Model {
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);
+
+    /** Raises an event to indicate the appointment list has changed */
+    void indicateAppointmentListChanged();
 }
