@@ -89,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the appointment list has changed */
-    private void indicateAppointmentListChanged() {
+    public void indicateAppointmentListChanged() {
         raise(new AppointmentListChangedEvent(addressBook.getAppointmentList()));
     }
 

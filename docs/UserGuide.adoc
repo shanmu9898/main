@@ -91,7 +91,7 @@ Adds a default contact named `John Doe` to TeachConnect's contact list.
 * `add student n/Betsy Crowe e/betsycrowe@example.com a/Centre Street, block 238, #02-02` +
 Adds a student contact named `Betsy Crowe` to TeachConnect's contact list.
 
-
+// tag::class[]
 === Forming a class
 
 Forms a class of students for a specified subject and time period. +
@@ -111,6 +111,7 @@ Examples:
 * `list students` +
 `form English s/18/01/2018 e/17/07/2019` i/1,5,2 +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
+//end::class[]
 
 // tag::appointment[]
 === Setting up an appointment : `set_appointment`
