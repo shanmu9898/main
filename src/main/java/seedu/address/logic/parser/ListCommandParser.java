@@ -35,6 +35,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         case(ListCommand.TYPE_APPOINTMENT):
         case(ListCommand.TYPE_TASK):
         case(ListCommand.TYPE_SHORTCUT):
+        case(ListCommand.TYPE_CLASS):
             return true;
         default:
             return false;

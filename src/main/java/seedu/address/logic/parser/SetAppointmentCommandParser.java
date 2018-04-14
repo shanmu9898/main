@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_TO_MEET_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -14,7 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Appointment;
-import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 
 //@@author Sisyphus25
@@ -31,7 +31,7 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
     public SetAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_START_TIME,
-                        PREFIX_END_TIME, PREFIX_PERSON_TO_MEET_INDEX);
+                        PREFIX_END_TIME, PREFIX_INDEX);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_START_TIME, PREFIX_END_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -42,9 +42,9 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
         try {
             Index index = null;
             Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE)).get();
-            EventTime startTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME)).get();
-            EventTime endTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME)).get();
-            Optional<Index> optionalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PERSON_TO_MEET_INDEX));
+            Time startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME)).get();
+            Time endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME)).get();
+            Optional<Index> optionalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX));
             if (optionalIndex.isPresent()) {
                 index = optionalIndex.get();
             }

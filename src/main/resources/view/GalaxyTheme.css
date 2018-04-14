@@ -15,10 +15,26 @@ reused from DarkTheme.css with modifications */
     -fx-opacity: 0.9;
 }
 
+.studentList {
+    -fx-background-color: white;
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
 .app-title {
     -fx-text-fill: white;
     -fx-font-family: "Franklin Gothic Heavy";
     -fx-font-size: 40px;
+}
+
+
+.cell_index_label {
+    -fx-font-size: 20px;
+    -fx-font-family: "Franklin Gothic Medium";
+}
+
+.cell_circle {
+    -fx-stroke: derive(#070f60, 50%);
 }
 
 .app-title .text {

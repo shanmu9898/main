@@ -39,9 +39,9 @@ public class TaskCard extends UiPart<Region> {
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         title.setText(task.getTitle().value);
-        time.setText("Finish before: " + DATE_FORMATTER.format(task.getTime().value.getTime()));
+        time.setText("Deadline: " + DATE_FORMATTER.format(task.getTime().value.getTime()));
         if (task.getTime().isExpired()) {
             addExpiredTag();
         }

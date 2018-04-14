@@ -235,9 +235,9 @@ Lists all command shortcuts.
 // tag::import[]
 === Importing the contacts : `import`
 
-Imports contacts from a different TeachConnect file by specifying the location of the file. +
+Imports contacts from a different TeachConnect file by specifying the location of the file. This automatically imports all the students, classes and any other contacts present in the import file. +
 
-Format: `import [TYPE] pathname`
+Format: `import pathname`
 
 Examples:
 
@@ -246,28 +246,36 @@ Examples:
 // end::import[]
 
 // tag::export[]
-=== Exporting the contacts : `export`
 
-Exports contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts based on a given range of indexes or a given tag or a given tag in a range of indexes. By specifying the type of the export you want it saves either only the xml file or both the xml and Csv file.
+=== Exporting the contacts or classes : `export` `[since v1.4]`
 
-Format: `export n/NAME r/RANGE t/TAG p/PATH te/normal`
+Exports contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts/students based on a given range of indexes or a given tag or a given tag in a range of indexes. Alternatively you can choose to export all the classes with the students in them. By specifying the type of the export you want it saves either only the xml file or the Csv file.
 
-Format: `export n/NAME r/RANGE p/PATH te/excel`
+Format: `export n/NAME r/RANGE [t/TAG] p/PATH te/TYPE`
+
+Format: `export classes n/NAME p/PATH te/TYPE`
+
+****
+* Here TYPE refers to the kind of export you want to do.
+* `TYPE` can be either excel or xml.
+****
 
 [TIP]
 You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command. +
-You can also choose to export it in Csv format which you can later open in Excel.
+You can also choose to export it in Csv format which you can later open in Excel. +
+You can also choose to export all the classes and the students in it using the export class format.
 
 [WARNING]
 You can only export all or people based on one or zero tags. +
-Be careful about the parameter value for the format type. It has to exactly be either `normal` or `excel`.
+Be careful about the parameter value for the format type. It has to exactly be either `xml` or `excel`.
 
 Examples:
 
 * `export n/StudentsFile1 r/all t/students p/./data te/normal` : +
-export all contacts with tag student to an xml file named `StudentsFile1` in the `data` folder.
+Exports all contacts with tag student to an xml file named `StudentsFile1` in the `data` folder.
 * `export n/StudentsFile2 r/1,10 t/students p/./data te/excel` : +
-export contacts from 1 to 10 with tag students to an excel file named `StudentsFile2` in the `data` folder.
+Exports contacts from 1 to 10 with tag students to an excel file named `StudentsFile2` in the `data` folder.
+
 
 // end::export[]
 
@@ -520,8 +528,6 @@ The table below summarizes TeachConnect's command list.
 |*Set Appointment*|`set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/INDEX`|`set_appointment t/Meet parent s/05/04/2018 10:00 e/05/04/2018 11:00 i/3`
 
 |*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
-
-|*Remove*|`remove EVENT_TYPE INDEX` | `remove task 3`
 
 |*Change GUI theme*|`theme THEME_NAME` | `theme dark`
 

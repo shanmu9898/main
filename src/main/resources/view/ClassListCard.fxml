@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <HBox>
+            <VBox alignment="TOP_CENTER" prefHeight="105" prefWidth="2.0" GridPane.columnIndex="0">
+                <padding>
+                    <Insets bottom="5" left="5" right="0" top="0"/>
+                </padding>
+                <StackPane alignment="CENTER" prefHeight="99.0" prefWidth="0.0">
+                    <children>
+                        <Circle styleClass="cell_circle" fill="TRANSPARENT" radius="25.0" stroke="WHITE"
+                                strokeType="INSIDE" strokeWidth="1.5"/>
+                        <Label fx:id="id" styleClass="cell_index_label" text="\$id">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE"/>
+                            </minWidth>
+                        </Label>
+                    </children>
+                </StackPane>
+            </VBox>
+
+            <VBox alignment="CENTER_LEFT" minHeight="80" GridPane.columnIndex="0">
+                <padding>
+                    <Insets bottom="5" left="15" right="5" top="5"/>
+                </padding>
+                <HBox alignment="CENTER_LEFT" spacing="5">
+                    <Label fx:id="className" styleClass="cell_big_label" text="\$className"/>
+                </HBox>
+                <Label fx:id="subject" styleClass="cell_small_label" text="\$subject"/>
+                <Label fx:id="duration" styleClass="cell_small_label" text="\$duration"/>
+                <VBox styleClass="studentList">
+                    <padding>
+                        <Insets bottom="5" left="5" right="5" top="5"/>
+                    </padding>
+                        <Label fx:id="id1" styleClass="cell_big_label" text="Student List">
+                        </Label>
+                        <Label fx:id="students" styleClass="cell_small_label">
+                        </Label>
+                </VBox>
+            </VBox>
+        </HBox>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+</HBox>
