@@ -3,12 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -38,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
+    private final SortedList<Person> sortedFilteredConatacts;
     private String currentActiveListType;
 
     /**
@@ -54,6 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        sortedFilteredConatacts = new SortedList<Person>(filteredContacts);
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -174,8 +178,24 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredContacts);
+        return FXCollections.unmodifiableObservableList(sortedFilteredConatacts);
     }
+
+
+    //@@author LimShiMinJonathan
+    @Override
+    public void sortByNameFilteredPersonList() {
+        Comparator<Person> sortByName = new Comparator<Person>() {
+            @Override
+            public int compare(Person contact1, Person contact2) {
+                return contact1.getName().fullName.compareToIgnoreCase(contact2.getName().fullName);
+            }
+        };
+
+        sortedFilteredConatacts.setComparator(sortByName);
+        indicateAddressBookChanged();
+    }
+    //@@author
 
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {

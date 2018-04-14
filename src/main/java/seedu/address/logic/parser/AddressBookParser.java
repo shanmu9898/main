@@ -27,6 +27,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
 import seedu.address.logic.commands.ShortcutCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -117,6 +118,9 @@ public class AddressBookParser {
 
         case SetTaskCommand.COMMAND_WORD:
             return new SetTaskCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
