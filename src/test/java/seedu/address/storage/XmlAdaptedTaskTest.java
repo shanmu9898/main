@@ -12,7 +12,7 @@ import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_2;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.EventTime;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.testutil.Assert;
 
@@ -40,7 +40,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         XmlAdaptedTask task =
                 new XmlAdaptedTask(VALID_TITLE, INVALID_TIME);
-        String expectedMessage = EventTime.MESSAGE_TIME_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_DATE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalArgumentException.class, expectedMessage, task::toModelType);
     }
 

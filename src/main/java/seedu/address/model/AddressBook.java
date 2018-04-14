@@ -11,6 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.Subject;
+import seedu.address.model.education.UniqueClassList;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.UniqueEventList;
@@ -40,7 +45,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueTagList tags;
     private final UniqueEventList<Appointment> appointments;
     private final UniqueEventList<Task> tasks;
-    private final UniqueShortcutDoublesList shorcutCommands;
+    private final UniqueShortcutDoublesList shortcutCommands;
+    private final UniqueClassList classes;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -56,7 +62,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
         appointments = new UniqueEventList<>();
         tasks = new UniqueEventList<>();
-        shorcutCommands = new UniqueShortcutDoublesList();
+        shortcutCommands = new UniqueShortcutDoublesList();
+        classes = new UniqueClassList();
     }
 
     public AddressBook() {}
@@ -90,15 +97,21 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //@@author shanmu9898
     public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
-        this.shorcutCommands.setCommandsList(shorcutCommands);
+        this.shortcutCommands.setCommandsList(shorcutCommands);
     }
-    //@@author
 
+    //@@author
     public void setTasks(List<Task> tasks)
             throws DuplicateEventException {
         this.tasks.setEvents(tasks);
     }
 
+    //@@author randypx
+    public void setClasses(List<Class> classes) throws DuplicateClassException {
+        this.classes.setClasses(classes);
+    }
+
+    //@@author
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -108,6 +121,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<ShortcutDoubles> commandsList = newData.getCommandsList();
         List<Appointment> appointmentList = newData.getAppointmentList();
         List<Task> taskList = newData.getTaskList();
+        List<Class> classList = newData.getClassList();
         List<Person> syncedContactList = newData.getContactList().stream()
                 .map(this::syncWithMasterTagList).collect(Collectors.toList());
 
@@ -115,6 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             setShorcutCommands(commandsList);
             setAppointments(appointmentList);
             setTasks(taskList);
+            setClasses(classList);
             persons.setPersons(new UniquePersonList());
             students.setStudents(new UniqueStudentList());
             for (Person contact : syncedContactList) {
@@ -128,6 +143,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new AssertionError("TeachConnect should not have duplicate persons");
         } catch (DuplicateEventException e) {
             throw new AssertionError("TeachConnect should not have duplicate events");
+        } catch (DuplicateClassException e) {
+            throw new AssertionError("TeachConnect should not have duplicate classes");
         }
     }
 
@@ -146,27 +163,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 person.getAddress(), person.getTags()))) {
             try {
                 persons.add(person);
-            } catch (DuplicatePersonException e) {
-                removeUnusedTags();
-                throw e;
-            }
-        } else {
-            throw new DuplicatePersonException();
-        }
-    }
-
-    /**
-     * Adds a student to the address book.
-     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the student to point to those in {@link #tags}.
-     *
-     * @throws DuplicatePersonException if an equivalent student already exists.
-     */
-    public void addStudent(Student s) throws DuplicatePersonException {
-        Student student = (Student) syncWithMasterTagList(s);
-        if (!persons.contains(student)) {
-            try {
-                students.add(student);
             } catch (DuplicatePersonException e) {
                 removeUnusedTags();
                 throw e;
@@ -204,6 +200,42 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removePerson(Person key) throws PersonNotFoundException {
+        if (persons.remove(key)) {
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    //// student-level operations
+
+    //author randypx-reused
+    /**
+     * Adds a student to the address book.
+     * Also checks the new student's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the student to point to those in {@link #tags}.
+     *
+     * @throws DuplicatePersonException if an equivalent student already exists.
+     */
+    public void addStudent(Student s) throws DuplicatePersonException {
+        Student student = (Student) syncWithMasterTagList(s);
+        if (!persons.contains(student)) {
+            try {
+                students.add(student);
+            } catch (DuplicatePersonException e) {
+                removeUnusedTags();
+                throw e;
+            }
+        } else {
+            throw new DuplicatePersonException();
+        }
+    }
+
+    /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedStudent}.
      *
@@ -221,6 +253,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         if (!persons.contains(syncedEditedStudent)) {
             try {
                 students.setStudent(target, syncedEditedStudent);
+                for (Class group: classes) {
+                    if (group.containStudent(target)) {
+                        group.removeStudent(target);
+                        group.addStudent(syncedEditedStudent);
+                    }
+                }
             } finally {
                 removeUnusedTags();
             }
@@ -230,15 +268,113 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeStudent(Student key) throws PersonNotFoundException {
+        if (students.remove(key)) {
+            for (Class group: classes) {
+                if (group.containStudent(key)) {
+                    group.removeStudent(key);
+                }
+            }
+            return true;
+        } else {
+            throw new PersonNotFoundException();
+        }
+    }
+
+    //// shortcut-level operations
+    //@@author shanmu9898
+    public void addShortcutDoubles(ShortcutDoubles s)
+            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
+        shortcutCommands.add(s);
+    }
+
+    /**
+     *
+     * @param commandShortcut
+     * @return a boolean variable
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        if (shortcutCommands.remove(commandShortcut)) {
+            return true;
+        } else {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
+        }
+    }
+
+    //// tag-level operations
+    //@@author
+    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+        tags.add(t);
+    }
+
+    //@@author shanmu9898
+    /**
+     * Removes the particular tag for all people in the AddressBook.
+     */
+    public void removeTag(Tag tag) throws DuplicatePersonException, PersonNotFoundException {
+        for (Person person : persons) {
+            removeTagFromPerson(tag, person);
+        }
+        for (Student student : students) {
+            removeTagFromStudent(tag, student);
+        }
+
+    }
+
+    /**
      * Removes all {@code Tag}s that are not used by any {@code Person} or {@code Student} in this {@code AddressBook}.
      */
     private void removeUnusedTags() {
         Set<Tag> tagsInContacts = contacts.asObservableList().stream().map(Person::getTags).flatMap(Set::stream)
-                                 .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
 
         tags.setTags(tagsInContacts);
     }
 
+    /**
+     * Removes the particular tag for that particular person in the AddressBook.
+     */
+    private void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException, DuplicatePersonException {
+        Set<Tag> listOfTags = new HashSet<>(person.getTags());
+
+        if (listOfTags.contains(tag)) {
+            listOfTags.remove(tag);
+        } else {
+            return;
+        }
+
+        Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                person.getAddress(), listOfTags);
+
+        updatePerson(person, updatedPerson);
+    }
+
+    //@@author randypx-reused
+    /**
+     * Removes the particular tag for that particular student in the AddressBook.
+     */
+    private void removeTagFromStudent(Tag tag, Student student)
+            throws PersonNotFoundException, DuplicatePersonException {
+        Set<Tag> listOfTags = new HashSet<>(student.getTags());
+
+        if (listOfTags.contains(tag)) {
+            listOfTags.remove(tag);
+        } else {
+            return;
+        }
+
+        Student updatedStudent = new Student(student.getName(), student.getPhone(), student.getEmail(),
+                student.getAddress(), listOfTags);
+
+        updateStudent(student, updatedStudent);
+    }
+
+    //@@author
     /**
      *  Updates the master tag list to include tags in {@code person} or {@code student} that are not in the list.
      *  @return a copy of this {@code person} or {@code student} such that every tag in this person points to a Tag
@@ -258,184 +394,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
         if (person instanceof Student) {
+            List<Subject> subjectList = ((Student) person).getSubjectList();
             return new Student(
-                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences,
+                    subjectList);
         } else {
             return new Person(
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
         }
     }
 
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
-     */
-    public boolean removePerson(Person key) throws PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new PersonNotFoundException();
-        }
-    }
+    //// Event-level operations
 
-    /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
-     */
-    public boolean removeStudent(Student key) throws PersonNotFoundException {
-        if (students.remove(key)) {
-            return true;
-        } else {
-            throw new PersonNotFoundException();
-        }
-    }
-    //@@author shanmu9898
-    /**
-     *
-     * @param commandShortcut
-     * @return a boolean variable
-     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
-     */
-    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
-            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
-        if (shorcutCommands.remove(commandShortcut)) {
-            return true;
-        } else {
-            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
-        }
-    }
-    //author
-
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-    //@@author shanmu9898
-    public void addShortcutDoubles(ShortcutDoubles s)
-            throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        shorcutCommands.add(s);
-    }
-    //@@author
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return persons.asObservableList().size() + " persons, "
-                + students.asObservableList().size() + " students, "
-                + tags.asObservableList().size() +  " tags, "
-                + appointments.asObservableList().size() + " appointments, "
-                + tasks.asObservableList().size() +  " tasks";
-        // TODO: refine later
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Student> getStudentList() {
-        return students.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Person> getContactList() {
-        return contacts.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asObservableList();
-    }
-
-    @Override
-    public ObservableList<ShortcutDoubles> getCommandsList() {
-        return shorcutCommands.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Appointment> getAppointmentList() {
-        return appointments.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Task> getTaskList() {
-        return tasks.asObservableList();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.students.equals(((AddressBook) other).students)
-                && this.appointments.equals(((AddressBook) other).appointments)
-                && this.tasks.equals(((AddressBook) other).tasks)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
-                && this.shorcutCommands.equals(((AddressBook) other).shorcutCommands));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, appointments, tasks, tags);
-    }
-
-    //@@author shanmu9898
-    /**
-     * Removes the particular tag for all people in the AddressBook.
-     */
-    public void removeTag(Tag tag) throws DuplicatePersonException, PersonNotFoundException {
-        for (Person person : persons) {
-            removeTagFromPerson(tag, person);
-        }
-        for (Student student : students) {
-            removeTagFromStudent(tag, student);
-        }
-
-    }
-
-
-    /**
-     * Removes the particular tag for that particular person in the AddressBook.
-     */
-    private void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException, DuplicatePersonException {
-        Set<Tag> listOfTags = new HashSet<>(person.getTags());
-
-        if (listOfTags.contains(tag)) {
-            listOfTags.remove(tag);
-        } else {
-            return;
-        }
-
-        Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                                          person.getAddress(), listOfTags);
-
-        updatePerson(person, updatedPerson);
-    }
-    //@@author
-    /**
-     * Removes the particular tag for that particular student in the AddressBook.
-     */
-    private void removeTagFromStudent(Tag tag, Student student)
-            throws PersonNotFoundException, DuplicatePersonException {
-        Set<Tag> listOfTags = new HashSet<>(student.getTags());
-
-        if (listOfTags.contains(tag)) {
-            listOfTags.remove(tag);
-        } else {
-            return;
-        }
-
-        Student updatedStudent = new Student(student.getName(), student.getPhone(), student.getEmail(),
-                                          student.getAddress(), listOfTags);
-
-        updateStudent(student, updatedStudent);
-    }
     //@@author Sisyphus25
-    //event operations
     /**
      * Adds an appointment to the address book.
      *
@@ -444,6 +415,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addAppointment(Appointment e) throws DuplicateEventException {
         appointments.add(e);
     }
+
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -476,5 +448,105 @@ public class AddressBook implements ReadOnlyAddressBook {
         } else {
             throw new EventNotFoundException();
         }
+    }
+
+    //// class-level operations
+    //@@author randypx-reused
+    /**
+     * Adds a class to the address book.
+     *
+     * @throws DuplicateClassException if an equivalent class already exists.
+     */
+    public void addClass(Class c) throws DuplicateClassException {
+        classes.add(c);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws StudentClassNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
+    public boolean removeClass(Class key) throws StudentClassNotFoundException {
+        if (classes.remove(key)) {
+            for (Student student: students) {
+                if (student.isAttending(key)) {
+                    student.exitClass(key);
+                }
+            }
+            return true;
+        } else {
+            throw new StudentClassNotFoundException();
+        }
+    }
+
+    //// util methods
+    //@@author
+    @Override
+    public String toString() {
+        return persons.asObservableList().size() + " persons, "
+                + students.asObservableList().size() + " students, "
+                + tags.asObservableList().size() +  " tags, "
+                + appointments.asObservableList().size() + " appointments, "
+                + tasks.asObservableList().size() +  " tasks, "
+                + classes.asObservableList().size() + " classes";
+        // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return persons.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Student> getStudentList() {
+        return students.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Person> getContactList() {
+        return contacts.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return tags.asObservableList();
+    }
+
+    @Override
+    public ObservableList<ShortcutDoubles> getCommandsList() {
+        return shortcutCommands.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
+        return appointments.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
+    }
+
+    @Override
+    public ObservableList<Class> getClassList() {
+        return classes.asObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && this.persons.equals(((AddressBook) other).persons)
+                && this.students.equals(((AddressBook) other).students)
+                && this.appointments.equals(((AddressBook) other).appointments)
+                && this.tasks.equals(((AddressBook) other).tasks)
+                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags)
+                && this.shortcutCommands.equals(((AddressBook) other).shortcutCommands)
+                && this.classes.equals(((AddressBook) other).classes));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(persons, appointments, tasks, tags, shortcutCommands, classes);
     }
 }

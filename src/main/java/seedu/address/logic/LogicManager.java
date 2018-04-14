@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.education.Class;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.person.Person;
@@ -69,12 +70,17 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public String getCurrentActiveListType() {
-        return model.getCurrentActiveListType();
+    public ObservableList<ShortcutDoubles> getFilteredShortcutList() {
+        return model.getFilteredCommandsList();
     }
 
     @Override
-    public ObservableList<ShortcutDoubles> getFilteredShortcutList() {
-        return  model.getFilteredCommandsList();
+    public ObservableList<Class> getFilteredClassList() {
+        return model.getFilteredClassList();
+    }
+
+    @Override
+    public String getCurrentActiveListType() {
+        return model.getCurrentActiveListType();
     }
 }

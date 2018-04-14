@@ -21,6 +21,8 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Appointment;
+import seedu.address.model.event.Task;
 import seedu.address.model.person.Person;
 
 /**
@@ -81,6 +83,53 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    //@@author Sisyphus25
+    @Test
+    public void execute_validIndexDeleteAppointment_success() throws Exception {
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteAppointmentCommand = prepareCommand(INDEX_FIRST);
+
+        String expectedMessage =
+                String.format(DeleteCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete);
+
+        expectedModel.deleteAppointment(appointmentToDelete);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_APPOINTMENT);
+        assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexDeleteTask_success() throws Exception {
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
+        DeleteCommand deleteTaskCommand = prepareCommand(INDEX_FIRST);
+
+        String expectedMessage =
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+
+        expectedModel.deleteTask(taskToDelete);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_TASK);
+        assertCommandSuccess(deleteTaskCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() throws Exception {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        DeleteCommand deleteTaskCommand = prepareCommand(outOfBoundIndex);
+
+        Index outOfBoundIndex2 = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
+        DeleteCommand deleteAppointmentCommand = prepareCommand(outOfBoundIndex2);
+
+        model.changeCurrentActiveListType(Model.LIST_TYPE_TASK);
+        assertCommandFailure(deleteTaskCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_APPOINTMENT);
+        assertCommandFailure(deleteAppointmentCommand,
+                model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+    }
+
+    //@@author
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         UndoRedoStack undoRedoStack = new UndoRedoStack();

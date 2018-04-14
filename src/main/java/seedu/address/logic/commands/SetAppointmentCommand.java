@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_TO_MEET_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -30,12 +30,12 @@ public class SetAppointmentCommand extends UndoableCommand {
             + PREFIX_TITLE + "TITLE "
             + PREFIX_START_TIME + "START-DATE START-TIME "
             + PREFIX_END_TIME + "END-DATE END-TIME "
-            + PREFIX_PERSON_TO_MEET_INDEX + "PERSON TO MEET\n"
+            + PREFIX_INDEX + "PERSON TO MEET\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Meet James "
             + PREFIX_START_TIME + "20/05/2018 10:00 "
             + PREFIX_END_TIME + "20/05/2018 12:00 "
-            + PREFIX_PERSON_TO_MEET_INDEX + "3 ";
+            + PREFIX_INDEX + "3 ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
@@ -67,7 +67,8 @@ public class SetAppointmentCommand extends UndoableCommand {
         try {
             Appointment toAdd;
             if (personToMeet != null) {
-                toAdd = new Appointment(baseAppointmentWithoutPerson.getTitle(), baseAppointmentWithoutPerson.getTime(),
+                toAdd = new Appointment(baseAppointmentWithoutPerson.getTitle(),
+                        baseAppointmentWithoutPerson.getStartTime(),
                         baseAppointmentWithoutPerson.getEndTime(), personToMeet);
             } else {
                 toAdd = baseAppointmentWithoutPerson;
