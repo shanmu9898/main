@@ -91,6 +91,8 @@ When you are ready to start coding,
 
 == Design
 
+This section focuses on the design of TeachConnect's major components.
+
 [[Design-Architecture]]
 === Architecture
 
