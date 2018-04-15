@@ -17,7 +17,7 @@ public class Subject {
      * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*";
 
     public final String value;
 
