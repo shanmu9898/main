@@ -260,7 +260,7 @@ image::calendarMonth.jpg[width="800"]
 
 // tag::list[]
 [[List]]
-=== Listing all contact/task/appointment/student : `list`
+=== Listing all contact/student/task/appointment/shortcuts : `list`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
@@ -307,30 +307,37 @@ Imports contacts from a different TeachConnect file by specifying the location o
 
 Format: `import pathname`
 
+****
+* It can only import XML files.
+* The input path must be valid.
+****
+
 Examples:
 
-* `import ./data/importsample.xml` : Import contacts from `importsample.xml`
+* `import ./data/importsample.xml` +
+Imports contacts from `importsample.xml` if such a file is present.
 
 // end::import[]
 
 // tag::export[]
 
-=== Exporting the contacts or classes : `export` `[since v1.4]`
+=== Exporting the contacts or classes : `export`
 
-Exports contacts from your TeachConnect by specifying the name of the file you want to save it in and the path where you want to save it. It can export the contacts/students based on a given range of indexes or a given tag or a given tag in a range of indexes. Alternatively you can choose to export all the classes with the students in them. By specifying the type of the export you want it saves either only the xml file or the Csv file.
+Exports contacts from your TeachConnect by specifying the name of the file and the path where you want to save it. It can export contacts/students based on a given range of indexes, tags or a given tag in a range of indexes. Alternatively you can choose to export all the classes with the students in them. By specifying the type of the export you can choose to export it as a CSV file or a XML file.
 
-Format: `export n/NAME r/RANGE [t/TAG] p/PATH te/TYPE`
+Format 1: `export n/NAME r/RANGE [t/TAG] p/PATH te/TYPE`
 
-Format: `export classes n/NAME p/PATH te/TYPE`
+Format 2: `export classes n/NAME p/PATH te/TYPE`
 
 ****
-* Here TYPE refers to the kind of export you want to do.
+* Here `TYPE` refers to the kind of export you want to do.
 * `TYPE` can be either excel or xml.
+* `Name` should not be included in the path. There is also no need to give the extension of the file (.xml or .csv) as type of the file is already being given.
 ****
 
 [TIP]
-You can export all the people at once, all the people with a certain tag at once, all the people with a certain tag in a range at once or all the people in a range with any tags in a single command. +
-You can also choose to export it in Csv format which you can later open in Excel. +
+You can export all contacts, all contacts with a certain tag, all contacts in a range or all the contacts in a range with a certain tag in a single command. +
+You can also choose to export it a .csv file which you can later open in Excel. +
 You can also choose to export all the classes and the students in it using the export class format.
 
 [WARNING]
@@ -339,10 +346,12 @@ Be careful about the parameter value for the format type. It has to exactly be e
 
 Examples:
 
-* `export n/StudentsFile1 r/all t/students p/./data te/normal` : +
-Exports all contacts with tag student to an xml file named `StudentsFile1` in the `data` folder.
-* `export n/StudentsFile2 r/1,10 t/students p/./data te/excel` : +
-Exports contacts from 1 to 10 with tag students to an excel file named `StudentsFile2` in the `data` folder.
+* `export n/StudentsFile1 r/all t/students p/{path to the current folder} te/xml` : +
+Exports all contacts with tag student to an xml file named `StudentsFile1` to the folder given in the path.
+* `export n/StudentsFile2 r/1,10 t/students p/{path to the current folder} te/excel` : +
+Exports contacts from 1 to 10 with tag students to a .csv file named `StudentsFile2` to the folder given in the path.
+* `export classes n/ClassesFile1 p/{path to the current folder} te/excel` : +
+Exports all classes and the names of students in the classes to a .csv file named `ClassesFile1` to the folder given in the path.
 
 
 // end::export[]
@@ -364,28 +373,32 @@ image::ShortcutsList.png[width="800"]
     Figure 13: List of shortcuts stored
 
 [WARNING]
-You cannot set the shortcut word to a already preregistered command. +
-Your shortcut word cannot be more than a single word.
+You cannot set the shortcut word to be a already preregistered command. +
+Your shortcut word cannot be more than a single word. +
+You can only use shortcut word for the command word. You cannot use it for the type. Eg. You can set the shortcut for `export` but not for `export classes`.
+
 
 Examples:
 
 * `shortcut list l` +
-Sets `l` as the Personalised Alias for `list` command.
+Sets `l` as the personalised alias for `list` command.
 * `shortcut add a` +
-Sets `a` as the Personalised Alias for `add` command.
+Sets `a` as the personalised alias for `add` command.
+* `shortcut export e` +
+Sets `e` as the personalised alias for the `export` command.
 
 // end::shortcut[]
 
 // tag::deleteshortcut[]
-=== Deleting your personalised Alias : `delete_shortcut`
+=== Deleting your personalised alias : `delete_shortcut`
 
-Deletes your personalised Alias if you don't want them or if you created them by mistake.
+Deletes your personalised alias if you don't want the shortcut or if you created the shortcut by mistake.
 
 Format: `delete_shortcut [command word] [shortcut word]`
 
 [TIP]
 You can choose to just undo the delete_shortcut if you delete a shortcut by mistake. +
-Listing all the shortcuts using the `list shortcuts` command as mentioned above might help in seeing all the shortcuts at once. +
+Listing all the shortcuts using the `list shortcuts` command as mentioned previously might help in seeing all the shortcuts at once. +
 
 [WARNING]
 You can only delete shortcuts that you have already added.
@@ -393,9 +406,9 @@ You can only delete shortcuts that you have already added.
 Examples:
 
 * `delete_shortcut list l` +
-Deletes the Personalised Alias `l` for `list` command.
+Deletes the personalised alias `l` for `list` command.
 * `delete_shortcut add a` +
-Deletes the Personalised Alias `a` for `add` command.
+Deletes the personalised alias `a` for `add` command.
 // end::deleteshortcut[]
 
 === Editing a contact : `edit`
@@ -581,13 +594,11 @@ There is no need to save manually.
 == Command Summary
 The table below summarizes TeachConnect's command list.
 
-[width="59%",cols="22%,<30%,<30%",options="header",]
+[width="100%",cols="22%,<30%,<30%",options="header",]
 |=======================================================================
 |Command |Format |Example
 
 |*Add*|`add [TYPE] n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`|`add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-
-|*Switch Calendar View mode*|`calendar VIEW_MODE` | `calendar d`
 
 |*Change GUI theme*|`theme THEME_NAME` | `theme dark`
 
@@ -624,6 +635,8 @@ The table below summarizes TeachConnect's command list.
 |*Set Shortcut*|`shortcut [command word] [shortcut word]` | `shortcut list l`
 
 |*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
+
+|*Switch Calendar View mode*|`calendar VIEW_MODE` | `calendar d`
 
 |*Undo*|`undo`|`undo`|
 
