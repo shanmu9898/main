@@ -107,10 +107,14 @@ image::itemCard.JPG[width="300"]
 Accesses the User Guide for TeachConnect. +
 Format: `help`
 
+// tag::sort[]
+
 === Sorting all contacts : `sort`
 
 Sorts all contacts in alphabetical order. +
 Format: `sort`
+
+// end::sort[]
 
 === Adding a contact: `add`
 

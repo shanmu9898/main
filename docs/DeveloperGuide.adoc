@@ -678,6 +678,64 @@ image::ChangeThemeSequenceDiagram.png[align="center"]
 ** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.
 
 // end::theme[]
+// tag::sort[]
+
+=== Sorting Contacts
+==== Current Implementation
+This command sorts all the contacts in TeachConnect lexicographically.
+The command calls upon a `sortByNameFilteredPersonList()` method in `Model`, which then calls upon the `sortList()` method in `UniqueContactList`. The `sortList()` method sorts the entire contact list using a comparator.
+Below is the code snippet.
+
+ public void sortList() {
+        Comparator<Person> sortByName = new Comparator<Person>() {
+            @Override
+            public int compare (Person contact1, Person contact2)  {
+                return contact1.getName().fullName.compareToIgnoreCase(contact2.getName().fullName);
+            }
+        };
+        FXCollections.sort(combinedList, sortByName);
+    }
+
+==== Design Considerations
+===== Aspects : Automatic sorting of contacts
+
+* **Alternative 1 (current choice):** TeachConnect will only sort contacts after user keys in the command.
+** Pros: This implementation is simpler and more intuitive.
+** Cons: Users might find it a slight hassle to have to key in the sort command every time a new contact is added.
+* **Alternative 2: ** TeachConnect automatically sorts contacts.
+** Pros: When new contacts are added, they are automatic sorted without the need to key in the command.
+** Cons: The command implementation might be more complex and it would make the command redundant. Users also might not always want their contact list to be sorted.
+
+// end::sort[]
+
+// tag::encryption/decryption[]
+
+=== Encryption/Decryption [Proposed]
+==== Proposed Implementation
+TeachConnect will also have a data encryption feature to keep the teacher's sensitive contact data safe from unauthorised persons.
+To illustrate how the encrypt command works, `Figure 27` shows the sequence diagram when the command `encrypt pw/<password>` is entered.
+
+
+image::EncryptionSequenceDiagram.png[align="center"]
+Figure 27: Encrypt Command Sequence Diagram
+
+The Decrypt command also follows the same flow, except that `DecryptEvent` is posted,`handleDecryptEvent` is called instead, and decryptUtil handles the decryption.
+
+After encryption the result would be an encrypted `addressBook.xml` file, and after decryption the result is a decrypted and human-readable `addressBook.xml` file.
+
+
+==== Design Considerations
+===== Aspects : Saving of password to TeachConnect storage
+
+* **Alternative 1 (current choice):** Users remember their own passwords.
+** Pros: The password is also not stored locally within TeachConnect, hence it would be impossible to obtain the password from the application. No one else would have the password but the user, provided that he/she does not share it with any unauthorised persons.
+** Cons: If the user forgets the password, then the file cannot be decrypted. Also, the user needs to find secure means to share this password with other authorised persons.
+* **Alternative 2: ** Password is saved within TeachConnect.
+** Pros: Users will find it more convenient as they do not have to remember their password.
+** Cons: The command implementation might be more complex. There is a risk of unauthorised persons breaking and reverse-engineering the password.
+
+// end::encryption/decryption[]
+
 
 === Logging
 
