@@ -49,7 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Class> filteredClass;
     private final FilteredList<Student> filteredStudents;
     private final SortedList<Person> sortedFilteredConatacts;
-  
+    
     private String currentActiveListType;
 
     /**
