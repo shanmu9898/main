@@ -219,27 +219,6 @@ public class SampleDataUtil {
     }
 
     //@@author
-    public static List<Subject> getSubjectList(String... strings) {
-        List<Subject> subjects = new ArrayList<>();
-        for (String s : strings) {
-            subjects.add(new Subject(s));
-        }
-
-        return subjects;
-    }
-
-    /**
-     * Returns a name list containing the list of strings given.
-     */
-    public static List<Name> getNameList(String... strings) {
-        List<Name> nameList = new ArrayList<>();
-        for (String s : strings) {
-            nameList.add(new Name(s));
-        }
-
-        return nameList;
-    }
-
     public static Set<ShortcutDoubles> getSampleShortcutDoublesTagSet(String... strings) {
         HashSet<ShortcutDoubles> shortcutDoubles = new HashSet<>();
         for (String s : strings) {
