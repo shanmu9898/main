@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.ClassListChangedEvent;
+import seedu.address.commons.events.model.StudentListChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ThemeChangeEvent;
@@ -52,6 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private CalendarPanel calendarPanel;
     private ShortcutListPanel shortcutListPanel;
+    private ClassListPanel classListPanel;
 
     private String theme;
 
@@ -178,6 +181,8 @@ public class MainWindow extends UiPart<Stage> {
 
         shortcutListPanel = new ShortcutListPanel(logic.getFilteredShortcutList());
 
+        classListPanel = new ClassListPanel(logic.getFilteredClassList());
+
     }
 
     void hide() {
@@ -236,6 +241,9 @@ public class MainWindow extends UiPart<Stage> {
         case "shortcuts":
             listPanelPlaceholder.getChildren().add(shortcutListPanel.getRoot());
             break;
+        case "classes":
+            listPanelPlaceholder.getChildren().add(classListPanel.getRoot());
+            break;
 
         default:
             listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -270,4 +278,15 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         toggleList(event.list);
     }
+
+    @Subscribe
+    private void handleStudentListChangedEvent(StudentListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+    }
+
+    @Subscribe
+    private void handleClassListChangedEvent(ClassListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        classListPanel = new ClassListPanel(logic.getFilteredClassList());    }
 }

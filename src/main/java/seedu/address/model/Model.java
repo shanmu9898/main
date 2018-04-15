@@ -1,8 +1,12 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Task;
 import seedu.address.model.event.exceptions.DuplicateEventException;
@@ -19,9 +23,11 @@ import seedu.address.model.tag.Tag;
  * The API of the Model component.
  */
 public interface Model {
-    String LIST_TYPE_CONTACT = "contact";
-    String LIST_TYPE_APPOINTMENT = "appointment";
-    String LIST_TYPE_TASK = "task";
+    String LIST_TYPE_CONTACT = "contacts";
+    String LIST_TYPE_APPOINTMENT = "appointments";
+    String LIST_TYPE_TASK = "tasks";
+    String LIST_TYPE_CLASS = "classes";
+    String LIST_TYPE_SHORTCUT = "shortcuts";
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
@@ -83,6 +89,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered commands list */
     ObservableList<ShortcutDoubles> getFilteredCommandsList();
 
+    /** Returns an unmodifiable view of the filtered students list */
+    ObservableList<Student> getFilteredStudentsList();
+
+    /** Returns an unmodifiable view of the filtered class list */
+    ObservableList<Class> getFilteredClassList();
+
     /** Returns the item type of the curent active list being shown in the GUI */
     String getCurrentActiveListType();
 
@@ -100,7 +112,7 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
 
-
+    /** Delete the given tag */
     void deleteTag(Tag tag) throws PersonNotFoundException, DuplicatePersonException;
 
     /** Adds the given appointment */
@@ -115,6 +127,15 @@ public interface Model {
     /** Deletes the given task */
     void deleteTask(Task task) throws EventNotFoundException;
 
+    /** Adds the given class group */
+    void addClass(Class group, List<Student> studentList) throws DuplicateClassException;
+
+    /** Deletes the given class */
+    void deleteClass(Class target) throws StudentClassNotFoundException;
+
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);
+
+    /** Raises an event to indicate the appointment list has changed */
+    void indicateAppointmentListChanged();
 }

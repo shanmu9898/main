@@ -16,6 +16,19 @@ endif::[]
 
 By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
+== Introduction
+Welcome to Teach Connect (TC)! TC is a command-line application which provides a convenient way for teachers and other educational professionals to better manage their contacts and schedules. This developer guide provides information that helps you to get started as a TC contributor, and aids you even if you are an experienced contributor.
+
+The developer guide consists of the following sections:
+
+* Setting up
+* Design
+* Implementation
+* Documentation
+* Testing
+* Dev Ops
+* Appendices
+
 == Setting up
 
 === Prerequisites
@@ -91,13 +104,15 @@ When you are ready to start coding,
 
 == Design
 
+This section discusses the design of TeachConnect's major components.
+
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
 image::Architecture.png[width="600"]
+    Figure 1: Architecture Diagram
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+`Figure 1` given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
@@ -124,26 +139,28 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (refer to `Figure 2`) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+
 image::LogicClassDiagram.png[width="800"]
+    Figure 2: Class Diagram of the Logic Component
 
 [discrete]
 ==== Events-Driven nature of the design
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+`Figure 3` shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
+
 image::SDforDeletePerson.png[width="800"]
+    Figure 3: Component interactions for `delete 1` command (part 1)
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the TeachConnect data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+`Figure 4` shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
+    Figure 4: Component interactions for `delete 1` command (part 2)
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -152,9 +169,10 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+The structure of the UI component is shown in `Figure 5`.
 
-.Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
+    Figure 5: Structure of the UI Component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -170,13 +188,15 @@ The `UI` component,
 
 [[Design-Logic]]
 === Logic component
+The structure of the logic component is shown in `Figure 6`. `Figure 7` shows finer details concerning `XYZCommand` and `Command` in `Figure 6`.
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+    Figure 6: Structure of the Logic Component
 
-.Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in <<fig-LogicClassDiagram>>
+
 image::LogicCommandClassDiagram.png[width="800"]
+    Figure 7: Structure of Commands in the Logic Component
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -186,16 +206,17 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+`Figure 8` is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
+    Figure 8: Interactions Inside the Logic Component for the `delete 1` Command
 
 [[Design-Model]]
 === Model component
+The structure of the Model component is shown in `Figure 9`.
 
-.Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
+    Figure 9: Structure of the Model Component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -208,9 +229,10 @@ The `Model`,
 
 [[Design-Storage]]
 === Storage component
+The structure of the Storage component is shown in `Figure 10`.
 
-.Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
+    Figure 10: Structure of the Storage Component
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -234,11 +256,12 @@ This section describes some noteworthy details on how certain features are imple
 
 The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of TeachConnect (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
-`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
+`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. `Figure 11` shows the inheritance diagram for commands:
 
 image::LogicCommandClassDiagram.png[width="800"]
+    Figure 11: Logic Command Class Diagram
 
-As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of TeachConnect before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
+As you can see from `Figure 11`, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of TeachConnect before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
 
 Commands that are not undoable are implemented this way:
 [source,java]
@@ -276,10 +299,12 @@ Suppose that the user has just launched the application. The `UndoRedoStack` wil
 The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in TeachConnect. The current state of TeachConnect is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
 
 image::UndoRedoStartingStackDiagram.png[width="800"]
+    Figure 12: Undo Redo Starting Stack Diagram
 
 As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/David ...` to add a new person.
 
 image::UndoRedoNewCommand1StackDiagram.png[width="800"]
+    Figure 13: Undo Redo New Command Stack Diagram
 
 [NOTE]
 If a command fails its execution, it will not be pushed to the `UndoRedoStack` at all.
@@ -289,6 +314,7 @@ The user now decides that adding the person was a mistake, and decides to undo t
 We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore TeachConnect to the state before the `add` command executed.
 
 image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
+    Figure 14: Undo Redo Execute Undo Stack Diagram
 
 [NOTE]
 If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
@@ -296,6 +322,7 @@ If the `undoStack` is empty, then there are no other commands left to be undone,
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
+    Figure 15: Undo Redo Sequence Diagram
 
 The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores TeachConnect to the state after the command is executed).
 
@@ -305,14 +332,17 @@ If the `redoStack` is empty, then there are no other commands left to be redone,
 The user now decides to execute a new command, `clear`. As before, `clear` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
 
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
+    Figure 16: Undo Redo New Command 2 Stack Diagram
 
 Commands that are not undoable are not added into the `undoStack`. For example, `list`, which inherits from `Command` rather than `UndoableCommand`, will not be added after execution:
 
 image::UndoRedoNewCommand3StackDiagram.png[width="800"]
+    Figure 17: Undo Redo New Command 3 Stack Diagram
 
 The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
+    Figure 18: Undo Redo Activity Diagram
 
 ==== Design Considerations
 
@@ -359,7 +389,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::import[]
 === Import Contacts
 ==== Current Implementation
-The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
+The ImportCommand uses `XmlAddressBookStorage` to generate a temporary `AddressBook` object from a given path. It takes in a String value path. The command then adds the contacts or the classes found in the temporary `AddressBook` object into the main address book object. Below is the rough idea of the constructor for the class:
 [source,java]
 public ImportCommand(String importPath) {
         requireNonNull(importPath);
@@ -368,19 +398,16 @@ public ImportCommand(String importPath) {
 }
 
 image::ImportCommandFlowChart.png[align="center"]
+    Figure 19: Import command flow chart
 
-Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialised the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`. The code can be found below.
+Import command extends `Undoable Command` and hence Undo can be called on it. It initially checks if the given file path is valid and if so initialises the contacts from there, creates a `Person` object and adds it to the current `TeachConnect` with the help of `model`.For importing classes class objects are first created and students related to the classes are stored before being added to the model. The code can be found below.
 [source, java]
 ----
 public CommandResult executeUndoableCommand() throws CommandException {
-     ObservableList<Person> people = addressBookImported.getPersonList();
-     for (int i = 0; i < people.size(); i++) {
-           try {
-             model.addPerson(people.get(i));
-           } catch (DuplicatePersonException e) {
-             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-           }
-     }
+     peopleToBeImported(people);
+     studentToBeImported(students);
+     classesToBeImported(students, classes);
+
      return new CommandResult(MESSAGE_SUCCESS);
 }
 ----
@@ -393,13 +420,14 @@ public CommandResult executeUndoableCommand() throws CommandException {
 ** Cons: User might want to import from Excel only to realise this isn't possible.
 * **Alternative 2:** Include import from an `Excel` file too.
 ** Pros: Might be more intuitive for the user and might come in handy.
-** Cons: Complex implementation ther by giving rise to more bugs and slower response rate.
+** Cons: Will not really help the user distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
+// end::import[]
 
 // tag::export[]
-=== Export contacts
+=== Export Contacts
 ==== Current Implementation
 
-The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
+The `ExportCommand` uses `XmlAddressBookStorage` class to generate a xml file based on a given range/index/tag and save it to the location specified with the chosen file name. It takes in String `name` String `range` Tag `tag` String `path` String `type`.It is also possible to export classes with String `path` String `name` String `type` as parameters. The tag is not compulsory and can be excluded or included depending on the user. Below is the basic idea of the constructor for the class:
 
 [source,java]
 ----
@@ -415,6 +443,7 @@ ExportCommand(String range, Tag tag, String path, String nameOfExportFile, Strin
 ----
 
 image::ExportCommandDiagram.png[align="center"]
+    Figure 20: Export command flow chart
 
 The method `handleRange()` splits the range using a separator [, in this case] and returns a `String` array with the upper bound and lower bound as values. In some cases it also returns `all` or the single `index` that has to be exported. Based on the type it also exports to an excel format or XML format.
 
@@ -431,6 +460,8 @@ public String[] handleRange() throws IOException {
 }
 ----
 
+Choosing to export classes follows a different pattern. It exports all the classes and the students related to those classes.
+
 Any range with more than 2 values in the String array returned throws an IO Exception. To add the contacts to the export file, contacts are added to the teachConnectBook. There are 4 individual cases and multiple combinations of these:
 
 * All (Without a tag)
@@ -443,7 +474,6 @@ Any range with more than 2 values in the String array returned throws an IO Exce
 ** if the user input contains a range which is identified by the `,` character, we will add that range of index (one-based) to the `teachConnectBook` including the lower range but excluding the upper bound.
 * Range of indexes (with a tag)
 ** if the user input contains a range which is identified by the `,` character along with the tag, we will add that range of index (one-based) to the `teachConnectBook` if that contact contains that particular tag including the lower range but excluding the upper bound.
-
 
 Below is the code snippet to identify the three cases in the user input:
 
@@ -491,21 +521,24 @@ Below is the code snipped to export the data into an excel file.
 [source,java]
 ----
 CSVPrinter csvPrinter;
-        try {
-            csvPrinter = csvFileToBeWritten();
-        } catch (IOException e) {
-           handle exception...
-        }
-
-        try {
-            for (Person p : exportAddition) {
-                csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
+       try {
+            csvPrinter = csvFileToBeWritten(isClassesOrNot);
+            } catch (IOException e) {
+                throw new CommandException(String.format(MESSAGE_FAIL));
             }
 
-            csvPrinter.flush();
+            if (isClassesOrNot) {
+               saveAsCsvClasses(csvPrinter);
+            } else {
+               saveAsCsvPersons(csvPrinter);
+            }
 
-        }
-        exceptions are to be handled...
+            try {
+                csvPrinter.flush();
+                } catch (IOException e) {
+                e.printStackTrace();
+            }
+       exceptions are to be handled...
 ----
 
 ==== Design Considerations
@@ -571,10 +604,10 @@ for (ShortcutDoubles s : commandsList) {
 return false;
 ----
 
-You can also choose to list all the shortcuts created uptil now. This displays the `UniqueShortcutDoublesList` instead of the contacts in the list panel. A high level sequence diagram is given below :
+You can also choose to list all the shortcuts created uptil now. This displays the `UniqueShortcutDoublesList` instead of the contacts in the list panel. `Figure 21` gives an example of a high level sequence diagram.
 
 image::ListShortcutsHighLevelSequenceDiagrams.png[width="600"]
-
+    Figure 21: List Shortcut High Level Sequence Diagram
 
 
 As of now the conditions to take note of are:
@@ -608,6 +641,7 @@ public ShortcutDoubles(String shortcutWord, String commandWord) {
 This ShortcutDouble can be deleted using the `DeleteShortcutCommand`. The sequence diagram is below :
 
 image::DeleteShortcutSequenceDiagram.png[width="600"]
+    Figure 22: Delete Shortcut Sequence Diagram
 
 Below is the constructor to the DeleteShortcutCommand:
 [source,java]
@@ -643,7 +677,7 @@ As of now the conditions to take note of are:
 * **Alternative 2 (current choice):** Include the delete shortcut command.
 ** Pros: Will give the user the room to make mistake and change the shortcuts if needed. Would also help him in clearing the clutter of shortcuts which would have developed over time.
 ** Cons: Will have to take care of various edge cases when the shortcuts are not present and keep modifying the dynamic list. Several relevant exceptions have to be thrown and taken care of.
-// end::endshortcut[]
+// end::deleteshortcut[]
 
 // tag::studentmanagement[]
 === [Incomplete] Student Management
@@ -652,6 +686,7 @@ As of now the conditions to take note of are:
 The student manangement allows the user of TeachConnect to manage a particular type of contact, a student. The user is capable of interacting with the student contact just like with any other contact, for example: adding, editing, deleting and so on. In addition, users will be able to form classes to group students of the same class together. An overview of the Model Class after implementation is shown below:
 
 image::EditedModelClassDiagram.png[align="center"]
+    Figure 23: Model Class after implementation of Student
 
 As shown above, `student` extends from `person`, giving `student` access to its constructor and getter methods for `name`, `phone`, `email`, `address` whereas only `student` will have access to `class`.
 
@@ -668,60 +703,82 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 
 // tag::eventmanagement[]
 
-=== Event Management
+=== Schedule Management
 ==== Current Implementation
-There are two types of events: an `Appointment` or a `Task`.
-The model for event are shown below:
+There are two types of schedule: an `Appointment` or a `Task`. The model diagrams for `Appointment` and `Task` are shown in `Figure 24` and `Figure 25`.
 
-image::EventModelClassDiagram.png[align="center"]
+image::AppointmentModelClassDiagram.png[align="center"]
+    Figure 24: Appointment Class Diagram
 
-`Appointment` consist of 4 variables:
+image::TaskModelClassDiagram.png[align="center"]
+    Figure 25: Task Class Diagram
 
-* Title: Hold description for the appointment
-* Start Time: Hold the starting time of the appointment
-* End time: Hold the end time of the appointment
-* Person to meet: (optional) Hold the target  in the appointment
+`Appointment` has 4 variables:
 
-`Task` consist of 2 variables:
+* Title: Holds description for the appointment.
+* Start Time: Holds the starting time of the appointment.
+* End time: Holds the end time of the appointment.
+* Person to meet: (optional) Holds the target in the appointment.
 
-* Title: Hold description for the task
-* Time: Hold the time the task is expected to be finished
+`Task` has 2 variables:
 
-*Commands supported for each event*
+* Title: Holds description for the task.
+* Time: Holds the time the task is expected to be finished.
 
-* Set
-* Remove
-* Edit
+Similar to `UniquePersonList` and `UniqueTagList`, `UniqueAppointmentList` and `UniqueTaskList` is linked to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
 
-Similar to `UniquePersonList` and `UniqueTagList`, `UniqueEventList` is linked
-to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
+Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar entry list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar entry list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
+[source,java]
+----
+private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
+        appointmentList = event.appointmentList;
+        Platform.runLater(
+                this::updateCalendar
+        );
+}
+private void updateCalendar() {
+        calendar.clear();
+        ArrayList<Entry> entries = getEntries();
+        for (Entry entry : entries) {
+                calendar.addEntry(entry);
+        }
+}
+----
 
 ==== Design Considerations
-===== Aspects : Implementation of set event
-* **Alternative 1 (current choice):** user can still set appointment/task with the starting time/deadline already elapsed.
-** Pros: Might be useful if the users want to keep track of past events.
-** Cons: Not the most intuitive implementation and might be prone to error from the user side.
-* **Alternative 2:** user can only set  appointment/task with the starting time/deadline in the future
-** Pros: Is the more intuitive approach and can prevent the user from keying in "redundant" events
-** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes set the system's time to deviate from world clock, some difficulties may arise when he/she wants to add new event.
+===== Aspects : Implementation of set appointment/task
+* **Alternative 1 (current choice):** Users can set appointment/task with already elapsed starting time/deadline.
+** Pros: With this implementation, TeachConnect can help the user keep track of past schedules which weren't added to the schedule list.
+** Cons: This is not the most intuitive implementation and the application could accept error-prone date input from the user side.
+* **Alternative 2:** Users can only set  appointment/task with the starting time/deadline in the future.
+** Pros: This is the more intuitive approach and it can prevent the user from keying in "redundant" schedule.
+** Cons: As TeachConnect fetches the current time from the user's system, if the user for some purposes sets the system's time to deviate from the world clock, some difficulties may arise when he/she wants to add new event.
 
 // end::eventmanagement[]
 
-// tag::changingguitheme[]
+// tag::theme[]
 
-=== [Proposed] Changing GUI theme
+=== Changing GUI theme
+==== Current Implementation
+The current implementation of this command only involves `Logic`, `EventsCenter` and `UI` components of the application.
 
-// end::changingguitheme[]
+To illustrate how the change theme command works, `Figure 26` shows the sequence diagram for changing the theme to `dark` theme.
 
-_{to be finished later}_
+image::ChangeThemeSequenceDiagram.png[align="center"]
+    Figure 26: Change Theme Command Sequence Diagram
 
-// tag::dataencryption[]
 
-=== [Proposed] Data Encryption
+==== Design Considerations
+===== Aspects : Saving of user selected theme to `UserPrefs` or `Storage`
 
-_{Explain here how the data encryption feature will be implemented}_
+* **Alternative 1 (current choice):** Theme selected is not saved to storage or `UserPrefs`, thus when TeachConnect starts the default theme is always selected.
+** Pros: This implementation is more simple and we don't need to interact with `Model`.
+** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to change the theme every time they start up TeachConnect.
+* **Alternative 2:** Last selected theme by the users would be saved to storage or `UserPrefs`.
+** Pros: Users experience can be enhanced as users can have the theme they like selected automatically each time they start up TeachConnect.
+** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.
 
-// end::dataencryption[]
+// end::theme[]
 
 === Logging
 
@@ -769,10 +826,10 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 27` below.
 
-.Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+    Figure 27: Saving Document as pdf settings
 
 [[Testing]]
 == Testing
@@ -867,276 +924,8 @@ Suggested path for new programmers:
 2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
 
 [[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in TeachConnect, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in TeachConnect.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-*** The current codebase has a flaw in tags management. Tags no longer in use by anyone may still exist on the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. This may cause some tests to fail. See issue  https://github.com/se-edu/addressbook-level4/issues/753[`#753`] for more information about this flaw.
-*** The solution PR has a temporary fix for the flaw mentioned above in its first commit.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in TeachConnect.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever TeachConnect is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving TeachConnect to the cloud. However, the current implementation of the application constantly saves TeachConnect after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for TeachConnect storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that TeachConnect can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `TeachConnect`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/UndoableCommand.java[`UndoableCommand`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `executeUndoableCommand()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
+
 == Product Scope
 
 *Target user profile*: teachers or educational professionals who
@@ -1177,11 +966,11 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 2. Rachel Ngo Phuong Thao
 ** Major Feature : Managing Appointments & Tasks
 
-*** Users can add, edit, and remove appointments & tasks in TeachConnect
-*** The appointments & tasks would be rendered in a calendar in the GUI
+*** Users can add and remove appointments & tasks in TeachConnect.
+*** The appointments would be rendered in a calendar in the GUI.
 ** Minor Feature : Changing the GUI theme
 
-*** Users can set the theme of the GUI to dark theme or light theme
+*** Users can set the theme of the GUI to `dark`, `light` or `galaxy` theme.
 
 ** How the features fit into the product scope :
 

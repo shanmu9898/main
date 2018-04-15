@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <students>
+        <name>Mary Jane1</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane2</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane3</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane4</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane5</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane7</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+    </students>
+    <students>
+        <name>Mary Jane8</name>
+        <phone>98765432</phone>
+        <email>MJ@example.com</email>
+        <address>478, Pasir Ris, #03-12</address>
+        <tagged>
+            <tagName>AStar</tagName>
+            <tagColorStyle>brown</tagColorStyle>
+        </tagged>
+        <subjectList>Physics</subjectList>
+    </students>
+    <classList>
+        <name>class1</name>
+        <subject>Physics</subject>
+        <startDate>10/01/2019</startDate>
+        <endDate>12/07/2019</endDate>
+        <students>Mary Jane1</students>
+        <students>Mary Jane2</students>
+        <students>Mary Jane3</students>
+        <students>Mary Jane4</students>
+    </classList>
+    <classList>
+        <name>class2</name>
+        <subject>Physics</subject>
+        <startDate>10/01/2019</startDate>
+        <endDate>12/07/2019</endDate>
+        <students>Mary Jane1</students>
+        <students>Mary Jane3</students>
+        <students>Mary Jane5</students>
+        <students>Mary Jane7</students>
+        <students>Mary Jane8</students>
+    </classList>
+</addressbook>

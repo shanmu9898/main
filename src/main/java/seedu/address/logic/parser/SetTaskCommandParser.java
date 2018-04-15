@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.SetTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 
 //@@author Sisyphus25
@@ -36,7 +36,7 @@ public class SetTaskCommandParser implements Parser<SetTaskCommand> {
 
         try {
             Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE)).get();
-            EventTime time = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME)).get();
+            Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME)).get();
 
             Task task = new Task(title, time);
 
