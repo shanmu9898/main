@@ -1,91 +1,4 @@
 # Sisyphus25
-###### /java/seedu/address/ui/AppointmentCardTest.java
-``` java
-public class AppointmentCardTest extends GuiUnitTest {
-
-    @Test
-    public void equals() {
-        Appointment appointment = TYPICAL_APPOINTMENT_2;
-        AppointmentCard appointmentCard = new AppointmentCard(appointment, 0);
-
-        // same appointment, same index -> returns true
-        AppointmentCard copy = new AppointmentCard(appointment, 0);
-        assertTrue(appointmentCard.equals(copy));
-
-        // same object -> returns true
-        assertTrue(appointmentCard.equals(appointmentCard));
-
-        // null -> returns false
-        assertFalse(appointmentCard.equals(null));
-
-        // different types -> returns false
-        assertFalse(appointmentCard.equals(0));
-
-        // different appointment, same index -> returns false
-        Appointment differentAppointment = TYPICAL_APPOINTMENT_3;
-        assertFalse(appointmentCard.equals(new AppointmentCard(differentAppointment, 0)));
-
-        // same appointment, different index -> returns false
-        assertFalse(appointmentCard.equals(new AppointmentCard(appointment, 1)));
-    }
-
-}
-```
-###### /java/seedu/address/ui/TaskCardTest.java
-``` java
-public class TaskCardTest extends GuiUnitTest {
-
-    @Test
-    public void equals() {
-        Task task = TYPICAL_TASK_2;
-        TaskCard taskCard = new TaskCard(task, 0);
-
-        // same task, same index -> returns true
-        TaskCard copy = new TaskCard(task, 0);
-        assertTrue(taskCard.equals(copy));
-
-        // same object -> returns true
-        assertTrue(taskCard.equals(taskCard));
-
-        // null -> returns false
-        assertFalse(taskCard.equals(null));
-
-        // different types -> returns false
-        assertFalse(taskCard.equals(0));
-
-        // different task, same index -> returns false
-        Task differentTask = TYPICAL_TASK_1;
-        assertFalse(taskCard.equals(new TaskCard(differentTask, 0)));
-
-        Task expiredTask = TYPICAL_TASK_EXPIRED;
-        TaskCard expiredTaskCard = new TaskCard(TYPICAL_TASK_EXPIRED, 1);
-        // same task, different index -> returns false
-        assertFalse(taskCard.equals(expiredTaskCard));
-    }
-}
-```
-###### /java/seedu/address/logic/parser/RemoveCommandParserTest.java
-``` java
-public class RemoveCommandParserTest {
-    private RemoveCommandParser parser = new RemoveCommandParser();
-
-    @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "appointment" + " 1", new RemoveCommand(INDEX_FIRST, "appointment"));
-    }
-
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "not valid",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "Appointment" + " 1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "appointment" + " -1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-    }
-}
-```
 ###### /java/seedu/address/logic/parser/ChangeThemeCommandParserTest.java
 ``` java
 /**
@@ -159,11 +72,11 @@ public class SetAppointmentCommandParserTest {
 
         // invalid start time
         assertParseFailure(parser, TITLE_DESC + INVALID_START_TIME_DESC + END_TIME_DESC,
-                EventTime.MESSAGE_TIME_CONSTRAINTS);
+                Time.MESSAGE_DATE_TIME_CONSTRAINTS);
 
         // invalid end time
         assertParseFailure(parser, TITLE_DESC + START_TIME_DESC + INVALID_END_TIME_DESC,
-                EventTime.MESSAGE_TIME_CONSTRAINTS);
+                Time.MESSAGE_DATE_TIME_CONSTRAINTS);
     }
 }
 ```
@@ -174,7 +87,7 @@ public class SetTaskCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
+        Task expectedTask = new Task(new Title(VALID_TITLE), new Time(VALID_END_TIME, false));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TITLE_DESC + END_TIME_DESC,
@@ -204,7 +117,7 @@ public class SetTaskCommandParserTest {
         assertParseFailure(parser, INVALID_TITLE_DESC + END_TIME_DESC, Title.MESSAGE_TITLE_CONSTRAINTS);
 
         // invalid end time
-        assertParseFailure(parser, TITLE_DESC + INVALID_END_TIME_DESC, EventTime.MESSAGE_TIME_CONSTRAINTS);
+        assertParseFailure(parser, TITLE_DESC + INVALID_END_TIME_DESC, Time.MESSAGE_DATE_TIME_CONSTRAINTS);
     }
 }
 ```
@@ -253,7 +166,7 @@ public class ListCommandParserTest {
     public void parseCommand_setTask() throws Exception {
         SetTaskCommand command =
                 (SetTaskCommand) parser.parseCommand(SetTaskCommand.COMMAND_WORD + TITLE_DESC + END_TIME_DESC);
-        Task task = new Task(new Title(VALID_TITLE), new EventTime(VALID_END_TIME));
+        Task task = new Task(new Title(VALID_TITLE), new Time(VALID_END_TIME, false));
         assertEquals(new SetTaskCommand(task), command);
     }
 
@@ -263,16 +176,7 @@ public class ListCommandParserTest {
                 (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
         assertEquals(new ChangeThemeCommand("dark"), command);
     }
-
-    @Test
-    public void parseCommand_remove() throws Exception {
-        RemoveCommand commandRemoveAppointment =
-                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "appointment" + " " + "1");
-        RemoveCommand commandRemoveTask =
-                (RemoveCommand) parser.parseCommand(RemoveCommand.COMMAND_WORD + " " + "task" + " " + "2");
-        assertEquals(new RemoveCommand(Index.fromOneBased(1), "appointment"), commandRemoveAppointment);
-        assertEquals(new RemoveCommand(Index.fromOneBased(2), "task"), commandRemoveTask);
-    }
+}
 ```
 ###### /java/seedu/address/logic/parser/ParserUtilTest.java
 ``` java
@@ -303,21 +207,21 @@ public class ListCommandParserTest {
 
     @Test
     public void parseEventTime_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((String) null));
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEventTime((Optional<String>) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((Optional<String>) null));
     }
 
     @Test
     public void parseEventTime_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        assertFalse(ParserUtil.parseEventTime(Optional.empty()).isPresent());
+        assertFalse(ParserUtil.parseTime(Optional.empty()).isPresent());
     }
 
     @Test
     public void parseEventTime_validValue_returnsEventTime() throws Exception {
         String validTime = "20/10/2018 10:00";
-        EventTime expectedEventTime = new EventTime(validTime);
-        assertEquals(expectedEventTime, ParserUtil.parseEventTime(validTime));
-        assertEquals(Optional.of(expectedEventTime), ParserUtil.parseEventTime(Optional.of(validTime)));
+        Time expectedTime = new Time(validTime, false);
+        assertEquals(expectedTime, ParserUtil.parseTime(validTime));
+        assertEquals(Optional.of(expectedTime), ParserUtil.parseTime(Optional.of(validTime)));
     }
 
 ```
@@ -340,105 +244,53 @@ public class ToggleCalendarViewParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/RemoveCommandTest.java
+###### /java/seedu/address/logic/commands/DeleteCommandTest.java
 ``` java
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import org.junit.Test;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.event.Appointment;
-import seedu.address.model.event.Task;
-
-/**
- * Contains Test for {@code RemoveCommand}
- */
-public class RemoveCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
     @Test
-    public void execute_validIndexRemoveAppointment_success() throws Exception {
+    public void execute_validIndexDeleteAppointment_success() throws Exception {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
         Appointment appointmentToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST.getZeroBased());
-        RemoveCommand removeCommandRemovingAppointment = prepareCommand(INDEX_FIRST, "appointment");
+        DeleteCommand deleteAppointmentCommand = prepareCommand(INDEX_FIRST);
+
         String expectedMessage =
-                String.format(RemoveCommand.MESSAGE_DELETE_EVENT_SUCCESS, "appointment", appointmentToDelete);
+                String.format(DeleteCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete);
+
         expectedModel.deleteAppointment(appointmentToDelete);
-        assertCommandSuccess(removeCommandRemovingAppointment, model, expectedMessage, expectedModel);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_APPOINTMENT);
+        assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_validIndexRemoveTask_success() throws Exception {
+    public void execute_validIndexDeleteTask_success() throws Exception {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
         Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST.getZeroBased());
-        RemoveCommand removeCommandRemovingTask = prepareCommand(INDEX_FIRST, "task");
+        DeleteCommand deleteTaskCommand = prepareCommand(INDEX_FIRST);
+
         String expectedMessage =
-                String.format(RemoveCommand.MESSAGE_DELETE_EVENT_SUCCESS, "task", taskToDelete);
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+
         expectedModel.deleteTask(taskToDelete);
-        assertCommandSuccess(removeCommandRemovingTask, model, expectedMessage, expectedModel);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_TASK);
+        assertCommandSuccess(deleteTaskCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndex_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
-        RemoveCommand removeCommandRemovingTask = prepareCommand(outOfBoundIndex, "task");
+        DeleteCommand deleteTaskCommand = prepareCommand(outOfBoundIndex);
 
         Index outOfBoundIndex2 = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
-        RemoveCommand removeCommandRemovingAppointment = prepareCommand(outOfBoundIndex2, "appointment");
+        DeleteCommand deleteAppointmentCommand = prepareCommand(outOfBoundIndex2);
 
-        assertCommandFailure(removeCommandRemovingTask, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        assertCommandFailure(removeCommandRemovingAppointment,
+        model.changeCurrentActiveListType(Model.LIST_TYPE_TASK);
+        assertCommandFailure(deleteTaskCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        model.changeCurrentActiveListType(Model.LIST_TYPE_APPOINTMENT);
+        assertCommandFailure(deleteAppointmentCommand,
                 model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void equals() throws Exception {
-        RemoveCommand removeCommandRemovingAppointment = prepareCommand(INDEX_FIRST, "appointment");
-        RemoveCommand removeCommandRemovingTask = prepareCommand(INDEX_SECOND, "task");
-
-        // same object -> returns true
-        assertTrue(removeCommandRemovingAppointment.equals(removeCommandRemovingAppointment));
-
-        // same values -> returns true
-        RemoveCommand removeCommandRemovingAppointmentCopy = prepareCommand(INDEX_FIRST, "appointment");
-        assertTrue(removeCommandRemovingAppointment.equals(removeCommandRemovingAppointmentCopy));
-
-        // one command preprocessed when previously equal -> returns false
-        removeCommandRemovingAppointmentCopy.preprocessUndoableCommand();
-        assertFalse(removeCommandRemovingAppointment.equals(removeCommandRemovingAppointmentCopy));
-
-        // different types -> returns false
-        assertFalse(removeCommandRemovingAppointment.equals(1));
-
-        // null -> returns false
-        assertFalse(removeCommandRemovingAppointment.equals(null));
-
-        // different person -> returns false
-        assertFalse(removeCommandRemovingAppointment.equals(removeCommandRemovingTask));
-    }
-
-    /**
-     * Returns a {@code RemoveCommand} with the parameter {@code index}, {@code eventType}.
-     */
-    private RemoveCommand prepareCommand(Index index, String eventType) {
-        RemoveCommand removeCommand = new RemoveCommand(index, eventType);
-        removeCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        return removeCommand;
-    }
-}
 ```
 ###### /java/seedu/address/logic/commands/ToggleCalendarViewCommandTest.java
 ``` java
@@ -455,6 +307,27 @@ public class ToggleCalendarViewCommandTest {
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 }
+```
+###### /java/seedu/address/logic/commands/ListCommandTest.java
+``` java
+    @Test
+    public void execute_listEvent_success() throws CommandException {
+        assertListEventSuccess(TYPE_APPOINTMENT);
+        assertListEventSuccess(TYPE_TASK);
+    }
+
+    /**
+     * assert if execution of listing of event is successful or not
+     * @throws CommandException
+     */
+    private void assertListEventSuccess(String eventType) throws CommandException {
+        listCommand = new ListCommand(eventType);
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        CommandResult result = listCommand.execute();
+        assertEquals(MESSAGE_SUCCESS + eventType, result.feedbackToUser);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ToggleListEvent);
+    }
+
 ```
 ###### /java/seedu/address/logic/commands/SetTaskCommandTest.java
 ``` java
@@ -661,7 +534,7 @@ public class XmlAdaptedTaskTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         XmlAdaptedTask task =
                 new XmlAdaptedTask(VALID_TITLE, INVALID_TIME);
-        String expectedMessage = EventTime.MESSAGE_TIME_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_DATE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalArgumentException.class, expectedMessage, task::toModelType);
     }
 
@@ -727,7 +600,7 @@ public class XmlAdaptedAppointmentTest {
     public void toModelType_invalidStartTime_throwsIllegalValueException() {
         XmlAdaptedAppointment appointment =
                 new XmlAdaptedAppointment(VALID_TITLE, INVALID_TIME, VALID_END_TIME, VALID_PERSON_TO_MEET);
-        String expectedMessage = EventTime.MESSAGE_TIME_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_DATE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalArgumentException.class, expectedMessage, appointment::toModelType);
     }
 
@@ -735,7 +608,7 @@ public class XmlAdaptedAppointmentTest {
     public void toModelType_invalidStartEndTime_throwsIllegalValueException() {
         XmlAdaptedAppointment appointment =
                 new XmlAdaptedAppointment(VALID_TITLE, VALID_START_TIME, INVALID_TIME, VALID_PERSON_TO_MEET);
-        String expectedMessage = EventTime.MESSAGE_TIME_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_DATE_TIME_CONSTRAINTS;
         Assert.assertThrows(IllegalArgumentException.class, expectedMessage, appointment::toModelType);
     }
 
@@ -791,13 +664,63 @@ public class XmlAdaptedAppointmentTest {
     }
 }
 ```
+###### /java/seedu/address/model/event/TimeTest.java
+``` java
+public class TimeTest {
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Time(null, false));
+    }
+
+    @Test
+    public void constructor_invalid_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("invalidTimeStamp", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("10/20 10:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("May 17 2018 10:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("17-05-2019 10:00", false));
+
+        //incorrect format
+        //not a time stamp
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("invalidTimeStamp", false));
+        //blank
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("", false));
+        //invalid time stamp format
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("10/20 10:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("May 17 2018 10:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("17-05-2019 10:00", false));
+
+        //correct format but invalid time stamp
+        //invalid date
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("32/05/2019 10:00", false));
+        //invalid month
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("32/13/2019 10:00", false));
+        //invalid date month
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("29/02/2018 10:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("31/04/2018 10:00", false));
+        //invalid time
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("29/02/2018 25:00", false));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Time("29/02/2018 23:60", false));
+    }
+
+    @Test
+    public void isExpired() {
+        Time pastTime = new Time("20/10/2013 10:00", false);
+        Time futureTime = new Time("20/10/2100 10:00", false);
+        assertFalse(futureTime.isExpired());
+
+        assertTrue(pastTime.isExpired());
+    }
+}
+
+```
 ###### /java/seedu/address/model/event/AppointmentTest.java
 ``` java
 public class AppointmentTest {
     private static final Title VALID_TITLE = new Title("Meet Student");
-    private static final EventTime VALID_START_TIME = new EventTime("05/04/2018 10:00");
-    private static final EventTime VALID_END_TIME = new EventTime("05/04/2018 11:00");
-    private static final EventTime INVALID_END_TIME = new EventTime("05/04/2018 09:00");
+    private static final Time VALID_START_TIME = new Time("05/04/2018 10:00", false);
+    private static final Time VALID_END_TIME = new Time("05/04/2018 11:00", false);
+    private static final Time INVALID_END_TIME = new Time("05/04/2018 09:00", false);
 
     @Test
     public void constructor_invalidAppointmentTime_throwsIllegalArgumentException() {
@@ -808,10 +731,40 @@ public class AppointmentTest {
     @Test
     public void isValidTime() {
         // invalid time stamps
-        assertFalse(Appointment.isValidTime(VALID_START_TIME, INVALID_END_TIME)); //End time is before Start Time
+        assertFalse(Time.isValidTime(VALID_START_TIME, INVALID_END_TIME)); //End time is before Start Time
 
         // valid time stamps
-        assertTrue(Appointment.isValidTime(VALID_START_TIME, VALID_END_TIME));
+        assertTrue(Time.isValidTime(VALID_START_TIME, VALID_END_TIME));
+    }
+}
+```
+###### /java/seedu/address/model/event/TitleTest.java
+``` java
+public class TitleTest {
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Title(null));
+    }
+
+    @Test
+    public void constructor_invalidTitle_throwsIllegalArgumentException() {
+        String invalidTitle = "";
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Title(invalidTitle));
+    }
+
+    @Test
+    public void isValidTitle() {
+        // null title
+        Assert.assertThrows(NullPointerException.class, () -> Title.isValidTitle(null));
+
+        // invalid title
+        assertFalse(Title.isValidTitle("")); // empty string
+        assertFalse(Title.isValidTitle(" ")); // spaces only
+
+        // valid title
+        assertTrue(Title.isValidTitle("Meet Dave"));
+        assertTrue(Title.isValidTitle("-")); // one character
     }
 }
 ```
@@ -864,8 +817,8 @@ public class ModelStubAcceptingTaskAdded extends ModelStub {
  */
 public class AppointmentBuilder {
     private Title title;
-    private EventTime time;
-    private EventTime endTime;
+    private Time time;
+    private Time endTime;
     private PersonToMeet personToMeet;
 
     public AppointmentBuilder(String title, String time, String endTime) {
@@ -878,8 +831,8 @@ public class AppointmentBuilder {
 
     public AppointmentBuilder(String title, String time, String endTime, String personToMeet) {
         this.title = new Title(title);
-        this.time = new EventTime(time);
-        this.endTime = new EventTime(endTime);
+        this.time = new Time(time, false);
+        this.endTime = new Time(endTime, false);
         if (personToMeet != null) {
             String[] components = personToMeet.split(EMAIL_SPLITTER);
             this.personToMeet = new PersonToMeet(components[0], components[1]);
@@ -915,13 +868,13 @@ public class TypicalEvents {
 
 
     public static final Task TYPICAL_TASK_1 =
-            new Task(new Title("To do"), new EventTime("10/10/2018 10:00"));
+            new Task(new Title("To do"), new Time("10/10/2018 10:00", false));
     public static final Task TYPICAL_TASK_2 =
-            new Task(new Title("Mark papers"), new EventTime("15/04/2018 23:00"));
+            new Task(new Title("Mark papers"), new Time("15/04/2018 23:00", false));
     public static final Task TYPICAL_TASK_3 =
-            new Task(new Title("Purchase markers"), new EventTime("19/04/2018 10:00"));
+            new Task(new Title("Purchase markers"), new Time("19/04/2018 10:00", false));
     public static final Task TYPICAL_TASK_EXPIRED =
-            new Task(new Title("Expired task"), new EventTime("19/04/2013 10:00"));
+            new Task(new Title("Expired task"), new Time("19/04/2013 10:00", false));
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(TYPICAL_APPOINTMENT_1, TYPICAL_APPOINTMENT_2));

@@ -1,47 +1,4 @@
 # shanmu9898
-###### /java/seedu/address/ui/ShortcutCardTest.java
-``` java
-//package seedu.address.ui;
-//
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
-//import static seedu.address.testutil.TypicalShortcuts.SHORTCUT_DOUBLES_3;
-//import static seedu.address.testutil.TypicalShortcuts.SHORTCUT_DOUBLES_5;
-//
-//import org.junit.Test;
-//
-//import seedu.address.model.shortcuts.ShortcutDoubles;
-//
-//public class ShortcutCardTest {
-//
-//
-//    @Test
-//    public void equals() {
-//        ShortcutDoubles shortcutDoubles = SHORTCUT_DOUBLES_5;
-//        //ShortcutCard shortcutCard = new ShortcutCard(shortcutDoubles, 0);
-//
-//        // same shortcut, same index -> returns true
-//        ShortcutCard copy = new ShortcutCard(shortcutDoubles, 0);
-//        assertTrue(shortcutCard.equals(copy));
-//
-//        // same object -> returns true
-//        assertTrue(shortcutCard.equals(shortcutCard));
-//
-//        // null -> returns false
-//        assertFalse(shortcutCard.equals(null));
-//
-//        // different types -> returns false
-//        assertFalse(shortcutCard.equals(0));
-//
-//        // different shortcut, same index -> returns false
-//        ShortcutDoubles differentshortcut = SHORTCUT_DOUBLES_3;
-//        assertFalse(shortcutCard.equals(new ShortcutCard(differentshortcut, 0)));
-//
-//        // same shortcut, different index -> returns false
-//        assertFalse(shortcutCard.equals(new ShortcutCard(shortcutDoubles, 1)));
-//    }
-//}
-```
 ###### /java/seedu/address/logic/parser/ImportCommandParserTest.java
 ``` java
 public class ImportCommandParserTest {
@@ -89,10 +46,10 @@ public class ImportCommandParserTest {
     public void parseCommand_export() throws Exception {
         ExportCommand command = (ExportCommand) parser.parseCommand(
                 ExportCommand.COMMAND_WORD + " " + PREFIX_NAME + NAME_NEEDED + " " + PREFIX_RANGE + RANGE_ALL
-                        + " " + PREFIX_TAG_EXPORT + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
+                        + " " + PREFIX_TAG + TAG_NEEDED + " " + PREFIX_PATH + PATH_NEEDED + " " + PREFIX_TYPE
                         + TYPE_NEEDED);
         assertEquals (new ExportCommand ("all", new Tag ("friends"), "./data",
-                "name", "normal"), command);
+                "name", "xml"), command);
     }
 
     @Test
@@ -184,13 +141,14 @@ public class ExportCommandParserTest {
         assertParseFailure(exportCommandParser, testingInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 ExportCommand.MESSAGE_USAGE));
 
+
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         Tag testingTag = new Tag("shouldnotbethistag");
-        String testingInput = " n/name r/all p/./data te/normal";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
+        String testingInput = " n/name r/all p/./data te/xml";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "xml");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
 
@@ -199,8 +157,8 @@ public class ExportCommandParserTest {
     @Test
     public void parse_allfieldsPresent_success() {
         Tag testingTag = new Tag("friends");
-        String testingInput = " n/name r/all t/friends p/./data te/normal";
-        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "normal");
+        String testingInput = " n/name r/all t/friends p/./data te/xml";
+        ExportCommand expectedCommand = new ExportCommand("all", testingTag, "./data", "name", "xml");
         assertParseSuccess(exportCommandParser, testingInput, expectedCommand);
     }
 
@@ -252,12 +210,35 @@ public class ShortcutCommandParserTest {
 ```
 ###### /java/seedu/address/logic/commands/ImportCommandTest.java
 ``` java
+package seedu.address.logic.commands;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.StudentBuilder;
+
 public class ImportCommandTest {
 
 
     private static final String INVALID_FILE_LOCATION = "./data/samplefile.xml";
     private static final String VALID_FILE_LOCATION =
             "src/test/data/XmlAddressBookStorageTest/importsamplefile.xml";
+    private static final String VALID_FILE_LOCATION2 =
+            "src/test/data/XmlAddressBookStorageTest/importClassAndStudentSample.xml";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -285,7 +266,30 @@ public class ImportCommandTest {
 
         ImportCommand command = prepareCommand(VALID_FILE_LOCATION);
 
-        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, "7", "0"), model);
+        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, 7, 0, 0, 0, 0, 0), model);
+    }
+
+    @Test
+    public void execute_duplicateClassesAndStudents_successfulImport() throws DuplicatePersonException {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Student studentSample = new StudentBuilder().withName("Mary Jane8").withPhone("98765432")
+                .withEmail("MJ@example.com").withAddress("478, Pasir Ris, #03-12").withTags("AStar").build();
+        model.addStudent(studentSample);
+        ImportCommand command = prepareCommand(VALID_FILE_LOCATION2);
+        assertCommandSuccess(command, model, String.format (command.MESSAGE_SUCCESS, 0, 0, 7, 0, 2, 0), model);
+    }
+
+    @Test
+    public void execute_acceptedSuccess_successfulClassAndStudentImport() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        ClearCommand clearCommand = new ClearCommand();
+        clearCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        clearCommand.executeUndoableCommand();
+
+        ImportCommand command = prepareCommand(VALID_FILE_LOCATION2);
+
+        assertCommandSuccess(command, model, String.format(command.MESSAGE_SUCCESS, 0, 0, 7, 0, 2, 0), model);
     }
 
     @Test
@@ -591,7 +595,7 @@ public class ExportCommandTest {
     private final String testingPath = "./test/data/XmlAddressBookStorageTest";
     private final String name = "testingName";
     private final String testingRange = "1,5";
-    private final String fileTypeNormal = "normal";
+    private final String fileTypeNormal = "xml";
     private final String fileTypeExcel = "excel";
 
 
@@ -662,8 +666,18 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_successfulExportWithSingleRange_showsNoMessageError() {
+    public void execute_exportWithSingleRangeAndMismatchTag_showsMessageError() {
         ExportCommand exportCommand = new ExportCommand("2", testingTag, testingPath, name, fileTypeNormal);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandFailure(exportCommand, model, String.format(exportCommand.MESSAGE_TAG_CONTACT_MISMATCH));
+    }
+
+    @Test
+    public void execute_successfulExportWithSingleRange_showsNoMessageError() {
+        Tag friendsTag = new Tag("friends");
+        ExportCommand exportCommand = new ExportCommand("2", friendsTag, testingPath, name, fileTypeNormal);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -673,6 +687,16 @@ public class ExportCommandTest {
     @Test
     public void execute_successfulExportWithExcel_showsNoMessageError() {
         ExportCommand exportCommand = new ExportCommand("1,6", testingTag, testingPath, name, fileTypeExcel);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
+
+    @Test
+    public void execute_successfulExportWithAllRangeExcel_showsNoMessageError() {
+        Tag colleguesTag = new Tag("collegues");
+        ExportCommand exportCommand = new ExportCommand("all", colleguesTag, testingPath, name, fileTypeExcel);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -710,7 +734,7 @@ public class ExportCommandTest {
 
     @Test
     public void execute_whenTagIsSupposedlyNotGivenAndRangeGiven_showsNoMessageError() {
-        ExportCommand exportCommand = new ExportCommand(testingRange, new Tag("shouldnotbethistag"),
+        ExportCommand exportCommand = new ExportCommand("1,6", new Tag("shouldnotbethistag"),
                 testingPath, name, fileTypeNormal);
         exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
                 new UndoRedoStack());
@@ -730,6 +754,23 @@ public class ExportCommandTest {
         assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_OUT_OF_BOUNDS), model);
     }
 
+    @Test
+    public void execute_classesBeingExported_showsNoError() {
+        ExportCommand exportCommand = new ExportCommand(testingPath, name, fileTypeExcel);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
+
+    @Test
+    public void execute_classesBeingExportedXml_showsNoError() {
+        ExportCommand exportCommand = new ExportCommand(testingPath, name, fileTypeNormal);
+        exportCommand.setData(new ModelManager(getTypicalAddressBook(), new UserPrefs()), new CommandHistory(),
+                new UndoRedoStack());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(exportCommand, model, String.format(exportCommand.MESSAGE_SUCCESS), model);
+    }
 
 
     @Test
@@ -857,18 +898,24 @@ public class UniqueShortcutDoublesListTest {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
         private final ObservableList<ShortcutDoubles> commandslist = FXCollections.observableArrayList();
+        private final ObservableList<Class> classes = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Student> students,
                         Collection<? extends Tag> tags, Collection<Appointment> appointments,
-                        Collection<Task> tasks, Collection<ShortcutDoubles> commands) {
+                        Collection<Task> tasks, Collection<ShortcutDoubles> commands,
+                        Collection<Class> classes) {
             this.persons.setAll(persons);
             this.students.setAll(students);
-            this.contacts.setAll(persons);
-            this.contacts.addAll(students);
             this.tags.setAll(tags);
             this.tasks.setAll(tasks);
             this.appointments.setAll(appointments);
             this.commandslist.setAll(commands);
+            this.classes.setAll(classes);
+        }
+
+        AddressBookStub(Collection<Person> persons) {
+            this.persons.setAll(persons);
+            this.contacts.setAll(persons);
         }
 
         @Override
@@ -904,6 +951,11 @@ public class UniqueShortcutDoublesListTest {
         @Override
         public ObservableList<ShortcutDoubles> getCommandsList() {
             return commandslist;
+        }
+
+        @Override
+        public ObservableList<Class> getClassList() {
+            return classes;
         }
     }
 
@@ -1041,7 +1093,7 @@ public class ExportCommandHelper {
     public static final String TAG_NEEDED = "friends";
     public static final String PATH_NEEDED = "./data";
     public static final String NAME_NEEDED = "name";
-    public static final String TYPE_NEEDED = "normal";
+    public static final String TYPE_NEEDED = "xml";
 
 
 }
@@ -1223,4 +1275,12 @@ public class ShortcutCommandBuilder {
             throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
         fail("This method should not be called");
     }
+
+```
+###### /java/seedu/address/testutil/TypicalPersons.java
+``` java
+    public static List<Student> getTypicalStudents() {
+        return new ArrayList<>(Arrays.asList(STUDENT_AMY, STUDENT_BOB, STUDENT_HOON, STUDENT_IDA));
+    }
+}
 ```
