@@ -758,7 +758,7 @@ private void updateCalendar() {
 
 // tag::theme[]
 
-=== [Proposed] Changing GUI theme
+=== Changing GUI theme
 ==== Current Implementation
 The current implementation of this command only involves `Logic`, `EventsCenter` and `UI` components of the application.
 

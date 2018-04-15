@@ -31,7 +31,7 @@ Responsibilities:
 
 === Rachel Ngo Phuong Thao
 image::sisyphus.jpg[width="150", align="left"]
-{empty}[http://github.com/Sisyphus[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/rachelngo.html[portfolio]]
+{empty}[http://github.com/Sisyphus25[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/rachelngo.html[portfolio]]
 
 Role: Developer
 

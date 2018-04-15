@@ -64,4 +64,3 @@ include::../DeveloperGuide.adoc[tag=studentmanagement]
 ** Project issues assignment and management
 ** Project PR review
 ** Bugs fixes for various issues raised by other teammates and testers
-© 2018 GitHub, Inc.
