@@ -594,7 +594,7 @@ Each `Class` contains 4 variables:
 Shown as a range of dates, e.g 01 January 18 to 01 December 18.
 * List of students taught: for users to recorded which class was attended by which student and vice versa.
 
-An overview of the Model Component after implementation is shown below:
+An overview of the Model Component after implementation is shown below in Figure 23:
 
 image::EditedModelClassDiagram.png[align="center"]
     Figure 23: Model Class after implementation of Student
