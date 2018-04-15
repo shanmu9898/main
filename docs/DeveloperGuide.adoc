@@ -715,19 +715,19 @@ image::TaskModelClassDiagram.png[align="center"]
 
 `Appointment` has 4 variables:
 
-* Title: Holds description for the appointment.
+* Title: Holds the description for the appointment.
 * Start Time: Holds the starting time of the appointment.
 * End time: Holds the end time of the appointment.
 * Person to meet: (optional) Holds the target in the appointment.
 
 `Task` has 2 variables:
 
-* Title: Holds description for the task.
+* Title: Holds the description for the task.
 * Time: Holds the time the task is expected to be finished.
 
 Similar to `UniquePersonList` and `UniqueTagList`, `UniqueAppointmentList` and `UniqueTaskList` is linked to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
 
-Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar entry list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar entry list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
+Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar `Entry` list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar `Entry` list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
 [source,java]
 ----
 private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
@@ -771,10 +771,10 @@ image::ChangeThemeSequenceDiagram.png[align="center"]
 ==== Design Considerations
 ===== Aspects : Saving of user selected theme to `UserPrefs` or `Storage`
 
-* **Alternative 1 (current choice):** Theme selected is not saved to storage or `UserPrefs`, thus when TeachConnect starts the default theme is always selected.
+* **Alternative 1 (current choice):** Theme selected is not saved to storage, thus when TeachConnect starts the default theme is always selected.
 ** Pros: This implementation is more simple and we don't need to interact with `Model`.
 ** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to change the theme every time they start up TeachConnect.
-* **Alternative 2:** Last selected theme by the users would be saved to storage or `UserPrefs`.
+* **Alternative 2:** Last selected theme by the users would be saved to storage.
 ** Pros: Users experience can be enhanced as users can have the theme they like selected automatically each time they start up TeachConnect.
 ** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.
 
@@ -972,7 +972,7 @@ Suggested path for new programmers:
 
 *** Users can set the theme of the GUI to `dark`, `light` or `galaxy` theme.
 
-** How the features fit into the product scope :
+** How the features fit into the product scope:
 
 *** Major Feature: This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
 
@@ -996,10 +996,10 @@ Suggested path for new programmers:
 4. Randy Pang Pang
 
 ** Major Feature : Management of student contacts
-*** Student contact can be created and be added into classes
+*** Student contact can be created and be added into classes.
 
 ** Minor Feature : Multiple tabs for the list in GUI
-*** The list in GUI will hava tabs for multiple different lists
+*** The list in GUI will hava tabs for multiple different lists.
 
 ** How the features fit into the product scope :
 
