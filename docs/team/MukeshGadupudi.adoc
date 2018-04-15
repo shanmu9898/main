@@ -71,8 +71,6 @@ include::../UserGuide.adoc[tag=shortcut]
 
 include::../UserGuide.adoc[tag=deleteshortcut]
 
-include::../UserGuide.adoc[tag=list]
-
 #End of Extract (from User Guide)#
 
 == 4. Contributions to the Developer Guide
@@ -85,8 +83,6 @@ include::../UserGuide.adoc[tag=list]
 
 #Start of Extract (from Developer Guide)#
 
-include::../DeveloperGuide.adoc[tag=import]
-
 include::../DeveloperGuide.adoc[tag=export]
 
 #End of Extract (from Developer Guide)#
@@ -97,15 +93,42 @@ include::../DeveloperGuide.adoc[tag=export]
 
 include::../DeveloperGuide.adoc[tag=shortcut]
 
-include::../DeveloperGuide.adoc[tag=deleteshortcut]
-
-include::../DeveloperGuide.adoc[tag=list]
-
 #End of Extract (from Developer Guide)#
 
 == Appendix A : Proposed Enhancement
 
-=== A.1 Enhancement Proposed: Saving Data on Server
+=== A.1 Other features Implemented
+
+==== Contributions to the User Guide
+
+* Minor Enhancement: Personalised Shortcut Commands
+
+#Start of Extract (from User Guide)#
+
+include::../UserGuide.adoc[tag=list]
+
+#End of Extract (from User Guide)#
+
+==== Contributions to the Developer Guide
+
+* Major Enhancement: Sharing of Contacts
+
+#Start of Extract (from DeveloperGuide)#
+
+include::../DeveloperGuide.adoc[tag=import]
+
+#End of Extract (from DeveloperGuide)#
+
+* Minor Enhancement: Personalised Shortcut Commands
+
+#Start of Extract (from Developer Guide)#
+
+include::../DeveloperGuide.adoc[tag=deleteshortcut]
+
+#End of Extract (from Developer Guide)#
+
+
+=== A.2 Enhancement Proposed: Saving Data on Server
 
 ==== External Behaviour
 
