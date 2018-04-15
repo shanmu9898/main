@@ -7,7 +7,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: TeachConnect
 TeachConnect is a contact and event management application designed for teachers and educational professionals. +
 
-TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of Graphical User Interface (GUI).
+TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of the Graphical User Interface.
 
 *Code contributed*: +
 link:{collatedDir}/main/Sisyphus25.md[Functional code] +
@@ -24,7 +24,7 @@ The content includes are:
 
 <<<
 
-=== Enhancement Added: Task and Appointment commands
+=== Enhancement Added: Task and Appointment management
 
 ==== External behavior
 
@@ -42,7 +42,7 @@ include::../UserGuide.adoc[tag=task]
 ==== Justification
 
 ---
-These features make it easier for teachers and educational staff to review appointments they have set with students and parents, or to review the list of tasks they have to do before a certain deadline.
+This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
 
 ---
 
@@ -99,14 +99,16 @@ include::../DeveloperGuide.adoc[tag=theme]
 
 === Other contributions
 
-** Tag Colour for Person tags
+** Tag Colour for `PersonCard` 's tags
 ** Toggle Calendar View command
-** Modification `list` command to toggle list displayed on GUI.
+** Modification `list` command to toggle list displayed on GUI
 ** 2 new themes for GUI: `light` and `galaxy`
-** Project issues assignment and management
-** Project PR review
+** Project issues assignment and tracking
+** Team members' Pull Requests review
 ** Bugs fixes for various issues raised by other teammates and testers
 ** User Guide +
 *** Commands usage +
 *** Demo images +
+*** Annotation for tables and figures +
+*** Formatting
 ** Test Coverage
