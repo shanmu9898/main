@@ -398,6 +398,8 @@ public ImportCommand(String importPath) {
         addressBookStorage = new XmlAddressBookStorage(filePath);
 }
 
+The execution flow of the Import command is shown in `Figure 19`.
+
 image::ImportCommandFlowChart.png[align="center"]
     Figure 19: Import command flow chart
 
@@ -442,6 +444,8 @@ ExportCommand(String range, Tag tag, String path, String nameOfExportFile, Strin
         teachConnectBook = new AddressBook();
 }
 ----
+
+The execution flow of the Export command is shown in `Figure 20`.
 
 image::ExportCommandDiagram.png[align="center"]
     Figure 20: Export command flow chart
