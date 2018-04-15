@@ -86,19 +86,23 @@ public class TypicalPersons {
     // Manually added
     public static final Student STUDENT_FAUST = new StudentBuilder().withName("Faust Meier")
             .withPhone("9524284").withEmail("mephist@example.com").withAddress("raffles hall")
-            .withTags("absent").build();
+            .withTags("absent").withSubjects().build();
     public static final Student STUDENT_GUASS = new StudentBuilder().withName("Guass Muller")
-            .withPhone("8824681").withEmail("greg@example.com").withAddress("university town").build();
+            .withPhone("8824681").withEmail("greg@example.com").withAddress("university town")
+            .withSubjects().build();
     public static final Student STUDENT_HELEN = new StudentBuilder().withName("Hellen Wetscott")
-            .withPhone("8315264").withEmail("knight@example.com").withAddress("Sentosa Resort").build();
+            .withPhone("8315264").withEmail("knight@example.com").withAddress("Sentosa Resort")
+            .withSubjects().build();
     public static final Student STUDENT_ILLYA = new StudentBuilder().withName("Illya Einzbern")
-            .withPhone("9275423").withEmail("berserker@example.com").withAddress("fuyuki").build();
+            .withPhone("9275423").withEmail("berserker@example.com").withAddress("fuyuki")
+            .withSubjects().build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Student STUDENT_AMY = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().withSubjects().build();
     public static final Student STUDENT_BOB = new StudentBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).build();
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT)
+            .withSubjects().build();
 
     //@@author
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

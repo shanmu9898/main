@@ -86,28 +86,28 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a student with all fields same as another person in the address book except name -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except phone -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except email -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except address -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
