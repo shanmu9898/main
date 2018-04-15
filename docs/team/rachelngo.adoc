@@ -26,8 +26,8 @@ This portfolio was made to document all contribution I have made to this project
 * *Minor enhancement*: added a change theme command that allows the user to change them of the GUI.
 
 * *Code contributed*: +
-link:{collatedDir}/main/Sisyphus25.md[Functional code] +
-link:{collatedDir}/test/Sisyphus25.md[Test code]
+https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/functional/Sisyphus25.md[Functional code] +
+https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/test/Sisyphus25.md[Test code]
 
 * *Other contributions*:
 ** Project management:
