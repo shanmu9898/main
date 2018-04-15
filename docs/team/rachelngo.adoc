@@ -15,11 +15,11 @@ link:{collatedDir}/test/Sisyphus25.md[Test code] +
 
 == Portfolio Purpose
 This portfolio was made to document all contribution I have made to the project. +
-The content includes are:
+The contents included are:
 
-. The external behavior of my contributions
-. The justification for their implementation
-. Details of the implementation
+. The external behavior of my contributions.
+. The justification for their implementation.
+. Details of the implementation.
 
 
 <<<
@@ -99,16 +99,17 @@ include::../DeveloperGuide.adoc[tag=theme]
 
 === Other contributions
 
-** Tag Colour for `PersonCard` 's tags
-** Toggle Calendar View command
-** Modification `list` command to toggle list displayed on GUI
-** 2 new themes for GUI: `light` and `galaxy`
-** Project issues assignment and tracking
-** Team members' Pull Requests review
-** Bugs fixes for various issues raised by other teammates and testers
-** User Guide +
-*** Commands usage +
-*** Demo images +
-*** Annotation for tables and figures +
-*** Formatting
-** Test Coverage
+** Added tag colour to `PersonCard` 's tags.
+** Added toggle Calendar View command.
+** Modified `list` command to allow toggling of list displayed on GUI.
+** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name.
+** Added 2 new themes for the GUI: `light` and `galaxy`.
+** Managed issues assignments and issues tracking.
+** Managed Github Milestones and ensured all issue for each Milestone could be completed before the deadline.
+** Reviewed team members' Pull Requests.
+** Fixed bugs for various issues raised by other teammates and testers.
+** Contributed to the User Guide and Developer Guide: +
+*** Added command usage for several commands. +
+*** Added demo images. +
+*** Added annotation for tables and figures. +
+*** Formatted the contents.
