@@ -219,6 +219,7 @@ public class SampleDataUtil {
     }
 
     //@@author
+    public static List<Subject> getSubjectList(String... strings) {
         List<Subject> subjects = new ArrayList<>();
         for (String s : strings) {
             subjects.add(new Subject(s));
