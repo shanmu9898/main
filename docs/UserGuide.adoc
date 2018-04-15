@@ -567,6 +567,9 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. Alternatively you can also choose the import and export commands!
 
+*Q*: Exporting is giving me error. What do I do? +
+*A*: You can try freeing up some space on your computer. The problem may be with the storage in your computer.
+
 *Q*: How do I contact you if something goes wrong? +
 *A*: Please contact us at cs2103B1W14@gmail.com.
 
