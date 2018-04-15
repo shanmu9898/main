@@ -670,9 +670,9 @@ image::ChangeThemeSequenceDiagram.png[align="center"]
 ==== Design Considerations
 ===== Aspects : Saving of user selected theme to `Storage`
 
-* **Alternative 1 (current choice):** Theme selected is not saved to storage, thus when TeachConnect starts the default theme is always selected.
-** Pros: This implementation is more simple and we don't need to interact with `Model`.
-** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to change the theme every time they start up TeachConnect.
+* **Alternative 1 (current choice):** Theme selected is not saved to storage.
+** Pros: This implementation is more simple and we don't need to interact with `Model` and `Storage`.
+** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to manual change the theme from the default one every time they start up TeachConnect.
 * **Alternative 2:** Last selected theme by the users would be saved to storage.
 ** Pros: Users experience can be enhanced as users can have the theme they like selected automatically each time they start up TeachConnect.
 ** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.

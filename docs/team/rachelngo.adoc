@@ -1,4 +1,4 @@
-= Rachel Ngo Phuong Thao - Project Portfolio
+= Ngo Phuong Thao - Project Portfolio
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -99,15 +99,16 @@ include::../DeveloperGuide.adoc[tag=theme]
 
 === Other contributions
 
-** Added tag colour to `PersonCard` 's tags.
-** Added toggle Calendar View command.
-** Modified `list` command to allow toggling of list displayed on GUI.
-** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name.
-** Added 2 new themes for the GUI: `light` and `galaxy`.
+** Reviewed team members' Pull Requests (PR).
+** Added colour to tag labels. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/5[#5])
+** Added toggle Calendar View command. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/84[#84])
+** Modified `list` command to allow toggling of list displayed on GUI. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/91[#91])
+** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/155[#155], https://github.com/CS2103JAN2018-W14-B1/main/pull/158[#158])
+** Added 2 new themes for the GUI: `light` and `galaxy`. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/89[#89])
 ** Managed issues assignments and issues tracking.
 ** Managed Github Milestones and ensured all issue for each Milestone could be completed before the deadline.
-** Reviewed team members' Pull Requests.
-** Fixed bugs for various issues raised by other teammates and testers.
+** Fixed bugs for various issues raised by other teammates and testers. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/143[#143], https://github.com/CS2103JAN2018-W14-B1/main/pull/162[#162])
+** Integrated third party library `CalendarFX` to TeachConnect. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/83[#83])
 ** Contributed to the User Guide and Developer Guide: +
 *** Added command usage for several commands. +
 *** Added demo images. +
