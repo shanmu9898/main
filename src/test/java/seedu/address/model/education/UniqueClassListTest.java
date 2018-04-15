@@ -1,10 +1,8 @@
-package seedu.address.model.Education;
+package seedu.address.model.education;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import seedu.address.model.education.UniqueClassList;
 
 public class UniqueClassListTest {
     @Rule
