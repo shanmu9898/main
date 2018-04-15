@@ -498,7 +498,7 @@ Format: `history`
 Pressing the kbd:[Up] and kbd:[Down] arrows will display the previous and next input respectively in the command box.
 ====
 
-
+// tag::undoredo[]
 === Undoing previous command : `undo`
 
 Restores TeachConnect to the state before the previous _undoable_ command was executed. +
