@@ -111,13 +111,12 @@ This section discusses the design of TeachConnect's architecture and its compone
 [[Design-Architecture]]
 === Architecture
 
+The high-level design of the App is illustrated in `Figure 1`.
+
 image::Architecture.png[width="600"]
     Figure 1: Architecture Diagram
 
-`Figure 1` given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+Below is a quick overview of each component.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
