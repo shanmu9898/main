@@ -4,113 +4,79 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :stylesDir: ../stylesheets
 :collatedDir: ../../collated
 
-== Project: TeachConnect
-TeachConnect is a contact and event management application designed for teachers and educational professionals. +
-
-TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of the Graphical User Interface.
-
-*Code contributed*: +
-link:{collatedDir}/main/Sisyphus25.md[Functional code] +
-link:{collatedDir}/test/Sisyphus25.md[Test code] +
-
-== Portfolio Purpose
-This portfolio was made to document all contribution I have made to the project. +
-The contents included are:
-
-. The external behavior of my contributions.
-. The justification for their implementation.
-. Details of the implementation.
-
-
-<<<
-
-=== Enhancement Added: Task and Appointment management
-
-==== External behavior
+== PROJECT: TeachConnect
 
 ---
-#Start of Extract [from: User Guide]#
 
+== Overview
+TeachConnect is a contact and schedule management application designed for teachers and educational professionals. TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of the Graphical User Interface (GUI).
+
+This portfolio was made to document all contribution I have made to this project.
+
+== Summary of contributions
+
+* *Major enhancement*: added Appointment & Task feature.
+** What it does:
+*** It allows the user to store their appointments and tasks in TeachConnect.
+*** It allows the user to check the date and time of their appointments easily on the UI's Calendar.
+** Justification: This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
+** Highlights: This enhancement modifies the existing model to store `Task` and `Appointment`. It also modified the UI significantly by integrating in a calendar, so that all appointment can be rendered on the calendar.
+** Credits: The calendar in the UI was taken from third party library `CalendarFX`.
+
+* *Minor enhancement*: added a change theme command that allows the user to change them of the GUI.
+
+* *Code contributed*: +
+link:{collatedDir}/main/Sisyphus25.md[Functional code] +
+link:{collatedDir}/test/Sisyphus25.md[Test code]
+
+* *Other contributions*:
+** Project management:
+*** Managed issues assignments and issues tracking.
+*** Managed Github Milestones and ensured all issue for each Milestone could be completed before the deadline.
+** Enhancements to existing features:
+*** Added colour to tag labels. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/5[#5])
+*** Added toggle Calendar View command. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/84[#84])
+*** Modified `list` command to allow toggling of list displayed on GUI. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/91[#91])
+*** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/155[#155], https://github.com/CS2103JAN2018-W14-B1/main/pull/158[#158])
+*** Added 2 new themes for the GUI: `light` and `galaxy`. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/89[#89])
+*** Fixed bugs for various issues raised by other teammates and testers. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/143[#143], https://github.com/CS2103JAN2018-W14-B1/main/pull/162[#162])
+** Community:
+*** Reviewed team members' Pull Requests (PR).
+*** Reported bugs and provided suggestions for other teams in the class.
+** Documentation:
+*** Added demo images to User Guide. +
+*** Added annotation for tables and figures in User Guide and Developer Guide. +
+*** Formatted the contents of User Guide and Developer Guide.
+** Tools:
+*** Integrated third party library `CalendarFX` to TeachConnect. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/83[#83])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+---
 include::../UserGuide.adoc[tag=appointment]
 
 include::../UserGuide.adoc[tag=task]
 
-#End of Extract#
+include::../UserGuide.adoc[tag=theme]
 
 ---
 
-==== Justification
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 
 ---
-This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
-
----
-
-==== Implementation
-
----
-#Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=eventmanagement]
 
-#End of Extract#
-
----
-
-<<<
-
-
-=== Enhancement Added: Theme Command
-
-==== External behavior
-
----
-#Start of Extract [from: User Guide]#
-
-include::../UserGuide.adoc[tag=theme]
-
-#End of Extract#
-
----
-
-==== Justification
-
----
-This feature allows the user to customize the GUI of TeachConnect to their own liking and set the GUI colour to one that is most pleasant to their eyes.
-
----
-
-==== Implementation
-
----
-#Start of Extract [from: Developer Guide]#
-
 include::../DeveloperGuide.adoc[tag=theme]
 
-#End of Extract#
-
 ---
-
-<<<
-
-=== Enhancement Proposed (for Version 2.0)
-* More classifications for existing contacts: i.e: `student`, `staff`, `friend` instead of just `student`.
-* A `get guardian` command which allows the user to quickly retrieve contact detail of the guardian of a student in the contact list.
-
-=== Other contributions
-
-** Reviewed team members' Pull Requests (PR).
-** Added colour to tag labels. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/5[#5])
-** Added toggle Calendar View command. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/84[#84])
-** Modified `list` command to allow toggling of list displayed on GUI. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/91[#91])
-** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/155[#155], https://github.com/CS2103JAN2018-W14-B1/main/pull/158[#158])
-** Added 2 new themes for the GUI: `light` and `galaxy`. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/89[#89])
-** Managed issues assignments and issues tracking.
-** Managed Github Milestones and ensured all issue for each Milestone could be completed before the deadline.
-** Fixed bugs for various issues raised by other teammates and testers. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/143[#143], https://github.com/CS2103JAN2018-W14-B1/main/pull/162[#162])
-** Integrated third party library `CalendarFX` to TeachConnect. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/83[#83])
-** Contributed to the User Guide and Developer Guide: +
-*** Added command usage for several commands. +
-*** Added demo images. +
-*** Added annotation for tables and figures. +
-*** Formatted the contents.
