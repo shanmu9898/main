@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_2;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.Appointment;
 import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.testutil.Assert;
@@ -83,7 +82,7 @@ public class XmlAdaptedAppointmentTest {
     public void toModelType_invalidTimePeriod_throwsIllegalValueException() {
         XmlAdaptedAppointment appointment =
                 new XmlAdaptedAppointment(VALID_TITLE, "20/10/2018 10:00", "20/10/2018 09:00");
-        String expectedMessage = Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_TIME_PERIOD_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }
 

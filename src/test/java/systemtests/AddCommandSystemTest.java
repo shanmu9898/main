@@ -26,14 +26,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.IVAN;
-import static seedu.address.testutil.TypicalPersons.JOHN;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalPersons.STUDENT_AMY;
 import static seedu.address.testutil.TypicalPersons.STUDENT_BOB;
-import static seedu.address.testutil.TypicalPersons.STUDENT_HOON;
+import static seedu.address.testutil.TypicalPersons.STUDENT_FAUST;
+import static seedu.address.testutil.TypicalPersons.STUDENT_GUASS;
+import static seedu.address.testutil.TypicalPersons.STUDENT_HELEN;
+import static seedu.address.testutil.TypicalPersons.STUDENT_ILLYA;
 
 import org.junit.Test;
 
@@ -67,7 +67,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Student toAdd = STUDENT_AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + PREAMBLE_STUDENT + "  " + NAME_DESC_AMY + "  "
-                + PHONE_DESC_AMY + " " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_STUDENT + " ";
+                + PHONE_DESC_AMY + " " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -83,35 +83,35 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a student with all fields same as another person in the address book except name -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except phone -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except email -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student with all fields same as another person in the address book except address -> added */
         toAdd = new StudentBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).build();
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_STUDENT).withSubjects().build();
         command = AddCommand.COMMAND_WORD + PREAMBLE_STUDENT + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_STUDENT;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add a student to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(GEORGE);
+        assertCommandSuccess(STUDENT_GUASS);
 
         /* Case: add a student with tags, command with parameters in random order -> added */
         toAdd = STUDENT_BOB;
@@ -120,7 +120,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a student, missing tags -> added */
-        assertCommandSuccess(STUDENT_HOON);
+        assertCommandSuccess(STUDENT_FAUST);
 
         /* Case: add a default person -> added */
         assertCommandSuccess(IDA);
@@ -129,25 +129,25 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filters the person list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(JOHN);
+        assertCommandSuccess(STUDENT_ILLYA);
 
         /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
         /* Case: selects first card in the person list, add a student -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(IVAN);
+        assertCommandSuccess(STUDENT_HELEN);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate student -> rejected */
-        command = PersonUtil.getAddStudentCommand(STUDENT_HOON);
+        command = PersonUtil.getAddStudentCommand(STUDENT_FAUST);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a duplicate student except with different tags -> rejected */
-        // "student" is an existing tag used in the default model, see TypicalPersons#STUDENT_ALICE
+        // "student" is an existing tag used in the default model, see TypicalPersons#STUDENT_BOB
         // This test will fail if a new tag that is not in the model is used, see the bug documented in
         // AddressBook#addPerson(Person)
-        command = PersonUtil.getAddStudentCommand(STUDENT_HOON) + " " + PREFIX_TAG.getPrefix() + "student";
+        command = PersonUtil.getAddStudentCommand(STUDENT_FAUST) + " " + PREFIX_TAG.getPrefix() + "student";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */

@@ -58,6 +58,11 @@ public class FormCommand extends UndoableCommand {
      * Creates an FormCommand to form the specified {@code Class}
      */
     public FormCommand(Name name, Subject subj, Time start, Time end, List<Index> indexes) {
+        requireNonNull(name);
+        requireNonNull(subj);
+        requireNonNull(start);
+        requireNonNull(end);
+        requireNonNull(indexes);
         className = name;
         subject = subj;
         startTime = start;
@@ -103,6 +108,10 @@ public class FormCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FormCommand // instanceof handles nulls
-                && toAdd.equals(((FormCommand) other).toAdd));
+                && this.className.equals(((FormCommand) other).className)
+                && this.subject.equals(((FormCommand) other).subject)
+                && this.startTime.equals(((FormCommand) other).startTime)
+                && this.endTime.equals(((FormCommand) other).endTime)
+                && this.indexList.equals(((FormCommand) other).indexList));
     }
 }

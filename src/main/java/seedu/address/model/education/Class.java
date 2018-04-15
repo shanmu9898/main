@@ -1,6 +1,7 @@
 package seedu.address.model.education;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,10 +35,6 @@ public class Class {
         attendingStudents = new ArrayList<>(studentList);
     }
 
-    public boolean hasConcluded() {
-        return endDate.isExpired();
-    }
-
     public Name getName() {
         return className;
     }
@@ -54,8 +51,12 @@ public class Class {
         return endDate;
     }
 
+    /**
+     * Returns an immutable student list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public List<Name> getStudents() {
-        return attendingStudents;
+        return Collections.unmodifiableList(attendingStudents);
     }
 
     /**

@@ -8,7 +8,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
  */
 public class Appointment {
-    public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
     private final Title title;
     private final Time startTime;
@@ -23,7 +22,7 @@ public class Appointment {
     //Every field except personToMeet must be present and not null
     public Appointment(Title title, Time startTime, Time endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
-        checkArgument(Time.isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
+        checkArgument(Time.isValidTime(startTime, endTime), Time.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;

@@ -59,6 +59,13 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_STUDENT = " " + PREFIX_TAG + VALID_TAG_STUDENT;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String VALID_CLASS_MATH = "Math101";
+    public static final String VALID_CLASS_PHYSICS = "Physics";
+    public static final String VALID_SUBJECT_MATH = "Mathematics";
+    public static final String VALID_SUBJECT_PHYS = "Physics";
+    public static final String VALID_START_DATE = "10/10/2018";
+    public static final String VALID_END_DATE = "10/10/2019";
+    public static final String VALID_DATE = "28/12/2018";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -75,9 +82,20 @@ public class CommandTestUtil {
     public static final String INVALID_END_TIME_DESC =
             " " + PREFIX_END_TIME + "May 20, 2018 10am"; // not in correct format
 
+    public static final String CLASS_MATH_DESC = " " + PREFIX_NAME + VALID_CLASS_MATH;
+    public static final String CLASS_PHYS_DESC = " " + PREFIX_NAME + VALID_CLASS_PHYSICS;
+    public static final String START_DATE_DESC = " " + PREFIX_START_TIME + VALID_START_DATE;
+    public static final String END_DATE_DESC = " " + PREFIX_END_TIME + VALID_END_DATE;
+
+    public static final String INVALID_CLASS_NAME_DESC = " " + PREFIX_NAME + "Cl@s$";
+    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_TIME + "10-10-2018";
+    public static final String INVALD_END_DATE_DESC = " " + PREFIX_END_TIME + "10 Oct 2019";
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
     public static final String PREAMBLE_STUDENT = " student ";
+    public static final String PREAMBLE_SUBJECT_MATH = " Mathematics";
+    public static final String PREAMBLE_SUBJECT_PHYS = " Physics";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;

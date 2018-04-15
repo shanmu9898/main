@@ -56,6 +56,42 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <students>
+        <name>Angus Wyndham</name>
+        <phone>9867723</phone>
+        <email>wynd@example.com</email>
+        <address>Centre Street</address>
+        <subjectList>Biology</subjectList>
+    </students>
+    <students>
+        <name>Bruce Wayne</name>
+        <phone>9575232</phone>
+        <email>star@example.com</email>
+        <address>Hollywood</address>
+    </students>
+    <students>
+        <name>Cooper Crouch</name>
+        <phone>9247637</phone>
+        <email>freeman@example.com</email>
+        <address>Kansas</address>
+        <subjectList>Mathematics</subjectList>
+        <subjectList>Biology</subjectList>
+    </students>
+    <students>
+        <name>David Gray</name>
+        <phone>9234718</phone>
+        <email>alien@example.com</email>
+        <address>Chinatown</address>
+        <subjectList>Mathematics</subjectList>
+    </students>
+    <students>
+        <name>Emily Walter</name>
+        <phone>8537425</phone>
+        <email>lily@example.com</email>
+        <address>4th Avenue</address>
+        <subjectList>Biology</subjectList>
+        <subjectList>Physics</subjectList>
+    </students>
     <tags>
         <tagName>owesMoney</tagName>
         <tagColorStyle>teal</tagColorStyle>
@@ -84,4 +120,28 @@
         <title>Mark papers</title>
         <time>15/04/2018 23:00</time>
     </tasks>
+    <classList>
+        <name>math 101</name>
+        <subject>Mathematics</subject>
+        <startDate>30/08/2018</startDate>
+        <endDate>30/12/2019</endDate>
+        <students>Cooper Crouch</students>
+        <students>David Gray</students>
+    </classList>
+    <classList>
+        <name>Bio 01</name>
+        <subject>Biology</subject>
+        <startDate>05/12/2018</startDate>
+        <endDate>05/05/2019</endDate>
+        <students>Angus Wyndham</students>
+        <students>Cooper Crouch</students>
+        <students>Emily Walter</students>
+    </classList>
+    <classList>
+        <name>phys 03</name>
+        <subject>Physics</subject>
+        <startDate>04/07/2018</startDate>
+        <endDate>04/12/2018</endDate>
+        <students>Emily Walter</students>
+    </classList>
 </addressbook>

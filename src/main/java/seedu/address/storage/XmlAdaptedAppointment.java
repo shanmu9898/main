@@ -90,7 +90,7 @@ public class XmlAdaptedAppointment {
         final Time endTime = new Time(this.endTime, false);
 
         if (!Time.isValidTime(startTime, endTime)) {
-            throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
+            throw new IllegalValueException(Time.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
         if (this.personToMeet != null) {

@@ -87,15 +87,15 @@ public class SampleDataUtil {
             new Class(new Name("Tutorial Class 02"), new Subject("CS2103T"),
                     new Time("01/01/2018", true),
                     new Time("28/05/2018", true),
-                    getNameList("Jared Clover", "Hadley Bolton", "Isaac Ellison")),
+                    getStudentList("Jared Clover", "Hadley Bolton", "Isaac Ellison")),
             new Class(new Name("Sectional Teaching 02"), new Subject("CS2101"),
                     new Time("04/01/2018", true),
                     new Time("19/06/2018", true),
-                    getNameList("Jared Clover", "Ira Martel", "Isaac Ellison")),
+                    getStudentList("Jared Clover", "Ira Martel", "Isaac Ellison")),
             new Class(new Name("Tutorial Class 01"), new Subject("CS2010"),
                     new Time("15/10/2018", true),
                     new Time("10/02/2019", true),
-                    getNameList("Hadley Bolton", "Isaac Ellison"))
+                    getStudentList("Hadley Bolton", "Isaac Ellison"))
         };
     }
 
@@ -183,7 +183,6 @@ public class SampleDataUtil {
         }
     }
 
-
     /**
      * Returns a tag set containing the list of strings given.
      */
@@ -196,30 +195,30 @@ public class SampleDataUtil {
         return tags;
     }
 
+    //@@author randypx
     /**
      * Returns a subject list containing the list of strings given.
      */
     public static List<Subject> getSubjectList(String... strings) {
-        List<Subject> subjects = new ArrayList<>();
+        ArrayList<Subject> subjectList = new ArrayList<>();
         for (String s : strings) {
-            subjects.add(new Subject(s));
+            subjectList.add(new Subject(s));
         }
-
-        return subjects;
+        return subjectList;
     }
 
     /**
-     * Returns a name list containing the list of strings given.
+     * Returns a student list containing the list of strings given.
      */
-    public static List<Name> getNameList(String... strings) {
-        List<Name> nameList = new ArrayList<>();
+    public static List<Name> getStudentList(String... strings) {
+        ArrayList<Name> studentList = new ArrayList<>();
         for (String s : strings) {
-            nameList.add(new Name(s));
+            studentList.add(new Name(s));
         }
-
-        return nameList;
+        return studentList;
     }
 
+    //@@author
     public static Set<ShortcutDoubles> getSampleShortcutDoublesTagSet(String... strings) {
         HashSet<ShortcutDoubles> shortcutDoubles = new HashSet<>();
         for (String s : strings) {

@@ -50,8 +50,8 @@ public class FormCommandParser implements Parser<FormCommand> {
             checkArgument(Time.isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
 
             return new FormCommand(className, subject, startTime, endTime, indexList);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
+        } catch (IllegalValueException | IllegalArgumentException e) {
+            throw new ParseException(e.getMessage(), e);
         }
     }
 

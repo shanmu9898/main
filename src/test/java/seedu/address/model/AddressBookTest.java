@@ -80,6 +80,12 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getStudentList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getStudentList().remove(0);
+    }
+
+    @Test
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
@@ -97,14 +103,20 @@ public class AddressBookTest {
         addressBook.getTaskList().remove(0);
     }
 
+    @Test
+    public void getClassList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getClassList().remove(0);
+    }
+
     //@@author shanmu9898
     @Test
     public void getShortcutList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getCommandsList().remove(0);
     }
-    //@@author shanmu9898
 
+    //@@author
     /**
      * A stub ReadOnlyAddressBook whose persons, tags and events lists can violate interface constraints.
      */
@@ -190,7 +202,7 @@ public class AddressBookTest {
     //@@author shanmu9898
     @Test
     public void removeTag_tagNotPresent_addressBookUnchanged() throws PersonNotFoundException,
-                                                                      DuplicatePersonException {
+            DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
 
         testAddressBook.removeTag(new Tag(VALID_TAG_NOTUSED));
@@ -202,7 +214,7 @@ public class AddressBookTest {
 
     @Test
     public void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException,
-                                                                       DuplicatePersonException {
+            DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
         testAddressBook.removeTag(new Tag(VALID_TAG_FRIEND));
 
@@ -210,10 +222,9 @@ public class AddressBookTest {
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
 
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
-                                              .withPerson(amyWithoutFriendTag).build();
+                .withPerson(amyWithoutFriendTag).build();
 
         assertEquals(expectedAddressBook, testAddressBook);
     }
     //@@author
-
 }
