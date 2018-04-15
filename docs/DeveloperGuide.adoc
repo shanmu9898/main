@@ -31,6 +31,8 @@ The developer guide consists of the following sections:
 
 == Setting up
 
+This section covers the steps needed to set up TeachConnect on a computer.
+
 === Prerequisites
 
 . *JDK `1.8.0_60`* or later
@@ -104,7 +106,7 @@ When you are ready to start coding,
 
 == Design
 
-This section discusses the design of TeachConnect's major components.
+This section discusses the design of TeachConnect's architecture and its components.
 
 [[Design-Architecture]]
 === Architecture
@@ -916,16 +918,6 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-[appendix]
 
 == Product Scope
 
@@ -1180,10 +1172,10 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should allow a user with above average typing speed for regular English text (i.e. not code, not system admin commands) to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be intutive for any first time user.
 .  Should be able to handle any invalid input i.e should be able to inform the user and guide the user for valid input.
-.  Should respond within a second
+.  Should respond within a second.
 
 
 _{More to be added}_
