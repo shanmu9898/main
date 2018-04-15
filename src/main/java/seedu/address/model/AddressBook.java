@@ -105,13 +105,11 @@ public class AddressBook implements ReadOnlyAddressBook {
             throws DuplicateEventException {
         this.tasks.setEvents(tasks);
     }
-
     //@@author LimShiMinJonathan
     public void sortContacts() {
         contacts.sortList();
     }
     //@@author
-
     //@@author randypx
     public void setClasses(List<Class> classes) throws DuplicateClassException {
         this.classes.setClasses(classes);

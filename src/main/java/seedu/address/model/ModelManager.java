@@ -46,9 +46,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
-    private final SortedList<Person> sortedFilteredConatacts;
     private final FilteredList<Class> filteredClass;
     private final FilteredList<Student> filteredStudents;
+    private final SortedList<Person> sortedFilteredConatacts;
     private String currentActiveListType;
 
     /**
@@ -66,8 +66,9 @@ public class ModelManager extends ComponentManager implements Model {
         filteredShortcutCommands = new FilteredList<>(this.addressBook.getCommandsList());
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        sortedFilteredConatacts = new SortedList<Person>(filteredContacts);
         filteredClass = new FilteredList<>(this.addressBook.getClassList());
+        sortedFilteredConatacts = new SortedList<Person>(filteredContacts);
+
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -239,6 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredContacts);
     }
+
     //@@author LimShiMinJonathan
     @Override
     public void sortByNameFilteredPersonList() {
