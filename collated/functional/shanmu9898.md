@@ -87,10 +87,10 @@ public class ShortcutListPanel extends  UiPart<Region> {
     class ShortcutListViewCell extends ListCell<ShortcutCard> {
 
         @Override
-        protected void updateItem(ShortcutCard shortcutCard, boolean empty) {
-            super.updateItem(shortcutCard, empty);
+        protected void updateItem(ShortcutCard shortcutCard, boolean isEmpty) {
+            super.updateItem(shortcutCard, isEmpty);
 
-            if (empty || shortcutCard == null) {
+            if (isEmpty || shortcutCard == null) {
                 setGraphic(null);
                 setText(null);
             } else {
@@ -100,67 +100,11 @@ public class ShortcutListPanel extends  UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/ShortcutCard.java
-``` java
-package seedu.address.ui;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import seedu.address.model.shortcuts.ShortcutDoubles;
-
-/**
- * An UI component that displays information of a {@code Shortcut Double}
- */
-public class ShortcutCard extends UiPart<Region> {
-
-    private static final String FXML = "ShortcutListCard.fxml";
-
-    public  final ShortcutDoubles shortcutDoubles;
-
-    @FXML
-    private HBox cardPane;
-    @FXML
-    private Label shortcut;
-    @FXML
-    private Label command;
-    @FXML
-    private Label id;
-
-    public ShortcutCard(ShortcutDoubles shortcutDoubles, int displayedIndex) {
-        super(FXML);
-
-        this.shortcutDoubles = shortcutDoubles;
-        id.setText(displayedIndex + ". ");
-        shortcut.setText("===> " + shortcutDoubles.shortcutWord);
-        command.setText(shortcutDoubles.commandWord);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof ShortcutCard)) {
-            return false;
-        }
-
-        // state check
-        ShortcutCard card = (ShortcutCard) other;
-        return id.getText().equals(card.id.getText())
-                && shortcutDoubles.equals(card.shortcutDoubles);
-    }
-}
-```
 ###### /java/seedu/address/logic/Logic.java
 ``` java
     /** Returns an unmodifiable view of the filtered list of Shortcuts */
     ObservableList<ShortcutDoubles> getFilteredShortcutList();
-}
+
 ```
 ###### /java/seedu/address/logic/parser/DeleteShortcutCommandParser.java
 ``` java
@@ -245,28 +189,58 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     @Override
     public ExportCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_RANGE,
-                PREFIX_TAG_EXPORT, PREFIX_PATH, PREFIX_TYPE);
-
+        ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PATH, PREFIX_TYPE);
         String[] preambleArgs = argMultiMap.getPreamble().split(" ");
-        if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_RANGE, PREFIX_PATH, PREFIX_TYPE)
+
+        if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_PATH, PREFIX_TYPE)
                 || preambleArgs.length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
 
-        String name = argMultiMap.getValue(PREFIX_NAME).orElse("");
-        String range = argMultiMap.getValue(PREFIX_RANGE).orElse("all");
-        String tag = argMultiMap.getValue(PREFIX_TAG_EXPORT).orElse("shouldnotbethistag");
-        String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
-        String type = argMultiMap.getValue(PREFIX_TYPE).orElse("normal");
+        args.trim();
+        String[] splitwords = args.split(" ");
+        if (splitwords[1].equalsIgnoreCase("classes")) {
+            argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PATH, PREFIX_TYPE);
+            preambleArgs = argMultiMap.getPreamble().split(" ");
 
-        if (!(type.equals("excel") || type.equals("normal"))) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_PATH, PREFIX_TYPE)
+                    || preambleArgs.length > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
+
+            String name = argMultiMap.getValue(PREFIX_NAME).orElse("");
+            String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
+            String type = argMultiMap.getValue(PREFIX_TYPE).orElse("xml");
+
+            if (!(type.equalsIgnoreCase("excel") || type.equalsIgnoreCase("xml"))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
+
+            return new ExportCommand(path, name, type);
+
+        } else {
+            argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_RANGE,
+                    PREFIX_TAG_EXPORT, PREFIX_PATH, PREFIX_TYPE);
+
+            preambleArgs = argMultiMap.getPreamble().split(" ");
+            if (!arePrefixesPresent(argMultiMap, PREFIX_NAME, PREFIX_RANGE, PREFIX_PATH, PREFIX_TYPE)
+                    || preambleArgs.length > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
+
+            String name = argMultiMap.getValue(PREFIX_NAME).orElse("");
+            String range = argMultiMap.getValue(PREFIX_RANGE).orElse("all");
+            String tag = argMultiMap.getValue(PREFIX_TAG_EXPORT).orElse("shouldnotbethistag");
+            String path = argMultiMap.getValue(PREFIX_PATH).orElse("");
+            String type = argMultiMap.getValue(PREFIX_TYPE).orElse("xml");
+
+            if (!(type.equalsIgnoreCase("excel") || type.equalsIgnoreCase("xml"))) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
+
+            Tag tagExport = new Tag(tag);
+            return new ExportCommand(range, tagExport, path, name, type);
         }
-
-        Tag tagExport = new Tag(tag);
-        return new ExportCommand(range, tagExport, path, name, type);
-
 
     }
 
@@ -365,16 +339,49 @@ public class DeleteShortcutCommand extends UndoableCommand {
 ```
 ###### /java/seedu/address/logic/commands/ExportCommand.java
 ``` java
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RANGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_EXPORT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import javafx.collections.ObservableList;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.XmlAddressBookStorage;
+
+
 /**
- *
- * Exports people to an XML file of choice based on tag, index or range
+ * Exports people to an XML/Excel file of choice based on tag, index or range
  */
 public class ExportCommand extends Command {
 
     public static final String MESSAGE_FAIL = "TeachConnect faced some error while exporting! Please try again!";
     public static final String MESSAGE_OUT_OF_BOUNDS = "Please check the index bounds!";
-    public static final String MESSAGE_SUCCESS = "Contacts have been successfully exported!";
+    public static final String MESSAGE_SUCCESS = "Export Success!";
     public static final String MESSAGE_RANGE_ERROR = "Please input valid range";
+    public static final String MESSAGE_TAG_CONTACT_MISMATCH = "The tag and contact don't match";
 
     public static final String COMMAND_WORD = "export";
 
@@ -387,11 +394,13 @@ public class ExportCommand extends Command {
             + PREFIX_PATH + " PATH "
             + PREFIX_TYPE + "FORMAT \n"
             + "Example 1: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "all "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
             + "Example 2: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1 "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/Normal \n"
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
             + "Example 3: " + COMMAND_WORD + " " + PREFIX_NAME + "{Name of file} " + PREFIX_RANGE + "1,2 "
-            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "Excel/normal \n";
+            + PREFIX_TAG_EXPORT + "friends " + PREFIX_PATH + "{Path to store} " + PREFIX_TYPE + "excel/xml \n"
+            + "Example 4: " + COMMAND_WORD + " classes " + PREFIX_NAME + "{Name of file} " + PREFIX_PATH
+            + "{Path to store} " + PREFIX_TYPE + "excel/xml \n";
 
 
     private Tag tag;
@@ -401,6 +410,10 @@ public class ExportCommand extends Command {
     private AddressBookStorage teachConnectStorage;
     private final String nameOfExportFile;
     private final String type;
+    private ArrayList<Person> exportPersonAddition = new ArrayList<Person>();
+    private ArrayList<Class> exportClassAddition = new ArrayList<Class>();
+    private ArrayList<Student> exportStudentAddition = new ArrayList<Student>();
+    private boolean isClassesOrNot = false;
 
     /**
      * Creates an ExportCommand to export the specified {@code Persons}
@@ -422,27 +435,55 @@ public class ExportCommand extends Command {
         teachConnectBook = new AddressBook();
     }
 
-    @Override
-    public CommandResult execute() {
-        String[] rangeGiven;
-        try {
-            rangeGiven = handleRange();
-        } catch (IOException e) {
-            return new CommandResult(MESSAGE_RANGE_ERROR);
-        }
-        CommandResult handledRangeSituation;
-        try {
-            handledRangeSituation = handleRangeArray(rangeGiven);
-        } catch (DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_FAIL);
-        } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
-        }
-        if (handledRangeSituation != null) {
-            return handledRangeSituation;
-        }
+    public ExportCommand(String path, String name, String type) {
+        this.range = null;
+        this.path = path;
+        this.nameOfExportFile = name;
+        isClassesOrNot = true;
+        this.type = type;
 
-        if (!tryStorage(type)) {
+
+        teachConnectBook = new AddressBook();
+    }
+
+
+    /**
+     * Handles exceptions of various messages and takes care of the actual execution of the command.
+     */
+    @Override
+    public CommandResult execute() throws CommandException {
+        if (isClassesOrNot) {
+            try {
+                exportClasses();
+            } catch (DuplicateClassException e) {
+                return new CommandResult(MESSAGE_FAIL);
+            } catch (DuplicatePersonException e) {
+                return new CommandResult(MESSAGE_FAIL);
+            }
+        } else {
+            String[] rangeGiven;
+            CommandResult handledRangeSituation;
+
+            try {
+                rangeGiven = handleRange();
+            } catch (IOException e) {
+                return new CommandResult(MESSAGE_RANGE_ERROR);
+            }
+
+            try {
+                handledRangeSituation = handleRangeArray(rangeGiven);
+            } catch (DuplicatePersonException e) {
+                return new CommandResult(MESSAGE_FAIL);
+            } catch (IndexOutOfBoundsException e) {
+                return new CommandResult(MESSAGE_OUT_OF_BOUNDS);
+            }
+
+            if (handledRangeSituation != null) {
+                return handledRangeSituation;
+            }
+
+        }
+        if (!tryStorage(type, isClassesOrNot)) {
             return new CommandResult(MESSAGE_FAIL);
         }
         return new CommandResult(MESSAGE_SUCCESS);
@@ -450,155 +491,302 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * This method tries creating and storing the export file.
-     * @return
+     * Exports classes to an xml file
      */
-    private boolean tryStorage(String type) {
+    private void exportClasses() throws DuplicateClassException, DuplicatePersonException {
+        ObservableList<Class> classes = model.getFilteredClassList();
+        ObservableList<Student> students = model.getFilteredStudentsList();
+        for (Class c : classes) {
+            List<Name> studentNames = c.getStudents();
+            addStudentsToList(students, studentNames);
+
+        }
+        for (Class c : classes) {
+            exportClassAddition.add(c);
+        }
+        teachConnectBook.setClasses(exportClassAddition);
+        teachConnectBook.setStudents(exportStudentAddition);
+
+    }
+
+    /**
+     * Adds students into the list to add to the XML file later for supporting classes
+     */
+    private void addStudentsToList(ObservableList<Student> students, List<Name> studentNames) {
+        for (Student s : students) {
+            if (studentNames.contains(s.getName()) && !exportStudentAddition.contains(s)) {
+                exportStudentAddition.add(s);
+            }
+        }
+    }
+
+    /**
+     * This method saves the file either as an XML file or an CSV file depending on the user preferences.
+     *
+     * @return a boolean values if the storage has been possible or not
+     */
+    private boolean tryStorage(String type, boolean isClassesOrNot) throws CommandException {
+        if (type.equalsIgnoreCase("xml")) {
+            return saveAsXml();
+        } else if (type.equalsIgnoreCase("excel")) {
+            return saveAsCsv(isClassesOrNot);
+        }
+        return true;
+    }
+
+    /**
+     * Tries to save the file as an XML file
+     */
+    private boolean saveAsXml() {
         teachConnectStorage = new XmlAddressBookStorage(path + "/" + nameOfExportFile + ".xml");
         try {
             teachConnectStorage.saveAddressBook(teachConnectBook);
         } catch (IOException e) {
             return false;
         }
-        if (type.equals("excel")) {
-            return saveAsCsv();
-        }
         return true;
     }
 
     /**
-     * Will save as a CSV file depending on the type of input
+     * Will save as a CSV file using a CSVPrinter including the list of tags
+     *
      * @return boolean
      */
-    private boolean saveAsCsv() {
-        File stylesheet = new File("./src/main/resources/Util/style.xsl");
-        File xmlSource = new File(path + "/" + nameOfExportFile + ".xml");
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
+    private boolean saveAsCsv(boolean isClassesOrNot) throws CommandException {
+        CSVPrinter csvPrinter;
         try {
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            return false;
-        }
-        Document document;
-        try {
-            document = builder.parse(xmlSource);
-        } catch (SAXException e) {
-            return false;
+            csvPrinter = csvFileToBeWritten(isClassesOrNot);
         } catch (IOException e) {
-            return false;
+            throw new CommandException(String.format(MESSAGE_FAIL));
         }
 
-        StreamSource styleSource = new StreamSource(stylesheet);
-        Transformer transformer;
-        try {
-            transformer = TransformerFactory.newInstance().newTransformer(styleSource);
-        } catch (TransformerConfigurationException e) {
-            return false;
+        if (isClassesOrNot) {
+            saveAsCsvClasses(csvPrinter);
+        } else {
+            saveAsCsvPersons(csvPrinter);
         }
-        Source source = new DOMSource(document);
-        Result outputTarget = new StreamResult(new File(path + "/" + nameOfExportFile + ".csv"));
+
         try {
-            transformer.transform(source, outputTarget);
-        } catch (TransformerException e) {
-            return false;
+            csvPrinter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return true;
     }
+
+    /**
+     * Helper for a saving Persons in a CSV format
+     *
+     * @param csvPrinter - Helps in writing data to a CSV file
+     * @throws CommandException - Should show message fail error
+     */
+    private void saveAsCsvPersons(CSVPrinter csvPrinter) throws CommandException {
+        for (Person p : exportPersonAddition) {
+            try {
+                csvPrinter.printRecord(p.getName(), p.getEmail(), p.getPhone(), p.getAddress(), p.getTags());
+            } catch (IOException e) {
+                throw new CommandException(String.format(MESSAGE_FAIL));
+            }
+        }
+    }
+
+    /**
+     * Helper for a saving Classes in a CSV format
+     *
+     * @param csvPrinter - Helps in writing data to a CSV file
+     * @throws CommandException - Should show message fail error
+     */
+    private void saveAsCsvClasses(CSVPrinter csvPrinter) throws CommandException {
+        try {
+            for (Class c : exportClassAddition) {
+                csvPrinter.printRecord(c.getName(), c.getSubject(), c.getStartDate(),
+                        c.getEndDate(), c.getStudents());
+            }
+        } catch (IOException e) {
+            throw new CommandException(String.format(MESSAGE_FAIL));
+        }
+    }
+
+
+    /**
+     * Returns CSVPrinter which is the file to which the contents are going to be added.
+     */
+    public CSVPrinter csvFileToBeWritten(boolean isClassesOrNot) throws IOException {
+        CSVPrinter csvPrinter;
+
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "/" + nameOfExportFile + ".csv"));
+        if (!isClassesOrNot) {
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Email", "Phone",
+                    "Address", "Tags"));
+        } else {
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Subject", "Start Date",
+                    "End Date", "Students"));
+        }
+
+        return csvPrinter;
+    }
+
 
     /**
      * Handles the range array returned by the handleRange() function
+     *
      * @param rangeGiven
      * @return
      */
     private CommandResult handleRangeArray(String[] rangeGiven) throws DuplicatePersonException,
-                                                                       IndexOutOfBoundsException {
+            IndexOutOfBoundsException,
+            CommandException {
         if (rangeGiven[0].equals("all")) {
             exportAllRange(tag);
         } else {
-            if (rangeGiven.length != 1) {
-                for (int i = 0; i < rangeGiven.length; i++) {
-                    int low = Integer.parseInt(rangeGiven[0]);
-                    int high = Integer.parseInt(rangeGiven[1]);
-                    if (low >= high) {
-                        return new CommandResult(MESSAGE_RANGE_ERROR);
-                    } else {
-                        exportRange(low, high, tag);
-                    }
-                }
-            } else {
-                int low = Integer.parseInt(rangeGiven[0]);
-                exportSpecific(low);
+            if (exportGivenRange(rangeGiven)) {
+                return new CommandResult(MESSAGE_RANGE_ERROR);
             }
-
-
         }
         return null;
     }
 
     /**
-     * Adds a specific person to the teachConnectBook
+     * Exports a particular range considering all the edge constraints.
+     */
+    private boolean exportGivenRange(String[] rangeGiven) throws DuplicatePersonException, CommandException {
+        if (rangeGiven.length != 1) {
+            int low = Integer.parseInt(rangeGiven[0]);
+            int high = Integer.parseInt(rangeGiven[1]);
+            if (low >= high) {
+                return true;
+            } else {
+                exportRange(low, high, tag);
+            }
+
+        } else {
+            int low = Integer.parseInt(rangeGiven[0]);
+            exportSpecific(low, tag);
+        }
+        return false;
+    }
+
+    /**
+     * Adds a specific person/student to the teachConnectBook
+     * parameters are an integer and a tag
      *
-     * @param low
      * @throws DuplicatePersonException
      * @throws IndexOutOfBoundsException
      */
-    private void exportSpecific(int low) throws DuplicatePersonException, IndexOutOfBoundsException {
+    private void exportSpecific(int low, Tag tag) throws DuplicatePersonException,
+            IndexOutOfBoundsException,
+            CommandException {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
-        teachConnectBook.addPerson(exportPeople.get(low - 1));
+        if (exportPeople.get(low - 1).getTags().contains(tag) || tag.equals(new Tag("shouldnotbethistag"))) {
+            if (exportPeople.get(low - 1) instanceof Student) {
+                exportStudentAddition.add((Student) exportPeople.get(low - 1));
+                teachConnectBook.addStudent((Student) exportPeople.get(low - 1));
+            } else {
+                exportPersonAddition.add(exportPeople.get(low - 1));
+                teachConnectBook.addPerson(exportPeople.get(low - 1));
+            }
+
+        } else {
+            throw new CommandException(String.format(MESSAGE_TAG_CONTACT_MISMATCH));
+        }
+
     }
 
     /**
      * Exports a range of people based on the tag and the index range given
      *
-     * @param low
-     * @param high
-     * @param tag
      * @throws DuplicatePersonException
      * @throws IndexOutOfBoundsException
      */
     private void exportRange(int low, int high, Tag tag) throws DuplicatePersonException, IndexOutOfBoundsException {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
-        ArrayList<Person> exportAddition = new ArrayList<Person>();
-        if (tag.equals(new Tag("shouldnotbethistag"))) {
-            for (int i = low; i < high; i++) {
-                exportAddition.add(exportPeople.get(i - 1));
-            }
-            teachConnectBook.setPersons(exportAddition);
-        } else {
-            for (int i = low; i < high; i++) {
-                if (exportPeople.get(i - 1).getTags().contains(tag)) {
-                    exportAddition.add(exportPeople.get(i - 1));
-                }
 
-            }
+        if (tag.equals(new Tag("shouldnotbethistag"))) {
+            exportWithoutTag(low, high, exportPeople);
+        } else {
+            exportWithTag(low, high, tag, exportPeople);
         }
 
-        teachConnectBook.setPersons(exportAddition);
+        teachConnectBook.setPersons(exportPersonAddition);
+        teachConnectBook.setStudents(exportStudentAddition);
+    }
+
+    /**
+     * Exports people or students when tag is present and range is given
+     *
+     * @param low  - lower range
+     * @param high - higher range
+     * @param tag  - tag given based on which people can be exported
+     */
+    private void exportWithTag(int low, int high, Tag tag, ObservableList<Person> exportPeople) {
+        for (int i = low; i <= high; i++) {
+            if (exportPeople.get(i - 1).getTags().contains(tag) && exportPeople.get(i - 1) instanceof Student) {
+                exportStudentAddition.add((Student) exportPeople.get(i - 1));
+            } else if (exportPeople.get(i - 1).getTags().contains(tag)) {
+                exportPersonAddition.add(exportPeople.get(i - 1));
+            }
+        }
+    }
+
+    /**
+     * Exports people or students when tag is not present and range is given
+     *
+     * @param low  - lower range
+     * @param high - higher range
+     */
+    private void exportWithoutTag(int low, int high, ObservableList<Person> exportPeople) {
+        for (int i = low; i <= high; i++) {
+            if (exportPeople.get(i - 1) instanceof Student) {
+                exportStudentAddition.add((Student) exportPeople.get(i - 1));
+            } else {
+                exportPersonAddition.add(exportPeople.get(i - 1));
+            }
+        }
     }
 
     /**
      * Exports all the contacts in the TeachConnect book if contain certain tag
      *
-     * @param tag
      * @throws DuplicatePersonException
      */
     private void exportAllRange(Tag tag) throws DuplicatePersonException {
         ObservableList<Person> exportPeople = model.getFilteredPersonList();
         if (tag.equals(new Tag("shouldnotbethistag"))) {
-            teachConnectBook.setPersons(exportPeople);
+            exportEveryoneWithoutTag(exportPeople);
         } else {
-            ArrayList<Person> exportAddition = new ArrayList<Person>();
-            for (int i = 0; i < exportPeople.size(); i++) {
-                if (exportPeople.get(i).getTags().contains(tag)) {
-                    exportAddition.add(exportPeople.get(i));
-                }
+            exportEveryoneWithTag(tag, exportPeople);
+        }
+        teachConnectBook.setPersons(exportPersonAddition);
+        teachConnectBook.setStudents(exportStudentAddition);
+    }
+
+    /**
+     * Exports everyone with a tag given
+     */
+    private void exportEveryoneWithTag(Tag tag, ObservableList<Person> exportPeople) {
+        for (Person p : exportPeople) {
+            if (p.getTags().contains(tag) && p instanceof Student) {
+                exportStudentAddition.add((Student) p);
+            } else if (p.getTags().contains(tag)) {
+                exportPersonAddition.add(p);
             }
-            teachConnectBook.setPersons(exportAddition);
         }
     }
+
+    /**
+     * Exports everyone without a tag given
+     */
+    private void exportEveryoneWithoutTag(ObservableList<Person> exportPeople) {
+        for (Person p : exportPeople) {
+            if (p instanceof Student) {
+                exportStudentAddition.add((Student) p);
+            } else {
+                exportPersonAddition.add(p);
+            }
+        }
+    }
+
 
     /**
      * Helper method to identify the lower and higher end of the range given
@@ -615,7 +803,6 @@ public class ExportCommand extends Command {
     }
 
     /**
-     *
      * @param other [in this case ExportCommand]
      * @return a boolean value
      */
@@ -648,13 +835,14 @@ import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 
 /**
- *
+ *Creates a shortcut for the user for any commands available in the list.
  */
 public class ShortcutCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "shortcut";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " CommandWord " + " ShortcutWord "
-                                               + " :Creates a shortcut for any command word";
+                                               + " :Creates a shortcut for any command word \n"
+                                               + "Example: " + COMMAND_WORD + " list l";
     public static final String MESSAGE_SHORTCUT_AVAILABLE = "This shortcut already exists!";
     public static final String MESSAGE_SUCCESS = "Successfully added the shortcut";
     public static final String MESSAGE_NO_COMMAND_TO_MAP = "The command statement is invalid and hence cant be mapped!";
@@ -667,8 +855,8 @@ public class ShortcutCommand extends UndoableCommand {
 
     private final String[] commandsPresent = {"add", "clear", "theme", "delete", "edit", "exit", "export", "find",
                                               "help", "history", "import", "list", "redo", "undo", "select",
-                                              "set_appointment", "set_task", "shortcut", "undo", "calendar",
-                                              "delete_shortcut", "remove"};
+                                              "set_appointment", "set_task", "shortcut", "sort", "undo", "calendar",
+                                              "delete_shortcut", "remove", "form"};
 
     public ShortcutCommand(String commandWord, String shortcutWord) {
         requireNonNull(commandWord);
@@ -747,15 +935,20 @@ public class ImportCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports contacts to the address book."
             + "Parameters: file location...\n"
             + "Example: " + COMMAND_WORD + " main/src/test/data/sandbox/somerandomfile.xml";
-    public static final String MESSAGE_SUCCESS = "%1$s contacts have been successfully imported "
-            + "and %2$s have been left out!";
+    public static final String MESSAGE_SUCCESS = "%1$s contacts, %3$d students and %5$d classes \n"
+            + " have been successfully imported \n"
+            + "and %2$s contacts, %4$d students and %6$d classes have been left out!";
     protected static final String MESSAGE_INVALID_FILE = "Please input a valid file location";
     protected Storage storage;
     private AddressBook addressBookImported;
     private AddressBookStorage addressBookStorage;
     private String filePath;
-    private int numberAdded = 0;
-    private int numberNotAdded = 0;
+    private int numberOfContactsAdded = 0;
+    private int numberOfContactsNotAdded = 0;
+    private int numberOfStudentsAdded = 0;
+    private int numberOfStudentsNotAdded = 0;
+    private int numberOfClassesAdded = 0;
+    private int numberOfClassesNotAdded = 0;
 
     /**
      * Creates an ImportCommand to import the specified TeachConnect XML file
@@ -768,28 +961,77 @@ public class ImportCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
+        ObservableList<Person> people;
+        ObservableList<Student> students;
+        List<Class> classes;
         try {
             if (addressBookStorage.readAddressBook(filePath).isPresent()) {
                 this.addressBookImported = new AddressBook(addressBookStorage.readAddressBook().get());
-                ObservableList<Person> people = addressBookImported.getPersonList();
-                for (int i = 0; i < people.size(); i++) {
-                    try {
-                        model.addPerson(people.get(i));
-                        numberAdded++;
-                    } catch (DuplicatePersonException e) {
-                        numberNotAdded++;
-                    }
-                }
+                people = addressBookImported.getPersonList();
+                students = addressBookImported.getStudentList();
+                classes = addressBookImported.getClassList();
             } else {
                 throw new CommandException(String.format(MESSAGE_INVALID_FILE));
             }
+
+            peopleToBeImported(people);
+            studentToBeImported(students);
+            classesToBeImported(students, classes);
+
         } catch (DataConversionException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE));
         } catch (IOException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_FILE));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, numberAdded, numberNotAdded));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfContactsAdded, numberOfContactsNotAdded,
+                numberOfStudentsAdded, numberOfStudentsNotAdded, numberOfClassesAdded, numberOfClassesNotAdded));
+    }
+
+    /**
+     * Adds students and classes to the model because classes need students too.
+     * @param students
+     * @param classes
+     */
+    private void classesToBeImported(ObservableList<Student> students, List<Class> classes) {
+        for (int i = 0; i < classes.size(); i++) {
+            try {
+                model.addClass(classes.get(i), students);
+                numberOfClassesAdded++;
+            } catch (DuplicateClassException e) {
+                numberOfClassesNotAdded++;
+            }
+        }
+    }
+
+    /**
+     * Adds students to the model
+     * @param students
+     */
+    private void studentToBeImported(ObservableList<Student> students) {
+        for (int i = 0; i < students.size(); i++) {
+            try {
+                model.addStudent(students.get(i));
+                numberOfStudentsAdded++;
+            } catch (DuplicatePersonException e) {
+                numberOfStudentsNotAdded++;
+            }
+        }
+    }
+
+    /**
+     * Adds people to the model
+     * @param people
+     */
+    private void peopleToBeImported(ObservableList<Person> people) {
+        for (int i = 0; i < people.size(); i++) {
+            try {
+                model.addPerson(people.get(i));
+                numberOfContactsAdded++;
+            } catch (DuplicatePersonException e) {
+                numberOfContactsNotAdded++;
+            }
+        }
     }
 
     @Override
@@ -816,7 +1058,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
 
 /**
- *
+ *Class to create a shortcut double and save it as an XML element.
  */
 public class XmlAdaptedShortcutDouble {
     @XmlElement
@@ -856,42 +1098,59 @@ public class XmlAdaptedShortcutDouble {
 
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### /java/seedu/address/model/person/Student.java
 ``` java
-    public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
-        this.shorcutCommands.setCommandsList(shorcutCommands);
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Student)) {
+            return false;
+        }
+
+        Student otherPerson = (Student) other;
+        return otherPerson.getName().equals(this.getName())
+                && otherPerson.getPhone().equals(this.getPhone())
+                && otherPerson.getEmail().equals(this.getEmail())
+                && otherPerson.getAddress().equals(this.getAddress());
     }
+}
 ```
 ###### /java/seedu/address/model/AddressBook.java
 ``` java
+
     /**
-     *
-     * @param commandShortcut
-     * @return a boolean variable
-     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     *Sets the shortcuts list.
      */
-    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
-            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
-        if (shorcutCommands.remove(commandShortcut)) {
-            return true;
-        } else {
-            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
-        }
+    public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
+        this.shortcutCommands.setCommandsList(shorcutCommands);
     }
-    //author
 
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
 ```
 ###### /java/seedu/address/model/AddressBook.java
 ``` java
     public void addShortcutDoubles(ShortcutDoubles s)
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        shorcutCommands.add(s);
+        shortcutCommands.add(s);
     }
+
+    /**
+     * Removes a command shortcut from the UniqueShortcutDoubles list or throws a suitable exeption otherwise.
+     * @param commandShortcut - which is a shortcut Double
+     * @return a boolean variable
+     * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
+     */
+    public boolean removeShortcutDouble(ShortcutDoubles commandShortcut)
+            throws UniqueShortcutDoublesList.CommandShortcutNotFoundException {
+        if (shortcutCommands.remove(commandShortcut)) {
+            return true;
+        } else {
+            throw new UniqueShortcutDoublesList.CommandShortcutNotFoundException();
+        }
+    }
+
 ```
 ###### /java/seedu/address/model/AddressBook.java
 ``` java
@@ -908,6 +1167,15 @@ public class XmlAdaptedShortcutDouble {
 
     }
 
+    /**
+     * Removes all {@code Tag}s that are not used by any {@code Person} or {@code Student} in this {@code AddressBook}.
+     */
+    private void removeUnusedTags() {
+        Set<Tag> tagsInContacts = contacts.asObservableList().stream().map(Person::getTags).flatMap(Set::stream)
+                .collect(Collectors.toSet());
+
+        tags.setTags(tagsInContacts);
+    }
 
     /**
      * Removes the particular tag for that particular person in the AddressBook.
@@ -922,10 +1190,11 @@ public class XmlAdaptedShortcutDouble {
         }
 
         Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                                          person.getAddress(), listOfTags);
+                person.getAddress(), listOfTags);
 
         updatePerson(person, updatedPerson);
     }
+
 ```
 ###### /java/seedu/address/model/ModelManager.java
 ``` java
@@ -933,6 +1202,7 @@ public class XmlAdaptedShortcutDouble {
     public synchronized void addCommandShortcut(ShortcutDoubles shortcutDoubles)
                throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
         addressBook.addShortcutDoubles(shortcutDoubles);
+        evokeToggleListEvent(LIST_TYPE_SHORTCUT);
         indicateAddressBookChanged();
     }
 
@@ -948,6 +1218,12 @@ public class XmlAdaptedShortcutDouble {
     public ObservableList<ShortcutDoubles> getFilteredCommandsList() {
         return FXCollections.unmodifiableObservableList(filteredShortcutCommands);
     }
+
+    @Override
+    public ObservableList<Student> getFilteredStudentsList() {
+        return FXCollections.unmodifiableObservableList(filteredStudents);
+    }
+
 ```
 ###### /java/seedu/address/model/shortcuts/ShortcutDoubles.java
 ``` java
@@ -1035,7 +1311,7 @@ public class UniqueShortcutDoublesList {
     }
 
     /**
-     * Gives a duplicate Except
+     * Gives a DuplicateDataException
      */
     public static class DuplicateShortcutDoublesException extends DuplicateDataException {
         protected DuplicateShortcutDoublesException() {
@@ -1064,7 +1340,7 @@ public class UniqueShortcutDoublesList {
     public void setCommandsList(List<ShortcutDoubles> commandsList) {
         requireNonNull(commandsList);
         internalList.setAll(commandsList);
-        assert CollectionUtil.elementsAreUnique(internalList);
+        assert CollectionUtil.elementsAreUnique(internalList) : "List must contain only unique elements";
     }
 
     /**

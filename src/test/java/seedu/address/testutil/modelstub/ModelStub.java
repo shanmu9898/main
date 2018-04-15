@@ -112,12 +112,22 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void indicateAppointmentListChanged() {
+        fail("This method should not be called.");
+    }
+
+    @Override
     public void changeCurrentActiveListType(String type) {
         fail("This method should not be called.");
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+        fail("This method should not be called.");
+    }
+
+    @Override
+    public void sortByNameFilteredPersonList() {
         fail("This method should not be called.");
     }
 

@@ -102,6 +102,9 @@ public interface Model {
     void deleteCommandShortcut(ShortcutDoubles commandShortcut)
             throws UniqueShortcutDoublesList.CommandShortcutNotFoundException;
 
+    /** Returns a sorted list of contacts*/
+    void sortByNameFilteredPersonList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -132,4 +135,7 @@ public interface Model {
 
     /** Change the current active list that is being displayed in the model */
     void changeCurrentActiveListType(String itemType);
+
+    /** Raises an event to indicate the appointment list has changed */
+    void indicateAppointmentListChanged();
 }

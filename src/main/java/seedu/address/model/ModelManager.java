@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -47,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
     private final FilteredList<Class> filteredClass;
     private final FilteredList<Student> filteredStudents;
+    private final SortedList<Person> sortedFilteredConatacts;
     private String currentActiveListType;
 
     /**
@@ -65,6 +67,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredClass = new FilteredList<>(this.addressBook.getClassList());
+        sortedFilteredConatacts = new SortedList<Person>(filteredContacts);
+
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -89,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the appointment list has changed */
-    private void indicateAppointmentListChanged() {
+    public void indicateAppointmentListChanged() {
         raise(new AppointmentListChangedEvent(addressBook.getAppointmentList()));
     }
 
@@ -173,6 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClassListChanged();
     }
 
+    //@@author Sisyphus25
     @Override
     public void addAppointment(Appointment appointment) throws DuplicateEventException {
         addressBook.addAppointment(appointment);
@@ -200,6 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+    //@@author
 
     @Override
     public void addClass(Class group, List<Student> studentList) throws DuplicateClassException {
@@ -235,7 +241,13 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredContacts);
     }
 
-
+    //@@author LimShiMinJonathan
+    @Override
+    public void sortByNameFilteredPersonList() {
+        addressBook.sortContacts();
+        indicateAddressBookChanged();
+    }
+    //@@author
 
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {

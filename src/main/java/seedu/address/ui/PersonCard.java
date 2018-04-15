@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import java.util.StringJoiner;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Polygon;
 import seedu.address.model.education.Subject;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Student;
@@ -28,7 +31,7 @@ public class PersonCard extends UiPart<Region> {
 
     //@@author
     @FXML
-    private HBox cardPane;
+    private StackPane cardPane;
     @FXML
     private Label name;
     @FXML
@@ -43,20 +46,24 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label subjects;
+    @FXML
+    private Polygon studentTag;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);
+
         if (person instanceof Student) {
             initSubjects((Student) person);
         } else {
             subjects.setText("");
+            studentTag.setVisible(false);
         }
     }
 
@@ -73,20 +80,17 @@ public class PersonCard extends UiPart<Region> {
         });
     }
 
-    //@@author randypx
     /**
      * Sets the text of  the {@code subjects} label with all the {@code Subject} of the student's classes.
      */
     private void initSubjects(Student student) {
-        StringBuilder str = new StringBuilder();
-        str.append("Subjects: ");
+        StringJoiner joiner = new StringJoiner(", ");
         for (Subject subject: student.getSubjectList()) {
-            str.append(subject.toString());
+            joiner.add(subject.toString());
         }
-        subjects.setText(str.toString());
+        subjects.setText("Subjects: " + joiner.toString());
     }
 
-    //@@author
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
