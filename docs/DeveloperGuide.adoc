@@ -31,6 +31,8 @@ The developer guide consists of the following sections:
 
 == Setting up
 
+This section covers the steps needed to set up TeachConnect on a computer.
+
 === Prerequisites
 
 . *JDK `1.8.0_60`* or later
@@ -104,7 +106,7 @@ When you are ready to start coding,
 
 == Design
 
-This section discusses the design of TeachConnect's major components.
+This section discusses the design of TeachConnect's architecture and its components.
 
 [[Design-Architecture]]
 === Architecture
@@ -415,12 +417,12 @@ public CommandResult executeUndoableCommand() throws CommandException {
 ==== Design Considerations
 ===== Aspects : Implementation Import Command
 
-* **Alternative 1 (current choice):** Only import from an `XML` file.
-** Pros: Goes well with the idea of TeachConnect. Easier to implement and also clear distinction of the file that needs to be imported by the user with the help of the .XML extension.
-** Cons: User might want to import from Excel only to realise this isn't possible.
-* **Alternative 2:** Include import from an `Excel` file too.
-** Pros: Might be more intuitive for the user and might come in handy.
-** Cons: Will not really help the user distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
+* **Alternative 1 (current choice):** User can only import from an `XML` file.
+** Pros: This implementation goes well with the idea of TeachConnect. It's easier to implement and also there is a clear distinction of the file that needs to be imported by the user with the help of the .XML extension.
+** Cons: Users might want to import from Excel only to realise this isn't possible.
+* **Alternative 2:** Users can import from an `Excel` file too.
+** Pros: This implementation might be more intuitive for the user and might come in handy.
+** Cons: This implementation will not really help the user to distinguish the exact file to be imported. Care has to be taken so that the input by the user follows a certain format to parse the content properly.
 // end::import[]
 
 // tag::export[]
@@ -482,12 +484,12 @@ Depending on the type of export it can also be exported to an excel format with 
 
 ==== Design Considerations
 ===== Aspects : Implementation Export Command
-* **Alternative 1:** Only export to an `XML` file.
-** Pros: Easier implementation and very helpful for the import command as import can only be done from an XML file.
+* **Alternative 1:** Users can only export to `XML` files.
+** Pros: This is the easier implementation and it goes well with the import command as import can only be done from an XML file.
 ** Cons: The exported file might not be very user friendly to read in the xml file format and hence later referencing to the file after exporting can be a nightmare.
-* **Alternative 2 (current choice):** Include export to an `Excel` file too.
-** Pros: Might be more intuitive for the user and might come in handy especially when the user wants to print it later or read the contents in a user friendly format.
-** Cons: Complex implementation there by giving rise to more boundary cases to consider.
+* **Alternative 2 (current choice):** Users can export to `Excel` files too.
+** Pros: This implementation might be more intuitive for the user and might come in handy especially when the user wants to print it later or read the contents in a user friendly format.
+** Cons: The implementation would be more complex and hence there could be more boundary cases to consider.
 
 // end::export[]
 
@@ -518,25 +520,28 @@ Shortcut command extends `UndoableCommand` and hence is undoable. It initially c
 
 There is a check to find if the command is already present and the method used for this is called `checkIfCommandPresent()`.By default it returns false.
 
-You can also choose to list all the shortcuts created until now. This displays the `UniqueShortcutDoublesList` instead of the contacts in the list panel. A high level sequence diagram is given below :
+You can also choose to list all the shortcuts created until now. This displays the `UniqueShortcutDoublesList` instead of the contacts in the list panel. `Figure 21` gives an example of a high level sequence diagram.
 
 image::ListShortcutsHighLevelSequenceDiagrams.png[width="600"]
     Figure 21: List Shortcut High Level Sequence Diagram
 
 
 As of now the conditions to take note of are:
+
 * Shortcut can be only one word.
 * The command word should already exist.
 * New commands are to be added in the `commandsPresent` String array of `ShortcutCommand` class.
 
 ==== Design Considerations
 ===== Aspects : Implementation Shortcut Command
-* **Alternative 1:** Restricting the number of aliases of a command word.
-** Pros: Allows for setting up a shortcut word there by increasing the usability of the app.
-** Cons: Wouldn't help much if the user keeps forgetting the shortcut word too because if there is only one shortcut alias and the user might forget it.
-* **Alternative 2 (current choice):** Allowing multiple number of shortcut words for a single command word
-** Pros: User can create multiple aliases there by giving the user more personalisation and the flexibility of forgetting the words as he can create more of them.
-** Cons: Need to consider several cases for duplicate shortcuts and maintain a dynamic list without forgetting the shortcuts when the app is closed without hardcoding the shortcut word into each command.
+
+* **Alternative 1:** There is a limit to the number of aliases a command word can have.
+** Pros: This implementation allows the developers to set up default shortcuts for each command word there by increasing the usability of the app.
+** Cons: It wouldn't help much if the user keeps forgetting the shortcut word too because there is only one shortcut alias and the user might forget it.
+* **Alternative 2 (current choice):** Multiple number of shortcut words can be created for a single command word.
+** Pros: As users can create multiple aliases, this implementation gives them more personalisation and the flexibility of forgetting the words as they can always create more of them.
+** Cons: Developers need to consider several cases for duplicate shortcuts and maintain a dynamic list without forgetting the shortcuts when the app is closed without hardcoding the shortcut word into each command.
+
 // end::shortcut[]
 
 // tag::deleteshortcut[]
@@ -565,12 +570,14 @@ As of now the conditions to take note of are:
 
 ==== Design Considerations
 ===== Aspects : Validity of the Delete Shortcut Command
-* **Alternative 1:** Omit the delete shortcut command.
-** Pros: Would require less implementation considering the fact that the shortcut has been added by the user.
-** Cons: Would not give the user any room for mistake or change of mind as once added it would be not possible to delete it.
-* **Alternative 2 (current choice):** Include the delete shortcut command.
-** Pros: Will give the user the room to make mistake and change the shortcuts if needed. Would also help him in clearing the clutter of shortcuts which would have developed over time.
-** Cons: Will have to take care of various edge cases when the shortcuts are not present and keep modifying the dynamic list. Several relevant exceptions have to be thrown and taken care of.
+
+* **Alternative 1:** TeachConnect doesn't support Delete Shortcut Command.
+** Pros: The implementation would be more simple considering the fact that the shortcut has been added by the user.
+** Cons: This implementation would not give the user any room for mistake or change of mind as once added shortcut cannot be deleted.
+* **Alternative 2 (current choice):** TeachConnect also supports Delete Shorcut Command.
+** Pros: This implementation will give the user the room to make mistake and change the shortcuts if needed. It would also help him in clearing the clutter of shortcuts which would have developed over time.
+** Cons: The developers will have to take care of various edge cases when the shortcuts are not present and keep modifying the dynamic list. Several relevant exceptions have to be thrown and taken care of.
+
 // end::deleteshortcut[]
 
 // tag::studentmanagement[]
@@ -587,12 +594,12 @@ As shown above, `student` extends from `person`, giving `student` access to its 
 ==== Design Considerations
 ===== Aspects : Implementation of student
 
-* **Alternative 1 (current choice):** student extends person
-** Pros: Allow students access to person methods while restricting person from accessing student methods.
+* **Alternative 1 (current choice):** `Student` class extends `Person` class.
+** Pros: This implementation allows students access to person methods while restricting person from accessing student methods.
 ** Cons: A separate UniqueStudentList is required to store the student contacts.
-* **Alternative 2:** only use a tag to show its a student
-** Pros: Simpler to implement and tags are visible to user
-** Cons: Requires every operation to check the tags. Tags can be removed.
+* **Alternative 2:** Developers only use a tag to distinguish a student from a person.
+** Pros: It's more simple to implement and tags are visible to user.
+** Cons: This implementation would require every operation to check the tags. Tags can also be removed.
 // end::studentmanagement[]
 
 // tag::eventmanagement[]
@@ -609,19 +616,19 @@ image::TaskModelClassDiagram.png[align="center"]
 
 `Appointment` has 4 variables:
 
-* Title: Holds description for the appointment.
+* Title: Holds the description for the appointment.
 * Start Time: Holds the starting time of the appointment.
 * End time: Holds the end time of the appointment.
 * Person to meet: (optional) Holds the target in the appointment.
 
 `Task` has 2 variables:
 
-* Title: Holds description for the task.
+* Title: Holds the description for the task.
 * Time: Holds the time the task is expected to be finished.
 
 Similar to `UniquePersonList` and `UniqueTagList`, `UniqueAppointmentList` and `UniqueTaskList` is linked to `AddressBook`. Request to change to the `AddressBook` model is signalled through `ModelManager`.
 
-Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar entry list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar entry list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
+Every `Appointment` in the `UniqueAppointmentList` is also added to `CalendarFX` 's Calendar `Entry` list to be rendered on the Calendar View in the GUI. When there is a change in the `UniqueAppointmentList`, an `AppointmentListChangedEvent` will be propagated through the `EventsCenter`. When it reaches the `UI` component, the result is re-syncing of `UniqueAppointmentList` and `CalendarFx` 's Calendar `Entry` list and the Calendar View in the GUI will be updated. The code below shows how the re-syncing works within the `UI` component.
 [source,java]
 ----
 private void handleAppointmentListChangedEvent(AppointmentListChangedEvent event) {
@@ -665,10 +672,10 @@ image::ChangeThemeSequenceDiagram.png[align="center"]
 ==== Design Considerations
 ===== Aspects : Saving of user selected theme to `UserPrefs` or `Storage`
 
-* **Alternative 1 (current choice):** Theme selected is not saved to storage or `UserPrefs`, thus when TeachConnect starts the default theme is always selected.
+* **Alternative 1 (current choice):** Theme selected is not saved to storage, thus when TeachConnect starts the default theme is always selected.
 ** Pros: This implementation is more simple and we don't need to interact with `Model`.
 ** Cons: If the users want to use a theme other than the default one, it will be very inconvenient for them as they will have to change the theme every time they start up TeachConnect.
-* **Alternative 2:** Last selected theme by the users would be saved to storage or `UserPrefs`.
+* **Alternative 2:** Last selected theme by the users would be saved to storage.
 ** Pros: Users experience can be enhanced as users can have the theme they like selected automatically each time they start up TeachConnect.
 ** Cons: The command implementation would be more complex as we need to interact with `Model` and `Storage` components too.
 
@@ -809,16 +816,6 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-[appendix]
 
 == Product Scope
 
@@ -866,7 +863,7 @@ Suggested path for new programmers:
 
 *** Users can set the theme of the GUI to `dark`, `light` or `galaxy` theme.
 
-** How the features fit into the product scope :
+** How the features fit into the product scope:
 
 *** Major Feature: This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
 
@@ -890,10 +887,10 @@ Suggested path for new programmers:
 4. Randy Pang Pang
 
 ** Major Feature : Management of student contacts
-*** Student contact can be created and be added into classes
+*** Student contact can be created and be added into classes.
 
 ** Minor Feature : Multiple tabs for the list in GUI
-*** The list in GUI will hava tabs for multiple different lists
+*** The list in GUI will hava tabs for multiple different lists.
 
 ** How the features fit into the product scope :
 
@@ -1073,10 +1070,10 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should allow a user with above average typing speed for regular English text (i.e. not code, not system admin commands) to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be intutive for any first time user.
 .  Should be able to handle any invalid input i.e should be able to inform the user and guide the user for valid input.
-.  Should respond within a second
+.  Should respond within a second.
 
 
 _{More to be added}_
