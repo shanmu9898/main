@@ -692,12 +692,12 @@ Below is the code snippet.
     }
 
 ==== Design Considerations
-===== Aspects : Manually sort contacts or to have an automatic sort feature.
+===== Aspects : Automatic sorting of contacts, implementation of sort contacts.
 
-* **Alternative 1 (current choice):** Sorting of the contact list will be
+* **Alternative 1 (current choice):** TeachConnect will only sort contacts after user keys in the command.
 ** Pros: This implementation is simpler and more intuitive.
-** Cons: Might be a slight hassle to have to key in the sort command everytime a new contact is added.
-* **Alternative 2: ** Having an automatic sort feature.
+** Cons: Users might find a slight hassle to have to key in the sort command every time a new contact is added.
+* **Alternative 2: ** TeachConnect supports an automatic sorting of contacts.
 ** Pros: When new contacts are added, they are automatic sorted without the need to key in the command.
 ** Cons: The command implementation might be more complex and it would make the command redundant. Users also might not always want their contact list to be sorted.
 
@@ -722,11 +722,11 @@ After encryption the result would be an encrypted `addressBook.xml` file, and af
 ==== Design Considerations
 ===== Aspects : Location to save password
 
-* **Alternative 1 (current choice):** Users remember their own passwords
+* **Alternative 1 (current choice):** Users remember their own passwords.
 ** Pros: The password is also not stored locally within TeachConnect, hence it would be impossible to obtain the password from the application. No one else would have the password but the user, provided that he/she does not share it with any unauthorised persons.
 ** Cons: If the user forgets the password, then the file cannot be decrypted. Also, the user needs to find secure means to share this password with other authorised persons.
-* **Alternative 2: ** Password saved within TeachConnect.
-** Pros: Convenient, as user doesn't have to remember the password.
+* **Alternative 2: ** Password is saved within TeachConnect.
+** Pros: Users will find it more convenient as they do not have to remember their password.
 ** Cons: The command implementation might be more complex. There is a risk of unauthorised persons breaking and reverse-engineering the password.
 
 // end::encryption/decryption[]
