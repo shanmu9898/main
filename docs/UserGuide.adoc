@@ -280,7 +280,7 @@ Example:
 `list students` +
 Lists all students. `Figure 10` given below shows the student list.
 
-image::studentList.jpg[width="100"]
+image::studentList.jpg[width="200"]
     Figure 10: Student List displayed as active list
 
 Other examples :
@@ -625,6 +625,8 @@ The table below summarizes TeachConnect's command list.
 |*Set Shortcut*|`shortcut [command word] [shortcut word]` | `shortcut list l`
 
 |*Set Task*|`set_task t/TITLE e/END_DATE END_TIME` |`set_task t/Mark papers d/05/04/2018 10:00`
+
+|*Sort*|`sort`|`sort
 
 |*Switch Calendar View mode*|`calendar VIEW_MODE` | `calendar d`
 

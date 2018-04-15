@@ -900,15 +900,15 @@ b. Require developers to download those libraries manually (this creates extra w
 *** They can be exported based on the tag or index
 *** Import can be done given the file path of an XML file
 
-** Minor Feature : Email contacts
+** Minor Feature : Personalised Shortcuts
 
-*** Contacts can be emailed by either by tag or an individual contact.
+*** Shortcuts can be created or deleted for all the commands present.
 
 ** How the features fit into the product scope :
 
 *** Major Feature: This feature can help teachers share contacts with other teachers. This is especially useful when teachers change classes or pass on the class to other teachers. Updating and losing data is also a common problem and to overcome this a backup can be stored by using this feature.
 
-*** Minor Feature: This feature can help teachers email contacts. This might be really helpful when the teacher wants to remind parents with appointments or remind students with the work they need to finish. This also helps the teachers send group messages to class or parents regarding some important announcements.
+*** Minor Feature: TeachConnect comes with a lot of features and each feature has its own command word. The most gruelling part is remembering the exact command word as stated in the user guide. To overcome this the shortcut command helps keep aliases to the commands there by helping teachers better remember the command words they are comfortable with.
 
 2. Rachel Ngo Phuong Thao
 ** Major Feature : Managing Appointments & Tasks

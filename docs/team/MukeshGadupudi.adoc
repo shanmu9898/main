@@ -128,28 +128,23 @@ include::../DeveloperGuide.adoc[tag=deleteshortcut]
 #End of Extract (from Developer Guide)#
 
 
-=== A.2 Enhancement Proposed: Saving Data on Server
+=== A.2 Enhancement Proposed: Using Natural Language Processing for Detecting Events
 
 ==== External Behaviour
 
-This feature will make sure the data of contacts and reminders is stored in the servers online. The data files and images are stored on the cloud and cannot be directly changed by opening them on your device.
-
-This will be automatically done once the user register in the application.
-The files are encrypted using the SHA algorithm to prevent it from being read by others. This ensures that your data is secure and there is no privacy law violation.
+This feature will help in integrating the mails we receive and appointments in those mails with TeachConnect. TeachConnect will be automatically be able to predict the events and suggest appointments/tasks using NLP in the emails.
 
 ==== Justification
 
-This feature will make the product more personalised as the user will have to register to use this application.
-
-Moreover, the user can now access his data from any device as it is stored on cloud storage. The data cannot be directly manipulated since it is on cloud and hence the application won't crash as data will never be corrupted.
+This feature will make it easier for teachers to set appointments with students who mail them regarding extra classes or consultation. This will also increase the scope of the product to help teachers make and set tasks for various other factors not related to students.
 
 ==== Implementation
 
-A login feature will be first implemented to identify users uniquely.
+A connection will be first established between TeachConnect and the user's default email service provider.
 
-Through the following use case diagram, signing up of user will allow data to be stored on cloud which can downloaded anytime for backup purposes.
+Through the following use case diagram, the teacher will be able to set appointments with students or other people.
 
 
-image::usecase.PNG[width="800"]
+image::useCase.PNG[width="800"]
     Figure 1 : Use case Diagram
 
