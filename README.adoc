@@ -7,7 +7,7 @@ https://coveralls.io/github/CS2103JAN2018-W14-B1/main?branch=master[image:https:
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
 ifdef::env-github[]
-image::docs/images/StartupUI.jpg[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
@@ -31,6 +31,6 @@ __
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TomasMikula/EasyBind[EasyBind], https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVPrinter.html[CSVPrinter], https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit4[JUnit4], https://github.com/dlemmermann/CalendarFX[CalendarFX]
+* Libraries used: https://github.com/TomasMikula/EasyBind[EasyBind], https://commons.apache.org/proper/commons-csv/apidocs/org/apache/commons/csv/CSVPrinter.html[CSVPrinter], https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit4[JUnit4], https://github.com/dlemmermann/CalendarFX[CalendarFX].
 
 == Licence : link:LICENSE[MIT]
