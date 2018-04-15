@@ -30,7 +30,6 @@ public class ShortcutCommand extends UndoableCommand {
 
     private final String[] commandsPresent = {"add", "clear", "theme", "delete", "edit", "exit", "export", "find",
                                               "help", "history", "import", "list", "redo", "undo", "select",
-
                                               "set_appointment", "set_task", "shortcut", "sort", "undo", "calendar",
                                               "delete_shortcut", "remove", "form"};
 
