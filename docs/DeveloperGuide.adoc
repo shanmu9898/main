@@ -728,7 +728,7 @@ To illustrate how the encrypt command works, `Figure 27` shows the sequence diag
 
 
 image::EncryptionSequenceDiagram.png[align="center"]
-Figure 27: Encrypt Command Sequence Diagram
+    Figure 27: Encrypt Command Sequence Diagram
 
 The Decrypt command also follows the same flow, except that `DecryptEvent` is posted,`handleDecryptEvent` is called instead, and decryptUtil handles the decryption.
 
@@ -794,10 +794,10 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 27` below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 28` below.
 
 image::chrome_save_as_pdf.png[width="300"]
-    Figure 27: Saving Document as pdf settings
+    Figure 28: Saving Document as pdf settings
 
 [[Testing]]
 == Testing
