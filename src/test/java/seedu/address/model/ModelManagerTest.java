@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NOTUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalClass.CLASS_CS2103T;
+import static seedu.address.testutil.TypicalClass.CLASS_MATH;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_1;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_APPOINTMENT_3;
 import static seedu.address.testutil.TypicalEvents.TYPICAL_TASK_1;
@@ -15,10 +17,15 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersons.STUDENT_ANGUS;
+import static seedu.address.testutil.TypicalPersons.STUDENT_COOPER;
+import static seedu.address.testutil.TypicalPersons.STUDENT_FAUST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalShortcuts.SHORTCUT_DOUBLES_1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +34,8 @@ import org.junit.rules.ExpectedException;
 import junit.framework.TestCase;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AppointmentListChangedEvent;
+import seedu.address.model.education.exceptions.DuplicateClassException;
+import seedu.address.model.education.exceptions.StudentClassNotFoundException;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -54,6 +63,12 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
+    @Test
+    public void getFilteredStudentList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredStudentsList().remove(0);
+    }
+
     //@@author shanmu9898
     @Test
     public void getFilteredCommandList_modifyList_throwsUnsupportedOperationException() {
@@ -76,23 +91,51 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredClassList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredClassList().remove(0);
+    }
+
+    @Test
     public void addPerson_addPersonToAddressBook_evokeAddressBookChangedEvent() throws DuplicatePersonException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.addPerson(IDA);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
 
     @Test
     public void removePerson_removePersonFromAddressBook_evokeAddressBookChangedEvent() throws PersonNotFoundException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.deletePerson(ALICE);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
+    }
+
+    @Test
+    public void addStudent_addStudentToAddressBook_evokeAddressBookChangedEvent() throws DuplicatePersonException {
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        modelManager.addStudent(STUDENT_FAUST);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
+    }
+
+    @Test
+    public void addClass_addClassToAddressBook_evokeAddressBookChangedEvent() throws DuplicateClassException {
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        modelManager.addClass(CLASS_CS2103T, new ArrayList<>(Collections.singletonList(STUDENT_COOPER)));
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
+    }
+
+    @Test
+    public void removeClass_removeClassFromAddressBook_evokeAddressBookChangedEvent()
+            throws StudentClassNotFoundException {
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        modelManager.deleteClass(CLASS_MATH);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
 
     @Test
     public void addTask_addTaskToAddressBook_evokeAddressBookChangedEvent()
             throws DuplicateEventException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.addTask(TYPICAL_TASK_3);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
@@ -100,7 +143,7 @@ public class ModelManagerTest {
     @Test
     public void removeTask_removeTaskFromAddressBook_evokeAddressBookChangedEvent()
             throws EventNotFoundException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.deleteTask(TYPICAL_TASK_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
@@ -108,7 +151,7 @@ public class ModelManagerTest {
     @Test
     public void addAppointment_addAppointmentToAddressBook_evokeAppointmentListChangedEvent()
             throws DuplicateEventException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.addAppointment(TYPICAL_APPOINTMENT_3);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);
         TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 3);
@@ -117,7 +160,7 @@ public class ModelManagerTest {
     @Test
     public void removeAppointment_removeAppointmentFromAddressBook_evokeAppointmentListChangedEvent()
             throws EventNotFoundException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.deleteAppointment(TYPICAL_APPOINTMENT_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AppointmentListChangedEvent);
         TestCase.assertTrue(eventsCollectorRule.eventsCollector.getSize() == 2);
@@ -127,11 +170,11 @@ public class ModelManagerTest {
     @Test
     public void addShortcut_addShortcutToAddressBook_evokeAddressBookChangedEvent()
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.addCommandShortcut(SHORTCUT_DOUBLES_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
-    //@@author shanmu9898
+    //@@author
 
     @Test
     public void equals() {
@@ -180,7 +223,7 @@ public class ModelManagerTest {
 
     @Test
     public void deleteTag_tagUsedByMultiplePeople_tagRemoved() throws DuplicatePersonException,
-                                                                      PersonNotFoundException {
+            PersonNotFoundException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
         ModelManager modelManager = new ModelManager(testAddressBook, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
@@ -188,7 +231,7 @@ public class ModelManagerTest {
         Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag)
-                                              .withPerson(bobWithoutFriendTag).build();
+                .withPerson(bobWithoutFriendTag).build();
 
         assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }

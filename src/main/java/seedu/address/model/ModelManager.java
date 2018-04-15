@@ -119,8 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteStudent(Student target) throws PersonNotFoundException {
         addressBook.removeStudent(target);
-        indicateAddressBookChanged();
         indicateClassListChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -208,15 +208,15 @@ public class ModelManager extends ComponentManager implements Model {
             student.enterClass(group);
         }
         evokeToggleListEvent(LIST_TYPE_CLASS);
-        indicateAddressBookChanged();
         indicateStudentListChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
     public void deleteClass(Class target) throws StudentClassNotFoundException {
         addressBook.removeClass(target);
-        indicateAddressBookChanged();
         indicateStudentListChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
