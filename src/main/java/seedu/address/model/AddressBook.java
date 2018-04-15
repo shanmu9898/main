@@ -116,7 +116,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author
-  
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
