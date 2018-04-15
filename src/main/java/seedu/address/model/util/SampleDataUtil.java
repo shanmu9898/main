@@ -75,18 +75,18 @@ public class SampleDataUtil {
 
     public static Class[] getSampleClass() {
         return new Class[]{
-                new Class(new Name("Tutorial Class 02"), new Subject("CS2103T"),
-                        new Time("01/01/2018", true),
-                        new Time("28/05/2018", true),
-                        getNameList("Jared Clover", "Hadley Bolton", "Isaac Ellison")),
-                new Class(new Name("Sectional Teaching 02"), new Subject("CS2101"),
-                        new Time("04/01/2018", true),
-                        new Time("19/06/2018", true),
-                        getNameList("Jared Clover", "Ira Martel", "Isaac Ellison")),
-                new Class(new Name("Tutorial Class 01"), new Subject("CS2010"),
-                        new Time("15/10/2018", true),
-                        new Time("10/02/2019", true),
-                        getNameList("Hadley Bolton", "Isaac Ellison"))
+            new Class(new Name("Tutorial Class 02"), new Subject("CS2103T"),
+                    new Time("01/01/2018", true),
+                    new Time("28/05/2018", true),
+                    getNameList("Jared Clover", "Hadley Bolton", "Isaac Ellison")),
+            new Class(new Name("Sectional Teaching 02"), new Subject("CS2101"),
+                    new Time("04/01/2018", true),
+                    new Time("19/06/2018", true),
+                    getNameList("Jared Clover", "Ira Martel", "Isaac Ellison")),
+            new Class(new Name("Tutorial Class 01"), new Subject("CS2010"),
+                    new Time("15/10/2018", true),
+                    new Time("10/02/2019", true),
+                    getNameList("Hadley Bolton", "Isaac Ellison"))
         };
     }
 
