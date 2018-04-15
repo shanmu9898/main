@@ -5,8 +5,8 @@ import java.util.Objects;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.event.EventTime;
 import seedu.address.model.event.Task;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 
 //@@author Sisyphus25
@@ -63,7 +63,7 @@ public class XmlAdaptedTask {
         if (this.time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Time"));
         }
-        final EventTime time = new EventTime(this.time);
+        final Time time = new Time(this.time, false);
 
         return new Task(title, time);
     }

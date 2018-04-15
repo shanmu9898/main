@@ -10,7 +10,7 @@ import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 
 /**
- *
+ *Creates a shortcut for the user for any commands available in the list.
  */
 public class ShortcutCommand extends UndoableCommand {
 
@@ -30,8 +30,8 @@ public class ShortcutCommand extends UndoableCommand {
 
     private final String[] commandsPresent = {"add", "clear", "theme", "delete", "edit", "exit", "export", "find",
                                               "help", "history", "import", "list", "redo", "undo", "select",
-                                              "set_appointment", "set_task", "shortcut", "undo", "calendar",
-                                              "delete_shortcut", "remove"};
+                                              "set_appointment", "set_task", "shortcut", "sort", "undo", "calendar",
+                                              "delete_shortcut", "remove", "form"};
 
     public ShortcutCommand(String commandWord, String shortcutWord) {
         requireNonNull(commandWord);

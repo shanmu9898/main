@@ -1,4 +1,4 @@
-= Rachel Ngo Phuong Thao - Project Portfolio
+= Ngo Phuong Thao - Project Portfolio
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -7,7 +7,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: TeachConnect
 TeachConnect is a contact and event management application designed for teachers and educational professionals. +
 
-TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of Graphical User Interface (GUI).
+TeachConnect is designed to best aid users who prefer to enter input using keyboard instead of the Graphical User Interface.
 
 *Code contributed*: +
 link:{collatedDir}/main/Sisyphus25.md[Functional code] +
@@ -15,16 +15,16 @@ link:{collatedDir}/test/Sisyphus25.md[Test code] +
 
 == Portfolio Purpose
 This portfolio was made to document all contribution I have made to the project. +
-The content includes are:
+The contents included are:
 
-. The external behavior of my contributions
-. The justification for their implementation
-. Details of the implementation
+. The external behavior of my contributions.
+. The justification for their implementation.
+. Details of the implementation.
 
 
 <<<
 
-=== Enhancement Added: Task and Appointment commands
+=== Enhancement Added: Task and Appointment management
 
 ==== External behavior
 
@@ -42,7 +42,7 @@ include::../UserGuide.adoc[tag=task]
 ==== Justification
 
 ---
-These features make it easier for teachers and educational staff to review appointments they have set with students and parents, or to review the list of tasks they have to do before a certain deadline.
+This feature can help teachers keeping track of any upcoming appointment or task they have. This can be useful for teachers or teaching associates who frequently need to meet up with students and parents for counselling or administrative purposes.
 
 ---
 
@@ -99,14 +99,18 @@ include::../DeveloperGuide.adoc[tag=theme]
 
 === Other contributions
 
-** Tag Colour for Person tags
-** Toggle Calendar View command
-** Modification `list` command to toggle list displayed on GUI.
-** 2 new themes for GUI: `light` and `galaxy`
-** Project issues assignment and management
-** Project PR review
-** Bugs fixes for various issues raised by other teammates and testers
-** User Guide +
-*** Commands usage +
-*** Demo images +
-** Test Coverage
+** Reviewed team members' Pull Requests (PR).
+** Added colour to tag labels. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/5[#5])
+** Added toggle Calendar View command. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/84[#84])
+** Modified `list` command to allow toggling of list displayed on GUI. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/91[#91])
+** Improved User Interface design by rearranging position of components in the app, modifying the appearance of cards displayed in the item list and adding app logo and app name. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/155[#155], https://github.com/CS2103JAN2018-W14-B1/main/pull/158[#158])
+** Added 2 new themes for the GUI: `light` and `galaxy`. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/89[#89])
+** Managed issues assignments and issues tracking.
+** Managed Github Milestones and ensured all issue for each Milestone could be completed before the deadline.
+** Fixed bugs for various issues raised by other teammates and testers. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/143[#143], https://github.com/CS2103JAN2018-W14-B1/main/pull/162[#162])
+** Integrated third party library `CalendarFX` to TeachConnect. (PR https://github.com/CS2103JAN2018-W14-B1/main/pull/83[#83])
+** Contributed to the User Guide and Developer Guide: +
+*** Added command usage for several commands. +
+*** Added demo images. +
+*** Added annotation for tables and figures. +
+*** Formatted the contents.

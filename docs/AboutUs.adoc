@@ -15,31 +15,48 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Mukesh Gadupudi
 image::shanmu9898.jpg[width="150", align="left"]
-{empty}[https://github.com/shanmu9898/main/blob/DocsUpdate/docs/team/MukeshGadupudi.adoc[portfolio]] [https://github.com/shanmu9898[github]]
+{empty}[https://github.com/shanmu9898[github]][https://cs2103jan2018-w14-b1.github.io/main/team/MukeshGadupudi.html[portfolio]]
 
-Role: Team Lead,
+Role: Team Lead
 
-Responsibilities: Model + Deliverable and Deadlines + Integration + Tools Expert + Storage
+Responsibilities:
+
+* Model
+* Deliverable and Deadlines
+* Integration
+* Tools Expert
+* Storage
 
 '''
 
-=== Rachel Ngo Phuong Thao
+=== Ngo Phuong Thao
 image::sisyphus.jpg[width="150", align="left"]
-{empty}[http://github.com/Sisyphus[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Sisyphus25[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/rachelngo.html[portfolio]]
 
 Role: Developer
 
-Responsibilities: UI + Storage + Scheduling and Tracking + Documentation + Reviewing
+Responsibilities:
+
+* UI
+* Storage
+* Scheduling and Tracking
+* Documentation
+* Reviewing
 
 '''
 
 === Randy Pang Chung
 image::randypx.jpg[width="150", align="left"]
-{empty}[http://github.com/randypx[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/randypx[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/randypang.html[portfolio]]
 
 Role: Developer
 
-Responsibilities: Logic + Testing + Reviewing + Design Consideration and Implementation
+Responsibilities:
+
+* Logic
+* Testing
+* Reviewing
+* Design Consideration and Implementation
 
 '''
 
@@ -49,6 +66,8 @@ image::LimShiMinJonathan.jpg[width="150", align="left"]
 
 Role: Developer
 
-Responsibilities: Documentation
+Responsibilities:
+
+* -
 
 '''

@@ -5,180 +5,128 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 == Project: TeachConnect
 
-TC is created to help teachers and other educational professionals better manage their contacts and remember their past students. It is tailored for teachers/educational professionals who would prefer to use a Desktop App for managing contacts especially for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC will manage your contacts in the wink of an eye!
+== 1. Overview
+*TeachConnect (TC)* is command line application designed to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. It is an application for a user who loves to type - in other words, it uses a *Command Line Interface (CLI)*. All output is displayed on a *Graphical User Interface (GUI)* - which is just the computer application screen. If you can type fast, TeachConnect will manage your contacts faster than traditional contact books.
 
-*Code contributed*: [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/functional/shanmu9898.md[Functional code]] [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/test/shanmu9898.md[Test code]]
+== 2. Purpose of Portfolio Page
 
-=== Enhancement Added: List Display for Shortcut Commands
+This portfolio was made to document all contributions I made to the project. +
+The contents included are:
 
-==== External behavior
+. The external behavior of my contributions.
+. The justification for their implementation.
+. Details of the implementation.
 
----
-#Start of Extract [from: User Guide]#
+It also includes some of the other contributions I made – Testing, PR reviews and Project Management.
 
-include::../UserGuide.adoc[tag=list]
+== 3. Summary of Contributions
 
-#End of Extract#
+*Major enhancement*: Sharing of Contacts +
+*What it does*: allows users to import or export contacts in various file formats depending on conditions the user gives. +
+*Justification* : Teachers in general take up new classes and hence it is necessary for them to share the contact details of all the students in the class. They are also very sociable people and exchanging contacts between themselves should be made as simple and seamless as possible.
 
----
+*Minor enhancements*: Creating Personalised Shortcuts for any command +
+*What it does*: allows users to set multiple shortcuts for any command they wish. They can also choose to delete shortcuts. +
+*Justification* : TeachConnect comes with a lot of features and each feature has its own command word. The most gruelling part is remembering the exact command word as stated in the user guide. To overcome this the shortcut command helps keep aliases to the commands there by helping teachers better remember the command words they are comfortable with.
 
-==== Justification
+*Code Contributed* : [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/functional/shanmu9898.md[Functional code]] [https://github.com/CS2103JAN2018-W14-B1/main/blob/master/collated/test/shanmu9898.md[Test code]]
 
-Teachers or even educational professionals in general have a lot on their hand. When it comes to saving their personalised shortcuts for commands they want, there is a high probability that they forget the shortcut they assigned.
+*Other contributions* :
 
-Showing a list of the shortcut words and the commands to which they have assigned this word will be highly useful for them.
+** Created and set up the team repo including the Travis checks,Coveralls,Auto Publishing and Badges.
+** Managed all Issues and Milestones by managing the project and assigning work.
+** Wrote additional tests to increase coverage.
+** Took the role of Team Leader to make important decisions regarding development of the product.
+** Managed GitHub effectively to keep track of issues, merging Pull requests by resolving conflicts and keeping track of deadlines so that the weekly releases are made on time with a working product.
+** Fixed various(5+) bugs in the product including some bugs which existed previously in the product. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/144[`Pull Request Bug Fix Example`]
+** Added several Use Cases for features in Developer Guide.
+** Improved User Interface design by changing the orientation and location of various parts of UI.
+** Helped teammate create his PR along with helping him setup git and checkstyle. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/82[`Pull Request AutoSort`].
+** Contributed to User Guide and Developer Guide to enhance its language link:https://github.com/CS2103JAN2018-W14-B1/main/pull/54[`Pull Request Developer Guide Update`].
+** Helped people on the forum with their technical difficulties.
+** Managed all final submissions for CS2103T and CS2101.
+** Helped in Collating of codes of everyone link:https://github.com/CS2103JAN2018-W14-B1/main/pull/124[`Pull Request Collate`].
 
+== 4. Contributions to the User Guide
 
-==== Implementation
+|===
+|_Given below are sections I contributed to the User Guide. It shows my ability to contribute and write documentation aimed at end users._
+|===
 
----
-#Start of Extract [from: Developer Guide]#
+=== 4.1 Major Enhancement: Sharing Contacts
 
-include::../DeveloperGuide.adoc[tag=shortcut]
-
-#End of Extract#
-
----
-
-
-=== Enhancement Added: Adding Personalised Shortcut for Commands
-
-==== External behavior
-
----
-#Start of Extract [from: User Guide]#
-
-include::../UserGuide.adoc[tag=shortcut]
-
-#End of Extract#
-
----
-
-==== Justification
-
-TeachConnect comes with a lot of features and each feature has its own command word. The most gruelling part is remembering the exact commmand word as stated in the user guide. To overcome this the shortcut command helps keep aliases to the commands there by helping teachers better remember the command words they are comfortable with.
-
-This also eliminates the need for a common shortcut word which many teachers might not be comfortable with. Hence this command is a twist of personalisation packed with the essence of comfort.
-
-==== Implementation
-
----
-#Start of Extract [from: Developer Guide]#
-
-include::../DeveloperGuide.adoc[tag=shortcut]
-
-#End of Extract#
-
----
-
-
-=== Enhancement Added: Deleting Shortcut Commands
-
-==== External behavior
-
----
-#Start of Extract [from: User Guide]#
-
-include::../UserGuide.adoc[tag=deleteshortcut]
-
-#End of Extract#
-
----
-
-==== Justification
-
-Mistakes are bound to happen and as long as teachers are humans there is a chance that they might make a mistake. In cases when a teacher assigns a wrong shortcut word to a wrong command word or wants to erase the shortcut entirely, this delete shortcut command comes in handy.
-
-There is a also a big chance that the assigned number of alias or shortcuts to a certain key word has become huge and the user wants to clear up a few of them. In cases like this too the delete shortcut command is of utmost use.
-
-==== Implementation
-
----
-#Start of Extract [from: Developer Guide]#
-
-include::../DeveloperGuide.adoc[tag=deleteshortcut]
-
-#End of Extract#
-
----
-
-
-=== Enhancement Added: Importing Contacts
-
-==== External behavior
-
----
-#Start of Extract [from: User Guide]#
+#Start of Extract (from User Guide)#
 
 include::../UserGuide.adoc[tag=import]
 
-#End of Extract#
+include::../UserGuide.adoc[tag=export]
 
----
+#End of Extract (from User Guide)#
 
-==== Justification
+=== 4.2 Minor Enhancement: Personalised Shortcut Commands
 
-Teachers are highly socializable people and there is a high probability that they will want to import contacts from other teachers regarding students' contact details. In contexts like these importing contacts is of utmost importance.
+#Start of Extract (from User Guide)#
 
-There might also be cases where teachers might take over a class from another teacher and hence it should be made easy to transfer all the student details from one teacher's TeachConnect to the other teacher's TeachConnect.
+include::../UserGuide.adoc[tag=shortcut]
 
-==== Implementation
+include::../UserGuide.adoc[tag=deleteshortcut]
 
----
-#Start of Extract [from: Developer Guide]#
+include::../UserGuide.adoc[tag=list]
+
+#End of Extract (from User Guide)#
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. It shows my ability to write technical documentation and the technical depth of my contributions._
+|===
+
+=== 5.1 Major Enhancement: Sharing of Contacts
+
+#Start of Extract (from Developer Guide)#
 
 include::../DeveloperGuide.adoc[tag=import]
 
-#End of Extract#
+include::../DeveloperGuide.adoc[tag=export]
 
----
+#End of Extract (from Developer Guide)#
 
+=== 5.2 Minor Enhancement: Personalised Shortcut Commands
 
+#Start of Extract (from Developer Guide)#
 
-=== Enhancement Added: Export Command
+include::../DeveloperGuide.adoc[tag=shortcut]
 
-==== External behavior
+include::../DeveloperGuide.adoc[tag=deleteshortcut]
 
----
-#Start of Extract [from: User Guide]#
+include::../DeveloperGuide.adoc[tag=list]
 
-include::../UserGuide.adoc[tag=export]
+#End of Extract (from Developer Guide)#
 
-#End of Extract#
+== Appendix A : Proposed Enhancement
 
----
+=== A.1 Enhancement Proposed: Saving Data on Server
+
+==== External Behaviour
+
+This feature will make sure the data of contacts and reminders is stored in the servers online. The data files and images are stored on the cloud and cannot be directly changed by opening them on your device.
+
+This will be automatically done once the user register in the application.
+The files are encrypted using the SHA algorithm to prevent it from being read by others. This ensures that your data is secure and there is no privacy law violation.
 
 ==== Justification
 
-For teachers to share contacts when a new teacher takes up a class or just when a new teacher asks for contact details it is necessary to have the export comand.
+This feature will make the product more personalised as the user will have to register to use this application.
 
-Since exporting all of the contacts might be redundant and also neglects some confidential contacts, the export command has the feature of exporting a single person or a range of contacts based on tags or just indexes.
-
-Another very important feature is to export to a CSV file (which can be opened in excel) for them to later create or print Contact Books like the older days address book.
+Moreover, the user can now access his data from any device as it is stored on cloud storage. The data cannot be directly manipulated since it is on cloud and hence the application won't crash as data will never be corrupted.
 
 ==== Implementation
 
----
-#Start of Extract [from: Developer Guide]#
+A login feature will be first implemented to identify users uniquely.
 
-include::../DeveloperGuide.adoc[tag=export]
+Through the following use case diagram, signing up of user will allow data to be stored on cloud which can downloaded anytime for backup purposes.
 
-#End of Extract#
 
----
+image::usecase.PNG[width="800"]
+    Figure 1 : Use case Diagram
 
-=== Other contributions
-
-* Created and set up the team repo including the Travis checks,Coveralls,Auto Publishing and Badges.
-* Managed all Issues and Milestone by managing the project and assigning work.
-* Wrote additional tests to increase coverage.
-* Took the role of Team Leader to make important decisions regarding development of product.
-* Managed GitHub effectively to keep track of issues, merging Pull requests by resolving conflicts and keeping track of deadlines so that the weekly releases are made on time with a working product.
-* Fixed various(5+) bugs in the product including some bugs which existed previously in the product. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/144[`Pull Request Bug Fix Example`]
-* Added several Use Cases for features in Developed Guide.
-* Improved User Interface design by changing the orientation and location of various parts of UI.
-* Helped teammate create his first PR along with helping him setup git and checkstyle. link:https://github.com/CS2103JAN2018-W14-B1/main/pull/82[`Pull Request AutoSort`].
-* Contributed in User Guide and Developer Guide to enhance its language link:https://github.com/CS2103JAN2018-W14-B1/main/pull/54[`Pull Request Developer Guide Update`].
-* Helped people on the forum with their technical difficulties.
-* Managed all final submissions for CS2103T and CS2101.
-* Helped in Collating of codes of everyone link:https://github.com/CS2103JAN2018-W14-B1/main/pull/124[`Pull Request Collate`].
