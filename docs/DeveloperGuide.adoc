@@ -646,24 +646,34 @@ As of now the conditions to take note of are:
 // end::endshortcut[]
 
 // tag::studentmanagement[]
-=== [Incomplete] Student Management
+=== Student Management
 ==== Current Implementation
 
-The student manangement allows the user of TeachConnect to manage a particular type of contact, a student. The user is capable of interacting with the student contact just like with any other contact, for example: adding, editing, deleting and so on. In addition, users will be able to form classes to group students of the same class together. An overview of the Model Class after implementation is shown below:
+The student manangement allows the user of TeachConnect to manage a particular type of contact, a student. The user is capable of interacting with the student contact just like with any other contact, for example: adding, editing, deleting and so on. In addition, users will be able to form classes to group students of the same class together.
+
+Each `Class` contains 4 variables:
+
+* Name of class: for users to distinguish between classes.
+* Subject being taught: for users to record what was taught to any particular class or student.
+* Duration of Class: for users to record when that particular class was taught by them. +
+Shown as a range of dates, e.g 01 January 18 to 01 December 18.
+* List of students taught: for users to recorded which class was attended by which student and vice versa.
+
+An overview of the Model Component after implementation is shown below:
 
 image::EditedModelClassDiagram.png[align="center"]
 
-As shown above, `student` extends from `person`, giving `student` access to its constructor and getter methods for `name`, `phone`, `email`, `address` whereas only `student` will have access to `class`.
+As shown above, `student` class extends from the `person` class, giving `student` access to its constructor and getter methods for `name`, `phone`, `email`, `address` whereas only `student` will have access to `class`.
 
 ==== Design Considerations
 ===== Aspects : Implementation of student
 
-* **Alternative 1 (current choice):** student extends person
-** Pros: Allow students access to person methods while restricting person from accessing student methods.
-** Cons: A separate UniqueStudentList is required to store the student contacts.
-* **Alternative 2:** only use a tag to show its a student
-** Pros: Simpler to implement and tags are visible to user
-** Cons: Requires every operation to check the tags. Tags can be removed.
+* **Alternative 1 (current choice):** Have Student class extend from the Person class
+** Pros: This allow students access to person methods while restricting person from accessing student methods.
+** Cons: The implementation is more complex as additional classes has to be added to facilitate storage and display.
+* **Alternative 2:** Use a tag to show its a student
+** Pros: This is simpler to implement and tags are visible to user.
+** Cons: It requires every operation to check through all the tags. Tags can also be removed.
 // end::studentmanagement[]
 
 // tag::eventmanagement[]
@@ -1206,17 +1216,17 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 4. Randy Pang Pang
 
-** Major Feature : Management of student contacts
-*** Student contact can be created and be added into classes
+** Major Feature : Management of classes
+*** Classes can be formed and deleted. 
 
-** Minor Feature : Multiple tabs for the list in GUI
-*** The list in GUI will hava tabs for multiple different lists
+** Minor Feature : Management of student contacts
+*** Student contact can be created and managed in a similar fashion as a default contact.
 
 ** How the features fit into the product scope :
 
-*** Major Feature: This feature is essential to TeachConnect as it helps teachers to remember which class did they taught a particular student.
+*** Major Feature: The ability to group students according to the classes will help manage student contacts better. Furthermore, this will help record the subjects a student has been taught as well as when has the student been taught.
 
-*** Minor Feature: This feature allows the teacher to keep multiple list, eg. one for students and one for all contacts. It also allows them to switch between multiple lists without having to type another list command.
+*** Minor Feature: This feature is essential to TeachConnect as it helps teachers to remember and manage contacts with past and present students.
 
 [appendix]
 == User Stories
@@ -1239,15 +1249,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |teacher |create a class |group and manage students who are taking the same class
 
-|`* * *` |teacher |add persons to a class |group them for easy perusal
+|`* * *` |teacher | list all the classes I have taught or am teaching |know what classes have I taught
 
-|`* * *` |teacher | list all the students in a particular class |know all the students taking that class
+|`* * *` |teacher |add appointment with a contact to my schedule |be reminded of the appointment
 
-|`* *` |teacher |add appointment with a student to my schedule |be reminded of the appointment
+|`* * *` |teacher |delete appointments from my schedule |clear appointments I no longer need to be reminded about
 
-|`* *` |teacher |delete appointments from my schedule |clear appointments I no longer need to be reminded about
+|`* * *` |teacher |list all appointments in my schedule |check all the appointments I have
 
-|`* *` |teacher |list all appointments in my schedule |check all the appointments I have
+|`* * *` |teacher |add tasks to my schedule |be reminded of a deadline
+
+|`* * *` |teacher |delete tasks from my schedule |clear tasks I no longer need to be reminded about
+
+|`* * *` |teacher |list all tasks in my schedule |check all the tasks I have
+
+|`* *` |teacher | add persons to a class |group them for easy perusal
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -1266,7 +1282,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |import persons from an external file to TeachConnect | have persons' contact details added without having to reenter the information
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1304,11 +1319,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  Teacher requests to list persons
-2.  TeachConnect shows a list of persons
-3.  Teacher requests to create a class of a subject for a specified duration
-4.  TeachConnect prompts for student(s) to be added into the class
-5.  Teacher enters index of student(s) as shown in the list
+1.  Teacher requests to list contacts
+2.  TeachConnect shows a list of contacts
+3.  Teacher requests to create a class of a subject for a specified duration with specific students
 5.  TeachConnect creates the class
 +
 Use case ends.
@@ -1339,9 +1352,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  Teacher requests to add an appointment at a specified time
-2.  TeachConnect prompts for a title
-3.  Teacher enters a title
+1.  Teacher requests to add an appointment with a specific tittle at a specified time
 4.  TeachConnect adds the appointment
 +
 Use case ends.
@@ -1452,7 +1463,7 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `list contacts` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1460,7 +1471,28 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a student
+
+. Adding a student to TeachConnect
+
+..  Test Case: `add student n/John Doe p/0000000 e/johny@example.com a/nowhere t/unknown` +
+    Expected: The list view is toggled to the contacts list, if the list view is currently on another list, where a new student card,
+    with a blue marker at the corner, can be seen with the entered particulars. Subject list will be empty.
+..  Test Case: `add friend n/Mary Doe p/9999999 e/mary@example.com a/elsewhere` +
+    Expected: Nothing is added. Error message is shown and command remains in the command box. List is not toggled.
+    
+=== Forming a class of students
+
+. Forming a class while list view is on the student list
+
+.. Prerequisites: List all students using the `list students` command. At least one student in list.
+
+..  Test Case: `form English n/class 01 s/10/09/2018 e/10/09/2019 i/1` +
+    Expected: The list view is toggled to the class list where a new class card is added showing the particulars entered and the name
+    of the student at the top of the list. Toggling back to the student list with `list students`, the student added will have the
+    subject of the class included in his card.
+..  Test Case: `form Advance Math n/class 02 s/10/10/2018 e/09/12/2018 i/1` +
+    Expected: No class is formed. Error message is shown. List view not toggled.
 
 === Saving data
 
