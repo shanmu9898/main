@@ -111,13 +111,12 @@ This section discusses the design of TeachConnect's architecture and its compone
 [[Design-Architecture]]
 === Architecture
 
+The high-level design of the App is illustrated in `Figure 1`.
+
 image::Architecture.png[width="600"]
     Figure 1: Architecture Diagram
 
-`Figure 1` given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+Below is a quick overview of each component.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -399,6 +398,8 @@ public ImportCommand(String importPath) {
         addressBookStorage = new XmlAddressBookStorage(filePath);
 }
 
+The execution flow of the Import command is shown in `Figure 19`.
+
 image::ImportCommandFlowChart.png[align="center"]
     Figure 19: Import command flow chart
 
@@ -443,6 +444,8 @@ ExportCommand(String range, Tag tag, String path, String nameOfExportFile, Strin
         teachConnectBook = new AddressBook();
 }
 ----
+
+The execution flow of the Export command is shown in `Figure 20`.
 
 image::ExportCommandDiagram.png[align="center"]
     Figure 20: Export command flow chart
@@ -728,7 +731,7 @@ To illustrate how the encrypt command works, `Figure 27` shows the sequence diag
 
 
 image::EncryptionSequenceDiagram.png[align="center"]
-Figure 27: Encrypt Command Sequence Diagram
+    Figure 27: Encrypt Command Sequence Diagram
 
 The Decrypt command also follows the same flow, except that `DecryptEvent` is posted,`handleDecryptEvent` is called instead, and decryptUtil handles the decryption.
 
@@ -794,10 +797,10 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 27` below.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in `Figure 28` below.
 
 image::chrome_save_as_pdf.png[width="300"]
-    Figure 27: Saving Document as pdf settings
+    Figure 28: Saving Document as pdf settings
 
 [[Testing]]
 == Testing
@@ -1231,6 +1234,31 @@ _{ more test cases ... }_
     subject of the class included in his card.
 ..  Test Case: `form Advance Math n/class 02 s/10/10/2018 e/09/12/2018 i/1` +
     Expected: No class is formed. Error message is shown. List view not toggled.
+
+=== Adding an appointment
+
+. Adding an appointment to TeachConnect
+
+..  Test Case: `set_appointment t/Private meeting s/20/04/2018 18:00 e/20/04/2018 20:00 i/3` +
+    Expected: The list view is toggled to the appointment list where a new appointment card is added. The appointment should be with the third person in the most recent contact listing. The appointment should also show up on the calendar in the GUI. If you don't see the appointment on the calendar Day View, try to switch to the Week View or Month View using `calendar` command.
+..  Test Case: `set_appointment t/Consultation s/32/04/2018 18:00 e/32/05/2018 21:00` +
+    Expected: No appointment is added as the date is invalid. Error message is shown.
+
+=== Adding a task
+
+. Adding a task to TeachConnect
+
+..  Test Case: `set_task t/Collect documents e/21/04/2018 20:00` +
+Expected: The list view is toggled to the task list where a new task card is added.
+..  Test Case: `set_task t/Grade papers e/29/02/2018 21:00` +
+Expected: The list view is toggled to the task list where a new task card is added. There is an `Expired` tag on the task card as the deadline of the task already passed.
+
+=== Changing theme
+
+. Changing the theme of the GUI
+
+..  Test Case: `theme dark` +
+Expected: The theme of the GUI should be changed to `dark` theme. Success message is shown.
 
 === Importing Contacts
 

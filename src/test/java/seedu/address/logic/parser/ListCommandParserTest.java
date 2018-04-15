@@ -19,6 +19,7 @@ public class ListCommandParserTest {
         assertParseSuccess(parser, "tasks", new ListCommand(ListCommand.TYPE_TASK));
         assertParseSuccess(parser, "appointments", new ListCommand(ListCommand.TYPE_APPOINTMENT));
         assertParseSuccess(parser, "shortcuts", new ListCommand(ListCommand.TYPE_SHORTCUT));
+        assertParseSuccess(parser, "classes", new ListCommand(ListCommand.TYPE_CLASS));
     }
 
     @Test
@@ -26,6 +27,8 @@ public class ListCommandParserTest {
         assertParseFailure(parser, "ffffffd",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "event",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "events appointments",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 }

@@ -10,8 +10,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.education.Class;
 import seedu.address.model.education.Subject;
 import seedu.address.model.event.Time;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 
 /**
@@ -97,17 +95,17 @@ public class XmlAdaptedClass {
         final Subject subject = new Subject(this.subject);
 
         if (this.startDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
         final Time startDate = new Time(this.startDate, true);
 
         if (this.endDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
         final Time endDate = new Time(this.endDate, true);
 
         if (!Time.isValidTime(startDate, endDate)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new IllegalValueException(Time.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
         return new Class(name, subject, startDate, endDate, studentList);
