@@ -1,10 +1,15 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.education.Class;
+import seedu.address.model.education.Subject;
+import seedu.address.model.education.exceptions.DuplicateClassException;
 import seedu.address.model.event.Appointment;
 import seedu.address.model.event.PersonToMeet;
 import seedu.address.model.event.Task;
@@ -16,6 +21,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Student;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
@@ -48,6 +54,42 @@ public class SampleDataUtil {
         };
     }
 
+    public static Student[] getSampleStudents() {
+        return new Student[]{
+            new Student(new Name("Jared Clover"), new Phone("9245262"), new Email("4thClover@example.com"),
+                    new Address("Blk 333 Lorong 1 Simei, #01-07"), getTagSet("absent"),
+                    getSubjectList("CS2103T", "CS2101")),
+            new Student(new Name("Hadley Bolton"), new Phone("9236481"), new Email("hadley123@example.com"),
+                    new Address("Blk 342 Yishun Street 86, #18-28"), getTagSet("enthusiastic"),
+                    getSubjectList("CS2103T", "CS2010")),
+            new Student(new Name("Ira Martel"), new Phone("92654727"), new Email("martel98@example.com"),
+                    new Address("Blk 400 Lorong 8 Boon Keng, #07-19"), getTagSet("sick", "Fever"),
+                    getSubjectList("CS2101")),
+            new Student(new Name("Isaac Ellison"), new Phone("92467525"), new Email("newton@example.com"),
+                    new Address("Blk 399 Toa Payoh Street 87, #05-06"), getTagSet(),
+                    getSubjectList("CS2103T", "CS2101", "CS2010")),
+            new Student(new Name("Riley Whittle"), new Phone("88523221"), new Email("whittley@example.com"),
+                    new Address("Blk 410 Jurong West Street 88, #07-08"), getTagSet("new"))
+        };
+    }
+
+    public static Class[] getSampleClass() {
+        return new Class[]{
+                new Class(new Name("Tutorial Class 02"), new Subject("CS2103T"),
+                        new Time("01/01/2018", true),
+                        new Time("28/05/2018", true),
+                        getNameList("Jared Clover", "Hadley Bolton", "Isaac Ellison")),
+                new Class(new Name("Sectional Teaching 02"), new Subject("CS2101"),
+                        new Time("04/01/2018", true),
+                        new Time("19/06/2018", true),
+                        getNameList("Jared Clover", "Ira Martel", "Isaac Ellison")),
+                new Class(new Name("Tutorial Class 01"), new Subject("CS2010"),
+                        new Time("15/10/2018", true),
+                        new Time("10/02/2019", true),
+                        getNameList("Hadley Bolton", "Isaac Ellison"))
+        };
+    }
+
     public static ShortcutDoubles[] getSampleShortcutDoubles() {
         return new ShortcutDoubles[]{
             new ShortcutDoubles("a", "add"),
@@ -72,7 +114,7 @@ public class SampleDataUtil {
     }
 
     public static Task[] getSampleTask() {
-        return new Task[] {
+        return new Task[]{
             new Task(new Title("Mark papers"), new Time("30/03/2018 18:00", false)),
             new Task(new Title("Collect documents"), new Time("28/03/2018 10:00", false)),
             new Task(new Title("Arrange tutor session"), new Time("05/04/2018 23:00", false)),
@@ -88,6 +130,10 @@ public class SampleDataUtil {
                 sampleAb.addPerson(samplePerson);
             }
 
+            for (Student sampleStudent : getSampleStudents()) {
+                sampleAb.addStudent(sampleStudent);
+            }
+
             for (ShortcutDoubles s : getSampleShortcutDoubles()) {
                 sampleAb.addShortcutDoubles(s);
             }
@@ -100,13 +146,19 @@ public class SampleDataUtil {
                 sampleAb.addTask(t);
             }
 
+            for (Class sampleClass : getSampleClass()) {
+                sampleAb.addClass(sampleClass);
+            }
+
             return sampleAb;
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("sample data cannot contain duplicate persons", e);
+            throw new AssertionError("sample data cannot contain duplicate contactss", e);
         } catch (UniqueShortcutDoublesList.DuplicateShortcutDoublesException e) {
             throw new AssertionError("sample data cannot contain duplicate command shortcuts", e);
         } catch (DuplicateEventException e) {
             throw new AssertionError("sample data cannot contain duplicate events", e);
+        } catch (DuplicateClassException e) {
+            throw new AssertionError("smaple date cannot contain duplicate classes", e);
         }
     }
 
@@ -121,6 +173,30 @@ public class SampleDataUtil {
         }
 
         return tags;
+    }
+
+    /**
+     * Returns a subject list containing the list of strings given.
+     */
+    public static List<Subject> getSubjectList(String... strings) {
+        List<Subject> subjects = new ArrayList<>();
+        for (String s : strings) {
+            subjects.add(new Subject(s));
+        }
+
+        return subjects;
+    }
+
+    /**
+     * Returns a name list containing the list of strings given.
+     */
+    public static List<Name> getNameList(String... strings) {
+        List<Name> nameList = new ArrayList<>();
+        for (String s : strings) {
+            nameList.add(new Name(s));
+        }
+
+        return nameList;
     }
 
     public static Set<ShortcutDoubles> getSampleShortcutDoublesTagSet(String... strings) {
