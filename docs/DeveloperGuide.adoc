@@ -1257,6 +1257,46 @@ Expected: The list view is toggled to the task list where a new task card is add
 ..  Test Case: `theme dark` +
 Expected: The theme of the GUI should be changed to `dark` theme. Success message is shown.
 
+=== Importing Contacts
+
+. Importing contacts into the book.
+
+.. Prerequisites: Create a sample xml file to import.
+.. Test case: `import {path of the file}` +
+   Expected: Number of contacts, student, classes imported.
+.. Test case: `import {empty xml file}` +
+   Expected: No person is imported.
+.. Other incorrect delete commands to try: `import {wrong file path}` responds with incorrect file path error.
+
+=== Exporting Contacts
+
+. Exports contacts/classes from the book.
+
+.. Prerequisites: The path should be to a valid folder
+.. Test case: `export classes n/sampleclasses p/./Desktop/Folder te/excel` +
+   Expected: Exports all the classes along with the names of the students in them.
+.. Test case: `export n/samplefile r/all t/friends p/./Desktop/Folder te/excel` +
+   Expected: Exports all the contacts with the tag friends to the folder mentioned.
+.. Other incorrect delete commands to try: `export n/samplefile r/all t/friends p/./Desktop/Folder te/{something other than excel or xm}` responds with invalid format exception.
+
+=== Creating shortcuts
+
+. Creates shortcuts for the required command.
+
+.. Prerequisites: That shortcut should not exist
+.. Test case: `shortcut list l` +
+   Expected: Should create a shortcut for the command `list` with `l`.
+.. Other incorrect delete commands to try: `shortcut list add` responds with error message.
+
+=== Delete shortcuts
+
+. Deletes shortcuts for the required command.
+
+.. Prerequisites: That shortcut should exist
+.. Test case: `delete_shortcut list l` +
+   Expected: Should delete the shortcut for the command `list` with `l`.
+.. Other incorrect delete commands to try: `delete_shortcut list add` responds with error message because the command is not present.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
