@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.ListCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.ListCommand.TYPE_APPOINTMENT;
 import static seedu.address.logic.commands.ListCommand.TYPE_CONTACT;
 import static seedu.address.logic.commands.ListCommand.TYPE_SHORTCUT;
+import static seedu.address.logic.commands.ListCommand.TYPE_STUDENT;
 import static seedu.address.logic.commands.ListCommand.TYPE_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -55,6 +56,16 @@ public class ListCommandTest {
         listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         showPersonAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS + TYPE_CONTACT, expectedModel);
+    }
+
+    //@@author randypx
+    @Test
+    public void execute_listStudent_success() {
+        listCommand = new ListCommand(TYPE_STUDENT);
+        listCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        showPersonAtIndex(model, INDEX_FIRST);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ONLY_STUDENTS);
+        assertCommandSuccess(listCommand, model, MESSAGE_SUCCESS + TYPE_STUDENT, expectedModel);
     }
 
     //@@author Sisyphus25
