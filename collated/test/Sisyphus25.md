@@ -133,6 +133,7 @@ public class ListCommandParserTest {
         assertParseSuccess(parser, "tasks", new ListCommand(ListCommand.TYPE_TASK));
         assertParseSuccess(parser, "appointments", new ListCommand(ListCommand.TYPE_APPOINTMENT));
         assertParseSuccess(parser, "shortcuts", new ListCommand(ListCommand.TYPE_SHORTCUT));
+        assertParseSuccess(parser, "classes", new ListCommand(ListCommand.TYPE_CLASS));
     }
 
     @Test
@@ -140,6 +141,8 @@ public class ListCommandParserTest {
         assertParseFailure(parser, "ffffffd",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "event",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "events appointments",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 }
@@ -640,7 +643,7 @@ public class XmlAdaptedAppointmentTest {
     public void toModelType_invalidTimePeriod_throwsIllegalValueException() {
         XmlAdaptedAppointment appointment =
                 new XmlAdaptedAppointment(VALID_TITLE, "20/10/2018 10:00", "20/10/2018 09:00");
-        String expectedMessage = Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS;
+        String expectedMessage = Time.MESSAGE_TIME_PERIOD_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }
 
@@ -858,7 +861,7 @@ public class TypicalEvents {
     public static final Appointment TYPICAL_APPOINTMENT_2 =
             new AppointmentBuilder("Consultation session", "04/07/2018 10:00", "04/07/2018 11:00", BOB).build();
     public static final Appointment TYPICAL_APPOINTMENT_3 =
-            new AppointmentBuilder("Tutoring session", "30/04/2018 10:00", "30/04/2018 11:00", CARL).build();
+            new AppointmentBuilder("Tutoring session", "30/04/2018 10:00", "30/04/2018 11:00", STUDENT_ANGUS).build();
     public static final Appointment APPOINTMENT_WITHOUT_PERSON_1 =
             new AppointmentBuilder("Meeting with parents", "09/10/2018 10:00", "09/10/2018 11:00").build();
     public static final Appointment APPOINTMENT_WITHOUT_PERSON_2 =

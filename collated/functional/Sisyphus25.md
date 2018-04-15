@@ -1028,7 +1028,7 @@ public class XmlAdaptedAppointment {
         final Time endTime = new Time(this.endTime, false);
 
         if (!Time.isValidTime(startTime, endTime)) {
-            throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
+            throw new IllegalValueException(Time.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
         if (this.personToMeet != null) {
@@ -1217,7 +1217,6 @@ public class XmlAdaptedTask {
  * Represent an appointment in the schedule, contains time of the appointment as well as details and personMeet.
  */
 public class Appointment {
-    public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
     private final Title title;
     private final Time startTime;
@@ -1232,7 +1231,7 @@ public class Appointment {
     //Every field except personToMeet must be present and not null
     public Appointment(Title title, Time startTime, Time endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
-        checkArgument(Time.isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
+        checkArgument(Time.isValidTime(startTime, endTime), Time.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -1296,6 +1295,7 @@ public class Appointment {
 public class Time {
     public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Date and time must be in the format: DD/MM/YYYY HH:MM";
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date must be in the format: DD/MM/YYYY";
+    public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
     public static final String TIME_VALIDATION_REGEX = "((^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|"
             + "((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|"
             + "[2-9][0-9])\\d\\d)|(^29[\\/]02[\\/](19|[2-9][0-9])"

@@ -883,98 +883,13 @@ public class UniqueShortcutDoublesListTest {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getCommandsList().remove(0);
     }
-```
-###### /java/seedu/address/model/AddressBookTest.java
-``` java
-
-    /**
-     * A stub ReadOnlyAddressBook whose persons, tags and events lists can violate interface constraints.
-     */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Student> students = FXCollections.observableArrayList();
-        private final ObservableList<Person> contacts = FXCollections.observableArrayList();
-        private final ObservableList<Tag> tags = FXCollections.observableArrayList();
-        private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        private final ObservableList<Task> tasks = FXCollections.observableArrayList();
-        private final ObservableList<ShortcutDoubles> commandslist = FXCollections.observableArrayList();
-        private final ObservableList<Class> classes = FXCollections.observableArrayList();
-
-        AddressBookStub(Collection<Person> persons, Collection<Student> students,
-                        Collection<? extends Tag> tags, Collection<Appointment> appointments,
-                        Collection<Task> tasks, Collection<ShortcutDoubles> commands,
-                        Collection<Class> classes) {
-            this.persons.setAll(persons);
-            this.students.setAll(students);
-            this.tags.setAll(tags);
-            this.tasks.setAll(tasks);
-            this.appointments.setAll(appointments);
-            this.commandslist.setAll(commands);
-            this.classes.setAll(classes);
-        }
-
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
-            this.contacts.setAll(persons);
-        }
-
-        @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
-        }
-
-        @Override
-        public ObservableList<Student> getStudentList() {
-            return students;
-        }
-
-        @Override
-        public ObservableList<Person> getContactList() {
-            return contacts;
-        }
-
-        @Override
-        public ObservableList<Tag> getTagList() {
-            return tags;
-        }
-
-        @Override
-        public ObservableList<Appointment> getAppointmentList() {
-            return appointments;
-        }
-
-        @Override
-        public ObservableList<Task> getTaskList() {
-            return tasks;
-        }
-
-        @Override
-        public ObservableList<ShortcutDoubles> getCommandsList() {
-            return commandslist;
-        }
-
-        @Override
-        public ObservableList<Class> getClassList() {
-            return classes;
-        }
-    }
-
-    @Test
-    public void updatePerson_modifiedAddressBooks_noError() throws PersonNotFoundException, DuplicatePersonException {
-        AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).build();
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
-
-        testAddressBook.updatePerson(BOB, AMY);
-
-        assertEquals(testAddressBook, expectedAddressBook);
-    }
 
 ```
 ###### /java/seedu/address/model/AddressBookTest.java
 ``` java
     @Test
     public void removeTag_tagNotPresent_addressBookUnchanged() throws PersonNotFoundException,
-                                                                      DuplicatePersonException {
+            DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
 
         testAddressBook.removeTag(new Tag(VALID_TAG_NOTUSED));
@@ -986,7 +901,7 @@ public class UniqueShortcutDoublesListTest {
 
     @Test
     public void removeTag_tagUsedByMultiplePeople_tagRemoved() throws PersonNotFoundException,
-                                                                       DuplicatePersonException {
+            DuplicatePersonException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
         testAddressBook.removeTag(new Tag(VALID_TAG_FRIEND));
 
@@ -994,7 +909,7 @@ public class UniqueShortcutDoublesListTest {
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
 
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
-                                              .withPerson(amyWithoutFriendTag).build();
+                .withPerson(amyWithoutFriendTag).build();
 
         assertEquals(expectedAddressBook, testAddressBook);
     }
@@ -1013,46 +928,9 @@ public class UniqueShortcutDoublesListTest {
     @Test
     public void addShortcut_addShortcutToAddressBook_evokeAddressBookChangedEvent()
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
-        ModelManager model = new ModelManager(addressBook, userPrefs);
+        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.addCommandShortcut(SHORTCUT_DOUBLES_1);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
-    }
-```
-###### /java/seedu/address/model/ModelManagerTest.java
-``` java
-
-    @Test
-    public void equals() {
-        AddressBook differentAddressBook = new AddressBook();
-
-        // same values -> returns true
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
-
-        // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
-        assertFalse(modelManager.equals(null));
-
-        // different types -> returns false
-        assertFalse(modelManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        // different userPrefs -> returns true
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookName("differentName");
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 ```
 ###### /java/seedu/address/model/ModelManagerTest.java
@@ -1070,7 +948,7 @@ public class UniqueShortcutDoublesListTest {
 
     @Test
     public void deleteTag_tagUsedByMultiplePeople_tagRemoved() throws DuplicatePersonException,
-                                                                      PersonNotFoundException {
+            PersonNotFoundException {
         AddressBook testAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
         ModelManager modelManager = new ModelManager(testAddressBook, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_FRIEND));
@@ -1078,7 +956,7 @@ public class UniqueShortcutDoublesListTest {
         Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
         Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag)
-                                              .withPerson(bobWithoutFriendTag).build();
+                .withPerson(bobWithoutFriendTag).build();
 
         assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }
@@ -1276,10 +1154,4 @@ public class ShortcutCommandBuilder {
         fail("This method should not be called");
     }
 
-```
-###### /java/seedu/address/testutil/TypicalPersons.java
-``` java
-    public static List<Student> getTypicalStudents() {
-        return new ArrayList<>(Arrays.asList(STUDENT_AMY, STUDENT_BOB, STUDENT_HOON, STUDENT_IDA));
-    }
 ```

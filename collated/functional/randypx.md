@@ -107,6 +107,31 @@ public class StudentListChangedEvent extends BaseEvent {
     }
 }
 ```
+###### /java/seedu/address/model/util/SampleDataUtil.java
+``` java
+    /**
+     * Returns a subject list containing the list of strings given.
+     */
+    public static List<Subject> getSubjectList(String... strings) {
+        ArrayList<Subject> subjectList = new ArrayList<>();
+        for (String s : strings) {
+            subjectList.add(new Subject(s));
+        }
+        return subjectList;
+    }
+
+    /**
+     * Returns a student list containing the list of strings given.
+     */
+    public static List<Name> getStudentList(String... strings) {
+        ArrayList<Name> studentList = new ArrayList<>();
+        for (String s : strings) {
+            studentList.add(new Name(s));
+        }
+        return studentList;
+    }
+
+```
 ###### /java/seedu/address/model/person/UniquePersonList.java
 ``` java
     /**
@@ -228,10 +253,11 @@ public class Student extends Person {
     }
 
     /**
-     * Returns the list of classes the student is attending.
+     * Returns an immutable subject list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
     public List<Subject> getSubjectList() {
-        return subjectList;
+        return Collections.unmodifiableList(subjectList);
     }
 
     /**
@@ -275,7 +301,7 @@ public class Subject {
      * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*";
 
     public final String value;
 
@@ -343,10 +369,6 @@ public class Class {
         attendingStudents = new ArrayList<>(studentList);
     }
 
-    public boolean hasConcluded() {
-        return endDate.isExpired();
-    }
-
     public Name getName() {
         return className;
     }
@@ -363,8 +385,12 @@ public class Class {
         return endDate;
     }
 
+    /**
+     * Returns an immutable student list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public List<Name> getStudents() {
-        return attendingStudents;
+        return Collections.unmodifiableList(attendingStudents);
     }
 
     /**
