@@ -955,7 +955,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 
 ** Major Feature : Management of classes
-*** Classes can be formed and deleted. 
+*** Classes can be formed and deleted.
 
 ** Minor Feature : Management of student contacts
 *** Student contact can be created and managed in a similar fashion as a default contact.
@@ -1218,7 +1218,7 @@ _{ more test cases ... }_
     with a blue marker at the corner, can be seen with the entered particulars. Subject list will be empty.
 ..  Test Case: `add friend n/Mary Doe p/9999999 e/mary@example.com a/elsewhere` +
     Expected: Nothing is added. Error message is shown and command remains in the command box. List is not toggled.
-    
+
 === Forming a class of students
 
 . Forming a class while list view is on the student list
