@@ -17,7 +17,6 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.STUDENT_ANGUS;
 import static seedu.address.testutil.TypicalPersons.STUDENT_COOPER;
 import static seedu.address.testutil.TypicalPersons.STUDENT_FAUST;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -110,6 +109,7 @@ public class ModelManagerTest {
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
 
+    //@@author randypx
     @Test
     public void addStudent_addStudentToAddressBook_evokeAddressBookChangedEvent() throws DuplicatePersonException {
         ModelManager modelManager = new ModelManager(addressBook, userPrefs);
@@ -132,6 +132,7 @@ public class ModelManagerTest {
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof AddressBookChangedEvent);
     }
 
+    //@@author
     @Test
     public void addTask_addTaskToAddressBook_evokeAddressBookChangedEvent()
             throws DuplicateEventException {
