@@ -1,8 +1,12 @@
 package seedu.address.model.person;
 
+import java.util.Comparator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+
+
 
 //@@author randypx
 /**
@@ -45,6 +49,23 @@ public class UniqueContactList {
             }
         }
     }
+
+    //@@author LimShiMinJonathan
+
+    /**
+     * Returns a sorted list of contacts.
+     */
+
+    public void sortList() {
+        Comparator<Person> sortByName = new Comparator<Person>() {
+            @Override
+            public int compare (Person contact1, Person contact2)  {
+                return contact1.getName().fullName.compareToIgnoreCase(contact2.getName().fullName);
+            }
+        };
+        FXCollections.sort(combinedList, sortByName);
+    }
+    //@@author
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

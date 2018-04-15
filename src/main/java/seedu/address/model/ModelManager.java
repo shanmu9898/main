@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -47,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<ShortcutDoubles> filteredShortcutCommands;
     private final FilteredList<Class> filteredClass;
     private final FilteredList<Student> filteredStudents;
+    private final SortedList<Person> sortedFilteredConatacts;
     private String currentActiveListType;
 
     /**
@@ -65,6 +67,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredClass = new FilteredList<>(this.addressBook.getClassList());
+        sortedFilteredConatacts = new SortedList<Person>(filteredContacts);
+
         currentActiveListType = LIST_TYPE_CONTACT;
     }
 
@@ -237,7 +241,13 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredContacts);
     }
 
-
+    //@@author LimShiMinJonathan
+    @Override
+    public void sortByNameFilteredPersonList() {
+        addressBook.sortContacts();
+        indicateAddressBookChanged();
+    }
+    //@@author
 
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {

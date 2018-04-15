@@ -121,4 +121,10 @@ public class TypicalPersons {
     public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(STUDENT_AMY, STUDENT_BOB, STUDENT_HOON, STUDENT_IDA));
     }
+    //@@author
+    //@@author LimShiMinJonathan
+    public static List<Person> getUnsortedPersons() {
+        return new ArrayList<>(Arrays.asList(ELLE, BENSON, FIONA, DANIEL, ALICE, CARL, GEORGE));
+    }
+    //@@author
 }

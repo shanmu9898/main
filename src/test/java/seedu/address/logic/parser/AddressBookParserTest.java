@@ -54,6 +54,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetAppointmentCommand;
 import seedu.address.logic.commands.SetTaskCommand;
 import seedu.address.logic.commands.ShortcutCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.ToggleCalendarViewCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -244,4 +245,16 @@ public class AddressBookParserTest {
                 (ChangeThemeCommand) parser.parseCommand(ChangeThemeCommand.COMMAND_WORD + " " + "dark");
         assertEquals(new ChangeThemeCommand("dark"), command);
     }
+
+    //@@author
+
+    //@@author LimShiMinJonathan
+    @Test
+    public void parseCommand_sort() throws Exception {
+        SortCommand command = (SortCommand) parser.parseCommand(SortCommand.COMMAND_WORD);
+        assertTrue(command instanceof SortCommand);
+        assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD) instanceof SortCommand);
+
+    }
+    //@@author
 }
