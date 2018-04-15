@@ -105,10 +105,14 @@ image::itemCard.JPG[width="300"]
 Accesses the User Guide for TeachConnect. +
 Format: `help`
 
+// tag::sort[]
+
 === Sorting all contacts : `sort`
 
 Sorts all contacts in alphabetical order. +
 Format: `sort`
+
+// end::sort[]
 
 === Adding a contact: `add`
 
@@ -494,7 +498,7 @@ Format: `history`
 Pressing the kbd:[Up] and kbd:[Down] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
+
 === Undoing previous command : `undo`
 
 Restores TeachConnect to the state before the previous _undoable_ command was executed. +

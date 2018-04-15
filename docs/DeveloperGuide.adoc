@@ -697,7 +697,7 @@ Below is the code snippet.
 * **Alternative 1 (current choice):** TeachConnect will only sort contacts after user keys in the command.
 ** Pros: This implementation is simpler and more intuitive.
 ** Cons: Users might find a slight hassle to have to key in the sort command every time a new contact is added.
-* **Alternative 2: ** TeachConnect supports an automatic sorting of contacts.
+* **Alternative 2: ** TC automatically sorts contacts.
 ** Pros: When new contacts are added, they are automatic sorted without the need to key in the command.
 ** Cons: The command implementation might be more complex and it would make the command redundant. Users also might not always want their contact list to be sorted.
 

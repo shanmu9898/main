@@ -1,0 +1,82 @@
+= Lim Shi Min - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: TeachConnect
+
+---
+
+== Overview
+
+TeachConnect(TC) is an application to help teachers and educators manage their student contacts, appointments and tasks. It uses a Command Line Interface (CLI) which is tailored for users who love typing, and can type quickly. Its output is all displayed on its Graphical User Interface (GUI).
+
+== Portfolio Purpose
+This portfolio was made to document all contribution I have made to the project. +
+The content includes are:
+
+. The external behavior of my contributions
+. The justification for their implementation
+. Details of the implementation
+
+== Summary of Contributions
+
+*[Attempted] Major enhancement:* Security Features
+
+*What it does:* This feature allows users to perform encryption and decryption on their contact lists using a user-provided password.
+
+*Justification:* This feature safeguards and protects potentially sensitive contact details and data (such as student's grades, or parent's contact details) from unauthorised persons. If the encrypted data file falls into the wrong hands, it is still safe as the file is non-human readable.
+
+*Minor enhancement:* Sorting of contacts
+
+*What it does:* Allows users to sort all their contacts in lexicographical order.
+
+*Justification:* This feature helps to keep TeachConnect neat and orderly. It also makes it easier to search for contacts.
+
+*Code contributed*: +
+link:{collatedDir}/main/LimShiMinJonathan.md[Functional code] +
+link:{collatedDir}/test/LimShiMinJonathan.md[Test code] +
+
+*Other Contributions*
+
+** Project issues assignment and management.
+** Project PR review.
+** Discussed bugs fixes for various issues.
+** Edited and Formatted User Guide and Developer Guide
+
+=== Contributions to the User Guide:
+
+==== Minor Enhancement
+---
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=sort]
+
+#End of Extract#
+
+---
+
+==== Contributions to the Developer Guide
+
+==== [Attempted] Major Enhancement:
+
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=encryption/decryption]
+
+#End of Extract#
+
+==== Minor Enhancement:
+
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+#End of Extract#
+
+---
+
+=== Enhancement Proposed (for Version 2.0)
+* Enhanced sort command that allows sorting of contacts by various catergories (Such as by grades, class, and year).
+* 2FA Authentication to keep contact details more secure.
+* Alumni/Past Student 'Favourites' feature for teachers to keep in contact with their favourite students.
+
