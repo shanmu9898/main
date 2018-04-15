@@ -80,7 +80,7 @@ Shows result message upon execution of any input entered.
 Displays the full list of `contacts`, `students`, `appointments`, `tasks`, `classes` or `shortcuts` stored by TeachConnect, with the active item list selected by the last `list` command. The default list selected upon successful start up of TeachConnect is `contacts`. You can refer to <<List>> for more details. +
 Item in the list is shown as a card with an index which can be used for `delete` or `edit` command, together with their details. `Figure 3` shows the components of typical cards in the contact list. A student marker on the top right corner of the card is used to distinguish students from other people.
 
-image::itemCard.jpg[width="800"]
+image::itemCard.JPG[width="300"]
     Figure 3: Components of a card in the Contact List
 
 * Calendar view: +
@@ -268,26 +268,26 @@ Examples:
 * `list students` +
 Lists all student.
 +
-image::studentList.jpg[width="800"]
+image::studentList.jpg[width="300"]
     Figure 9: Student List displayed as active list
 +
 
 * `list tasks` +
 Lists all task.
 +
-image::taskList.jpg[width="800"]
+image::taskList.jpg[width="300"]
     Figure 10: Task List displayed as active list
 +
 * `list appointments` +
 Lists all appointment.
 +
-image::taskList.jpg[width="800"]
+image::taskList.jpg[width="300"]
     Figure 11: Appointment List displayed as active list
 +
 * `list shortcuts` +
 Lists all command shortcuts.
 +
-image::shortcutList.jpg[width="800"]
+image::shortcutList.jpg[width="300"]
     Figure 12: Shortcut List displayed as active list
 +
 
