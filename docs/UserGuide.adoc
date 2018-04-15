@@ -37,7 +37,7 @@ There a few pre-requisites that you might need to install. This shouldn't take m
 This app will not work with earlier versions of Java 8. +
 You can download the latest Java version link:https://java.com/en/download/[here].
 +
-.  Download the latest `Teachconnect.jar` link:{repoURL}/releases[here].
+.  Download the latest `Teachconnect.jar` [https://github.com/CS2103JAN2018-W14-B1/main/releases/tag/v1.5[here]].
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
 .  Double-click the file to start the app. The application screen should appear in a few seconds. For details of each component of the application, you can refer to <<UserInterface>>. `Figure 1` displays an example of the screen on loading the application.
 +
@@ -265,7 +265,7 @@ image::calendarMonth.jpg[width="800"]
 
 // tag::list[]
 [[List]]
-=== Listing all contact/student/task/appointment/shortcuts : `list`
+=== Listing all contacts/students/classes/tasks/appointments/shortcuts : `list`
 
 Shows a list of all of the specified `TYPE`. +
 Format: `list TYPE`.
