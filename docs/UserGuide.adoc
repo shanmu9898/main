@@ -18,7 +18,7 @@ By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
-TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TeachConnect will manage your contacts faster than traditional GUI apps.
+TeachConnect (TC) is created to assist teachers and other educational professionals in *managing their contacts, appointments and tasks*. TeachConnect is also tailored for teachers who would *prefer to use a Desktop App for managing contacts*. Most importantly, it is *optimized for those who prefer to enter input using keyboard* while still having the benefits of seeing the results on a screen. If you can type fast, TeachConnect will manage your contacts faster than traditional contact books.
 
 
 == About this guide
@@ -31,6 +31,8 @@ Let’s jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
+There a few pre-requisites that you might need to install. This shouldn't take more than a few minutes. If you already have them installed, please move to <<Features>> to learn more about our features:
+
 .  Ensure you have Java version `1.8.0_60` or later installed in your computer.
 +
 [NOTE]
@@ -39,10 +41,10 @@ You can download the latest Java version link:https://java.com/en/download/[here
 +
 .  Download the latest `Teachconnect.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your TeachConnect.
-.  Double-click the file to start the app. The GUI should appear in a few seconds. For details of each GUI component, you can refer to <<UserInterface>>. `Figure 1` displays an example of a successfully start up GUI.
+.  Double-click the file to start the app. The application screen should appear in a few seconds. For details of each component of the application, you can refer to <<UserInterface>>. `Figure 1` displays an example of the screen on loading the application.
 +
 image::StartupUI.jpg[width="800"]
-    Figure 1: GUI with Light Theme selected
+    Figure 1: Application screen with Light Theme selected
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -61,14 +63,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[UserInterface]]
 == User Interface
-TeachConnect GUI consists of 5 major components: menu bar, command box, command result box, active list, and calendar view. `Figure 2` annotates the position of each component in the GUI.
+TeachConnect application screen consists of 5 major components: menu bar, command box, command result box, active list, and calendar view. `Figure 2` annotates the position of each component in the application screen.
 
 
 image::GUIcomponents.jpg[width="800"]
-    Figure 2: Position of GUI components
+    Figure 2: Position of various components
 
 * Menu bar: +
-Contains drop down option for closing TeachConnect or opening the User Guide.
+Contains two options `File` and `Help`. `File` creates a drop down menu to exit the application. `Help` opens the help window if needed.
 
 * Command box: +
 Is where users key in command input.
@@ -77,14 +79,14 @@ Is where users key in command input.
 Shows result message upon execution of any input entered.
 
 * Active List: +
-Displays the full list of `contacts`, `students`, `appointments`, `tasks`, `classes` or `shortcuts` stored by TeachConnect, with the active item list selected by the last `list` command. The default list selected upon successful start up of TeachConnect is `contacts`. You can refer to <<List>> for more details. +
-Item in the list is shown as a card with an index which can be used for `delete` or `edit` command, together with their details. `Figure 3` shows the components of typical cards in the contact list. A student marker on the top right corner of the card is used to distinguish students from other people.
+Displays the full list of `contacts`, `students`, `appointments`, `tasks`, `classes` or `shortcuts` stored by TeachConnect. The active item list is selected by the last `list` command entered. The default list selected upon successful start up of TeachConnect is `contacts`. You can refer to <<List>> for more details. +
+Item in the list is shown as a card with an index which can be used for `delete` or `edit` commands, together with their details. `Figure 3` shows the components of a typical card in the contacts list. A student marker on the top right corner of the card is used to distinguish students from other people.
 
 image::itemCard.JPG[width="300"]
     Figure 3: Components of a card in the Contact List
 
 * Calendar view: +
- Shows all appointment you have within the day, week or month depending on which view mode is selected. You can refer to <<SwitchingCalendarViewmode>> for the different Calendar view mode.
+ Shows all appointments you have within the day, week or month depending on which view mode is selected. You can refer to <<SwitchingCalendarViewmode>> for the different calendar view modes.
 
 
 
@@ -149,7 +151,7 @@ Format: `form SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 Examples:
 
 * `list students` +
-`form English s/18/01/2018 e/17/07/2019` i/1,5,2 +
+`form English s/18/01/2018 e/17/07/2019 i/1,5,2` +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 //end::class[]
 
@@ -355,17 +357,15 @@ Format: `shortcut [command word] [shortcut word]`
 [TIP]
 You can choose multiple shortcuts for the same command. +
 You can later use these shortcuts in place of the original command even after closing and reopening the app. +
-You can also set shortcut for the shortcut command.
+You can also set shortcut for the shortcut command. +
+You can always see the list of shortcuts you set using `list shortcuts` as shown in Figure 13.
+
+image::ShortcutsList.png[width="800"]
+    Figure 13: List of shortcuts stored
 
 [WARNING]
 You cannot set the shortcut word to a already preregistered command. +
 Your shortcut word cannot be more than a single word.
-
-[REMINDER]
-You can always see the list of shortcuts you set using `list shortcuts` as shown in the figure below. +
-
-image::ShortcutsList.png[width="800"]
-    Figure 13: List of shortcuts stored
 
 Examples:
 
@@ -440,7 +440,7 @@ Examples:
 * `find John` +
 Shows all contacts with `john` in their name.
 * `find Betsy Tim John` +
-Shows al contacts with `Betsy`, `Tim`, or `John` in their name.
+Shows all contacts with `Betsy`, `Tim`, or `John` in their name.
 
 === Deleting an entry in the list : `delete`
 
@@ -556,7 +556,7 @@ Format: `exit`
 
 === Saving the data
 
-Saves data in the hard disk automatically [even while sharing TeachConnect] after any command that changes the data. +
+Saves data in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Upcoming features `[coming soon]`

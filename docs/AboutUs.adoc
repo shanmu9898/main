@@ -47,7 +47,7 @@ Responsibilities:
 
 === Randy Pang Chung
 image::randypx.jpg[width="150", align="left"]
-{empty}[http://github.com/randypx[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/MukeshGadupudi.html[portfolio]]
+{empty}[http://github.com/randypx[github]] [https://cs2103jan2018-w14-b1.github.io/main/team/randypang.html[portfolio]]
 
 Role: Developer
 
