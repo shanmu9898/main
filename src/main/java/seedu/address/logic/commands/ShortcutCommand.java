@@ -10,7 +10,7 @@ import seedu.address.model.shortcuts.ShortcutDoubles;
 import seedu.address.model.shortcuts.UniqueShortcutDoublesList;
 
 /**
- *
+ *Creates a shortcut for the user for any commands available in the list.
  */
 public class ShortcutCommand extends UndoableCommand {
 

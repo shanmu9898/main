@@ -42,10 +42,10 @@ public class ShortcutListPanel extends  UiPart<Region> {
     class ShortcutListViewCell extends ListCell<ShortcutCard> {
 
         @Override
-        protected void updateItem(ShortcutCard shortcutCard, boolean empty) {
-            super.updateItem(shortcutCard, empty);
+        protected void updateItem(ShortcutCard shortcutCard, boolean isEmpty) {
+            super.updateItem(shortcutCard, isEmpty);
 
-            if (empty || shortcutCard == null) {
+            if (isEmpty || shortcutCard == null) {
                 setGraphic(null);
                 setText(null);
             } else {

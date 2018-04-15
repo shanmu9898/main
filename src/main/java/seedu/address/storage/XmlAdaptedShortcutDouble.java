@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.shortcuts.ShortcutDoubles;
 
 /**
- *
+ *Class to create a shortcut double and save it as an XML element.
  */
 public class XmlAdaptedShortcutDouble {
     @XmlElement

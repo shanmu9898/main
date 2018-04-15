@@ -33,7 +33,7 @@ import seedu.address.storage.XmlAddressBookStorage;
 
 
 /**
- * Exports people to an XML file of choice based on tag, index or range
+ * Exports people to an XML/Excel file of choice based on tag, index or range
  */
 public class ExportCommand extends Command {
 
@@ -238,8 +238,8 @@ public class ExportCommand extends Command {
     /**
      * Helper for a saving Persons in a CSV format
      *
-     * @param csvPrinter
-     * @throws CommandException
+     * @param csvPrinter - Helps in writing data to a CSV file
+     * @throws CommandException - Should show message fail error
      */
     private void saveAsCsvPersons(CSVPrinter csvPrinter) throws CommandException {
         for (Person p : exportPersonAddition) {
@@ -254,8 +254,8 @@ public class ExportCommand extends Command {
     /**
      * Helper for a saving Classes in a CSV format
      *
-     * @param csvPrinter
-     * @throws CommandException
+     * @param csvPrinter - Helps in writing data to a CSV file
+     * @throws CommandException - Should show message fail error
      */
     private void saveAsCsvClasses(CSVPrinter csvPrinter) throws CommandException {
         try {
@@ -422,7 +422,7 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Export everyone with a tag given
+     * Exports everyone with a tag given
      */
     private void exportEveryoneWithTag(Tag tag, ObservableList<Person> exportPeople) {
         for (Person p : exportPeople) {
@@ -435,7 +435,7 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Export everyone without a tag given
+     * Exports everyone without a tag given
      */
     private void exportEveryoneWithoutTag(ObservableList<Person> exportPeople) {
         for (Person p : exportPeople) {
