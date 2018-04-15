@@ -1,1176 +1,4 @@
 # Sisyphus25
-###### /resources/view/LightTheme.css
-``` css
- */
-.background {
-    -fx-background-color: #ffffff;
-    background-color: #ffffff; /* Used in the default.html file */
-}
-
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
-}
-
-.app-title {
-    -fx-text-fill: brown;
-    -fx-font-family: "Franklin Gothic Medium";
-    -fx-font-weight: bold;
-    -fx-font-size: 36px
-}
-
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
-}
-
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #ffffff;
-    -fx-background-color: #ffffff;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-            transparent
-            transparent
-            derive(-fx-base, 80%)
-            transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#ffffff, 20%);
-    -fx-border-color: transparent transparent transparent tomato;
-}
-
-.split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#ffffff, 20%);
-}
-
-.list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: derive(#ffffff, 20%);
-
-}
-
-.list-cell {
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
-    -fx-padding: 10px;
-    -fx-background-insets: 3px, 3px;
-    -fx-background-color: transparent
-}
-
-.list-cell:filled:even {
-    -fx-background-color: #ffd0d0;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #ffd0d0;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #ffc2c2;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #ffc2c2;
-    -fx-border-width: 1;
-}
-
-.list-cell .label {
-    -fx-text-fill: brown;
-}
-
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #ffd0d0;
-}
-
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #ffd0d0;
-}
-
-.anchor-pane {
-    -fx-background-color: derive(#ffffff, 20%);
-}
-
-.pane-with-border {
-    -fx-background-color: derive(#ffffff, 20%);
-    -fx-border-color: transparent;
-    -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: derive(#ffd0d0, 20%);
-    -fx-text-fill: white;
-}
-
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: brown;
-}
-
-.result-display .label {
-    -fx-text-fill: white !important;
-}
-
-.status-bar .label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: brown;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#ffd0d0, 30%);
-    -fx-border-color: derive(#ffd0d0, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: brown;
-}
-
-.grid-pane {
-    -fx-background-color: derive(#ffd0d0, 30%);
-    -fx-border-color: derive(#ffd0d0, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: derive(#ffd0d0, 30%);
-}
-
-.calendar-panel .button {
-    -fx-text-fill: #000000;
-}
-
-.calendar-panel {
-    -fx-background-color: #ffffff;
-    background-color: #ffffff;
-}
-
-.calendar-panel .content {
-    -fx-border-color: transparent transparent tomato transparent;
-}
-
-.calendar-panel .header {
-    -fx-border-color: tomato transparent transparent transparent;
-}
-
-.context-menu {
-    -fx-background-color: derive(#ffd0d0, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: brown;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#ffd0d0, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: brown;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
-}
-
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
-.button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
-}
-
-.button:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.button:pressed, .button:default:hover:pressed {
-    -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
-}
-
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-.button:disabled, .button:default:disabled {
-    -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
-    -fx-text-fill: white;
-}
-
-.button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
-}
-
-.button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
-}
-
-.dialog-pane {
-    -fx-background-color: #ffffff;
-}
-
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #ffffff;
-}
-
-.dialog-pane > *.label.content {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: brown;
-}
-
-.dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#ffd0d0, 25%);
-}
-
-.dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: brown;
-    -fx-text-fill: brown;
-}
-
-.scroll-bar {
-    -fx-background-color: derive(#ffd0d0, 20%);
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-
-}
-
-.scroll-bar .thumb {
-    -fx-background-color: derive(tomato, 20%);
-
-}
-
-.scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-rotate: 0;
-
-}
-
-.scroll-bar .increment-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-}
-
-.scroll-bar .decrement-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-    -fx-rotate: -180;
-}
-
-.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .increment-arrow{
-    -fx-rotate: -90;
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .decrement-arrow {
-    -fx-rotate: 90;
-    -fx-padding: 3 3 3 3;
-}
-
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 10pt;
-}
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#commandTextField {
-    -fx-background-color: transparent #ffd0d0 transparent #ffd0d0;
-    -fx-background-insets: 0;
-    -fx-border-color: #ffd0d0 #ffd0d0 brown #ffd0d0 ;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: brown;
-}
-
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, brown, 10, 0, 0, 0);
-}
-
-#resultDisplay .content {
-    -fx-background-color: transparent, #ffffff, transparent, #ffffff;
-    -fx-background-radius: 0;
-    -fx-border-color: #ffd0d0;
-}
-```
-###### /resources/view/DogeTheme.css
-``` css
- */
-
-.root {
-    -fx-background-image: url("../images/doge.jpg");
-    -fx-background-repeat: repeat;
-    -fx-background-position: center center;
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
-}
-
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
-}
-
-.app-title {
-    -fx-text-fill: white;
-    -fx-font-family: "Franklin Gothic Heavy";
-    -fx-font-size: 40px;
-}
-
-.app-title .text {
-    -fx-stroke: black;
-    -fx-stroke-width: 1px;
-}
-
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
-}
-
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: transparent;
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35px;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-            transparent
-            transparent
-            derive(-fx-base, 80%)
-            transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent transparent transparent #635615;
-}
-
-.split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: transparent;
-}
-
-.list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-
-}
-
-.list-cell {
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
-    -fx-padding: 10px;
-    -fx-background-insets: 3px, 3px;
-    -fx-background-color: transparent
-}
-
-.list-cell:filled:even {
-    -fx-background-color: #efdc7f;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #efdc7f;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #efdc7f;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #c1b05b;
-    -fx-border-width: 1;
-
-}
-
-.list-cell .label {
-    -fx-text-fill: black;
-}
-
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #efdc7f;
-}
-
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #efdc7f;
-}
-
-.anchor-pane {
-    -fx-background-color: transparent;
-}
-
-.pane-with-border {
-    -fx-background-color: transparent;
-    -fx-border-color: derive(#efdc7f, 10%);
-    -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-}
-
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: black;
-}
-
-.result-display .label {
-    -fx-text-fill: transparent !important;
-}
-
-.status-bar .label {
-    -fx-font-family: "Segoe UI";
-    -fx-text-fill: black;
-}
-
-.status-bar-with-border {
-    -fx-background-color: transparent;
-    -fx-border-color: derive(#efdc7f, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: black;
-}
-
-.grid-pane {
-    -fx-background-color: transparent;
-    -fx-border-color: derive(#efdc7f, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: transparent;
-}
-
-.calendar-panel .button {
-    -fx-text-fill: #000000;
-}
-
-.calendar-panel {
-    -fx-background-color: transparent;
-    background-color: transparent;
-}
-
-.context-menu {
-    -fx-background-color: derive(#efdc7f, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: black;
-}
-
-.menu-bar {
-    -fx-background-color: transparent;
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI";
-    -fx-text-fill: black;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
-}
-
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
-.button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
-}
-
-.button:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.button:pressed, .button:default:hover:pressed {
-    -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
-}
-
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-.button:disabled, .button:default:disabled {
-    -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
-    -fx-text-fill: white;
-}
-
-.button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
-}
-
-.button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
-}
-
-.dialog-pane {
-    -fx-background-color: transparent;
-}
-
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #ffffff;
-}
-
-.dialog-pane > *.label.content {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: black;
-}
-
-.dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#efdc7f, 25%);
-}
-
-.dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: black;
-    -fx-text-fill: black;
-}
-
-.scroll-bar {
-    -fx-background-color: derive(#efdc7f, 20%);
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-
-}
-
-.scroll-bar .thumb {
-    -fx-background-color: derive(#635615, 20%);
-
-}
-
-.scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-rotate: 0;
-
-}
-
-.scroll-bar .increment-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-}
-
-.scroll-bar .decrement-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-    -fx-rotate: -180;
-}
-
-.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .increment-arrow{
-    -fx-rotate: -90;
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .decrement-arrow {
-    -fx-rotate: 90;
-    -fx-padding: 3 3 3 3;
-}
-
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 10pt;
-}
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#commandTextField {
-    -fx-background-color: #efdc7f;
-    -fx-background-insets: 0;
-    -fx-border-color: #efdc7f #efdc7f black #efdc7f ;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: black;
-}
-
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
-#resultDisplay {
-    -fx-background-color: transparent;
-}
-
-#resultDisplay .scroll-pane .viewport{
-    -fx-background-color: transparent;
-}
-
-#resultDisplay .content {
-    -fx-background-color: #efdc7f;
-    -fx-background-radius: 0;
-}
-```
-###### /resources/view/GalaxyTheme.css
-``` css
- */
-
-.root {
-    -fx-background-image: url("../images/galaxy.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
-}
-
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
-}
-
-.app-title {
-    -fx-text-fill: white;
-    -fx-font-family: "Franklin Gothic Heavy";
-    -fx-font-size: 40px;
-}
-
-.app-title .text {
-    -fx-stroke: black;
-    -fx-stroke-width: 1px;
-}
-
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
-}
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-.tab-pane {
-    -fx-padding: 0 0 0 1;
-}
-
-.tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
-}
-
-.table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: transparent;
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35px;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-            transparent
-            transparent
-            derive(-fx-base, 80%)
-            transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal .split-pane-divider {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: transparent;
-}
-
-.list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: transparent;
-
-}
-
-.list-cell {
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
-    -fx-padding: 10px;
-    -fx-background-insets: 3px, 3px;
-    -fx-background-color: transparent
-}
-
-.list-cell:filled:even {
-    -fx-background-color: #edf2f9;
-}
-
-.list-cell:filled:odd {
-    -fx-background-color: #edf2f9;
-}
-
-.list-cell:filled:selected {
-    -fx-background-color: #c0c5f9;
-}
-
-.list-cell .label {
-    -fx-text-fill: black;
-}
-
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
-    -fx-text-fill: #edf2f9;
-}
-
-.cell_small_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #edf2f9;
-}
-
-.anchor-pane {
-    -fx-background-color: transparent;
-}
-
-.pane-with-border {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-}
-
-.result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: black;
-}
-
-.result-display .label {
-    -fx-text-fill: transparent !important;
-}
-
-.status-bar .label {
-    -fx-font-family: "Segoe UI";
-    -fx-text-fill: #edf2f9;
-}
-
-.status-bar-with-border {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: black;
-}
-
-.grid-pane {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: transparent;
-}
-
-.calendar-panel .button {
-    -fx-text-fill: #000000;
-}
-
-.calendar-panel {
-    -fx-background-color: transparent;
-    background-color: transparent;
-}
-
-.context-menu {
-    -fx-background-color: derive(#070f60, 50%);
-}
-
-.context-menu .label {
-    -fx-text-fill: #edf2f9;
-}
-
-.menu-bar {
-    -fx-background-color: transparent;
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI";
-    -fx-text-fill: #edf2f9;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
-}
-
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
-.button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
-}
-
-.button:hover {
-    -fx-background-color: #3a3a3a;
-}
-
-.button:pressed, .button:default:hover:pressed {
-    -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
-}
-
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-.button:disabled, .button:default:disabled {
-    -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
-    -fx-text-fill: white;
-}
-
-.button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
-}
-
-.button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
-}
-
-.dialog-pane {
-    -fx-background-color: transparent;
-}
-
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #ffffff;
-}
-
-.dialog-pane > *.label.content {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: black;
-}
-
-.dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#edf2f9, 25%);
-}
-
-.dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: black;
-    -fx-text-fill: black;
-}
-
-.scroll-bar {
-    -fx-background-color: derive(#edf2f9, 20%);
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-
-}
-
-.scroll-bar .thumb {
-    -fx-background-color: derive(#070f60, 20%);
-
-}
-
-.scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-rotate: 0;
-
-}
-
-.scroll-bar .increment-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-}
-
-.scroll-bar .decrement-arrow {
-    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: #ffffff;
-    -fx-rotate: -180;
-}
-
-.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .increment-arrow{
-    -fx-rotate: -90;
-    -fx-padding: 3 3 3 3;
-}
-
-.scroll-bar:horizontal .decrement-arrow {
-    -fx-rotate: 90;
-    -fx-padding: 3 3 3 3;
-}
-
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 10pt;
-}
-
-#commandTypeLabel {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
-}
-
-#commandTextField {
-    -fx-background-color: #edf2f9;
-    -fx-background-insets: 0;
-    -fx-border-color: #edf2f9 #edf2f9 black #edf2f9 ;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13pt;
-    -fx-text-fill: black;
-}
-
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
-#resultDisplay {
-    -fx-background-color: transparent;
-}
-
-#resultDisplay .scroll-pane .viewport{
-    -fx-background-color: transparent;
-}
-
-#resultDisplay .content {
-    -fx-background-color: #edf2f9;
-    -fx-background-radius: 0;
-}
-```
 ###### /java/seedu/address/ui/TaskCard.java
 ``` java
 /**
@@ -1199,9 +27,9 @@ public class TaskCard extends UiPart<Region> {
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         title.setText(task.getTitle().value);
-        time.setText("Finish before: " + DATE_FORMATTER.format(task.getTime().value.getTime()));
+        time.setText("Deadline: " + DATE_FORMATTER.format(task.getTime().value.getTime()));
         if (task.getTime().isExpired()) {
             addExpiredTag();
         }
@@ -1293,7 +121,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     private Entry getEntry(Appointment appointment) {
         LocalDateTime ldtstart = LocalDateTime.ofInstant(
-                appointment.getTime().value.getTime().toInstant(), ZoneId.systemDefault());
+                appointment.getStartTime().value.getTime().toInstant(), ZoneId.systemDefault());
         LocalDateTime ldtend = LocalDateTime.ofInstant(
                 appointment.getEndTime().value.getTime().toInstant(), ZoneId.systemDefault());
         String description = appointment.getTitle().value;
@@ -1363,9 +191,9 @@ public class AppointmentCard extends UiPart<Region> {
     public AppointmentCard(Appointment appointment, int displayedIndex) {
         super(FXML);
         this.appointment = appointment;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + "");
         title.setText(appointment.getTitle().value);
-        time.setText("From: " + DATE_FORMATTER.format(appointment.getTime().value.getTime()));
+        time.setText("From: " + DATE_FORMATTER.format(appointment.getStartTime().value.getTime()));
         endTime.setText("To: " + DATE_FORMATTER.format(appointment.getEndTime().value.getTime()));
         if (appointment.getPersonToMeet() != null) {
             personToMeet.setText("With " + appointment.getPersonToMeet().getName());
@@ -1391,51 +219,6 @@ public class AppointmentCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && appointment.equals(card.appointment);
     }
-}
-```
-###### /java/seedu/address/ui/AppointmentListPanel.java
-``` java
-/**
- * Panel containing the list of appointments.
- */
-public class AppointmentListPanel extends UiPart<Region> {
-    private static final String FXML = "AppointmentListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(AppointmentListPanel.class);
-
-    @FXML
-    private ListView<AppointmentCard> appointmentListView;
-
-    public AppointmentListPanel(ObservableList<Appointment> appointmentList) {
-        super(FXML);
-        setConnections(appointmentList);
-        registerAsAnEventHandler(this);
-    }
-
-    private void setConnections(ObservableList<Appointment> appointmentList) {
-        ObservableList<AppointmentCard> mappedList = EasyBind.map(appointmentList, (appointment) ->
-                        new AppointmentCard(appointment, appointmentList.indexOf(appointment) + 1));
-        appointmentListView.setItems(mappedList);
-        appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
-    }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code AppointmentCard}.
-     */
-    class AppointmentListViewCell extends ListCell<AppointmentCard> {
-
-        @Override
-        protected void updateItem(AppointmentCard appointment, boolean empty) {
-            super.updateItem(appointment, empty);
-
-            if (empty || appointment == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(appointment.getRoot());
-            }
-        }
-    }
-
 }
 ```
 ###### /java/seedu/address/ui/MainWindow.java
@@ -1538,46 +321,6 @@ public class AppointmentListChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/RemoveCommandParser.java
-``` java
-/**
- * Parses input arguments and creates a new RemoveCommand object
- */
-public class RemoveCommandParser implements Parser<RemoveCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the RemoveCommand
-     * and returns an RemoveCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public RemoveCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        String trimmedArgs = args.trim();
-        String[] parameterGetterArray = trimmedArgs.split(" ");
-        if (trimmedArgs.isEmpty() || parameterGetterArray.length != 2) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-        }
-        try {
-            if (!isValidEventType(parameterGetterArray[0])) {
-                throw new IllegalValueException("Invalid event type");
-            }
-            Index index = ParserUtil.parseIndex(parameterGetterArray[1]);
-            return new RemoveCommand(index, parameterGetterArray[0]);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE));
-        }
-    }
-
-    private boolean isValidEventType(String type) {
-        return type.equals("appointment") || type.equals("task");
-    }
-}
-
-
-
-```
 ###### /java/seedu/address/logic/parser/ToggleCalendarViewParser.java
 ``` java
 /**
@@ -1633,7 +376,7 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
     public SetAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_START_TIME,
-                        PREFIX_END_TIME, PREFIX_PERSON_TO_MEET_INDEX);
+                        PREFIX_END_TIME, PREFIX_INDEX);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_START_TIME, PREFIX_END_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -1644,9 +387,9 @@ public class SetAppointmentCommandParser implements Parser<SetAppointmentCommand
         try {
             Index index = null;
             Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE)).get();
-            EventTime startTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_START_TIME)).get();
-            EventTime endTime = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME)).get();
-            Optional<Index> optionalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PERSON_TO_MEET_INDEX));
+            Time startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME)).get();
+            Time endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME)).get();
+            Optional<Index> optionalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX));
             if (optionalIndex.isPresent()) {
                 index = optionalIndex.get();
             }
@@ -1698,6 +441,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         case(ListCommand.TYPE_APPOINTMENT):
         case(ListCommand.TYPE_TASK):
         case(ListCommand.TYPE_SHORTCUT):
+        case(ListCommand.TYPE_CLASS):
             return true;
         default:
             return false;
@@ -1732,51 +476,23 @@ public class ListCommandParser implements Parser<ListCommand> {
     }
 
     /**
-     * Parses a {@code Optional<String> eventTime} into an {@code Optional<EventTime>} if {@code eventTime} is present.
+     * Parses a {@code Optional<String> time} into an {@code Optional<Time>} if {@code time} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<EventTime> parseEventTime(Optional<String> eventTime) throws IllegalArgumentException {
-        requireNonNull(eventTime);
-        return eventTime.isPresent() ? Optional.of(parseEventTime(eventTime.get())) : Optional.empty();
+    public static Optional<Time> parseTime(Optional<String> time) throws IllegalArgumentException {
+        requireNonNull(time);
+        return time.isPresent() ? Optional.of(parseTime(time.get())) : Optional.empty();
     }
 
     /**
-     * Parses a {@code String eventTime} into a {@code EventTime}.
+     * Parses a {@code String time} into a {@code Time}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static EventTime parseEventTime(String eventTime) throws IllegalArgumentException {
-        requireNonNull(eventTime);
-        String trimmedEventTime = eventTime.trim();
-        return new EventTime(trimmedEventTime);
+    public static Time parseTime(String time) throws IllegalArgumentException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        return new Time(trimmedTime, false);
     }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws IllegalValueException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws IllegalValueException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_NAME_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws IllegalValueException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
-    }
-}
 ```
 ###### /java/seedu/address/logic/parser/ChangeThemeCommandParser.java
 ``` java
@@ -1832,7 +548,7 @@ public class SetTaskCommandParser implements Parser<SetTaskCommand> {
 
         try {
             Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE)).get();
-            EventTime time = ParserUtil.parseEventTime(argMultimap.getValue(PREFIX_END_TIME)).get();
+            Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME)).get();
 
             Task task = new Task(title, time);
 
@@ -1852,77 +568,174 @@ public class SetTaskCommandParser implements Parser<SetTaskCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/commands/RemoveCommand.java
+###### /java/seedu/address/logic/commands/DeleteCommand.java
 ``` java
 /**
- * Remove an appointment or task identified using its last displayed index from the address book.
+ * Deletes an entry identified using it's last displayed index.
  */
-public class RemoveCommand extends UndoableCommand {
+public class DeleteCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the event identified by the index number used in the last event listing.\n"
-            + "Parameters: "
-            + " EVENT_TYPE (could be appointment or task)"
-            + "INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " appointment " + " 1";
+            + ": Deletes the entry identified by the index number used in the last shown listing.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Removed %1$s: %2$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_STUDENT_SUCCESS = "Deleted Student: %1$s";
+    public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Deleted Class: %1$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     private final Index targetIndex;
 
-    private String eventTypeOfDeletedTarget;
+    private Object toDelete;
 
-    private Object eventToBeDeleted;
-
-    public RemoveCommand(Index targetIndex, String eventTypeOfDeletedTarget) {
-        this.eventTypeOfDeletedTarget = eventTypeOfDeletedTarget;
+    public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+
     @Override
     public CommandResult executeUndoableCommand() {
-        requireNonNull(eventToBeDeleted);
-        try {
-            if (eventTypeOfDeletedTarget.equals(LIST_TYPE_APPOINTMENT)) {
-                model.deleteAppointment((Appointment) eventToBeDeleted);
-            } else if (eventTypeOfDeletedTarget.equals(LIST_TYPE_TASK)) {
-                model.deleteTask((Task) eventToBeDeleted);
+        if (toDelete instanceof Student) {
+            try {
+                model.deleteStudent((Student) toDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_STUDENT_SUCCESS, toDelete));
+            } catch (PersonNotFoundException pnfe) {
+                throw new AssertionError("The target student cannot be missing");
             }
-        } catch (EventNotFoundException ive) {
-            throw new AssertionError(String.format("The target %s cannot be missing", eventTypeOfDeletedTarget));
+        } else if (toDelete instanceof Person) {
+            try {
+                model.deletePerson((Person) toDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, toDelete));
+            } catch (PersonNotFoundException pnfe) {
+                throw new AssertionError("The target person cannot be missing");
+            }
+        } else if (toDelete instanceof Appointment) {
+            try {
+                model.deleteAppointment((Appointment) toDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, toDelete));
+            } catch (EventNotFoundException enfe) {
+                throw new AssertionError("The target appointment cannot be missing");
+            }
+        } else if (toDelete instanceof Task) {
+            try {
+                model.deleteTask((Task) toDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, toDelete));
+            } catch (EventNotFoundException enfe) {
+                throw new AssertionError("The target task cannot be missing");
+            }
+        } else if (toDelete instanceof Class) {
+            try {
+                model.deleteClass((Class) toDelete);
+                return new CommandResult(String.format(MESSAGE_DELETE_CLASS_SUCCESS, toDelete));
+            } catch (StudentClassNotFoundException scnfe) {
+                throw new AssertionError("The target class cannot be missing");
+            }
+        } else {
+            throw new NullPointerException();
         }
-        return new CommandResult(
-                String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventTypeOfDeletedTarget, eventToBeDeleted));
     }
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        if (eventTypeOfDeletedTarget.equals(LIST_TYPE_APPOINTMENT)) {
+        String listType = model.getCurrentActiveListType();
+        switch (listType) {
+
+        case LIST_TYPE_CONTACT: {
+            List<Person> lastShownList = model.getFilteredPersonList();
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            toDelete = lastShownList.get(targetIndex.getZeroBased());
+            break;
+        }
+
+        case LIST_TYPE_APPOINTMENT: {
             List<Appointment> lastShownList = model.getFilteredAppointmentList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             }
-            eventToBeDeleted = lastShownList.get(targetIndex.getZeroBased());
-        } else if (eventTypeOfDeletedTarget.equals(LIST_TYPE_TASK)) {
+            toDelete = lastShownList.get(targetIndex.getZeroBased());
+            break;
+        }
+
+        case LIST_TYPE_TASK: {
             List<Task> lastShownList = model.getFilteredTaskList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             }
-            eventToBeDeleted = lastShownList.get(targetIndex.getZeroBased());
+            toDelete = lastShownList.get(targetIndex.getZeroBased());
+            break;
         }
 
+        case LIST_TYPE_CLASS: {
+            List<Class> lastShownList = model.getFilteredClassList();
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_CLASS_DISPLAYED_INDEX);
+            }
+            toDelete = lastShownList.get(targetIndex.getZeroBased());
+            break;
+        }
+
+        default:
+            throw new CommandException(MESSAGE_DELETE_UNSUPPORTED);
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RemoveCommand // instanceof handles nulls
-                && this.targetIndex.equals(((RemoveCommand) other).targetIndex) // state check
-                && Objects.equals(this.eventToBeDeleted, ((RemoveCommand) other).eventToBeDeleted));
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && this.targetIndex.equals(((DeleteCommand) other).targetIndex) // state check
+                && Objects.equals(this.toDelete, ((DeleteCommand) other).toDelete));
     }
 }
+```
+###### /java/seedu/address/logic/commands/ListCommand.java
+``` java
+    @Override
+    public CommandResult execute() throws CommandException {
+        switch (type) {
+        case TYPE_CONTACT:
+            evokeToggleListEvent(TYPE_CONTACT);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_CONTACT);
+
+        case TYPE_STUDENT:
+            evokeToggleListEvent(TYPE_CONTACT);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ONLY_STUDENTS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_STUDENT);
+
+        case TYPE_APPOINTMENT:
+            evokeToggleListEvent(TYPE_APPOINTMENT);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_APPOINTMENT);
+
+        case TYPE_TASK:
+            evokeToggleListEvent(TYPE_TASK);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_TASK);
+
+        case TYPE_SHORTCUT:
+            evokeToggleListEvent(TYPE_SHORTCUT);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_SHORTCUT);
+
+        case TYPE_CLASS:
+            evokeToggleListEvent(TYPE_CLASS);
+            return new CommandResult(MESSAGE_SUCCESS + TYPE_CLASS);
+
+        default:
+            throw new CommandException(MESSAGE_INVALID_TYPE);
+        }
+    }
+
+    /** Raises an event to indicate the change of list view */
+    private void evokeToggleListEvent(String type) {
+        model.changeCurrentActiveListType(type);
+        EventsCenter.getInstance().post(new ToggleListEvent(type));
+    }
+
 ```
 ###### /java/seedu/address/logic/commands/ToggleCalendarViewCommand.java
 ``` java
@@ -2063,12 +876,12 @@ public class SetAppointmentCommand extends UndoableCommand {
             + PREFIX_TITLE + "TITLE "
             + PREFIX_START_TIME + "START-DATE START-TIME "
             + PREFIX_END_TIME + "END-DATE END-TIME "
-            + PREFIX_PERSON_TO_MEET_INDEX + "PERSON TO MEET\n"
+            + PREFIX_INDEX + "PERSON TO MEET\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "Meet James "
+            + PREFIX_TITLE + "Consultation "
             + PREFIX_START_TIME + "20/05/2018 10:00 "
             + PREFIX_END_TIME + "20/05/2018 12:00 "
-            + PREFIX_PERSON_TO_MEET_INDEX + "3 ";
+            + PREFIX_INDEX + "3 ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
@@ -2100,7 +913,8 @@ public class SetAppointmentCommand extends UndoableCommand {
         try {
             Appointment toAdd;
             if (personToMeet != null) {
-                toAdd = new Appointment(baseAppointmentWithoutPerson.getTitle(), baseAppointmentWithoutPerson.getTime(),
+                toAdd = new Appointment(baseAppointmentWithoutPerson.getTitle(),
+                        baseAppointmentWithoutPerson.getStartTime(),
                         baseAppointmentWithoutPerson.getEndTime(), personToMeet);
             } else {
                 toAdd = baseAppointmentWithoutPerson;
@@ -2182,7 +996,7 @@ public class XmlAdaptedAppointment {
      */
     public XmlAdaptedAppointment(Appointment source) {
         title = source.getTitle().toString();
-        startTime = source.getTime().toString();
+        startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
         if (source.getPersonToMeet() != null) {
             personToMeet = source.getPersonToMeet().toString();
@@ -2210,10 +1024,10 @@ public class XmlAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "End Time"));
         }
 
-        final EventTime startTime = new EventTime(this.startTime);
-        final EventTime endTime = new EventTime(this.endTime);
+        final Time startTime = new Time(this.startTime, false);
+        final Time endTime = new Time(this.endTime, false);
 
-        if (!Appointment.isValidTime(startTime, endTime)) {
+        if (!Time.isValidTime(startTime, endTime)) {
             throw new IllegalValueException(Appointment.MESSAGE_TIME_PERIOD_CONSTRAINTS);
         }
 
@@ -2299,7 +1113,7 @@ public class XmlAdaptedTask {
         if (this.time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Time"));
         }
-        final EventTime time = new EventTime(this.time);
+        final Time time = new Time(this.time, false);
 
         return new Task(title, time);
     }
@@ -2322,7 +1136,6 @@ public class XmlAdaptedTask {
 ```
 ###### /java/seedu/address/model/AddressBook.java
 ``` java
-    //event operations
     /**
      * Adds an appointment to the address book.
      *
@@ -2331,6 +1144,7 @@ public class XmlAdaptedTask {
     public void addAppointment(Appointment e) throws DuplicateEventException {
         appointments.add(e);
     }
+
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -2364,7 +1178,38 @@ public class XmlAdaptedTask {
             throw new EventNotFoundException();
         }
     }
-}
+
+    //// class-level operations
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public void addAppointment(Appointment appointment) throws DuplicateEventException {
+        addressBook.addAppointment(appointment);
+        evokeToggleListEvent(LIST_TYPE_APPOINTMENT);
+        indicateAddressBookChanged();
+        indicateAppointmentListChanged();
+    }
+
+    @Override
+    public void deleteAppointment(Appointment target) throws EventNotFoundException {
+        addressBook.removeAppointment(target);
+        indicateAddressBookChanged();
+        indicateAppointmentListChanged();
+    }
+
+    @Override
+    public void addTask(Task task) throws DuplicateEventException {
+        addressBook.addTask(task);
+        evokeToggleListEvent(LIST_TYPE_TASK);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteTask(Task target) throws EventNotFoundException {
+        addressBook.removeTask(target);
+        indicateAddressBookChanged();
+    }
 ```
 ###### /java/seedu/address/model/event/Appointment.java
 ``` java
@@ -2375,21 +1220,21 @@ public class Appointment {
     public static final String MESSAGE_TIME_PERIOD_CONSTRAINTS = "The end time should be after the start time";
 
     private final Title title;
-    private final EventTime time;
-    private final EventTime endTime;
+    private final Time startTime;
+    private final Time endTime;
     private final PersonToMeet personToMeet;
 
     //Every field must be present and not null
-    public Appointment(Title title, EventTime startTime, EventTime endTime) {
+    public Appointment(Title title, Time startTime, Time endTime) {
         this(title, startTime, endTime, null);
     }
 
     //Every field except personToMeet must be present and not null
-    public Appointment(Title title, EventTime startTime, EventTime endTime, PersonToMeet personToMeet) {
+    public Appointment(Title title, Time startTime, Time endTime, PersonToMeet personToMeet) {
         requireAllNonNull(title, startTime, endTime);
-        checkArgument(isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
+        checkArgument(Time.isValidTime(startTime, endTime), MESSAGE_TIME_PERIOD_CONSTRAINTS);
         this.title = title;
-        this.time = startTime;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.personToMeet = personToMeet;
     }
@@ -2398,11 +1243,11 @@ public class Appointment {
         return title;
     }
 
-    public EventTime getTime() {
-        return time;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public EventTime getEndTime() {
+    public Time getEndTime() {
         return endTime;
     }
 
@@ -2422,7 +1267,7 @@ public class Appointment {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getTitle().equals(this.getTitle())
-                && otherAppointment.getTime().equals(this.getTime())
+                && otherAppointment.getStartTime().equals(this.getStartTime())
                 && otherAppointment.getEndTime().equals(this.getEndTime());
     }
 
@@ -2431,7 +1276,7 @@ public class Appointment {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
                 .append(", Start Time: ")
-                .append(getTime().toString())
+                .append(getStartTime().toString())
                 .append(", End Time: ")
                 .append(getEndTime().toString());
         if (personToMeet != null) {
@@ -2440,13 +1285,110 @@ public class Appointment {
         }
         return builder.toString();
     }
+}
+```
+###### /java/seedu/address/model/event/Time.java
+``` java
+/**
+ * Represents an event's time stamp in the address book.
+ * Guarantees: immutable
+ */
+public class Time {
+    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Date and time must be in the format: DD/MM/YYYY HH:MM";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date must be in the format: DD/MM/YYYY";
+    public static final String TIME_VALIDATION_REGEX = "((^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|"
+            + "((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|"
+            + "[2-9][0-9])\\d\\d)|(^29[\\/]02[\\/](19|[2-9][0-9])"
+            + "(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)))"
+            + "[ ]([0-1]?[0-9]|2[0-3]):[0-5][0-9]";
+
+    public static final String DATE_VALIDATION_REGEX = "((^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|"
+            + "((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|"
+            + "[2-9][0-9])\\d\\d)|(^29[\\/]02[\\/](19|[2-9][0-9])"
+            + "(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)))";
+
+    private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm";
+    private static final String DATE_ONLY_FORMAT = "dd/MM/yyyy";
+    private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+    private static final DateFormat DATE_ONLY_FORMATTER = new SimpleDateFormat(DATE_ONLY_FORMAT);
+
+    public final Calendar value;
+    private final boolean isOnlyDate;
 
     /**
-     * Returns true if the given time is valid
+     * Constructs a {@code Time} with the given timestamp.
+     *
+     * @param timeStamp date and/or time argument given by the user.
      */
-    public static boolean isValidTime(EventTime startTime, EventTime endTime) {
+    public Time(String timeStamp, boolean b) {
+        requireNonNull(timeStamp);
+        value = Calendar.getInstance();
+        isOnlyDate = b;
+        if (!isOnlyDate) {
+            checkArgument(isValidTimeStamp(timeStamp), MESSAGE_DATE_TIME_CONSTRAINTS);
+            try {
+                this.value.setTime(DATE_FORMATTER.parse(timeStamp));
+            } catch (ParseException e) {
+                throw new IllegalArgumentException(MESSAGE_DATE_TIME_CONSTRAINTS);
+            }
+        } else {
+            checkArgument(isValidTimeStamp(timeStamp), MESSAGE_DATE_CONSTRAINTS);
+            try {
+                this.value.setTime(DATE_ONLY_FORMATTER.parse(timeStamp));
+            } catch (ParseException e) {
+                throw new IllegalArgumentException(MESSAGE_DATE_CONSTRAINTS);
+            }
+        }
+    }
+
+    /**
+     * Returns if a given string is a valid time stamp.
+     */
+    public boolean isValidTimeStamp(String time) {
+        if (!isOnlyDate) {
+            return time.matches(TIME_VALIDATION_REGEX);
+        } else {
+            return time.matches(DATE_VALIDATION_REGEX);
+        }
+    }
+
+    /**
+     * Returns true if the given time has already passed the current time
+     */
+    public boolean isExpired() {
+        Calendar currentTime = Calendar.getInstance();
+        currentTime.setTime(new Date());
+        return value.before(currentTime);
+    }
+
+    /**
+     * Returns true if the given times is valid
+     */
+    public static boolean isValidTime(Time startTime, Time endTime) {
         return endTime.value.after(startTime.value);
     }
+
+    @Override
+    public String toString() {
+        if (isOnlyDate) {
+            return DATE_ONLY_FORMATTER.format(value.getTime());
+        } else {
+            return DATE_FORMATTER.format(value.getTime());
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Time // instanceof handles nulls
+                && this.value.equals(((Time) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
 }
 ```
 ###### /java/seedu/address/model/event/Task.java
@@ -2456,10 +1398,10 @@ public class Appointment {
  */
 public class Task {
     private Title title;
-    private EventTime time;
+    private Time time;
 
     //Every field must be present and not null
-    public Task(Title title, EventTime deadline) {
+    public Task(Title title, Time deadline) {
         requireAllNonNull(title, deadline);
         this.title = title;
         this.time = deadline;
@@ -2469,7 +1411,7 @@ public class Task {
         return title;
     }
 
-    public EventTime getTime() {
+    public Time getTime() {
         return time;
     }
 
