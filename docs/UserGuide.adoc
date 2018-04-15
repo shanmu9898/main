@@ -1,6 +1,6 @@
 = TeachConnect - User Guide
 :toc:
-:toc-title:
+:toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -13,8 +13,6 @@ ifdef::env-github[]
 endif::[]
 
 :repoURL: https://github.com/CS2103JAN2018-W14-B1/main/
-
-By: `Team W14-B1`      Since: `Jan 2018`      Licence: `MIT`
 
 == Introduction
 
@@ -46,19 +44,21 @@ You can download the latest Java version link:https://java.com/en/download/[here
 image::StartupUI.jpg[width="800"]
     Figure 1: Application screen with Light Theme selected
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-.  Some example commands you can try:
+And that's it! The setup is done! You can now:
 
+* Type the command in the command box and press kbd:[Enter] to execute it. +
 
-* *`list`* : lists all contacts.
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe`.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list.
-* *`exit`* : exits the app.
+** Some example commands you can try:
 
 
-.  Refer to <<Features>> for details of each command.
+** *`list`* : lists all contacts.
+** **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe`.
+** **`delete`**`3` : deletes the 3rd contact shown in the current list.
+** *`exit`* : exits the app.
+
+
+Refer to <<Features>> for details of each command.
 
 
 [[UserInterface]]
@@ -73,7 +73,7 @@ image::GUIcomponents.jpg[width="800"]
 Contains two options `File` and `Help`. `File` creates a drop down menu to exit the application. `Help` opens the help window if needed.
 
 * Command box: +
-Is where users key in command input.
+Commands are entered here.
 
 * Command result box: +
 Shows result message upon execution of any input entered.
@@ -134,10 +134,10 @@ Adds a default contact named `John Doe` to TeachConnect's contact list.
 Adds a student contact named `Betsy Crowe` to TeachConnect's contact list.
 
 // tag::class[]
-=== Forming a class
+=== Forming a class: `form`
 
 Forms a class of students for a specified subject and time period. +
-Format: `form SUBJECT s/START_DATE e/END_DATE i/INDEX...`
+Format: `form SUBJECT n/CLASS_NAME s/START_DATE e/END_DATE i/INDEX...`
 
 ****
 * The index refers to the index number shown in the most recent listing.
@@ -146,12 +146,13 @@ Format: `form SUBJECT s/START_DATE e/END_DATE i/INDEX...`
 * Only a student contact can be entered, default contacts are not allowed.
 * *Students cannot be added in after the class is formed.*
 * Dates must be in the format: `DD/MM/YYYY`.
+* Subjects must be a single word only.
 ****
 
 Examples:
 
 * `list students` +
-`form English s/18/01/2018 e/17/07/2019 i/1,5,2` +
+`form English n/class 01 s/10/01/2018 e/17/07/2019 i/1,5,2` +
 Forms an English class containing the first, second and fifth contact in the list that starts in 18 Jan 2018 to 17 July 2019.
 //end::class[]
 
@@ -172,7 +173,7 @@ Format: `set_appointment t/TITLE s/START_DATE START_TIME e/END_DATE END_TIME i/I
 Examples:
 
 * `set_appointment t/Tutoring session s/02/04/2018 19:00 e/02/04/2018 20:00` +
-Sets up an appointment on April 2nd, 2018, from 7pm to 8pm.
+Sets up an appointment on April 2nd, 2018, from 7pm to 8pm. `Figure 4` below shows the application screen when a new appointment is added.
 +
 image::appointmentAdded.jpg[width="800"]
     Figure 4: Appointment added successfully example
@@ -182,7 +183,7 @@ image::appointmentAdded.jpg[width="800"]
 
 // tag::task[]
 
-=== Setting up a task : `set_task` `[since v1.3]`
+=== Setting up a task : `set_task`
 
 Sets up a task to be done by a deadline. +
 Format: `set_task t/TITLE e/END_DATE END_TIME`
@@ -213,13 +214,13 @@ Format: `theme THEME_NAME`
 Examples:
 
 * `theme dark` +
-Changes the theme of TeachConnect to Dark Theme.
+Changes the theme of TeachConnect to Dark Theme. The Dark theme is shown below in `Figure 5`.
 +
 image::darkTheme.jpg[width="800"]
     Figure 5: GUI with Dark Theme
 +
 * `theme galaxy` +
-Changes the theme of TeachConnect to Galaxy Theme.
+Changes the theme of TeachConnect to Galaxy Theme. The Galaxy theme is shown below in `Figure 6`.
 +
 image::galaxyTheme.jpg[width="800"]
     Figure 6: GUI with Galaxy Theme
@@ -239,19 +240,19 @@ Format: `calendar VIEW_MODE`
 Examples:
 
 * `calendar d` +
-Changes the view mode of TeachConnect Calendar to Day View.
+Changes the view mode of TeachConnect Calendar to Day View. `Figure 7` below shows the Day view mode of the calendar.
 +
 image::calendarDay.jpg[width="800"]
     Figure 7: Calendar Day View
 +
 * `calendar w` +
-Changes the view mode of TeachConnect Calendar to Week View.
+Changes the view mode of TeachConnect Calendar to Week View. `Figure 8` below shows the Week view mode of the calendar.
 +
 image::calendarWeek.jpg[width="800"]
     Figure 8: Calendar Week View
 +
 * `calendar m` +
-Changes the view mode of TeachConnect Calendar to Month View.
+Changes the view mode of TeachConnect Calendar to Month View. `Figure 9` below shows the Day view mode of the calendar.
 +
 image::calendarMonth.jpg[width="800"]
     Figure 9: Calendar Month View
@@ -270,33 +271,24 @@ Format: `list TYPE`.
 * `TYPE` cannot be empty.
 ****
 
-Examples:
+Example:
 
-* `list students` +
-Lists all student.
-+
-image::studentList.jpg[width="300"]
-    Figure 9: Student List displayed as active list
-+
+`list students` +
+Lists all students. `Figure 10` given below shows the student list.
+
+image::studentList.jpg[width="100"]
+    Figure 10: Student List displayed as active list
+
+Other examples :
 
 * `list tasks` +
-Lists all task.
-+
-image::taskList.jpg[width="300"]
-    Figure 10: Task List displayed as active list
+Lists all tasks.
 +
 * `list appointments` +
-Lists all appointment.
-+
-image::taskList.jpg[width="300"]
-    Figure 11: Appointment List displayed as active list
+Lists all appointments.
 +
 * `list shortcuts` +
 Lists all command shortcuts.
-+
-image::shortcutList.jpg[width="300"]
-    Figure 12: Shortcut List displayed as active list
-+
 
 // end::list[]
 
@@ -367,7 +359,7 @@ Format: `shortcut [command word] [shortcut word]`
 You can choose multiple shortcuts for the same command. +
 You can later use these shortcuts in place of the original command even after closing and reopening the app. +
 You can also set shortcut for the shortcut command. +
-You can always see the list of shortcuts you set using `list shortcuts` as shown in Figure 13.
+You can always see the list of shortcuts you set using `list shortcuts` as shown in `Figure 13` given below.
 
 image::ShortcutsList.png[width="800"]
     Figure 13: List of shortcuts stored
@@ -572,14 +564,6 @@ Format: `exit`
 Saves data in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Upcoming features `[coming soon]`
-
-* A login feature [coming in v2.0]
-* Dynamic search [coming in v2.0]
-* NLP for event and appointment scheduling [coming in v2.0]
-* Encrypting data files [coming in v2.0]
-* Adding a student into an already formed class [coming in v2.0]
-
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
@@ -589,12 +573,12 @@ There is no need to save manually.
 *A*: You can try freeing up some space on your computer. The problem may be with the storage in your computer.
 
 *Q*: How do I contact you if something goes wrong? +
-*A*: Please contact us at cs2103B1W14@gmail.com.
+*A*: Please contact us at CS2103B1W14@gmail.com.
 
 == Command Summary
 The table below summarizes TeachConnect's command list.
 
-[width="100%",cols="22%,<30%,<30%",options="header",]
+[width="100%",cols="20%,<40%,<40%",options="header",]
 |=======================================================================
 |Command |Format |Example
 
@@ -610,7 +594,9 @@ The table below summarizes TeachConnect's command list.
 
 |*Edit*|`edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...`|`edit 2 n/James Lee e/jameslee@example.com`
 
-|*Export*|`export n/NAME r/RANGE t/TAG p/PATH te/TYPE` | `export n/samplefile.xml r/all t/friends p/.data te/excel`
+|*Export Classes*|`export classes n/NAME p/PATH te/TYPE` | `export classes n/sampleclasses p/./Desktop/Folder te/excel`
+
+|*Export Contacts/Students*|`export n/NAME r/RANGE t/TAG p/PATH te/TYPE` | `export n/samplefile r/all t/friends p/./Desktop/Folder te/excel`
 
 |*Form*|`form SUBJECT n/CLASS_NAME s/START_DATE e/END_DATE i/INDEX...`| `form math n/math101 s/14/04/2018 e/15/09/2018 i/1,4`
 
@@ -622,7 +608,7 @@ The table below summarizes TeachConnect's command list.
 
 |*History*|`history`|`history`
 
-|*Import TeachConnect File*|`import` | `import ./data/samplefile.xml`
+|*Import TeachConnect File*|`import [path]` | `import ./data/samplefile.xml`
 
 |*List*|`list TYPE` | `list student`
 
