@@ -153,6 +153,10 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, STUDENT_ANGUS, STUDENT_BRUCE,
                 CARL, DANIEL, STUDENT_COOPER, ELLE, STUDENT_DAVID, FIONA, STUDENT_EMILY, GEORGE));
     }
+
+    public static List<Person> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
     //@@author
     //@@author LimShiMinJonathan
     public static List<Person> getUnsortedPersons() {
