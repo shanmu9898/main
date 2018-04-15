@@ -1337,7 +1337,7 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `list contacts` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
@@ -1345,7 +1345,28 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Adding a student
+
+. Adding a student to TeachConnect
+
+..  Test Case: `add student n/John Doe p/0000000 e/johny@example.com a/nowhere t/unknown` +
+    Expected: The list view is toggled to the contacts list, if the list view is currently on another list, where a new student card,
+    with a blue marker at the corner, can be seen with the entered particulars. Subject list will be empty.
+..  Test Case: `add friend n/Mary Doe p/9999999 e/mary@example.com a/elsewhere` +
+    Expected: Nothing is added. Error message is shown and command remains in the command box. List is not toggled.
+    
+=== Forming a class of students
+
+. Forming a class while list view is on the student list
+
+.. Prerequisites: List all students using the `list students` command. At least one student in list.
+
+..  Test Case: `form English n/class 01 s/10/09/2018 e/10/09/2019 i/1` +
+    Expected: The list view is toggled to the class list where a new class card is added showing the particulars entered and the name
+    of the student at the top of the list. Toggling back to the student list with `list students`, the student added will have the
+    subject of the class included in his card.
+..  Test Case: `form Advance Math n/class 02 s/10/10/2018 e/09/12/2018 i/1` +
+    Expected: No class is formed. Error message is shown. List view not toggled.
 
 === Saving data
 
