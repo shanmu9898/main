@@ -763,16 +763,14 @@ private void updateCalendar() {
 
 === Changing GUI theme
 ==== Current Implementation
-The current implementation of this command only involves `Logic`, `EventsCenter` and `UI` components of the application.
-
-To illustrate how the change theme command works, `Figure 26` shows the sequence diagram for changing the theme to `dark` theme.
+The current implementation of this command only involves `Logic`, `EventsCenter` and `UI` components of the application. To illustrate how the change theme command works, `Figure 26` shows the sequence diagram for changing the theme to `dark` theme.
 
 image::ChangeThemeSequenceDiagram.png[align="center"]
     Figure 26: Change Theme Command Sequence Diagram
 
 
 ==== Design Considerations
-===== Aspects : Saving of user selected theme to `UserPrefs` or `Storage`
+===== Aspects : Saving of user selected theme to `Storage`
 
 * **Alternative 1 (current choice):** Theme selected is not saved to storage, thus when TeachConnect starts the default theme is always selected.
 ** Pros: This implementation is more simple and we don't need to interact with `Model`.
