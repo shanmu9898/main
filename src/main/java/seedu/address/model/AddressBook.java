@@ -76,8 +76,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-    //// list operations
-
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         this.persons.setPersons(persons);
     }
@@ -96,6 +94,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //@@author shanmu9898
+
+    /**
+     *Sets the shortcuts list.
+     */
     public void setShorcutCommands(List<ShortcutDoubles> shorcutCommands) {
         this.shortcutCommands.setCommandsList(shorcutCommands);
     }
@@ -151,8 +153,6 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new AssertionError("TeachConnect should not have duplicate classes");
         }
     }
-
-    //// person-level operations
 
     /**
      * Adds a person to the address book.
@@ -214,8 +214,6 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
-
-    //// student-level operations
 
     //author randypx-reused
     /**
@@ -288,7 +286,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    //// shortcut-level operations
     //@@author shanmu9898
     public void addShortcutDoubles(ShortcutDoubles s)
             throws UniqueShortcutDoublesList.DuplicateShortcutDoublesException {
@@ -296,8 +293,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     *
-     * @param commandShortcut
+     * Removes a command shortcut from the UniqueShortcutDoubles list or throws a suitable exeption otherwise.
+     * @param commandShortcut - which is a shortcut Double
      * @return a boolean variable
      * @throws UniqueShortcutDoublesList.CommandShortcutNotFoundException
      */
@@ -310,7 +307,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    //// tag-level operations
     //@@author
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
@@ -407,8 +403,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
         }
     }
-
-    //// Event-level operations
 
     //@@author Sisyphus25
     /**

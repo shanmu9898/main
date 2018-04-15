@@ -46,7 +46,7 @@ public class UniqueShortcutDoublesList {
     }
 
     /**
-     * Gives a duplicate Except
+     * Gives a DuplicateDataException
      */
     public static class DuplicateShortcutDoublesException extends DuplicateDataException {
         protected DuplicateShortcutDoublesException() {
@@ -75,7 +75,7 @@ public class UniqueShortcutDoublesList {
     public void setCommandsList(List<ShortcutDoubles> commandsList) {
         requireNonNull(commandsList);
         internalList.setAll(commandsList);
-        assert CollectionUtil.elementsAreUnique(internalList);
+        assert CollectionUtil.elementsAreUnique(internalList) : "List must contain only unique elements";
     }
 
     /**
